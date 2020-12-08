@@ -9,9 +9,12 @@ const client = new ApolloClient({
 })
 
 
-const HELLO = gql`
-  query Hello {
-    hello
+const LESSONS = gql`
+  query {
+    lessons {
+      id
+      name
+    }
   }
 `
 
@@ -23,9 +26,16 @@ const ApolloApp = (Wrapped) => (
 )
 
 const Wrapped = () => {
-  const { loading, error, data } = useQuery(HELLO)
-  console.log("data", {data, error, loading})
-  return <span> dude </span>
+  const { loading, error, data } = useQuery(LESSONS)
+  const lessons = data && data.lessons ? data.lessons :  []
+  return (
+    <>
+      <h1> aulas </h1>
+      {lessons.map(
+        ({ id, name }) => <div> id: {id}, name: {name} </div>
+      )}
+    </>
+  )
 }
 
 export default () => ApolloApp(Wrapped)
