@@ -26,7 +26,7 @@ const getLessons = async function () {
 //   AWS.config.update(config.aws_remote_config)
 //   const docClient = new AWS.DynamoDB.DocumentClient()
 //   const Item = { ...req.body }
-  Item.id = uuidv1()
+  // Item.id = uuidv1()
 //   var params = {
 //     TableName: config.aws_table_name,
 //     Item: Item,
