@@ -1,4 +1,5 @@
 const { ApolloServer, gql } = require('apollo-server-lambda')
+import db from '.dbData/db'
 
 const typeDefs = gql`
   type LessonItem {
@@ -19,6 +20,9 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     lessons: (parent, args, context) => {
+      console.log('---1')
+      const lessons = db.getLessons()
+      console.log('---2', lessons)
       return [{
         id: 'a',
         name: 'a'
