@@ -22,26 +22,6 @@ const resolvers = {
     lessons: async (parent, args, context) => {
       const { Items: lessons } = await db.getLessons()
       return lessons
-      return [{
-        id: 'a',
-        name: 'a'
-      },
-      {
-        id: 'e',
-        name: 'e'
-      },
-      {
-        id: 'i',
-        name: 'i'
-      },
-      {
-        id: 'o',
-        name: 'o'
-      },
-      {
-        id: 'u',
-        name: 'u'
-      }]
     },
   },
 }
