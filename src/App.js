@@ -26,7 +26,7 @@ const ApolloApp = (Wrapped) => (
 )
 
 const Wrapped = () => {
-  const { loading, error, data } = useQuery(LESSONS)
+  const { data } = useQuery(LESSONS)
   const lessons = data && data.lessons ? data.lessons :  []
   return (
     <>
