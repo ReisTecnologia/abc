@@ -6,29 +6,20 @@ AWS.config.update(config.aws_remote_config)
 
 const TABLE_NAME = 'lessons'
 
-const getLessons = function (req, res) {
+const getLessons = async function () {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
     TableName: TABLE_NAME,
   }
 
-  docClient.scan(params, function (err, data) {
+  return docClient.scan(params, function (err, data) {
     if (err) {
       console.log(err)
-
-      // res.send({
-      //   success: false,
-      //   message: err,
-      // })
     } else {
       const { Items } = data
-      console.log(data)
-      // res.send({
-      //   success: true,
-      //   movies: Items,
-      // })
+      return Items
     }
-  })
+  }).promise()
 }
 
 // const addMovie = function (req, res) {
@@ -57,7 +48,6 @@ const getLessons = function (req, res) {
 //     }
 //   })
 // }
-console.log('dude', getLessons())
 module.exports = {
   getLessons,
 }
