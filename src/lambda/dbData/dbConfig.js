@@ -1,7 +1,8 @@
 module.exports = {
   aws_table_name: 'lessons',
   aws_local_config: {
-    //Provide details for local configuration
+    accessKeyId: 'local',
+    secretAccessKey: 'local',
   },
   aws_remote_config: {
     accessKeyId: 'AKIA2VL5KESILJPGH4HI',
