@@ -1,23 +1,14 @@
 import React from "react"
 import { ApolloClient, InMemoryCache } from '@apollo/client'
-import { gql, useQuery } from '@apollo/client'
 import { ApolloProvider } from '@apollo/client'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Lessons} from './Lessons'
+import { Lesson} from './Lesson'
 
 const client = new ApolloClient({
   uri: "/.netlify/functions/graphql",
   cache: new InMemoryCache(),
 })
-
-
-const LESSONS = gql`
-  query {
-    lessons {
-      id
-      name
-    }
-  }
-`
-
 
 const ApolloApp = (Wrapped) => (
   <ApolloProvider client={client}>
@@ -26,15 +17,26 @@ const ApolloApp = (Wrapped) => (
 )
 
 const Wrapped = () => {
-  const { data } = useQuery(LESSONS)
-  const lessons = data && data.lessons ? data.lessons :  []
   return (
-    <>
-      <h1> aulas </h1>
-      {lessons.map(
-        ({ id, name }) => <div> id: {id}, name: {name} </div>
-      )}
-    </>
+    <Router>
+      <div>
+        {/* <nav>
+          <ul>
+            <li>
+              <Link to="/">Lessons</Link>
+            </li>
+          </ul>
+        </nav> */}
+        <Switch>
+          <Route path="/lesson">
+            <Lesson/>
+          </Route>
+          <Route path="/">
+            <Lessons />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   )
 }
 
