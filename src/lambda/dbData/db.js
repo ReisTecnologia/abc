@@ -1,5 +1,5 @@
-const  AWS = require( 'aws-sdk')
-const  config = require( './dbConfig.js')
+const AWS = require('aws-sdk')
+const config = require('./dbConfig.js')
 // const  uuidv1 = require( 'uuid/v1')
 
 AWS.config.update(config.aws_remote_config)
@@ -12,21 +12,23 @@ const getLessons = async function () {
     TableName: TABLE_NAME,
   }
 
-  return docClient.scan(params, function (err, data) {
-    if (err) {
-      console.log(err)
-    } else {
-      const { Items } = data
-      return Items
-    }
-  }).promise()
+  return docClient
+    .scan(params, function (err, data) {
+      if (err) {
+        console.log(err)
+      } else {
+        const { Items } = data
+        return Items
+      }
+    })
+    .promise()
 }
 
 // const addMovie = function (req, res) {
 //   AWS.config.update(config.aws_remote_config)
 //   const docClient = new AWS.DynamoDB.DocumentClient()
 //   const Item = { ...req.body }
-  // Item.id = uuidv1()
+// Item.id = uuidv1()
 //   var params = {
 //     TableName: config.aws_table_name,
 //     Item: Item,

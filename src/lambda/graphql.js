@@ -1,5 +1,5 @@
-const { ApolloServer, gql } = require('apollo-server-lambda')
 import db from './dbData/db'
+const { ApolloServer, gql } = require('apollo-server-lambda')
 
 const typeDefs = gql`
   type LessonItem {

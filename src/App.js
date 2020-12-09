@@ -1,13 +1,12 @@
-import React from "react"
+import React from 'react'
 import { ApolloClient, InMemoryCache } from '@apollo/client'
 import { gql, useQuery } from '@apollo/client'
 import { ApolloProvider } from '@apollo/client'
 
 const client = new ApolloClient({
-  uri: "/.netlify/functions/graphql",
+  uri: '/.netlify/functions/graphql',
   cache: new InMemoryCache(),
 })
-
 
 const LESSONS = gql`
   query {
@@ -18,7 +17,6 @@ const LESSONS = gql`
   }
 `
 
-
 const ApolloApp = (Wrapped) => (
   <ApolloProvider client={client}>
     <Wrapped />
@@ -27,13 +25,15 @@ const ApolloApp = (Wrapped) => (
 
 const Wrapped = () => {
   const { data } = useQuery(LESSONS)
-  const lessons = data && data.lessons ? data.lessons :  []
+  const lessons = data && data.lessons ? data.lessons : []
   return (
     <>
       <h1> aulas </h1>
-      {lessons.map(
-        ({ id, name }) => <div> id: {id}, name: {name} </div>
-      )}
+      {lessons.map(({ id, name }) => (
+        <div>
+          id: {id}, name: {name}
+        </div>
+      ))}
     </>
   )
 }
