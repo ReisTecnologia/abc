@@ -35,9 +35,10 @@ export const Lessons = () => {
       <>
         <h1> aulas </h1>
         {lessons.map((lesson) => (
-          <Link key={lesson.id} to={`/lesson/${lesson.id}`}>
-            {lesson.name}
-          </Link>
+          <span key={lesson.id}>
+            <Link to={`/viewLesson/${lesson.id}`}>{lesson.name}</Link>
+            <Link to={`/editLesson/${lesson.id}`}>(edit)</Link>
+          </span>
         ))}
       </>
     )
