@@ -48,7 +48,7 @@ const SpecificLesson = () => {
   )
 }
 
-export const Lesson = () => {
+export const ViewLesson = () => {
     let { path } = useRouteMatch()
     return (
       <Switch>
