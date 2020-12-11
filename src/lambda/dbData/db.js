@@ -6,7 +6,7 @@ AWS.config.update(config.aws_remote_config)
 
 const TABLE_NAME = 'lessons'
 
-const getLessons = async function() {
+const getLessons = async function () {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
     TableName: TABLE_NAME,
@@ -18,7 +18,7 @@ const getLessons = async function() {
     .then(({ Items }) => Items)
 }
 
-const getLesson = async function(id) {
+const getLesson = async function (id) {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
     TableName: TABLE_NAME,
