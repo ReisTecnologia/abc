@@ -17,7 +17,7 @@ export const SimpleAudio = ({ src, startPlaying, onComplete }) => {
     } else {
       return
     }
-  }, [startPlaying, onComplete])
+  }, [startPlaying, onComplete, play])
 
   return <Wrapper />
 }
