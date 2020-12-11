@@ -29,17 +29,17 @@ const LESSONS = gql`
 `
 
 export const Lessons = () => {
-    const { data } = useQuery(LESSONS)
-    const lessons = data && data.lessons ? data.lessons : []
-    return (
-      <>
-        <h1> aulas </h1>
-        {lessons.map((lesson) => (
-          <span key={lesson.id}>
-            <Link to={`/viewLesson/${lesson.id}`}>{lesson.name}</Link>
-            <Link to={`/editLesson/${lesson.id}`}>(edit)</Link>
-          </span>
-        ))}
-      </>
-    )
+  const { data } = useQuery(LESSONS)
+  const lessons = data && data.lessons ? data.lessons : []
+  return (
+    <>
+      <h1> aulas </h1>
+      {lessons.map((lesson) => (
+        <span key={lesson.id}>
+          <Link to={`/viewLesson/${lesson.id}`}>{lesson.name}</Link>
+          <Link to={`/editLesson/${lesson.id}`}>(edit)</Link>
+        </span>
+      ))}
+    </>
+  )
 }
