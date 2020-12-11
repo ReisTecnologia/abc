@@ -16,7 +16,7 @@ export const EditableLesson = () => {
     <Layout>
       <Titulo>EDIT: {data.lesson.name}</Titulo>
       <Container>
-        <Elements elements={data.lesson.elements} />
+        <Elements elements={data.lesson.elements} editable />
       </Container>
       <Rodape />
     </Layout>
