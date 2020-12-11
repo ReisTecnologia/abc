@@ -45,7 +45,7 @@ export const useMedia = ({ mediaRef, onComplete }) => {
       mediaRef.current.addEventListener('ended', listeners.current.ended)
       mediaRef.current.addEventListener('pause', listeners.current.pause)
     }
-  }, [mediaRef.current, onComplete])
+  }, [mediaRef, onComplete])
 
   const play = () => {
     if (!loading) {

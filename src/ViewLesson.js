@@ -1,9 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Lesson } from './Lesson'
 
 import {
-  useParams,
   useRouteMatch,
   Switch,
   Route

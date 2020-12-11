@@ -9,6 +9,8 @@ import { Text } from './Text'
 import { AudioElement } from '../AudioElement'
 import { ClickWordStartingWithALetterInTheTextTaskElement } from '../ClickWordStartingWithALetterInTheTextTaskElement'
 import { ClickLetterInTheTextTaskElement } from '../ClickLetterInTheTextTaskElement'
+import { EditableElement } from '../EditableElement'
+import { ElementWrapper } from './ElementWrapper'
 
 const SHOW_TEXTOS = false
 
@@ -23,7 +25,7 @@ const addBucketPrefixToWords = (words) =>
     urlWrongAnswerExplanation: addBucketPrefix(word.urlWrongAnswerExplanation),
   }))
 
-export const Elements = ({ elements }) => {
+export const Elements = ({ elements, editable }) => {
   const [actualElement, setActualElement] = useState(0)
 
   return elements.map(
@@ -123,8 +125,8 @@ export const Elements = ({ elements }) => {
           throw new Error(`Unknown element type: ${type}`)
       }
       return (
-        <span key={index}>
-          {element}
+        <ElementWrapper key={index}>
+          {editable ? <EditableElement>{element}</EditableElement> : element}
           {texto && SHOW_TEXTOS && (
             <Text>
               {texto}
@@ -133,13 +135,14 @@ export const Elements = ({ elements }) => {
               {fullUrlVideo}
             </Text>
           )}
-        </span>
+        </ElementWrapper>
       )
     }
   )
 }
 
 Elements.propTypes = {
+  editable: PropTypes.boolean,
   elements: PropTypes.arrayOf(
     PropTypes.shape({
       type: PropTypes.string,
