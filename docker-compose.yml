@@ -3,5 +3,7 @@ services:
   dynamodb-local:
     image: amazon/dynamodb-local:latest
     container_name: dynamodb-local
+    environment:
+      - NODE_ENV=development
     ports:
       - '8000:8000'
