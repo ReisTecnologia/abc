@@ -35,7 +35,7 @@ export const AudioButton = ({
 
   useEffect(() => {
     audioElement.current.src = isSequence ? src[actualItem] : src
-  }, [actualItem])
+  }, [actualItem, isSequence, src])
 
   const internalOnComplete = useCallback(() => {
     if (isSequence) {
@@ -50,7 +50,7 @@ export const AudioButton = ({
     } else {
       onComplete && onComplete()
     }
-  }, [onComplete, actualItem, setActualItem])
+  }, [onComplete, actualItem, setActualItem, isSequence, onStepComplete, src.length])
   const { play, playing } = useMedia({
     mediaRef: audioElement,
     onComplete: internalOnComplete,
@@ -62,7 +62,7 @@ export const AudioButton = ({
       play()
       onClick && onClick()
     }
-  }, [disabled, play])
+  }, [disabled, play, onClick, actualItem, onStepStart, onStart])
 
   if (!playingColor) playingColor = color
   const showColor = errorCode ? colors.wrong : playing ? playingColor : color
