@@ -1,13 +1,13 @@
-import React from "react"
+import React from 'react'
 import { ApolloClient, InMemoryCache } from '@apollo/client'
 import { ApolloProvider } from '@apollo/client'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { Lessons} from './Lessons'
+import { Lessons } from './Lessons'
 import { ViewLesson } from './ViewLesson'
 import { EditLesson } from './EditLesson'
 
 const client = new ApolloClient({
-  uri: "/.netlify/functions/graphql",
+  uri: '/.netlify/functions/graphql',
   cache: new InMemoryCache(),
 })
 
