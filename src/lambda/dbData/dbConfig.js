@@ -1,8 +1,10 @@
 module.exports = {
   aws_table_name: 'lessons',
   aws_local_config: {
-    accessKeyId: 'local',
-    secretAccessKey: 'local',
+    region: 'localhost',
+    endpoint: 'http://localhost:8000/',
+    accessKeyId: 'access_key_id',
+    secretAccessKey: 'secret_access_key',
   },
   aws_remote_config: {
     accessKeyId: process.env.MY_AWS_ACCESS_KEY_ID,
