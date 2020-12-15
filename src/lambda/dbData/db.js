@@ -18,20 +18,33 @@ const getLessons = async function () {
     .then(({ Items }) => Items)
 }
 
-const getLesson = async function (id) {
+const getLesson = async function () {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
+    ExpressionAttributeValues: {
+      ':id': { S: 'A' },
+    },
+    KeyConditionExpression: 'id = :id',
     TableName: TABLE_NAME,
   }
+  docClient.query(params, function (err, data) {
+    if (err) {
+      console.log('Error', err)
+    } else {
+      data.Items.forEach(function (element, index, array) {
+        console.log(element.id.S + '(' + element.name.S + ')')
+      })
+    }
+  })
 
-  return docClient
-    .scan(params)
-    .promise()
-    .then(({ Items }) => {
-      const filteredItem = Items.filter((i) => i.id === id)
-      if (!filteredItem) throw `No lesson found with id ${id}`
-      return filteredItem[0]
-    })
+  // return docClient
+  //   .scan(params)
+  //   .promise()
+  //   .then(({ Items }) => {
+  //     const filteredItem = Items.filter((i) => i.id === id)
+  //     if (!filteredItem) throw `No lesson found with id ${id}`
+  //     return filteredItem[0]
+  //   })
 }
 
 // const addMovie = function (req, res) {
