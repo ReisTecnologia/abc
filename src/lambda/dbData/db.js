@@ -18,23 +18,19 @@ const getLessons = async function () {
     .then(({ Items }) => Items)
 }
 
-const getLesson = async function () {
+const getLesson = () => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
     ExpressionAttributeValues: {
       ':id': { S: 'A' },
+      ':name': { S: 'Lesson' },
     },
-    KeyConditionExpression: 'id = :id',
+    KeyConditionExpression: 'id = :id AND name = :name',
     TableName: TABLE_NAME,
   }
-  docClient.query(params, function (err, data) {
-    if (err) {
-      console.log('Error', err)
-    } else {
-      data.Items.forEach(function (element, index, array) {
-        console.log(element.id.S + '(' + element.name.S + ')')
-      })
-    }
+  return docClient.query(params, function (err, data) {
+    if (err) console.log('Error', err)
+    else console.log(data)
   })
 
   // return docClient
