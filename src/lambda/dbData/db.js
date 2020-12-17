@@ -23,9 +23,8 @@ const getLesson = () => {
   const params = {
     ExpressionAttributeValues: {
       ':id': { S: 'A' },
-      ':name': { S: 'Lesson' },
     },
-    KeyConditionExpression: 'id = :id AND name = :name',
+    KeyConditionExpression: 'id = :id',
     TableName: TABLE_NAME,
   }
   return docClient.query(params, function (err, data) {
