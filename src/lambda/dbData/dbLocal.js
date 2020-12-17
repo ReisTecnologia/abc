@@ -44,3 +44,83 @@ try {
 } finally {
   console.log('In case of ResourceInUseException, table already exists')
 }
+
+var createItemsParam = {
+  RequestItems: {
+    lessons: [
+      {
+        PutRequest: {
+          Item: {
+            id: {
+              S: '1',
+            },
+            name: {
+              S: 'A',
+            },
+          },
+        },
+      },
+      {
+        PutRequest: {
+          Item: {
+            id: {
+              S: '2',
+            },
+            name: {
+              S: 'E',
+            },
+          },
+        },
+      },
+      {
+        PutRequest: {
+          Item: {
+            id: {
+              S: '3',
+            },
+            name: {
+              S: 'I',
+            },
+          },
+        },
+      },
+      {
+        PutRequest: {
+          Item: {
+            id: {
+              S: '4',
+            },
+            name: {
+              S: 'O',
+            },
+          },
+        },
+      },
+      {
+        PutRequest: {
+          Item: {
+            id: {
+              S: '5',
+            },
+            name: {
+              S: 'U',
+            },
+          },
+        },
+      },
+    ],
+  },
+}
+
+const createItems = () => {
+  dynamodb.batchWriteItem(createItemsParam, function (err, data) {
+    if (err) console.log(err, err.stack)
+    else console.log('Items added successfully', data)
+  })
+}
+
+var tableExistsParams = {
+  TableName: 'lessons',
+}
+
+dynamodb.waitFor('tableExists', tableExistsParams, createItems)
