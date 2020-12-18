@@ -4,7 +4,7 @@ import { ADD_LESSON } from './ADD_LESSON_MUTATION'
 
 export const AddLessonButton = () => {
   let input
-  const [lesson, { data }] = useMutation(ADD_LESSON)
+  const [lesson] = useMutation(ADD_LESSON)
   return (
     <div>
       <form
