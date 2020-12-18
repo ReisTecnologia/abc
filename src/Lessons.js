@@ -34,6 +34,9 @@ export const Lessons = () => {
   return (
     <>
       <h1> aulas </h1>
+      <div>
+        <button>+</button>
+      </div>
       {lessons.map((lesson) => (
         <span key={lesson.id}>
           <Link to={`/viewLesson/${lesson.id}`}>{lesson.name}</Link>
