@@ -36,7 +36,7 @@ export const AddLessonButton = () => {
 
   return (
     <div>
-      <button onClick={addLesson}>+</button>
+      <button onClick={addLesson({ variables: { id: randomID } })}>+</button>
     </div>
   )
 }
