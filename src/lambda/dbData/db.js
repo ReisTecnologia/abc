@@ -35,7 +35,7 @@ const getLesson = async function (id) {
     })
 }
 
-const addLesson = async function (id) {
+const addLesson = (id) => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
     Item: {

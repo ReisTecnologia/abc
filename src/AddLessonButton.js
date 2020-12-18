@@ -1,26 +1,37 @@
 import React from 'react'
-import { useMutation } from '@apollo/client'
-import { ADD_LESSON } from './ADD_LESSON_MUTATION'
+import { gql, useMutation } from '@apollo/client'
+
+export const ADD_LESSON = gql`
+  mutation addLesson($id: String!) {
+    lesson(id: $id) {
+      id
+      name
+      elements {
+        type
+        letter
+        correctLetters
+        urlAudio
+        urlAudios
+        urlVideo
+        texto
+        text
+        words {
+          startsWithTheLetter
+          word
+          urlRightAnswerExplanation
+          urlWrongAnswerExplanation
+          urlWord
+        }
+      }
+    }
+  }
+`
 
 export const AddLessonButton = () => {
-  let input
-  const [lesson] = useMutation(ADD_LESSON)
+  const [addLesson] = useMutation(ADD_LESSON)
   return (
     <div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault()
-          lesson({ variables: { type: input.value } })
-          input.value = ''
-        }}
-      >
-        <input
-          ref={(node) => {
-            input = node
-          }}
-        />
-        <button type="submit">+</button>
-      </form>
+      <button onClick={addLesson}>+</button>
     </div>
   )
 }
