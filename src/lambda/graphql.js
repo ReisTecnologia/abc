@@ -50,9 +50,10 @@ const resolvers = {
     },
   },
   Mutation: {
-    addLesson: async (parent, args, context) => {
-      // db.addLesson
-      return { id: 'mock', name: 'mockName' }
+    addLesson: (parent, args, context) => {
+      const lesson = db.addLesson(args.id)
+      // return { id: 'mock', name: 'mockName' }
+      return lesson
     },
   },
 }

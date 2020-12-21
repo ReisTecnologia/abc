@@ -2,8 +2,8 @@ import React from 'react'
 import { gql, useMutation } from '@apollo/client'
 
 export const ADD_LESSON = gql`
-  mutation addLesson($id: String!) {
-    lesson(id: $id) {
+  mutation addLesson {
+    addLesson {
       id
       name
       elements {

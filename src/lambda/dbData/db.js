@@ -31,20 +31,9 @@ const getLesson = () => {
   return docClient.query(params, function (err, data) {
     if (err) console.log('Error', err)
     else console.log(data)
-  })
-
-  // return docClient
-  //   .scan(params)
-  //   .promise()
-  //   .then(({ Items }) => {
-  //     const filteredItem = Items.filter((i) => i.id === id)
-  //     if (!filteredItem) throw `No lesson found with id ${id}`
-  //     return filteredItem[0]
-  //   })
-}
 
 const addLesson = (id) => {
-  const docClient = new AWS.DynamoDB.DocumentClient()
+  const docClient = new AWS.DynamoDB()
   const params = {
     Item: {
       id: {
@@ -54,8 +43,9 @@ const addLesson = (id) => {
     TableName: TABLE_NAME,
   }
 
-  return docClient.putItem(params).promise().then(data) {
-    console.log(data)
+  return docClient.putItem(params, function (err, data) {
+    if (err) console.log(err, err.stack)
+    else console.log(data)
   })
 }
 
