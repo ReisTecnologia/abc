@@ -5,18 +5,12 @@ const config = require('./dbConfig.js')
 AWS.config.update(config.aws_local_config)
 
 var dynamodb = new AWS.DynamoDB()
-
+const createString = (name) => ({
+  AttributeName: name,
+  AttributeType: 'S',
+})
 const createTableParams = {
-  AttributeDefinitions: [
-    {
-      AttributeName: 'id',
-      AttributeType: 'S',
-    },
-    {
-      AttributeName: 'name',
-      AttributeType: 'S',
-    },
-  ],
+  AttributeDefinitions: [createString('id'), createString('name')],
   KeySchema: [
     {
       AttributeName: 'id',
