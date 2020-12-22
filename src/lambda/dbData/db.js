@@ -64,7 +64,9 @@ const addLesson = async function () {
   return docClient
     .put(params)
     .promise()
-    .then(({ Items }) => Items)
+    .then(function (data) {
+      return console.log(data.id)
+    })
 }
 // const addMovie = function (req, res) {
 //   AWS.config.update(config.aws_remote_config)
