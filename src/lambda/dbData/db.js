@@ -33,12 +33,12 @@ const getLesson = () => {
     else console.log(data)
   })
 }
-const addLesson = (id) => {
+const addLesson = () => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
     Item: {
       id: {
-        S: id,
+        S: 'test',
       },
     },
     TableName: TABLE_NAME,
