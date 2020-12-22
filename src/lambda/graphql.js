@@ -34,7 +34,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addLesson: Lesson
+    addLesson(id: String!): Lesson
   }
 `
 
