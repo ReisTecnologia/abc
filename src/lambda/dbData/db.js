@@ -44,7 +44,7 @@ const addLesson = (id) => {
     TableName: TABLE_NAME,
   }
 
-  return docClient.putItem(params, function (err, data) {
+  return docClient.put(params, function (err, data) {
     if (err) console.log(err, err.stack)
     else console.log(data)
   })
