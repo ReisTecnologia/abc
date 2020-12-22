@@ -33,7 +33,24 @@ const getLesson = () => {
     else console.log(data)
   })
 }
-const addLesson = () => {
+// const addLesson = () => {
+//   const docClient = new AWS.DynamoDB.DocumentClient()
+//   const params = {
+//     Item: {
+//       id: {
+//         S: 'test',
+//       },
+//     },
+//     TableName: TABLE_NAME,
+//   }
+
+//   return docClient.put(params, function (err, data) {
+//     if (err) console.log(err, err.stack)
+//     else console.log(data)
+//   })
+// }
+
+const addLesson = async function () {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
     Item: {
@@ -44,12 +61,11 @@ const addLesson = () => {
     TableName: TABLE_NAME,
   }
 
-  return docClient.put(params, function (err, data) {
-    if (err) console.log(err, err.stack)
-    else console.log(data)
-  })
+  return docClient
+    .put(params)
+    .promise()
+    .then(({ Items }) => Items)
 }
-
 // const addMovie = function (req, res) {
 //   AWS.config.update(config.aws_remote_config)
 //   const docClient = new AWS.DynamoDB.DocumentClient()
