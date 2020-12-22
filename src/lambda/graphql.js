@@ -51,9 +51,9 @@ const resolvers = {
   },
   Mutation: {
     addLesson: (parent, args, context) => {
-      const lesson = db.addLesson(args.id)
+      const addedLesson = db.addLesson(args.id)
       // return { id: 'mock', name: 'mockName' }
-      return lesson
+      return addedLesson
     },
   },
 }

@@ -36,7 +36,7 @@ export const AddLessonButton = () => {
 
   return (
     <div>
-      <button onClick={(addLesson, console.log(randomID))}>+</button>
+      <button onClick={addLesson}>+</button>
     </div>
   )
 }
