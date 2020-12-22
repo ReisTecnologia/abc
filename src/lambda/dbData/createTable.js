@@ -9,18 +9,13 @@ const createString = (name) => ({
   AttributeName: name,
   AttributeType: 'S',
 })
+const createSchema = (attributeName, KeyType) => ({
+  AttributeName: attributeName,
+  KeyType: KeyType,
+})
 const createTableParams = {
   AttributeDefinitions: [createString('id'), createString('name')],
-  KeySchema: [
-    {
-      AttributeName: 'id',
-      KeyType: 'HASH',
-    },
-    {
-      AttributeName: 'name',
-      KeyType: 'RANGE',
-    },
-  ],
+  KeySchema: [createSchema('id', 'HASH'), createSchema('name', 'RANGE')],
   ProvisionedThroughput: {
     ReadCapacityUnits: 5,
     WriteCapacityUnits: 5,
@@ -38,70 +33,27 @@ try {
 } finally {
   console.log('In case of ResourceInUseException, table already exists')
 }
+const createItem = (id, name) => ({
+  PutRequest: {
+    Item: {
+      id: {
+        S: id,
+      },
+      name: {
+        S: name,
+      },
+    },
+  },
+})
 
 var createItemsParam = {
   RequestItems: {
     lessons: [
-      {
-        PutRequest: {
-          Item: {
-            id: {
-              S: '1',
-            },
-            name: {
-              S: 'A',
-            },
-          },
-        },
-      },
-      {
-        PutRequest: {
-          Item: {
-            id: {
-              S: '2',
-            },
-            name: {
-              S: 'E',
-            },
-          },
-        },
-      },
-      {
-        PutRequest: {
-          Item: {
-            id: {
-              S: '3',
-            },
-            name: {
-              S: 'I',
-            },
-          },
-        },
-      },
-      {
-        PutRequest: {
-          Item: {
-            id: {
-              S: '4',
-            },
-            name: {
-              S: 'O',
-            },
-          },
-        },
-      },
-      {
-        PutRequest: {
-          Item: {
-            id: {
-              S: '5',
-            },
-            name: {
-              S: 'U',
-            },
-          },
-        },
-      },
+      createItem('1', 'A'),
+      createItem('2', 'E'),
+      createItem('3', 'I'),
+      createItem('4', 'O'),
+      createItem('5', 'U'),
     ],
   },
 }
