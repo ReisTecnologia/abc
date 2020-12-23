@@ -34,16 +34,14 @@ const createTableParams = {
   TableName: 'lessons',
 }
 
-try {
-  dynamodb.createTable(createTableParams, function (err, data) {
-    if (err) console.log(err, err.stack)
-    else console.log(data)
-  })
-} catch (err) {
-  throw 'error'
-} finally {
-  console.log('In case of ResourceInUseException, table already exists')
-}
+dynamodb.createTable(createTableParams, function (err, data) {
+  if (err && err.code === 'ResourceInUseException')
+    console.log(
+      'Table' + ' ' + createTableParams.TableName + ' ' + 'already exists'
+    )
+  else if (err) console.log(err, err.stack)
+  else console.log(data)
+})
 
 var createItemsParam = {
   RequestItems: {
