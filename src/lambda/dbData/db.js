@@ -23,9 +23,9 @@ const getLesson = () => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
     ExpressionAttributeValues: {
-      ':id': { S: 'a' },
+      ':name': { S: 'A' },
     },
-    KeyConditionExpression: 'id = :id',
+    KeyConditionExpression: 'name = :name',
     TableName: TABLE_NAME,
   }
   return docClient.query(params)
