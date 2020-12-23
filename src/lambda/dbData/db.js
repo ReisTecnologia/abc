@@ -18,11 +18,11 @@ const getLessons = async function () {
     .then(({ Items }) => Items)
 }
 
-const getLesson = () => {
+const getLesson = (id) => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
     ExpressionAttributeValues: {
-      ':id': { S: 'lesson' },
+      ':id': { S: id },
     },
     KeyConditionExpression: 'id = :id',
     TableName: TABLE_NAME,
