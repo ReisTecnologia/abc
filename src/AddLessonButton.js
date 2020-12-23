@@ -28,11 +28,11 @@ export const ADD_LESSON = gql`
 `
 
 export const AddLessonButton = () => {
-  var ID = function () {
-    return '_' + Math.random().toString(36).substr(2, 9)
-  }
-  var randomID = ID()
-  const [addLesson] = useMutation(ADD_LESSON, { variables: { id: randomID } })
+  // var ID = function () {
+  //   return '_' + Math.random().toString(36).substr(2, 9)
+  // }
+  // var randomID = ID()
+  const [addLesson] = useMutation(ADD_LESSON, { variables: { id: 'testing' } })
 
   return (
     <div>
