@@ -37,9 +37,7 @@ const addLesson = (id) => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
     Item: {
-      id: {
-        S: id,
-      },
+      id: id,
     },
     TableName: TABLE_NAME,
   }
