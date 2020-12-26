@@ -14,7 +14,7 @@ Before running the project, you need to modify the function `AWS.config.update()
 
 This project is setup using Netlify, meaning the enviroment variables used to grant the app access to the Dynamodb are configured on the Netlify. On the deploy settings you have to setup the appropriate value for your AWS Access Key ID and AWS Secret Key. The variables are MY_AWS_ACCESS_KEY_ID, with the value being your AWS Access Key ID and MY_AWS_SECRET_ACCESS_KEY with the value being your AWS Secret Key. Note: this is only if you want to use the actual Dynamodb, the local version uses a mock set of values for both keys.
 
-When running the local version of Dynamodb you can create a table and insert 5 mock items with `id` and `name` as its attributes with their values being `1` through `5` and `A` , `E`, `I`, `O`, `U` respectively, by running the script `createTable.js` inside the folder src/lambda/dbData/ .
+When running the local version of Dynamodb you can create a table with the table name: `lessons` and insert 5 mock items with `id` and `name` as its attributes with their values being `1` through `5` and `A` , `E`, `I`, `O`, `U` respectively, by running the script `createTable.js` inside the folder src/lambda/dbData/ .
 
 ## Create-React-App-Lambda
 
