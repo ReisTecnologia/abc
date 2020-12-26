@@ -1,5 +1,21 @@
 ### ABC Alfabetiza
 
+## Docker
+
+We have a docker-compose file to set up your development environment. To build the docker containers, go to the root of the project and run
+
+docker-compose up or docker-compose up -d to run in background
+
+This sets up one docker container: A local version of the Dynamodb that runs on localhost:8000.
+
+## Environment setup
+
+Before running the project, you need to modify the function `AWS.config.update()` on the db.js file with the appropriate endpoint, meaning if you want to test on your local running Dynamodb you have to use the following argument: `aws_local_config`, to use the actual Dynamodb change the function argument to: `aws_remote_config`.
+
+This project is setup using Netlify, meaning the enviroment variables used to grant the app access to the Dynamodb are configured on the Netlify. On the deploy settings you have to setup the appropriate value for your AWS Access Key ID and AWS Secret Key. The variables are MY_AWS_ACCESS_KEY_ID, with the value being your AWS Access Key ID and MY_AWS_SECRET_ACCESS_KEY with the value being your AWS Secret Key. Note: this is only if you want to use the actual Dynamodb, the local version uses a mock set of values for both keys.
+
+When running the local version of Dynamodb you can create a table and insert 5 mock items with `id` and `name` as its attributes with their values being `1` through `5` and `A` , `E`, `I`, `O`, `U` respectively, by running the script `createTable.js` inside the folder src/lambda/dbData/ .
+
 ## Create-React-App-Lambda
 
 This project is a reference demo showing you how to use [Create React App v3](https://github.com/facebookincubator/create-react-app) and [netlify-lambda v1](https://github.com/netlify/netlify-lambda) together in a [Netlify Dev](https://www.netlify.com/docs/cli/?utm_source=github&utm_medium=swyx-CRAL&utm_campaign=devex#netlify-dev-beta) workflow. You can clone this and immediately be productive with a React app with serverless Netlify Functions in the same repo. Alternatively you can deploy straight to Netlify with this one-click Deploy:
