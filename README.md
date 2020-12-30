@@ -21,7 +21,8 @@ Go to `src/lambda/dbData/db.js` and switch between
 
 ````
 AWS.config.update(config.aws_local_config)
-``` or
+```
+or
 ```
 AWS.config.update(config.aws_remote_config)
 ```
