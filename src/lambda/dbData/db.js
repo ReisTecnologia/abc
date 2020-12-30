@@ -1,3 +1,4 @@
+const { gql } = require('@apollo/client')
 const AWS = require('aws-sdk')
 const config = require('./dbConfig.js')
 // const  uuidv1 = require( 'uuid/v1')
@@ -27,21 +28,36 @@ const getLesson = (id) => {
     KeyConditionExpression: 'id = :id',
     TableName: TABLE_NAME,
   }
-  return docClient.query(params, function (err, data) {
-    if (err) console.log('Error', err)
-    else console.log(data)
-  })
+  return docClient.query(params)
+}
+const addLesson = (id) => {
+  const docClient = new AWS.DynamoDB.DocumentClient()
+  const params = {
+    Item: {
+      id: { S: id },
+    },
+    TableName: TABLE_NAME,
+  }
 
-  // return docClient
-  //   .scan(params)
-  //   .promise()
-  //   .then(({ Items }) => {
-  //     const filteredItem = Items.filter((i) => i.id === id)
-  //     if (!filteredItem) throw `No lesson found with id ${id}`
-  //     return filteredItem[0]
-  //   })
+  return docClient.put(params)
 }
 
+// const addLesson = async function () {
+//   const docClient = new AWS.DynamoDB.DocumentClient()
+//   const params = {
+//     Item: {
+//       id: {
+//         S: 'test',
+//       },
+//     },
+//     TableName: TABLE_NAME,
+//   }
+
+//   return docClient
+//     .put(params)
+//     .promise()
+//     .then(console.log(Item.id))
+// }
 // const addMovie = function (req, res) {
 //   AWS.config.update(config.aws_remote_config)
 //   const docClient = new AWS.DynamoDB.DocumentClient()
@@ -71,4 +87,5 @@ const getLesson = (id) => {
 module.exports = {
   getLessons,
   getLesson,
+  addLesson,
 }

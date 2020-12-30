@@ -1,6 +1,7 @@
 import React from 'react'
 import { gql, useQuery } from '@apollo/client'
 import { Link } from 'react-router-dom'
+import { AddLessonButton } from './AddLessonButton'
 
 const LESSONS = gql`
   query {
@@ -34,6 +35,9 @@ export const Lessons = () => {
   return (
     <>
       <h1> aulas </h1>
+      <div>
+        <AddLessonButton />
+      </div>
       {lessons.map((lesson) => (
         <span key={lesson.id}>
           <Link to={`/viewLesson/${lesson.id}`}>{lesson.name}</Link>

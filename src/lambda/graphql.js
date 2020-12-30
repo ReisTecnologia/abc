@@ -32,6 +32,10 @@ const typeDefs = gql`
     lessons: [Lesson]
     lesson(id: String!): Lesson
   }
+
+  type Mutation {
+    addLesson(id: String!): Lesson
+  }
 `
 
 const resolvers = {
@@ -41,8 +45,14 @@ const resolvers = {
       return lessons
     },
     lesson: async (parent, args, context) => {
-      const lesson = await db.getLesson(args.id)
+      const lesson = db.getLesson(args.id)
       return lesson
+    },
+  },
+  Mutation: {
+    addLesson: (parent, args, context) => {
+      const addedLesson = db.addLesson(args.id)
+      return addedLesson
     },
   },
 }
