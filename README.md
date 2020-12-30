@@ -19,7 +19,7 @@ This sets up one docker container: A local version of the Dynamodb that runs on 
 
 Go to `src/lambda/dbData/db.js` and switch between
 
-````
+```
 AWS.config.update(config.aws_local_config)
 ```
 or
