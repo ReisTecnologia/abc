@@ -2,7 +2,7 @@ const AWS = require('aws-sdk')
 const config = require('./dbConfig.js')
 // const  uuidv1 = require( 'uuid/v1')
 
-AWS.config.update(config.aws_remote_config)
+AWS.config.update(config.aws_local_config)
 
 const TABLE_NAME = 'lessons'
 
@@ -27,20 +27,25 @@ const getLesson = (id) => {
     KeyConditionExpression: 'id = :id',
     TableName: TABLE_NAME,
   }
+
   return docClient.query(params, function (err, data) {
     if (err) console.log('Error', err)
     else console.log(data)
   })
-
-  // return docClient
-  //   .scan(params)
-  //   .promise()
-  //   .then(({ Items }) => {
-  //     const filteredItem = Items.filter((i) => i.id === id)
-  //     if (!filteredItem) throw `No lesson found with id ${id}`
-  //     return filteredItem[0]
-  //   })
 }
+
+module.exports = {
+  getLessons,
+  getLesson,
+}
+// return docClient
+//   .scan(params)
+//   .promise()
+//   .then(({ Items }) => {
+//     const filteredItem = Items.filter((i) => i.id === id)
+//     if (!filteredItem) throw `No lesson found with id ${id}`
+//     return filteredItem[0]
+//   })
 
 // const addMovie = function (req, res) {
 //   AWS.config.update(config.aws_remote_config)
@@ -68,7 +73,3 @@ const getLesson = (id) => {
 //     }
 //   })
 // }
-module.exports = {
-  getLessons,
-  getLesson,
-}

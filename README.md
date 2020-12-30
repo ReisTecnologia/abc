@@ -2,19 +2,78 @@
 
 ## Docker
 
-We have a docker-compose file to set up your development environment. To build the docker containers, go to the root of the project and run
+run
+```
+docker-compose up
+```
+or
+```
+or docker-compose up -d to run in background
+```
+at the root of the project
 
-docker-compose up or docker-compose up -d to run in background
-
-This sets up one docker container: A local version of the Dynamodb that runs on localhost:8000.
+We have a docker-compose file to set up your development environment.
+This sets up one docker container: A local version of the Dynamodb that runs on localhost:8000
 
 ## Environment setup
 
-Before running the project, you need to modify the function `AWS.config.update()` on the db.js file with the appropriate endpoint, meaning if you want to test on your local running Dynamodb you have to use the following argument: `aws_local_config`, to use the actual Dynamodb change the function argument to: `aws_remote_config`.
+Go to `src/lambda/dbData/db.js` and switch between
+
+````
+AWS.config.update(config.aws_local_config)
+``` or
+```
+AWS.config.update(config.aws_remote_config)
+```
+depending on the env you are targeting.
+
+## install dynamodb-admin to see local data
+
+```
+npm install -g dynamodb-admin
+```
+
+check this out: https://medium.com/swlh/a-gui-for-local-dynamodb-dynamodb-admin-b16998323f8e
+
+run it with
+```
+DYNAMO_ENDPOINT=http://localhost:8000  AWS_ACCESS_KEY_ID=access_key_id AWS_SECRET_ACCESS_KEY=secret_access_key AWS_REGION=localhost dynamodb-admin
+```
+and see it on `http://localhost:8001/`
+
+## start the local graphql backend dev server
+```
+NODE_ENV=development npm run start:lambda
+```
+create lessons table and fixtures
+```
+node src/lambda/dbData/createTable.js
+```
+see the graphql backend server on `http://localhost:9000/graphql`
+and query it with a simple query:
+```graphql
+query {lessons{
+  id
+  name
+}}
+```
+
+## start the local frontend dev server
+```
+npm start
+```
+and see it on
+```
+http://localhost:3000/
+```
+
+## configure remote db on Netlify
 
 This project is setup using Netlify, meaning the enviroment variables used to grant the app access to the Dynamodb are configured on the Netlify. On the deploy settings you have to setup the appropriate value for your AWS Access Key ID and AWS Secret Key. The variables are MY_AWS_ACCESS_KEY_ID, with the value being your AWS Access Key ID and MY_AWS_SECRET_ACCESS_KEY with the value being your AWS Secret Key. Note: this is only if you want to use the actual Dynamodb, the local version uses a mock set of values for both keys.
 
 When running the local version of Dynamodb you can create a table with the table name: `lessons` and insert 5 mock items with `id` and `name` as its attributes with their values being `1` through `5` and `A` , `E`, `I`, `O`, `U` respectively, by running the script `createTable.js` inside the folder src/lambda/dbData/ .
+
+
 
 ## Create-React-App-Lambda
 
