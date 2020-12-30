@@ -1,3 +1,4 @@
+const { gql } = require('@apollo/client')
 const AWS = require('aws-sdk')
 const config = require('./dbConfig.js')
 // const  uuidv1 = require( 'uuid/v1')
@@ -34,9 +35,23 @@ const getLesson = (id) => {
   })
 }
 
+
+const addLesson = (id) => {
+  const docClient = new AWS.DynamoDB.DocumentClient()
+  const params = {
+    Item: {
+      id: { S: id },
+    },
+    TableName: TABLE_NAME,
+  }
+
+  return docClient.put(params)
+}
+
 module.exports = {
   getLessons,
   getLesson,
+  addLesson,
 }
 // return docClient
 //   .scan(params)
@@ -47,6 +62,22 @@ module.exports = {
 //     return filteredItem[0]
 //   })
 
+// const addLesson = async function () {
+//   const docClient = new AWS.DynamoDB.DocumentClient()
+//   const params = {
+//     Item: {
+//       id: {
+//         S: 'test',
+//       },
+//     },
+//     TableName: TABLE_NAME,
+//   }
+
+//   return docClient
+//     .put(params)
+//     .promise()
+//     .then(console.log(Item.id))
+// }
 // const addMovie = function (req, res) {
 //   AWS.config.update(config.aws_remote_config)
 //   const docClient = new AWS.DynamoDB.DocumentClient()
