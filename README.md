@@ -1,5 +1,17 @@
 ### ABC Alfabetiza
 
+## Automated start for dev environment (mac)
+
+```
+itermocil --here abc
+```
+
+To do so, you intall itermocil and use itermocil-sample-abc.yml:
+
+```
+mv ./itermocil-sample-abc.yml ~/.itermocil/abc.yml
+```
+
 ## Docker
 
 run

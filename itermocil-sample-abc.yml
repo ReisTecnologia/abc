@@ -1,0 +1,23 @@
+windows:
+  - name: abc
+    root: /Users/scalablepath/abc
+    layout: tiled
+    pre: export NODE_ENV=development
+    panes:
+      - docker-compose up
+      - node src/lambda/dbData/createTable.js # memory db
+      - name: Dynamo
+        commands:
+          - export DYNAMO_ENDPOINT=http://localhost:8000  AWS_ACCESS_KEY_ID=access_key_id AWS_SECRET_ACCESS_KEY=secret_access_key AWS_REGION=localhost
+          - dynamodb-admin
+      - name: GraphQL
+        commands:
+          - export NODE_ENV=development # does not seem to be working. Need to run again.
+          - npm run start:lambda
+      - name: open browser windows
+        commands:
+          - open http://localhost:9000/graphql
+          - open http://localhost:8001
+      - name: ntl dev server
+        commands:
+          - ntl dev
