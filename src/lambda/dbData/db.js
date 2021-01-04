@@ -36,11 +36,12 @@ const addLesson = (id) => {
   const params = {
     Item: {
       id: id,
+      name: 'Nova Aula',
     },
     TableName: TABLE_NAME,
   }
 
-  return docClient.put(params)
+  return docClient.put(params).promise()
 }
 
 module.exports = {
