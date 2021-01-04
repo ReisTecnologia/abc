@@ -3,7 +3,7 @@ const AWS = require('aws-sdk')
 const config = require('./dbConfig.js')
 // const  uuidv1 = require( 'uuid/v1')
 
-AWS.config.update(config.aws_local_config)
+AWS.config.update(config.aws_remote_config)
 
 const TABLE_NAME = 'lessons'
 
@@ -35,7 +35,7 @@ const addLesson = (id) => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
     Item: {
-      id: { S: id },
+      id: id,
     },
     TableName: TABLE_NAME,
   }
