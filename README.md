@@ -15,13 +15,17 @@ mv ./itermocil-sample-abc.yml ~/.itermocil/abc.yml
 ## Docker
 
 run
+
 ```
 docker-compose up
 ```
+
 or
+
 ```
 or docker-compose up -d to run in background
 ```
+
 at the root of the project
 
 We have a docker-compose file to set up your development environment.
@@ -34,10 +38,13 @@ Go to `src/lambda/dbData/db.js` and switch between
 ```
 AWS.config.update(config.aws_local_config)
 ```
+
 or
+
 ```
 AWS.config.update(config.aws_remote_config)
 ```
+
 depending on the env you are targeting.
 
 ## install dynamodb-admin to see local data
@@ -49,33 +56,45 @@ npm install -g dynamodb-admin
 check this out: https://medium.com/swlh/a-gui-for-local-dynamodb-dynamodb-admin-b16998323f8e
 
 run it with
+
 ```
 DYNAMO_ENDPOINT=http://localhost:8000  AWS_ACCESS_KEY_ID=access_key_id AWS_SECRET_ACCESS_KEY=secret_access_key AWS_REGION=localhost dynamodb-admin
 ```
+
 and see it on `http://localhost:8001/`
 
 ## start the local graphql backend dev server
+
 ```
 NODE_ENV=development npm run start:lambda
 ```
+
 create lessons table and fixtures
+
 ```
 node src/lambda/dbData/createTable.js
 ```
+
 see the graphql backend server on `http://localhost:9000/graphql`
 and query it with a simple query:
+
 ```graphql
-query {lessons{
-  id
-  name
-}}
+query {
+  lessons {
+    id
+    name
+  }
+}
 ```
 
 ## start the local frontend dev server
+
 ```
 npm start
 ```
+
 and see it on
+
 ```
 http://localhost:3000/
 ```
@@ -86,7 +105,9 @@ This project is setup using Netlify, meaning the enviroment variables used to gr
 
 When running the local version of Dynamodb you can create a table with the table name: `lessons` and insert 5 mock items with `id` and `name` as its attributes with their values being `1` through `5` and `A` , `E`, `I`, `O`, `U` respectively, by running the script `createTable.js` inside the folder src/lambda/dbData/ .
 
+To run the createTable script:
 
+`node src/lambda/dbData/createTable.js`
 
 ## Create-React-App-Lambda
 
