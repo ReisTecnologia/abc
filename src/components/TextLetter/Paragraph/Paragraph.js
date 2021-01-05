@@ -11,7 +11,6 @@ export const Paragraph = ({
   wrongLetters = [],
   clearStatus = false,
 }) => {
-  console.log('Paragraph::color', color)
   return (
     <Wrapper>
       {words.map((word, wordIndex) => {

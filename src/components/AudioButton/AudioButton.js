@@ -74,13 +74,13 @@ export const AudioButton = ({
     : afterTrailCount
   return (
     <Wrapper onClick={playIfEnabled} disabled={disabled}>
-      {[...Array(numDotsBefore)].map((n) => (
-        <TrailDot key={n} color={color} />
+      {[...Array(numDotsBefore)].map((n,i) => (
+        <TrailDot key={i} color={color} />
       ))}
       {content}
       {errorCode ? `error: ${errorCode}` : null}
-      {[...Array(numDotsAfter)].map((n) => (
-        <TrailDot key={n} color={color} />
+      {[...Array(numDotsAfter)].map((n,i) => (
+        <TrailDot key={i} color={color} />
       ))}
     </Wrapper>
   )

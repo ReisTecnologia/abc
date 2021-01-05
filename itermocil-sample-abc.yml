@@ -24,3 +24,4 @@ windows:
           - open http://localhost:9000/graphql
           - open http://localhost:8001
           - open https://sa-east-1.console.aws.amazon.com/dynamodb/home?region=sa-east-1#tables:selected=lessons;tab=items
+          - npm run storybook

@@ -1,16 +1,9 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { LetterAndAudioElement } from '../LetterAndAudioElement'
-
-import { VideoElement } from '../VideoElement'
-
-import { CheckFirstLetter } from '../CheckFirstLetter'
 import { Text } from './Text'
-import { AudioElement } from '../AudioElement'
-import { ClickWordStartingWithALetterInTheTextTaskElement } from '../ClickWordStartingWithALetterInTheTextTaskElement'
-import { ClickLetterInTheTextTaskElement } from '../ClickLetterInTheTextTaskElement'
 import { EditableElement } from '../EditableElement'
 import { ElementWrapper } from './ElementWrapper'
+import { renderElement } from './renderElement'
 
 const SHOW_TEXTOS = false
 
@@ -25,108 +18,49 @@ const addBucketPrefixToWords = (words) =>
     urlWrongAnswerExplanation: addBucketPrefix(word.urlWrongAnswerExplanation),
   }))
 
+
 export const Elements = ({ elements, editable }) => {
   const [actualElement, setActualElement] = useState(0)
 
   return elements.map(
     (
-      {
-        type,
-        correctLetters,
-        letter,
-        urlAudio,
-        urlAudios,
-        urlVideo,
-        texto,
-        words,
-        text,
-      },
+      elementParams,
       index
     ) => {
+      const { urlAudios, urlAudio, urlVideo, texto, words } = elementParams
+
       const fullUrlAudio = urlAudios
         ? urlAudios.map(addBucketPrefix)
         : addBucketPrefix(urlAudio)
       const fullUrlVideo = addBucketPrefix(urlVideo)
-      let element = null
+
       const actual = actualElement === index
       const onComplete = () => {
         setActualElement(() => index + 1)
       }
-      switch (type) {
-        case 'LetterAndAudio':
-          element = (
-            <LetterAndAudioElement
-              onComplete={onComplete}
-              actual={actual}
-              key={index}
-              letter={letter}
-              src={fullUrlAudio}
-            />
-          )
-          break
-
-        case 'Audio':
-          element = (
-            <AudioElement
-              onComplete={onComplete}
-              actual={actual}
-              key={index}
-              src={fullUrlAudio}
-            />
-          )
-          break
-        case 'Video':
-          element = (
-            <VideoElement
-              onComplete={onComplete}
-              actual={actual}
-              key={index}
-              src={fullUrlVideo}
-            />
-          )
-          break
-        case 'CheckFirstLetter':
-          element = (
-            <CheckFirstLetter
-              onComplete={onComplete}
-              actual={actual}
-              key={index}
-              src={fullUrlAudio}
-              conclusionAudio={fullUrlAudio[1]}
-              words={addBucketPrefixToWords(words)}
-            />
-          )
-          break
-        case 'ClickWordStartingWithALetterInTheTextTask':
-          element = (
-            <ClickWordStartingWithALetterInTheTextTaskElement
-              onComplete={onComplete}
-              actual={actual}
-              key={index}
-              urlAudio={fullUrlAudio}
-              letter={letter}
-              text={text}
-            />
-          )
-          break
-        case 'ClickLetterInTheTextTask':
-          element = (
-            <ClickLetterInTheTextTaskElement
-              onComplete={onComplete}
-              actual={actual}
-              key={index}
-              urlAudio={fullUrlAudio}
-              correctLetters={correctLetters}
-              text={text}
-            />
-          )
-          break
-        default:
-          throw new Error(`Unknown element type: ${type}`)
-      }
+      const element = renderElement(
+        {
+          ...elementParams,
+          urlAudio: fullUrlAudio,
+          urlVideo: fullUrlVideo,
+          words: words && addBucketPrefixToWords(words),
+        },
+        onComplete,
+        actual,
+        index,
+        texto,
+      )
       return (
         <ElementWrapper key={index}>
-          {editable ? <EditableElement>{element}</EditableElement> : element}
+          {editable ?
+            <EditableElement
+              onUp={() => console.log('up')}
+              onDown={() => console.log('down')}
+            >
+              {element}
+            </EditableElement> :
+            element
+          }
           {texto && SHOW_TEXTOS && (
             <Text>
               {texto}
@@ -142,7 +76,7 @@ export const Elements = ({ elements, editable }) => {
 }
 
 Elements.propTypes = {
-  editable: PropTypes.boolean,
+  editable: PropTypes.bool,
   elements: PropTypes.arrayOf(
     PropTypes.shape({
       type: PropTypes.string,
@@ -153,7 +87,7 @@ Elements.propTypes = {
       urlVideo: PropTypes.string,
       texto: PropTypes.string,
       text: PropTypes.string,
-      words: PropTypes.object,
+      words: PropTypes.array,
     })
   ),
 }

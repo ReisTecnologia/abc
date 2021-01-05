@@ -23,7 +23,6 @@ export const ClickLetterInTheTextTaskElement = ({
 }) => {
   const { complete, doComplete } = useCompleteState({ actual, onComplete })
   const [audioIsListened, setAudioIsListened] = useState(false)
-  console.log('audioIsListened', audioIsListened)
 
   const setListened = useCallback(() => setAudioIsListened(true), [
     setAudioIsListened,

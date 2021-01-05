@@ -17,7 +17,7 @@ export const EditableElement = ({ children, onUp, onDown }) => {
 }
 
 EditableElement.propTypes = {
-  children: PropTypes.string,
+  children: PropTypes.object,
   onUp: PropTypes.func,
   onDown: PropTypes.func,
 }
