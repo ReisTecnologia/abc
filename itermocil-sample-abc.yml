@@ -14,10 +14,13 @@ windows:
         commands:
           - export NODE_ENV=development # does not seem to be working. Need to run again.
           - npm run start:lambda
-      - name: open browser windows
-        commands:
-          - open http://localhost:9000/graphql
-          - open http://localhost:8001
       - name: ntl dev server
         commands:
           - ntl dev
+      - name: open browser windows
+        commands:
+          - open https://github.com/ReisTecnologia/abc
+          - open https://github.com/ReisTecnologia/abc/projects/1
+          - open http://localhost:9000/graphql
+          - open http://localhost:8001
+          - open https://sa-east-1.console.aws.amazon.com/dynamodb/home?region=sa-east-1#tables:selected=lessons;tab=items
