@@ -9,12 +9,11 @@ export const ADD_LESSON = gql`
   }
 `
 
-export const AddLessonButton = () => {
-  const [addLesson] = useMutation(ADD_LESSON)
-
+export const AddLessonButton = ({afterAdd}) => {
+  const [addLesson, { loading }] = useMutation(ADD_LESSON, {onCompleted: afterAdd})
   return (
     <div>
-      <button onClick={addLesson}>+</button>
+      {loading ? '...' : <button onClick={addLesson}>+</button>}
     </div>
   )
 }

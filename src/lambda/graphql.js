@@ -29,7 +29,12 @@ const typeDefs = gql`
     elements: [Element]
   }
 
-  type AddLessonReturn {
+  type AddLessonResponse {
+    success: Boolean!
+    lessons: [Lesson]
+  }
+
+  type DeleteLessonResponse {
     success: Boolean!
     lessons: [Lesson]
   }
@@ -40,7 +45,8 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addLesson: AddLessonReturn
+    addLesson: AddLessonResponse
+    deleteLesson(id: ID!): DeleteLessonResponse
   }
 `
 
@@ -64,6 +70,13 @@ const resolvers = {
       const lessons = await db.getLessons()
       return { success, lessons }
     },
+    deleteLesson: async (parent, args, context) => {
+      const success = await db
+        .deleteLesson(args.id)
+        .then((u) => {console.log('deleted', u); return true})
+        .catch(() => false)
+      return { success }
+    }
   },
 }
 
