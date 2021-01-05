@@ -4,20 +4,8 @@ import { Text } from './Text'
 import { EditableElement } from '../EditableElement'
 import { ElementWrapper } from './ElementWrapper'
 import { renderElement } from './renderElement'
-
+import { addBucketPrefixes } from './addBucketPrefixes'
 const SHOW_TEXTOS = false
-
-const bucketUrlPrefix = 'https://alfabetiza.s3-sa-east-1.amazonaws.com/'
-const addBucketPrefix = (relativeUri) =>
-  relativeUri ? bucketUrlPrefix + relativeUri : null
-const addBucketPrefixToWords = (words) =>
-  words.map((word) => ({
-    ...word,
-    urlWord: addBucketPrefix(word.urlWord),
-    urlRightAnswerExplanation: addBucketPrefix(word.urlRightAnswerExplanation),
-    urlWrongAnswerExplanation: addBucketPrefix(word.urlWrongAnswerExplanation),
-  }))
-
 
 export const Elements = ({ elements, editable }) => {
   const [actualElement, setActualElement] = useState(0)
@@ -28,12 +16,9 @@ export const Elements = ({ elements, editable }) => {
       index
     ) => {
       const { urlAudios, urlAudio, urlVideo, texto, words } = elementParams
-
-      const fullUrlAudio = urlAudios
-        ? urlAudios.map(addBucketPrefix)
-        : addBucketPrefix(urlAudio)
-      const fullUrlVideo = addBucketPrefix(urlVideo)
-
+      const { fullUrlAudio, fullUrlVideo, fullUrlWords } = addBucketPrefixes(
+        {urlAudios,urlAudio,urlVideo,words}
+      )
       const actual = actualElement === index
       const onComplete = () => {
         setActualElement(() => index + 1)
@@ -43,7 +28,7 @@ export const Elements = ({ elements, editable }) => {
           ...elementParams,
           urlAudio: fullUrlAudio,
           urlVideo: fullUrlVideo,
-          words: words && addBucketPrefixToWords(words),
+          words: fullUrlWords,
         },
         onComplete,
         actual,
