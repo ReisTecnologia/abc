@@ -9,7 +9,7 @@ import { Elements } from './components/Elements'
 import { LESSON_QUERY } from './LESSON_QUERY'
 
 export const Lesson = () => {
-  let { lesson } = useParams()
+  const { lesson } = useParams()
   const { data } = useQuery(LESSON_QUERY, { variables: { id: lesson } })
 
   return data ? (
