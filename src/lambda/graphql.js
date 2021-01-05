@@ -56,8 +56,8 @@ const resolvers = {
       const lessons = await db.getLessons()
       return lessons
     },
-    lesson: (parent, args, context) => {
-      const lesson = db.getLesson(args.id)
+    lesson: async (parent, args, context) => {
+      const lesson = await db.getLesson(args.id)
       return lesson
     },
   },

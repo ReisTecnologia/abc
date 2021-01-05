@@ -27,7 +27,7 @@ const getLesson = (id) => {
     KeyConditionExpression: 'id = :id',
     TableName: TABLE_NAME,
   }
-  return docClient.query(params)
+  return docClient.query(params).promise().then(({ Items }) => Items[0])
 }
 
 const deleteLesson = (id) => {
@@ -45,6 +45,7 @@ const addLesson = (id) => {
     Item: {
       id: id,
       name: 'Nova Aula',
+      elements: []
     },
     TableName: TABLE_NAME,
   }
