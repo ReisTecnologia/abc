@@ -4,13 +4,13 @@ import PropTypes from 'prop-types'
 import { UpDownWrapper } from './UpDownWrapper'
 import { Button } from './Button'
 
-export const EditableElement = ({ children, onUp, onDown }) => {
+export const EditableElement = ({ children, onUp, onDown, canMoveUp, canMoveDown }) => {
     return (
       <EditableElementWrapper>
         {children}
         <UpDownWrapper>
-          <Button onClick={onUp}>up</Button>
-          <Button onClick={onDown}>down</Button>
+          {canMoveUp ? <div/> : <Button onClick={onUp}>up</Button>}
+          {canMoveDown ? <div/> : <Button onClick={onDown}>down</Button>}
         </UpDownWrapper>
       </EditableElementWrapper>
     )
