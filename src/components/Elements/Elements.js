@@ -53,8 +53,8 @@ export const Elements = ({ elements, editable }) => {
         <ElementWrapper key={index}>
           {editable ? (
             <EditableElement
-              canMoveUp={index == 0}
-              canMoveDown={index == innerElements.length - 1}
+              canMoveUp={index === 0}
+              canMoveDown={index === innerElements.length - 1}
               onUp={() => moveUp(index)}
               onDown={() => moveDown(index)}
             >
