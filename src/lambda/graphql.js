@@ -1,5 +1,6 @@
 const { ApolloServer, gql } = require('apollo-server-lambda')
 import db from './dbData/db'
+import { v4 as uuidv4 } from 'uuid'
 
 const typeDefs = gql`
   type Word {
@@ -28,13 +29,18 @@ const typeDefs = gql`
     elements: [Element]
   }
 
+  type AddLessonReturn {
+    success: Boolean!
+    lessons: [Lesson]
+  }
+
   type Query {
     lessons: [Lesson]
     lesson(id: String!): Lesson
   }
 
   type Mutation {
-    addLesson(id: String!): Lesson
+    addLesson: AddLessonReturn
   }
 `
 
@@ -44,15 +50,19 @@ const resolvers = {
       const lessons = await db.getLessons()
       return lessons
     },
-    lesson: async (parent, args, context) => {
+    lesson: (parent, args, context) => {
       const lesson = db.getLesson(args.id)
       return lesson
     },
   },
   Mutation: {
-    addLesson: (parent, args, context) => {
-      const addedLesson = db.addLesson(args.id)
-      return addedLesson
+    addLesson: async (parent, args, context) => {
+      const success = await db
+        .addLesson(uuidv4())
+        .then(() => true)
+        .catch(() => false)
+      const lessons = await db.getLessons()
+      return { success, lessons }
     },
   },
 }
@@ -61,5 +71,4 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
 })
-
 exports.handler = server.createHandler()
