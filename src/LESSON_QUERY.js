@@ -12,7 +12,7 @@ export const LESSON_QUERY = gql`
         urlAudio
         urlAudios
         urlVideo
-        texto
+        description
         text
         words {
           startsWithTheLetter

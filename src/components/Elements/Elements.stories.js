@@ -13,43 +13,42 @@ export const BasicElements = Template.bind({})
 BasicElements.args = {
   elements: [
     {
-      correctLetters: ['a', 'r'],
-      texto: 'StartsWithLetterTextTask',
-      text: 'Letra A',
       type: 'ClickLetterInTheTextTask',
-      urlAudio: 'a1.m4a',
-    },
-    {
-      letter: 'a',
-      texto: 't6',
+      correctLetters: ['a', 'r'],
       text: 'Letra A',
+      urlAudio: 'a1.m4a',
+    },
+    {
       type: 'ClickWordStartingWithALetterInTheTextTask',
+      letter: 'a',
+      description: 't6',
+      text: 'Letra A',
       urlAudio: 'a1.m4a',
     },
     {
-      texto: 't3',
       type: 'Audio',
+      description: 't3',
       urlAudio: 'a1.m4a',
     },
     {
-      texto: 'Boca falando o som "ã"',
       type: 'Video',
+      description: 'Boca falando o som "ã"',
       urlVideo: 'small.mp4',
     },
     {
-      letter: 'A',
-      texto: 't2',
       type: 'LetterAndAudio',
+      letter: 'A',
+      description: 't2',
       urlAudio: 'a1.m4a',
     },
     {
-      texto: 't5',
       type: 'Audio',
+      description: 't5',
       urlAudio: 'a2.m4a',
     },
     {
-      texto: 't4. certa, errada',
       type: 'CheckFirstLetter',
+      description: 't4. certa, errada',
       urlAudios: ['a1.m4a', 'a2.m4a', 'a3.m4a'],
       words: [
         {
@@ -70,7 +69,7 @@ BasicElements.args = {
     },
     // ,
     // {
-    //   texto: 'ClickWordStartingWithALetterInTheTextTask',
+    //   description: 'ClickWordStartingWithALetterInTheTextTask',
     //   type: 'ClickWordStartingWithALetterInTheTextTask',
     //   urlAudio: 'a1.m4a',
     // },

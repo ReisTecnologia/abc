@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Text } from './Text'
+import { Description } from './Description'
 import { EditableElement } from '../EditableElement'
 import { ElementWrapper } from './ElementWrapper'
 import { renderElement } from './renderElement'
 import { addBucketPrefixes } from './addBucketPrefixes'
-const SHOW_TEXTOS = false
+
+const SHOW_DESCRIPTIONS = true
 
 export const Elements = ({ elements, editable }) => {
   const [actualElement, setActualElement] = useState(0)
@@ -15,7 +16,7 @@ export const Elements = ({ elements, editable }) => {
       elementParams,
       index
     ) => {
-      const { urlAudios, urlAudio, urlVideo, texto, words } = elementParams
+      const { urlAudios, urlAudio, urlVideo, description, words, type } = elementParams
       const { fullUrlAudio, fullUrlVideo, fullUrlWords } = addBucketPrefixes(
         {urlAudios,urlAudio,urlVideo,words}
       )
@@ -33,7 +34,7 @@ export const Elements = ({ elements, editable }) => {
         onComplete,
         actual,
         index,
-        texto,
+        description,
       )
       return (
         <ElementWrapper key={index}>
@@ -46,13 +47,8 @@ export const Elements = ({ elements, editable }) => {
             </EditableElement> :
             element
           }
-          {texto && SHOW_TEXTOS && (
-            <Text>
-              {texto}
-              <br />
-              {fullUrlAudio}
-              {fullUrlVideo}
-            </Text>
+          {SHOW_DESCRIPTIONS && (
+            <Description elementParams={elementParams}/>
           )}
         </ElementWrapper>
       )
@@ -70,7 +66,7 @@ Elements.propTypes = {
       urlAudio: PropTypes.string,
       urlAudios: PropTypes.arrayOf(PropTypes.string),
       urlVideo: PropTypes.string,
-      texto: PropTypes.string,
+      description: PropTypes.string,
       text: PropTypes.string,
       words: PropTypes.array,
     })

@@ -18,7 +18,7 @@ const typeDefs = gql`
     urlAudio: String
     urlAudios: [String]
     urlVideo: String
-    texto: String
+    description: String
     text: String
     words: [Word]
   }

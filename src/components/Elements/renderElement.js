@@ -14,7 +14,7 @@ export const renderElement = (
     urlAudio,
     urlAudios,
     urlVideo,
-    texto,
+    description,
     words,
     text,
   },
