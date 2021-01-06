@@ -2,7 +2,7 @@ const AWS = require('aws-sdk')
 const config = require('./dbConfig.js')
 // const  uuidv1 = require( 'uuid/v1')
 
-AWS.config.update(config.aws_local_config)
+AWS.config.update(config.devConfigs.aws_config)
 
 var dynamodb = new AWS.DynamoDB()
 const createString = (name) => ({

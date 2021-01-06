@@ -2,7 +2,7 @@ const { gql } = require('@apollo/client')
 const AWS = require('aws-sdk')
 const config = require('./dbConfig.js')
 
-AWS.config.update(config.aws_remote_config)
+AWS.config.update(config.awsConfig)
 
 const TABLE_NAME = 'lessons'
 
@@ -27,16 +27,21 @@ const getLesson = (id) => {
     KeyConditionExpression: 'id = :id',
     TableName: TABLE_NAME,
   }
-  return docClient.query(params).promise().then(({ Items }) => Items[0])
+  return docClient
+    .query(params)
+    .promise()
+    .then(({ Items }) => Items[0])
 }
 
 const deleteLesson = (id) => {
   const docClient = new AWS.DynamoDB.DocumentClient()
-  return docClient.delete({
-    Key: { id: id },
-    ReturnItemCollectionMetrics: "SIZE",
-    TableName: TABLE_NAME,
-  }).promise()
+  return docClient
+    .delete({
+      Key: { id: id },
+      ReturnItemCollectionMetrics: 'SIZE',
+      TableName: TABLE_NAME,
+    })
+    .promise()
 }
 
 const addLesson = (id) => {
@@ -45,7 +50,7 @@ const addLesson = (id) => {
     Item: {
       id: id,
       name: 'Nova Aula',
-      elements: []
+      elements: [],
     },
     TableName: TABLE_NAME,
   }

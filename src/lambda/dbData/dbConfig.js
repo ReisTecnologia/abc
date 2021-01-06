@@ -1,16 +1,22 @@
-module.exports = {
+const devConfigs = {
   aws_table_name: 'lessons',
-  aws_local_config: {
+  aws_config: {
     region: 'localhost',
     endpoint: 'http://localhost:8000/',
     accessKeyId: 'access_key_id',
     secretAccessKey: 'secret_access_key',
   },
-  aws_remote_config: {
-    // accessKeyId: process.env.MY_AWS_ACCESS_KEY_ID,
-    // secretAccessKey: process.env.MY_AWS_SECRET_ACCESS_KEY,
-    accessKeyId: 'AKIA2VL5KESIFFAQ4GGI',
-    secretAccessKey: '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',
+}
+const prodConfigs = {
+  aws_table_name: 'lessons',
+  aws_config: {
+    accessKeyId: process.env.MY_AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.MY_AWS_SECRET_ACCESS_KEY,
     region: 'sa-east-1',
   },
+}
+
+module.exports = {
+  devConfigs,
+  awsConfig: process.env.NODE_ENV === 'development' ? devConfigs : prodConfigs,
 }
