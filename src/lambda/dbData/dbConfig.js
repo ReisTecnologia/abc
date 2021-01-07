@@ -7,10 +7,8 @@ module.exports = {
     secretAccessKey: 'secret_access_key',
   },
   aws_remote_config: {
-    // accessKeyId: process.env.MY_AWS_ACCESS_KEY_ID,
-    // secretAccessKey: process.env.MY_AWS_SECRET_ACCESS_KEY,
-    accessKeyId: 'AKIA2VL5KESIFFAQ4GGI',
-    secretAccessKey: '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',
+    accessKeyId: process.env.MY_AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.MY_AWS_SECRET_ACCESS_KEY,
     region: 'sa-east-1',
   },
 }
