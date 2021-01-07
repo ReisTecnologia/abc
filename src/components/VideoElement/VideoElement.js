@@ -10,7 +10,7 @@ import { useCompleteState } from '../useCompleteState'
 import { Icon } from '../Icon'
 import { colors } from '../colors'
 
-export const VideoElement = ({ src, actual, onComplete }) => {
+export const VideoElement = ({ urlVideo, actual, onComplete }) => {
   const videoElement = useRef(null)
   const [hasError, setHasError] = useState(false)
   const { complete, doComplete } = useCompleteState({ actual, onComplete })
@@ -45,7 +45,7 @@ export const VideoElement = ({ src, actual, onComplete }) => {
           <Icon color={color} />
         </PlayWrapper>
         <VideoComponent ref={videoElement}>
-          <source src={src} type="video/mp4" />
+          <source src={urlVideo} type="video/mp4" />
         </VideoComponent>
         {hasError && 'video error'}
       </VideoElementWrapper>

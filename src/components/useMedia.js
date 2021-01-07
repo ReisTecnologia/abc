@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 
 export const useMedia = ({ mediaRef, onComplete }) => {
   const [playing, setPlaying] = useState(false)
@@ -47,19 +47,20 @@ export const useMedia = ({ mediaRef, onComplete }) => {
     }
   }, [mediaRef, onComplete])
 
-  const play = () => {
-    if (!loading) {
-      if (playing) {
-        mediaRef.current.pause()
-      } else {
-        if (paused) {
-          console.log('paused', mediaRef.current)
-          mediaRef.current.currentTime = 0
+  const play = useCallback(
+    () => {
+      if (!loading) {
+        if (playing) {
+          mediaRef.current.pause()
+        } else {
+          if (paused) {
+            mediaRef.current.currentTime = 0
+          }
+          mediaRef.current.play()
         }
-        mediaRef.current.play()
       }
-    }
-  }
+    },[]
+  )
 
   return {
     play,

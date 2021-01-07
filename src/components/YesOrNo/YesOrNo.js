@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useMemo } from 'react'
 import { Wrapper } from './Wrapper'
 import PropTypes from 'prop-types'
 import loadable from '@loadable/component'
@@ -18,7 +18,7 @@ export const YesOrNo = ({
   color,
 }) => {
   const [answer, setAnswer] = useState(null)
-  const alreadyAnswered = answer !== null
+  const [alreadyAnswered, setAlreadyAnswered] = useState(false)
   const answerYes = useCallback(() => {
     setAnswer('yes')
   }, [setAnswer])
@@ -27,6 +27,28 @@ export const YesOrNo = ({
     setAnswer('no')
   }, [setAnswer])
 
+  const yesUrlAudios = useMemo(
+    () =>
+      correctAnswer === 'yes'
+        ? [urlRightAnswerExplanation]
+        : [urlWrongAnswerExplanation],
+    [urlRightAnswerExplanation, urlWrongAnswerExplanation]
+  )
+
+  const noUrlAudios = useMemo(
+    () =>
+      correctAnswer === 'no'
+        ? [urlRightAnswerExplanation]
+        : [urlWrongAnswerExplanation],
+    [urlRightAnswerExplanation, urlWrongAnswerExplanation]
+  )
+
+
+  const onAnswer = () => {
+    setAlreadyAnswered(true)
+    onComplete()
+  }
+
   return (
     <Wrapper>
       <AudioButton
@@ -34,26 +56,18 @@ export const YesOrNo = ({
         disabled={alreadyAnswered}
         playingColor={correctAnswer === 'yes' ? colors.right : colors.wrong}
         onClick={answerYes}
-        onComplete={onComplete}
+        onComplete={onAnswer}
         color={color}
-        src={
-          correctAnswer === 'yes'
-            ? urlRightAnswerExplanation
-            : urlWrongAnswerExplanation
-        }
+        urlAudios={yesUrlAudios}
       />
       <AudioButton
         icon="ThumbsDown"
         disabled={alreadyAnswered}
         playingColor={correctAnswer === 'no' ? colors.right : colors.wrong}
         onClick={answerNo}
-        onComplete={onComplete}
+        onComplete={onAnswer}
         color={color}
-        src={
-          correctAnswer === 'no'
-            ? urlRightAnswerExplanation
-            : urlWrongAnswerExplanation
-        }
+        urlAudios={noUrlAudios}
       />
     </Wrapper>
   )

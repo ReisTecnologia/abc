@@ -11,7 +11,6 @@ export const renderElement = (
     type,
     correctLetters,
     letter,
-    urlAudio,
     urlAudios,
     urlVideo,
     description,
@@ -22,6 +21,7 @@ export const renderElement = (
   actual,
   index
 ) => {
+  console.log('urlVideo ::::: ', urlVideo)
 
   switch (type) {
     case 'LetterAndAudio':
@@ -31,7 +31,7 @@ export const renderElement = (
           actual={actual}
           key={index}
           letter={letter}
-          src={urlAudio}
+          urlAudios={urlAudios}
         />
       )
     case 'Audio':
@@ -40,7 +40,7 @@ export const renderElement = (
           onComplete={onComplete}
           actual={actual}
           key={index}
-          src={urlAudio}
+          urlAudios={urlAudios}
         />
       )
     case 'Video':
@@ -49,7 +49,7 @@ export const renderElement = (
           onComplete={onComplete}
           actual={actual}
           key={index}
-          src={urlVideo}
+          urlVideo={urlVideo}
         />
       )
     case 'CheckFirstLetter':
@@ -58,8 +58,8 @@ export const renderElement = (
           onComplete={onComplete}
           actual={actual}
           key={index}
-          src={urlAudio}
-          conclusionAudio={urlAudio[1]}
+          urlAudios={urlAudios}
+          conclusionAudio={urlAudios[1]}
           words={words}
         />
       )
@@ -69,7 +69,7 @@ export const renderElement = (
           onComplete={onComplete}
           actual={actual}
           key={index}
-          urlAudio={urlAudio}
+          urlAudios={urlAudios}
           letter={letter}
           text={text}
         />
@@ -80,7 +80,7 @@ export const renderElement = (
           onComplete={onComplete}
           actual={actual}
           key={index}
-          urlAudio={urlAudio}
+          urlAudios={urlAudios}
           correctLetters={correctLetters}
           text={text}
         />

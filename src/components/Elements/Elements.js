@@ -5,6 +5,7 @@ import { EditableElement } from '../EditableElement'
 import { ElementWrapper } from './ElementWrapper'
 import { renderElement } from './renderElement'
 import { addBucketPrefixes } from './addBucketPrefixes'
+import ErrorBoundary from '../ErrorBoundary'
 
 const SHOW_DESCRIPTIONS = true
 
@@ -17,10 +18,12 @@ export const Elements = ({ elements, editable }) => {
       elementParams,
       index
     ) => {
-      const { urlAudios, urlAudio, urlVideo, description, words, type } = elementParams
-      const { fullUrlAudio, fullUrlVideo, fullUrlWords } = addBucketPrefixes(
-        {urlAudios,urlAudio,urlVideo,words}
+      const { urlAudios, urlVideo, description, words, type } = elementParams
+      console.log('urlVideo', urlVideo)
+      const { fullUrlAudios, fullUrlVideo, fullUrlWords } = addBucketPrefixes(
+        {urlAudios, urlVideo, words}
       )
+      console.log('fullUrlVideo - - - -', fullUrlVideo)
       const moveUp = (index) => {
         const reorderedInnerElements = [...innerElements]
         reorderedInnerElements[index - 1] = innerElements[index]
@@ -41,7 +44,7 @@ export const Elements = ({ elements, editable }) => {
       const element = renderElement(
         {
           ...elementParams,
-          urlAudio: fullUrlAudio,
+          urlAudios: fullUrlAudios,
           urlVideo: fullUrlVideo,
           words: fullUrlWords,
         },
@@ -51,23 +54,23 @@ export const Elements = ({ elements, editable }) => {
         description,
       )
       return (
-        <ElementWrapper key={index}>
-          {editable ? (
-            <EditableElement
-              canMoveUp={index === 0}
-              canMoveDown={index === innerElements.length - 1}
-              onUp={() => moveUp(index)}
-              onDown={() => moveDown(index)}
-            >
-              {element}
-            </EditableElement>
-          ) : (
-            element
-          }
-          {SHOW_DESCRIPTIONS && (
-            <Description elementParams={elementParams}/>
-          )}
-        </ElementWrapper>
+        <ErrorBoundary key={index}>
+          <ElementWrapper>
+            {editable ? (
+              <EditableElement
+                canMoveUp={index === 0}
+                canMoveDown={index === innerElements.length - 1}
+                onUp={() => moveUp(index)}
+                onDown={() => moveDown(index)}
+              >
+                {element}
+              </EditableElement>
+            ) : (
+              element
+            )}
+            {SHOW_DESCRIPTIONS && <Description elementParams={elementParams} />}
+          </ElementWrapper>
+        </ErrorBoundary>
       )
     }
   )
@@ -80,7 +83,6 @@ Elements.propTypes = {
       type: PropTypes.string,
       letter: PropTypes.string,
       correctLetters: PropTypes.arrayOf(PropTypes.string),
-      urlAudio: PropTypes.string,
       urlAudios: PropTypes.arrayOf(PropTypes.string),
       urlVideo: PropTypes.string,
       description: PropTypes.string,

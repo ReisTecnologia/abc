@@ -16,19 +16,19 @@ BasicElements.args = {
       type: 'ClickLetterInTheTextTask',
       correctLetters: ['a', 'r'],
       text: 'Letra A',
-      urlAudio: 'a1.m4a',
+      urlAudios: ['a1.m4a'],
     },
     {
       type: 'ClickWordStartingWithALetterInTheTextTask',
       letter: 'a',
       description: 't6',
       text: 'Letra A',
-      urlAudio: 'a1.m4a',
+      urlAudios: ['a1.m4a'],
     },
     {
       type: 'Audio',
       description: 't3',
-      urlAudio: 'a1.m4a',
+      urlAudios: ['a1.m4a'],
     },
     {
       type: 'Video',
@@ -39,12 +39,12 @@ BasicElements.args = {
       type: 'LetterAndAudio',
       letter: 'A',
       description: 't2',
-      urlAudio: 'a1.m4a',
+      urlAudios: ['a1.m4a'],
     },
     {
       type: 'Audio',
       description: 't5',
-      urlAudio: 'a2.m4a',
+      urlAudios: ['a2.m4a'],
     },
     {
       type: 'CheckFirstLetter',
@@ -67,11 +67,5 @@ BasicElements.args = {
         },
       ],
     },
-    // ,
-    // {
-    //   description: 'ClickWordStartingWithALetterInTheTextTask',
-    //   type: 'ClickWordStartingWithALetterInTheTextTask',
-    //   urlAudio: 'a1.m4a',
-    // },
   ],
 }
