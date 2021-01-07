@@ -39,7 +39,11 @@ If you intend on using the local enviroment you have to include NODE_ENV=develop
 NODE_ENV=development
 ```
 
+<<<<<<< HEAD
 Otherwise the app is going to try to run with the enviroment variables configured on Netlify instead and without pointing to the localhost
+=======
+Otherwise the app is going to try to run with the enviroment variables configured on Netlify instead
+>>>>>>> a3617b06f67a33391605a0a391a556f9b025279e
 
 ## install dynamodb-admin to see local data
 
