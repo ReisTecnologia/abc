@@ -12,12 +12,12 @@ const Template = (args) => <LetterAndAudioElement {...args} />
 export const Primary = Template.bind({})
 Primary.args = {
   letter: 'A',
-  urlAudios: ['https://alfabetiza.s3-sa-east-1.amazonaws.com/a1.m4a'],
+  audioUrls: ['https://alfabetiza.s3-sa-east-1.amazonaws.com/a1.m4a'],
 }
 
 export const Actual = Template.bind({})
 Actual.args = {
   letter: 'A',
   actual: true,
-  urlAudios: ['https://alfabetiza.s3-sa-east-1.amazonaws.com/a1.m4a'],
+  audioUrls: ['https://alfabetiza.s3-sa-east-1.amazonaws.com/a1.m4a'],
 }

@@ -9,7 +9,7 @@ export const LESSON_QUERY = gql`
         type
         letter
         correctLetters
-        urlAudios
+        audioUrls
         urlVideo
         description
         text

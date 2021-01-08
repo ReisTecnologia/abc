@@ -10,9 +10,9 @@ const addBucketPrefixToWords = (words) =>
     urlWrongAnswerExplanation: addBucketPrefix(word.urlWrongAnswerExplanation),
   }))
 
-export const addBucketPrefixes = ({ urlAudios, urlVideo, words }) => {
+export const addBucketPrefixes = ({ audioUrls, urlVideo, words }) => {
   const fullUrlWords = words && addBucketPrefixToWords(words)
-  const fullUrlAudios = urlAudios && urlAudios.map(addBucketPrefix)
+  const fullaudioUrls = audioUrls && audioUrls.map(addBucketPrefix)
   const fullUrlVideo = addBucketPrefix(urlVideo)
-  return { fullUrlAudios, fullUrlVideo, fullUrlWords }
+  return { fullaudioUrls, fullUrlVideo, fullUrlWords }
 }

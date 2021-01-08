@@ -7,7 +7,7 @@ import { TrailDot } from './TrailDot'
 import { colors } from '../colors'
 
 export const AudioButton = ({
-  urlAudios,
+  audioUrls,
   size,
   icon = 'Speaker',
   onClick,
@@ -33,11 +33,11 @@ export const AudioButton = ({
   }
 
   useEffect(() => {
-    audioElement.current.src = urlAudios[actualItem]
-  }, [actualItem, urlAudios])
+    audioElement.current.src = audioUrls[actualItem]
+  }, [actualItem, audioUrls])
 
   const internalOnComplete = useCallback(() => {
-    if (actualItem === urlAudios.length - 1) {
+    if (actualItem === audioUrls.length - 1) {
       onStepComplete && onStepComplete(actualItem)
       onComplete && onComplete()
       setActualItem(0)
@@ -45,7 +45,7 @@ export const AudioButton = ({
       setActualItem((actualItem) => actualItem + 1)
       onStepComplete && onStepComplete(actualItem)
     }
-  }, [onComplete, actualItem, setActualItem, onStepComplete, urlAudios.length])
+  }, [onComplete, actualItem, setActualItem, onStepComplete, audioUrls.length])
 
   const { play, playing } = useMedia({
     mediaRef: audioElement,
@@ -68,7 +68,7 @@ export const AudioButton = ({
   const content = <Icon shape={icon} color={showColor} size={size} />
 
   const numDotsBefore = actualItem
-  const numDotsAfter =  urlAudios.length - actualItem - 1
+  const numDotsAfter =  audioUrls.length - actualItem - 1
 
   return (
     <Wrapper onClick={playIfEnabled} disabled={disabled}>
@@ -85,7 +85,7 @@ export const AudioButton = ({
 }
 
 AudioButton.propTypes = {
-  urlAudios: PropTypes.arrayOf(PropTypes.string.isRequired),
+  audioUrls: PropTypes.arrayOf(PropTypes.string.isRequired),
   icon: PropTypes.string,
   size: PropTypes.string,
   onClick: PropTypes.func,

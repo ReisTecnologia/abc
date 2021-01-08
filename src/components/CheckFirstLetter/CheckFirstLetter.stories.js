@@ -33,7 +33,7 @@ const Template = (args) => <CheckFirstLetter {...args} />
 export const Primary = Template.bind({})
 Primary.args = {
   words,
-  urlAudios: [
+  audioUrls: [
     'https://alfabetiza.s3-sa-east-1.amazonaws.com/a1.m4a',
     'https://alfabetiza.s3-sa-east-1.amazonaws.com/a2.m4a',
     'https://alfabetiza.s3-sa-east-1.amazonaws.com/a3.m4a',
@@ -44,7 +44,7 @@ export const Actual = Template.bind({})
 Actual.args = {
   words,
   actual: true,
-  urlAudios: [
+  audioUrls: [
     'https://alfabetiza.s3-sa-east-1.amazonaws.com/a1.m4a',
     'https://alfabetiza.s3-sa-east-1.amazonaws.com/a2.m4a',
     'https://alfabetiza.s3-sa-east-1.amazonaws.com/a3.m4a',
@@ -56,7 +56,7 @@ ActualWithConclusionAudio.args = {
   words,
   actual: true,
   conclusionAudio: 'https://alfabetiza.s3-sa-east-1.amazonaws.com/a2.m4a',
-  urlAudios: [
+  audioUrls: [
     'https://alfabetiza.s3-sa-east-1.amazonaws.com/a1.m4a',
     'https://alfabetiza.s3-sa-east-1.amazonaws.com/a2.m4a',
     'https://alfabetiza.s3-sa-east-1.amazonaws.com/a3.m4a',

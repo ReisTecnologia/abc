@@ -11,7 +11,7 @@ export const renderElement = (
     type,
     correctLetters,
     letter,
-    urlAudios,
+    audioUrls,
     urlVideo,
     description,
     words,
@@ -29,7 +29,7 @@ export const renderElement = (
           actual={actual}
           key={index}
           letter={letter}
-          urlAudios={urlAudios}
+          audioUrls={audioUrls}
         />
       )
     case 'Audio':
@@ -38,7 +38,7 @@ export const renderElement = (
           onComplete={onComplete}
           actual={actual}
           key={index}
-          urlAudios={urlAudios}
+          audioUrls={audioUrls}
         />
       )
     case 'Video':
@@ -56,8 +56,8 @@ export const renderElement = (
           onComplete={onComplete}
           actual={actual}
           key={index}
-          urlAudios={urlAudios}
-          conclusionAudio={urlAudios[1]}
+          audioUrls={audioUrls}
+          conclusionAudio={audioUrls[1]}
           words={words}
         />
       )
@@ -67,7 +67,7 @@ export const renderElement = (
           onComplete={onComplete}
           actual={actual}
           key={index}
-          urlAudios={urlAudios}
+          audioUrls={audioUrls}
           letter={letter}
           text={text}
         />
@@ -78,7 +78,7 @@ export const renderElement = (
           onComplete={onComplete}
           actual={actual}
           key={index}
-          urlAudios={urlAudios}
+          audioUrls={audioUrls}
           correctLetters={correctLetters}
           text={text}
         />

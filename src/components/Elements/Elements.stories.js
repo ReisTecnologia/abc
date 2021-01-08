@@ -15,19 +15,19 @@ const defaultArgs = {
       type: 'ClickLetterInTheTextTask',
       correctLetters: ['a', 'r'],
       text: 'Letra A',
-      urlAudios: ['a1.m4a'],
+      audioUrls: ['a1.m4a'],
     },
     {
       type: 'ClickWordStartingWithALetterInTheTextTask',
       letter: 'a',
       description: 't6',
       text: 'Letra A',
-      urlAudios: ['a1.m4a'],
+      audioUrls: ['a1.m4a'],
     },
     {
       type: 'Audio',
       description: 't3',
-      urlAudios: ['a1.m4a'],
+      audioUrls: ['a1.m4a'],
     },
     {
       type: 'Video',
@@ -38,17 +38,17 @@ const defaultArgs = {
       type: 'LetterAndAudio',
       letter: 'A',
       description: 't2',
-      urlAudios: ['a1.m4a'],
+      audioUrls: ['a1.m4a'],
     },
     {
       type: 'Audio',
       description: 't5',
-      urlAudios: ['a2.m4a'],
+      audioUrls: ['a2.m4a'],
     },
     {
       type: 'CheckFirstLetter',
       description: 't4. certa, errada',
-      urlAudios: ['a1.m4a', 'a2.m4a', 'a3.m4a'],
+      audioUrls: ['a1.m4a', 'a2.m4a', 'a3.m4a'],
       words: [
         {
           word: 'beleza',

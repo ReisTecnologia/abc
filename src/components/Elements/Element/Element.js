@@ -15,13 +15,13 @@ export const Element = ({
   setInnerElements,
   setActualElement,
 }) => {
-  const { urlAudios, urlVideo, description, words, type } = elementParams
+  const { audioUrls, urlVideo, description, words, type } = elementParams
   const {
-    fullUrlAudios,
+    fullaudioUrls,
     fullUrlVideo,
     fullUrlWords,
   } = addBucketPrefixes({
-    urlAudios,
+    audioUrls,
     urlVideo,
     words,
   })
@@ -45,7 +45,7 @@ export const Element = ({
   const element = renderElement(
     {
       ...elementParams,
-      urlAudios: fullUrlAudios,
+      audioUrls: fullaudioUrls,
       urlVideo: fullUrlVideo,
       words: fullUrlWords,
     },
@@ -84,7 +84,7 @@ Element.propTypes = {
     type: PropTypes.string,
     letter: PropTypes.string,
     correctLetters: PropTypes.arrayOf(PropTypes.string),
-    urlAudios: PropTypes.arrayOf(PropTypes.string),
+    audioUrls: PropTypes.arrayOf(PropTypes.string),
     urlVideo: PropTypes.string,
     description: PropTypes.string,
     text: PropTypes.string,

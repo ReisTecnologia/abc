@@ -20,7 +20,7 @@ const SimpleAudio = loadable(async () => {
 })
 
 export const CheckFirstLetter = ({
-  urlAudios,
+  audioUrls,
   conclusionAudio,
   words,
   actual,
@@ -88,7 +88,7 @@ export const CheckFirstLetter = ({
     <Card complete={complete}>
       <Wrapper>
         <AudioButton
-          urlAudios={urlAudios}
+          audioUrls={audioUrls}
           onStepStart={onStepStart}
           onStepComplete={onStepComplete}
           width={20}
@@ -113,7 +113,7 @@ export const CheckFirstLetter = ({
             color={actual && instructionsCompleted ? colors.actual : null}
             disabled={end}
             icon="Play"
-            urlAudios={[urlWord]}
+            audioUrls={[urlWord]}
             width={20}
             onComplete={setListened}
           />
@@ -129,7 +129,7 @@ export const CheckFirstLetter = ({
 }
 
 CheckFirstLetter.propTypes = {
-  urlAudios: PropTypes.arrayOf(PropTypes.string.isRequired),
+  audioUrls: PropTypes.arrayOf(PropTypes.string.isRequired),
   conclusionAudio: PropTypes.string,
   actual: PropTypes.bool,
   words: PropTypes.array,

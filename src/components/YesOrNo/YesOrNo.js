@@ -27,7 +27,7 @@ export const YesOrNo = ({
     setAnswer('no')
   }, [setAnswer])
 
-  const yesUrlAudios = useMemo(
+  const yesaudioUrls = useMemo(
     () =>
       correctAnswer === 'yes'
         ? [urlRightAnswerExplanation]
@@ -35,7 +35,7 @@ export const YesOrNo = ({
     [urlRightAnswerExplanation, urlWrongAnswerExplanation]
   )
 
-  const noUrlAudios = useMemo(
+  const noaudioUrls = useMemo(
     () =>
       correctAnswer === 'no'
         ? [urlRightAnswerExplanation]
@@ -58,7 +58,7 @@ export const YesOrNo = ({
         onClick={answerYes}
         onComplete={onAnswer}
         color={color}
-        urlAudios={yesUrlAudios}
+        audioUrls={yesaudioUrls}
       />
       <AudioButton
         icon="ThumbsDown"
@@ -67,7 +67,7 @@ export const YesOrNo = ({
         onClick={answerNo}
         onComplete={onAnswer}
         color={color}
-        urlAudios={noUrlAudios}
+        audioUrls={noaudioUrls}
       />
     </Wrapper>
   )
