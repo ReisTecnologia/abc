@@ -1,4 +1,5 @@
 import { Component } from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const BasicLayout = styled.div`
@@ -6,7 +7,7 @@ export const BasicLayout = styled.div`
   border-radius: 5px;
   border: 1px solid black;
   height: 96vh;
-  width: 96vw;
+  width: 98vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,8 +15,8 @@ export const BasicLayout = styled.div`
 
 export const LessonListLayout = styled.div`
   height: 70vh;
-  width: 50vw;
-  background-color: hsl(190, 100%, 90%);
+  width: 35vw;
+  background-color: #00877c;
   border: 1px solid black;
   margin: 1vh;
   border-radius: 5px;
@@ -24,5 +25,8 @@ export const LessonListLayout = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
+`
+export const StyledLink = styled(Link)`
+  color: white;
 `

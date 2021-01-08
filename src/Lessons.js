@@ -2,8 +2,7 @@ import React from 'react'
 import { gql, useQuery } from '@apollo/client'
 import { Link } from 'react-router-dom'
 import { AddLessonButton } from './AddLessonButton'
-import { DeleteButton } from './DeleteButton'
-import { BasicLayout, LessonListLayout } from './Layout'
+import { BasicLayout, LessonListLayout, StyledLink } from './Layout'
 import './LoadSpinner.css'
 
 const LESSONS = gql`
@@ -23,20 +22,22 @@ export const Lessons = () => {
   return (
     <BasicLayout>
       <h1> Aulas </h1>
-      {loading ? (
-        <div class="loader" />
-      ) : (
-        lessons.map((lesson) => (
-          <LessonListLayout>
+      <LessonListLayout>
+        {loading ? (
+          <div class="loader" />
+        ) : (
+          lessons.map((lesson) => (
             <span key={lesson.id}>
-              <Link to={`/viewLesson/${lesson.id}`}>{lesson.name}</Link>
-              &nbsp;&nbsp;<Link to={`/editLesson/${lesson.id}`}>(edit)</Link>
-              <DeleteButton id={lesson.id} afterDelete={refetch} />
+              <StyledLink to={`/viewLesson/${lesson.id}`}>
+                {lesson.name}
+              </StyledLink>
+              &nbsp;&nbsp;
+              <StyledLink to={`/editLesson/${lesson.id}`}>(edit)</StyledLink>
               <br />
             </span>
-          </LessonListLayout>
-        ))
-      )}
+          ))
+        )}
+      </LessonListLayout>
       <div>
         <AddLessonButton afterAdd={refetch} />
       </div>
