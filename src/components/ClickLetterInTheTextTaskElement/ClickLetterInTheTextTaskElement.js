@@ -51,7 +51,7 @@ export const ClickLetterInTheTextTaskElement = ({
 }
 
 ClickLetterInTheTextTaskElement.propTypes = {
-  urlAudios: PropTypes.string,
+  urlAudios: PropTypes.arrayOf(PropTypes.string.isRequired),
   text: PropTypes.string,
   correctLetters: PropTypes.arrayOf(PropTypes.string),
   actual: PropTypes.bool,

@@ -9,8 +9,7 @@ export default {
   argTypes: { onComplete: { action: 'onComplete' } },
 }
 
-export const BasicElements = Template.bind({})
-BasicElements.args = {
+const defaultArgs = {
   elements: [
     {
       type: 'ClickLetterInTheTextTask',
@@ -68,4 +67,15 @@ BasicElements.args = {
       ],
     },
   ],
+}
+
+export const BasicElements = Template.bind({})
+BasicElements.args = {
+  elements: defaultArgs.elements
+}
+
+export const EditableElements = Template.bind({})
+EditableElements.args = {
+  editable: true,
+  elements: defaultArgs.elements,
 }

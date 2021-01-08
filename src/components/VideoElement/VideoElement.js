@@ -54,7 +54,7 @@ export const VideoElement = ({ urlVideo, actual, onComplete }) => {
 }
 
 VideoElement.propTypes = {
-  src: PropTypes.string.isRequired,
+  urlVideo: PropTypes.string.isRequired,
   actual: PropTypes.bool,
   onComplete: PropTypes.func,
 }

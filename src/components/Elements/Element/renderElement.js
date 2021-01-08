@@ -1,10 +1,10 @@
 import React from 'react'
-import { AudioElement } from '../AudioElement'
-import { ClickWordStartingWithALetterInTheTextTaskElement } from '../ClickWordStartingWithALetterInTheTextTaskElement'
-import { ClickLetterInTheTextTaskElement } from '../ClickLetterInTheTextTaskElement'
-import { LetterAndAudioElement } from '../LetterAndAudioElement'
-import { VideoElement } from '../VideoElement'
-import { CheckFirstLetter } from '../CheckFirstLetter'
+import { AudioElement } from '../../AudioElement'
+import { ClickWordStartingWithALetterInTheTextTaskElement } from '../../ClickWordStartingWithALetterInTheTextTaskElement'
+import { ClickLetterInTheTextTaskElement } from '../../ClickLetterInTheTextTaskElement'
+import { LetterAndAudioElement } from '../../LetterAndAudioElement'
+import { VideoElement } from '../../VideoElement'
+import { CheckFirstLetter } from '../../CheckFirstLetter'
 
 export const renderElement = (
   {
@@ -21,8 +21,6 @@ export const renderElement = (
   actual,
   index
 ) => {
-  console.log('urlVideo ::::: ', urlVideo)
-
   switch (type) {
     case 'LetterAndAudio':
       return (
