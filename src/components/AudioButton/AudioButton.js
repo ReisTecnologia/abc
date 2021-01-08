@@ -52,7 +52,6 @@ export const AudioButton = ({
     onComplete: internalOnComplete,
   })
 
-
   const playIfEnabled = useCallback(() => {
     if (!disabled) {
       if (actualItem === 0) onStart && onStart()
