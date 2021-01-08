@@ -39,6 +39,15 @@ const typeDefs = gql`
     lessons: [Lesson]
   }
 
+  type EditLessonResponse {
+    success: Boolean!
+    lesson(id: String!): Lesson
+  }
+
+  input EditLessonInput {
+    name: String!
+  }
+
   type Query {
     lessons: [Lesson]
     lesson(id: String!): Lesson
@@ -47,6 +56,7 @@ const typeDefs = gql`
   type Mutation {
     addLesson: AddLessonResponse
     deleteLesson(id: ID!): DeleteLessonResponse
+    editLesson(id: ID!, input: EditLessonInput): EditLessonResponse
   }
 `
 
@@ -73,10 +83,13 @@ const resolvers = {
     deleteLesson: async (parent, args, context) => {
       const success = await db
         .deleteLesson(args.id)
-        .then((u) => {console.log('deleted', u); return true})
+        .then((u) => {
+          console.log('deleted', u)
+          return true
+        })
         .catch(() => false)
       return { success }
-    }
+    },
   },
 }
 
