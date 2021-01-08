@@ -55,7 +55,6 @@ export const AudioButton = ({
 
   const playIfEnabled = useCallback(() => {
     if (!disabled) {
-      console.log('play...')
       if (actualItem === 0) onStart && onStart()
       onStepStart && onStepStart(actualItem)
       play()
