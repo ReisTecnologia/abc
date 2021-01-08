@@ -27,16 +27,21 @@ const getLesson = (id) => {
     KeyConditionExpression: 'id = :id',
     TableName: TABLE_NAME,
   }
-  return docClient.query(params).promise().then(({ Items }) => Items[0])
+  return docClient
+    .query(params)
+    .promise()
+    .then(({ Items }) => Items[0])
 }
 
 const deleteLesson = (id) => {
   const docClient = new AWS.DynamoDB.DocumentClient()
-  return docClient.delete({
-    Key: { id: id },
-    ReturnItemCollectionMetrics: "SIZE",
-    TableName: TABLE_NAME,
-  }).promise()
+  return docClient
+    .delete({
+      Key: { id: id },
+      ReturnItemCollectionMetrics: 'SIZE',
+      TableName: TABLE_NAME,
+    })
+    .promise()
 }
 
 const addLesson = (id) => {
@@ -45,7 +50,7 @@ const addLesson = (id) => {
     Item: {
       id: id,
       name: 'Nova Aula',
-      elements: []
+      elements: [],
     },
     TableName: TABLE_NAME,
   }
@@ -53,9 +58,24 @@ const addLesson = (id) => {
   return docClient.put(params).promise()
 }
 
+const editLesson = (id, name) => {
+  const docClient = new AWS.DynamoDB.DocumentClient()
+  const params = {
+    TableName: TABLE_NAME,
+    Key: { id: id },
+    ExpressionAttributeNames: { '#updatedName': 'name' },
+    ExpressionAttributeValues: { ':newName': name },
+    ReturnValues: 'ALL_NEW',
+    UpdateExpression: 'set #updatedName = :newName',
+  }
+
+  return docClient.update(params).promise()
+}
+
 module.exports = {
   getLessons,
   getLesson,
   addLesson,
   deleteLesson,
+  editLesson,
 }

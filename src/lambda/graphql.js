@@ -55,7 +55,7 @@ const typeDefs = gql`
   type Mutation {
     addLesson: AddLessonResponse
     deleteLesson(id: ID!): DeleteLessonResponse
-    editLesson(id: ID!, input: EditLessonInput): EditLessonResponse
+    editLesson(id: ID!, input: EditLessonInput!): EditLessonResponse
   }
 `
 
@@ -89,8 +89,19 @@ const resolvers = {
         .catch(() => false)
       return { success }
     },
+    editLesson: async (parent, args, context) => {
+      const success = await db
+      .editLesson(args.id, args.name)
+      .then((updatedItem) => {
+       console.log('name updated', updatedItem)
+       return true
+      })
+      .catch(() => false)
+      return { success, lesson}
+      }
+    },
   },
-}
+
 
 const server = new ApolloServer({
   typeDefs,
