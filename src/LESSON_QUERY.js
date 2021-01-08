@@ -9,10 +9,9 @@ export const LESSON_QUERY = gql`
         type
         letter
         correctLetters
-        urlAudio
-        urlAudios
+        audioUrls
         urlVideo
-        texto
+        description
         text
         words {
           startsWithTheLetter
