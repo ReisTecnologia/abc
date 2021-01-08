@@ -9,26 +9,25 @@ export default {
   argTypes: { onComplete: { action: 'onComplete' } },
 }
 
-export const BasicElements = Template.bind({})
-BasicElements.args = {
+const defaultArgs = {
   elements: [
     {
       type: 'ClickLetterInTheTextTask',
       correctLetters: ['a', 'r'],
       text: 'Letra A',
-      urlAudio: 'a1.m4a',
+      audioUrls: ['a1.m4a'],
     },
     {
       type: 'ClickWordStartingWithALetterInTheTextTask',
       letter: 'a',
       description: 't6',
       text: 'Letra A',
-      urlAudio: 'a1.m4a',
+      audioUrls: ['a1.m4a'],
     },
     {
       type: 'Audio',
       description: 't3',
-      urlAudio: 'a1.m4a',
+      audioUrls: ['a1.m4a'],
     },
     {
       type: 'Video',
@@ -39,17 +38,17 @@ BasicElements.args = {
       type: 'LetterAndAudio',
       letter: 'A',
       description: 't2',
-      urlAudio: 'a1.m4a',
+      audioUrls: ['a1.m4a'],
     },
     {
       type: 'Audio',
       description: 't5',
-      urlAudio: 'a2.m4a',
+      audioUrls: ['a2.m4a'],
     },
     {
       type: 'CheckFirstLetter',
       description: 't4. certa, errada',
-      urlAudios: ['a1.m4a', 'a2.m4a', 'a3.m4a'],
+      audioUrls: ['a1.m4a', 'a2.m4a', 'a3.m4a'],
       words: [
         {
           word: 'beleza',
@@ -67,11 +66,16 @@ BasicElements.args = {
         },
       ],
     },
-    // ,
-    // {
-    //   description: 'ClickWordStartingWithALetterInTheTextTask',
-    //   type: 'ClickWordStartingWithALetterInTheTextTask',
-    //   urlAudio: 'a1.m4a',
-    // },
   ],
+}
+
+export const BasicElements = Template.bind({})
+BasicElements.args = {
+  elements: defaultArgs.elements
+}
+
+export const EditableElements = Template.bind({})
+EditableElements.args = {
+  editable: true,
+  elements: defaultArgs.elements,
 }

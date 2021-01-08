@@ -15,8 +15,7 @@ const typeDefs = gql`
     type: String!
     letter: String
     correctLetters: [String]
-    urlAudio: String
-    urlAudios: [String]
+    audioUrls: [String]
     urlVideo: String
     description: String
     text: String

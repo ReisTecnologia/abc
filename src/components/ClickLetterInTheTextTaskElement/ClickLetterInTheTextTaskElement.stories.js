@@ -10,7 +10,7 @@ export default {
 }
 
 const defaultProps = {
-  urlAudio: 'https://alfabetiza.s3-sa-east-1.amazonaws.com/a1.m4a',
+  audioUrls: ['https://alfabetiza.s3-sa-east-1.amazonaws.com/a1.m4a'],
   correctLetters: ['d'],
   text:
     'Arabela abria\n a janela.\nCarolina erguia\na cortina.\nE Maria olhava\ne sorria:\n"Bom dia!"',

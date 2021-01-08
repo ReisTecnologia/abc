@@ -8,7 +8,7 @@ export const ThumbsUp = ({ size, color }) => {
       width={size}
       height={size}
       viewBox="0 0 475.092 475.092"
-      style={{ enableBackground: 'new 0 0 475.092 475.092;' }}
+      style={{ enableBackground: 'new 0 0 475.092 475.092' }}
     >
       <path
         style={{
