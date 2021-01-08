@@ -89,19 +89,20 @@ const resolvers = {
         .catch(() => false)
       return { success }
     },
+
     editLesson: async (parent, args, context) => {
       const success = await db
-      .editLesson(args.id, args.name)
-      .then((updatedItem) => {
-       console.log('name updated', updatedItem)
-       return true
-      })
-      .catch(() => false)
-      return { success, lesson}
-      }
+        .editLesson(args.id, args.input.name)
+        .then((updatedItem) => {
+          console.log('name updated', updatedItem)
+          return true
+        })
+        .catch(() => false)
+      const lesson = await db.getLesson(args.id)
+      return { success, lesson }
     },
   },
-
+}
 
 const server = new ApolloServer({
   typeDefs,
