@@ -8,12 +8,12 @@ const Text = styled.div`
 `
 
 export const Description = ({elementParams}) => {
-  const { type, description, urlAudio, urlVideo } = elementParams
+  const { type, description, audioUrls, urlVideo } = elementParams
   return (
     <Text>
       <b>{type}</b> - {description}
       <br />
-      <b>urlAudio</b>: {urlAudio}
+      <b>audioUrls</b>: {audioUrls && audioUrls.join(', ')}
       <br />
       <b>urlVideo</b>: {urlVideo}
     </Text>

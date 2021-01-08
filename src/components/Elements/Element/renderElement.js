@@ -6,8 +6,8 @@ import { LetterAndAudioElement } from '../../LetterAndAudioElement'
 import { VideoElement } from '../../VideoElement'
 import { CheckFirstLetter } from '../../CheckFirstLetter'
 
-export const renderElement = (
-  {
+export const renderElement = ({
+  elementParamsWithBucketUrls: {
     type,
     correctLetters,
     letter,
@@ -20,7 +20,7 @@ export const renderElement = (
   onComplete,
   actual,
   index
-) => {
+}) => {
   switch (type) {
     case 'LetterAndAudio':
       return (
