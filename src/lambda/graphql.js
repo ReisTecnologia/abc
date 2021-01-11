@@ -38,6 +38,15 @@ const typeDefs = gql`
     lessons: [Lesson]
   }
 
+  type EditLessonResponse {
+    success: Boolean!
+    lesson(id: String!): Lesson
+  }
+
+  input EditLessonInput {
+    name: String!
+  }
+
   type Query {
     lessons: [Lesson]
     lesson(id: String!): Lesson
@@ -46,22 +55,23 @@ const typeDefs = gql`
   type Mutation {
     addLesson: AddLessonResponse
     deleteLesson(id: ID!): DeleteLessonResponse
+    editLesson(id: ID!, input: EditLessonInput!): EditLessonResponse
   }
 `
 
 const resolvers = {
   Query: {
-    lessons: async (parent, args, context) => {
+    lessons: async () => {
       const lessons = await db.getLessons()
       return lessons
     },
-    lesson: async (parent, args, context) => {
+    lesson: async (parent, args) => {
       const lesson = await db.getLesson(args.id)
       return lesson
     },
   },
   Mutation: {
-    addLesson: async (parent, args, context) => {
+    addLesson: async () => {
       const success = await db
         .addLesson(uuidv4())
         .then(() => true)
@@ -69,13 +79,28 @@ const resolvers = {
       const lessons = await db.getLessons()
       return { success, lessons }
     },
-    deleteLesson: async (parent, args, context) => {
+    deleteLesson: async (parent, args) => {
       const success = await db
         .deleteLesson(args.id)
-        .then((u) => {console.log('deleted', u); return true})
+        .then((u) => {
+          console.log('deleted', u)
+          return true
+        })
         .catch(() => false)
       return { success }
-    }
+    },
+
+    editLesson: async (parent, args) => {
+      const success = await db
+        .editLesson(args.id, args.input.name)
+        .then((updatedItem) => {
+          console.log('name updated', updatedItem)
+          return true
+        })
+        .catch(() => false)
+      const lesson = await db.getLesson(args.id)
+      return { success, lesson }
+    },
   },
 }
 

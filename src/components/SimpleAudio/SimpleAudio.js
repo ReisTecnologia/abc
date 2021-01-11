@@ -11,21 +11,18 @@ export const SimpleAudio = ({ urlAudio, startPlaying, onComplete }) => {
     onComplete: onComplete,
   })
 
-  useEffect(
-    () => {
-      if (startPlaying) {
-        console.log("play")
-        play()
-      }
-    },
-    [startPlaying, onComplete, play]
-  )
+  useEffect(() => {
+    if (startPlaying) {
+      console.log('play')
+      play()
+    }
+  }, [startPlaying, onComplete, play])
 
   return <Wrapper />
 }
 
 SimpleAudio.propTypes = {
-  src: PropTypes.string,
+  urlAudio: PropTypes.string,
   startPlaying: PropTypes.bool,
   onComplete: PropTypes.func,
 }

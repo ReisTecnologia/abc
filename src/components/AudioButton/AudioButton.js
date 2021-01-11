@@ -18,8 +18,6 @@ export const AudioButton = ({
   disabled,
   color,
   playingColor,
-  beforeTrailCount = 0,
-  afterTrailCount = 0,
 }) => {
   if (!color) color = colors.ready
   if (!playingColor) playingColor = colors.playing
@@ -66,16 +64,16 @@ export const AudioButton = ({
   const content = <Icon shape={icon} color={showColor} size={size} />
 
   const numDotsBefore = actualItem
-  const numDotsAfter =  audioUrls.length - actualItem - 1
+  const numDotsAfter = audioUrls.length - actualItem - 1
 
   return (
     <Wrapper onClick={playIfEnabled} disabled={disabled}>
-      {[...Array(numDotsBefore)].map((n,i) => (
+      {[...Array(numDotsBefore)].map((n, i) => (
         <TrailDot key={i} color={color} />
       ))}
       {content}
       {errorCode ? `error: ${errorCode}` : null}
-      {[...Array(numDotsAfter)].map((n,i) => (
+      {[...Array(numDotsAfter)].map((n, i) => (
         <TrailDot key={i} color={color} />
       ))}
     </Wrapper>
