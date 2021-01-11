@@ -1,7 +1,7 @@
 const AWS = require('aws-sdk')
 const config = require('./dbConfig.js')
 
-AWS.config.update(config.aws_remote_config)
+AWS.config.update(config.aws_config)
 
 const TABLE_NAME = 'lessons'
 
