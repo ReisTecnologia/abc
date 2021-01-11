@@ -7,6 +7,7 @@ import { Titulo } from './components/Titulo'
 import { Rodape } from './components/Rodape'
 import { Elements } from './components/Elements'
 import { LESSON_QUERY } from './LESSON_QUERY'
+import { DeleteButton } from './DeleteButton'
 
 export const EditableLesson = () => {
   let { lesson } = useParams()
@@ -18,6 +19,7 @@ export const EditableLesson = () => {
       <Container>
         <Elements elements={data.lesson.elements} editable />
       </Container>
+      <DeleteButton id={data.lesson.id} /*afterDelete={}*/ />
       <Rodape />
     </Layout>
   ) : null
