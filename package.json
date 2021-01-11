@@ -25,7 +25,7 @@
     "start:lambda": "netlify-lambda serve src/lambda",
     "build": "run-p build:**",
     "lint": "eslint './src/**/*.{js,jsx}'",
-    "lint:fix": "eslint './src/**/*.{js,jsx}' --fix",
+    "lint:fix": "npm eslint './src/**/*.{js,jsx}' --fix",
     "build:app": "react-scripts build",
     "build:lambda": "netlify-lambda build src/lambda",
     "test": "react-scripts test",
