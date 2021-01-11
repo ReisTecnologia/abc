@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react'
+import React, { useState, useMemo } from 'react'
 import { Wrapper } from './Wrapper'
 import PropTypes from 'prop-types'
 import loadable from '@loadable/component'
@@ -17,15 +17,15 @@ export const YesOrNo = ({
   onComplete,
   color,
 }) => {
-  const [_, setAnswer] = useState(null)
+  // const [_, setAnswer] = useState(null)
   const [alreadyAnswered, setAlreadyAnswered] = useState(false)
-  const answerYes = useCallback(() => {
-    setAnswer('yes')
-  }, [setAnswer])
+  // const answerYes = useCallback(() => {
+  //   setAnswer('yes')
+  // }, [setAnswer])
 
-  const answerNo = useCallback(() => {
-    setAnswer('no')
-  }, [setAnswer])
+  // const answerNo = useCallback(() => {
+  //   setAnswer('no')
+  // }, [setAnswer])
 
   const yesaudioUrls = useMemo(
     () =>
@@ -54,7 +54,7 @@ export const YesOrNo = ({
         icon="ThumbsUp"
         disabled={alreadyAnswered}
         playingColor={correctAnswer === 'yes' ? colors.right : colors.wrong}
-        onClick={answerYes}
+        // onClick={answerYes}
         onComplete={onAnswer}
         color={color}
         audioUrls={yesaudioUrls}
@@ -63,7 +63,7 @@ export const YesOrNo = ({
         icon="ThumbsDown"
         disabled={alreadyAnswered}
         playingColor={correctAnswer === 'no' ? colors.right : colors.wrong}
-        onClick={answerNo}
+        // onClick={answerNo}
         onComplete={onAnswer}
         color={color}
         audioUrls={noaudioUrls}
