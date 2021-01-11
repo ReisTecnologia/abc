@@ -1,7 +1,7 @@
 import React from 'react'
 import { ElementWrapper } from './ElementWrapper'
 import PropTypes from 'prop-types'
-import { addBucketPrefixes } from './addBucketPrefixes'
+import { addBucketPrefixesToElementParams } from './addBucketPrefixesToElementParams'
 import { renderElement } from './renderElement'
 import { Description } from './Description'
 import { EditableElement } from '../../EditableElement'
@@ -15,12 +15,14 @@ export const Element = ({
   setInnerElements,
   setActualElement,
 }) => {
+
   const { audioUrls, urlVideo, description, words } = elementParams
   const { fullaudioUrls, fullUrlVideo, fullUrlWords } = addBucketPrefixes({
     audioUrls,
     urlVideo,
     words,
   })
+
   const moveUp = (index) => {
     const reorderedInnerElements = [...innerElements]
     reorderedInnerElements[index - 1] = innerElements[index]
@@ -33,23 +35,20 @@ export const Element = ({
     reorderedInnerElements[index] = innerElements[index + 1]
     setInnerElements(reorderedInnerElements)
   }
-
   const actual = actualElement === index
   const onComplete = () => {
     setActualElement(() => index + 1)
   }
-  const element = renderElement(
-    {
-      ...elementParams,
-      audioUrls: fullaudioUrls,
-      urlVideo: fullUrlVideo,
-      words: fullUrlWords,
-    },
+
+  const elementParamsWithBucketUrls = addBucketPrefixesToElementParams(elementParams)
+  const element = renderElement({
+    elementParamsWithBucketUrls,
     onComplete,
     actual,
     index,
     description
-  )
+  })
+
   return (
     <ElementWrapper>
       {editable ? (
@@ -64,7 +63,7 @@ export const Element = ({
       ) : (
         element
       )}
-      {editable && <Description elementParams={elementParams} />}
+      {editable && <Description elementParams={elementParamsWithBucketUrls} />}
     </ElementWrapper>
   )
 }

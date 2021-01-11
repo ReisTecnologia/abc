@@ -60,7 +60,7 @@ export const ClickWordStartingWithALetterInTheTextTaskElement = ({
 }
 
 ClickWordStartingWithALetterInTheTextTaskElement.propTypes = {
-  audioUrls: PropTypes.string,
+  audioUrls: PropTypes.arrayOf(PropTypes.string.isRequired),
   text: PropTypes.string,
   color: PropTypes.string,
   letter: PropTypes.string,

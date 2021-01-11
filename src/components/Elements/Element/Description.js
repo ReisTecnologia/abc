@@ -14,7 +14,7 @@ export const Description = ({ elementParams }) => {
     <Text>
       <b>{type}</b> - {description}
       <br />
-      <b>urlAudio</b>: {urlAudio}
+      <b>audioUrls</b>: {audioUrls && audioUrls.join(', ')}
       <br />
       <b>urlVideo</b>: {urlVideo}
     </Text>
