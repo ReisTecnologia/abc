@@ -12,8 +12,7 @@ windows:
           - dynamodb-admin
       - name: GraphQL
         commands:
-          - export NODE_ENV=development # does not seem to be working. Need to run again.
-          - npm run start:lambda
+          - NODE_ENV=development npm run start:lambda # does not seem to be working. Need to run again.
       - name: ntl dev server
         commands:
           - ntl dev

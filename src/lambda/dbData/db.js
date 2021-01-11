@@ -1,7 +1,10 @@
 const AWS = require('aws-sdk')
 const config = require('./dbConfig.js')
 
-AWS.config.update(config.aws_config)
+// console.log('node_env>>>>>', process.env.NODE_ENV)
+// console.log('config.aws_config', config)
+
+AWS.config.update(config.awsConfig.aws_config)
 
 const TABLE_NAME = 'lessons'
 
