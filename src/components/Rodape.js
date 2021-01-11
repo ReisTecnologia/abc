@@ -7,10 +7,7 @@ export const Rodape = () => {
   return (
     <Footer>
       <FooterLinks>
-        <FooterLink>
-          x
-        </FooterLink>
-
+        <FooterLink>x</FooterLink>
       </FooterLinks>
     </Footer>
   )

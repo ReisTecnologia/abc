@@ -21,7 +21,7 @@ export const VideoElement = ({ urlVideo, actual, onComplete }) => {
   useEffect(() => {
     videoElement.current.addEventListener(
       'error',
-      function() {
+      function () {
         setHasError(true)
       },
       true

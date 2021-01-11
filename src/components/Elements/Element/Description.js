@@ -9,7 +9,7 @@ const Text = styled.div`
 `
 
 export const Description = ({ elementParams }) => {
-  const { type, description, urlAudio, urlVideo } = elementParams
+  const { type, description, audioUrls, urlVideo } = elementParams
   return (
     <Text>
       <b>{type}</b> - {description}
@@ -25,7 +25,7 @@ Description.propTypes = {
   elementParams: PropTypes.shape({
     type: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    urlAudio: PropTypes.string.isRequired,
+    audioUrls: PropTypes.arrayOf(PropTypes.string.isRequired),
     urlVideo: PropTypes.string.isRequired,
   }),
 }

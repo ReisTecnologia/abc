@@ -32,7 +32,7 @@ export const YesOrNo = ({
       correctAnswer === 'yes'
         ? [urlRightAnswerExplanation]
         : [urlWrongAnswerExplanation],
-    [urlRightAnswerExplanation, urlWrongAnswerExplanation]
+    [urlRightAnswerExplanation, urlWrongAnswerExplanation, correctAnswer]
   )
 
   const noaudioUrls = useMemo(
@@ -40,7 +40,7 @@ export const YesOrNo = ({
       correctAnswer === 'no'
         ? [urlRightAnswerExplanation]
         : [urlWrongAnswerExplanation],
-    [urlRightAnswerExplanation, urlWrongAnswerExplanation]
+    [urlRightAnswerExplanation, urlWrongAnswerExplanation, correctAnswer]
   )
 
   const onAnswer = () => {

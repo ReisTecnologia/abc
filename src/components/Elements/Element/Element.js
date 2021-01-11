@@ -15,14 +15,6 @@ export const Element = ({
   setInnerElements,
   setActualElement,
 }) => {
-
-  const { audioUrls, urlVideo, description, words } = elementParams
-  const { fullaudioUrls, fullUrlVideo, fullUrlWords } = addBucketPrefixes({
-    audioUrls,
-    urlVideo,
-    words,
-  })
-
   const moveUp = (index) => {
     const reorderedInnerElements = [...innerElements]
     reorderedInnerElements[index - 1] = innerElements[index]
@@ -40,13 +32,14 @@ export const Element = ({
     setActualElement(() => index + 1)
   }
 
-  const elementParamsWithBucketUrls = addBucketPrefixesToElementParams(elementParams)
+  const elementParamsWithBucketUrls = addBucketPrefixesToElementParams(
+    elementParams
+  )
   const element = renderElement({
     elementParamsWithBucketUrls,
     onComplete,
     actual,
     index,
-    description
   })
 
   return (

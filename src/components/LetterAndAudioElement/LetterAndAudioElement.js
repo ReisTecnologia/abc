@@ -14,7 +14,12 @@ const AudioButton = loadable(async () => {
   return LoadableAudioButton
 })
 
-export const LetterAndAudioElement = ({ letter, audioUrls, actual, onComplete }) => {
+export const LetterAndAudioElement = ({
+  letter,
+  audioUrls,
+  actual,
+  onComplete,
+}) => {
   const { complete, doComplete } = useCompleteState({ actual, onComplete })
 
   return (

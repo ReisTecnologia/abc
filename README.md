@@ -40,6 +40,11 @@ AWS.config.update(config.aws_remote_config)
 ```
 depending on the env you are targeting.
 
+## VSCode lint
+
+check this:
+https://readwriteexercise.com/posts/setting-up-create-react-app-vs-code-eslint-prettier/
+
 ## install dynamodb-admin to see local data
 
 ```

@@ -47,20 +47,18 @@ export const useMedia = ({ mediaRef, onComplete }) => {
     }
   }, [mediaRef, onComplete])
 
-  const play = useCallback(
-    () => {
-      if (!loading) {
-        if (playing) {
-          mediaRef.current.pause()
-        } else {
-          if (paused) {
-            mediaRef.current.currentTime = 0
-          }
-          mediaRef.current.play()
+  const play = useCallback(() => {
+    if (!loading) {
+      if (playing) {
+        mediaRef.current.pause()
+      } else {
+        if (paused) {
+          mediaRef.current.currentTime = 0
         }
+        mediaRef.current.play()
       }
-    },[]
-  )
+    }
+  }, [loading, mediaRef, paused, playing])
 
   return {
     play,

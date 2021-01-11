@@ -40,11 +40,11 @@ export const CheckFirstLetter = ({
   const actualWord = words[actualWordIndex]
   const urlWord = actualWord.urlWord
   const setListened = () => {
-    setState(s => ({ ...s, showYesOrNo: true }))
+    setState((s) => ({ ...s, showYesOrNo: true }))
   }
 
   const setInstructionsCompleted = useCallback(
-    () => setState(s => ({ ...s, instructionsCompleted: true })),
+    () => setState((s) => ({ ...s, instructionsCompleted: true })),
     [setState]
   )
 

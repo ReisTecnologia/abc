@@ -1,6 +1,5 @@
 import React from 'react'
 import { gql, useQuery } from '@apollo/client'
-import { Link } from 'react-router-dom'
 import { AddLessonButton } from './AddLessonButton'
 import { BasicLayout, LessonListLayout, StyledLink } from './Layout'
 import './LoadSpinner.css'
@@ -24,7 +23,7 @@ export const Lessons = () => {
       <h1> Aulas </h1>
       <LessonListLayout>
         {loading ? (
-          <div class="loader" />
+          <div className="loader" />
         ) : (
           lessons.map((lesson) => (
             <span key={lesson.id}>

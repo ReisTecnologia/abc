@@ -71,7 +71,7 @@ const defaultArgs = {
 
 export const BasicElements = Template.bind({})
 BasicElements.args = {
-  elements: defaultArgs.elements
+  elements: defaultArgs.elements,
 }
 
 export const EditableElements = Template.bind({})

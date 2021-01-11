@@ -3,15 +3,15 @@ import isEqual from 'lodash.isequal'
 export const addOrRemoveFromArray = (
   clickedWords,
   clickedWordAddress,
-  setClickedWords,
+  setClickedWords
 ) => {
   const indexOfExistentWord = clickedWords.findIndex((wordAddress) =>
-    isEqual(wordAddress, clickedWordAddress),
+    isEqual(wordAddress, clickedWordAddress)
   )
 
   if (indexOfExistentWord !== -1) {
     setClickedWords(
-      clickedWords.filter((_, index) => index !== indexOfExistentWord),
+      clickedWords.filter((_, index) => index !== indexOfExistentWord)
     )
   } else {
     setClickedWords([...clickedWords, clickedWordAddress])
