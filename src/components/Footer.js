@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 const StyledFooter = styled.footer`
   color: #fff;
@@ -12,3 +13,6 @@ const StyledFooter = styled.footer`
 `
 
 export const Footer = ({ children }) => <StyledFooter>{children}</StyledFooter>
+Footer.propTypes = {
+  children: PropTypes.any,
+}

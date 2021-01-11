@@ -61,17 +61,17 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    lessons: async (parent, args, context) => {
+    lessons: async () => {
       const lessons = await db.getLessons()
       return lessons
     },
-    lesson: async (parent, args, context) => {
+    lesson: async (parent, args) => {
       const lesson = await db.getLesson(args.id)
       return lesson
     },
   },
   Mutation: {
-    addLesson: async (parent, args, context) => {
+    addLesson: async () => {
       const success = await db
         .addLesson(uuidv4())
         .then(() => true)
@@ -79,7 +79,7 @@ const resolvers = {
       const lessons = await db.getLessons()
       return { success, lessons }
     },
-    deleteLesson: async (parent, args, context) => {
+    deleteLesson: async (parent, args) => {
       const success = await db
         .deleteLesson(args.id)
         .then((u) => {
@@ -90,7 +90,7 @@ const resolvers = {
       return { success }
     },
 
-    editLesson: async (parent, args, context) => {
+    editLesson: async (parent, args) => {
       const success = await db
         .editLesson(args.id, args.input.name)
         .then((updatedItem) => {

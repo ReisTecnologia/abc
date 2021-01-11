@@ -17,7 +17,7 @@ export const YesOrNo = ({
   onComplete,
   color,
 }) => {
-  const [answer, setAnswer] = useState(null)
+  const [_, setAnswer] = useState(null)
   const [alreadyAnswered, setAlreadyAnswered] = useState(false)
   const answerYes = useCallback(() => {
     setAnswer('yes')
@@ -42,7 +42,6 @@ export const YesOrNo = ({
         : [urlWrongAnswerExplanation],
     [urlRightAnswerExplanation, urlWrongAnswerExplanation]
   )
-
 
   const onAnswer = () => {
     setAlreadyAnswered(true)

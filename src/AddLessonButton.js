@@ -1,5 +1,6 @@
 import React from 'react'
 import { gql, useMutation } from '@apollo/client'
+import PropTypes from 'prop-types'
 
 export const ADD_LESSON = gql`
   mutation addLesson {
@@ -9,11 +10,13 @@ export const ADD_LESSON = gql`
   }
 `
 
-export const AddLessonButton = ({afterAdd}) => {
-  const [addLesson, { loading }] = useMutation(ADD_LESSON, {onCompleted: afterAdd})
-  return (
-    <div>
-      {loading ? '...' : <button onClick={addLesson}>+</button>}
-    </div>
-  )
+export const AddLessonButton = ({ afterAdd }) => {
+  const [addLesson, { loading }] = useMutation(ADD_LESSON, {
+    onCompleted: afterAdd,
+  })
+  return <div>{loading ? '...' : <button onClick={addLesson}>+</button>}</div>
+}
+
+AddLessonButton.propTypes = {
+  afterAdd: PropTypes.func,
 }

@@ -7,16 +7,7 @@ import { VideoElement } from '../../VideoElement'
 import { CheckFirstLetter } from '../../CheckFirstLetter'
 
 export const renderElement = (
-  {
-    type,
-    correctLetters,
-    letter,
-    audioUrls,
-    urlVideo,
-    description,
-    words,
-    text,
-  },
+  { type, correctLetters, letter, audioUrls, urlVideo, words, text },
   onComplete,
   actual,
   index

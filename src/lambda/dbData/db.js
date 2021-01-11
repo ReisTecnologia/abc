@@ -1,4 +1,3 @@
-const { gql } = require('@apollo/client')
 const AWS = require('aws-sdk')
 const config = require('./dbConfig.js')
 

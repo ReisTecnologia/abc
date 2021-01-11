@@ -1,11 +1,13 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props)
     this.state = { hasError: false }
   }
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError() {
     // Update state so the next render will show the fallback UI.
     return { hasError: true }
   }
@@ -18,7 +20,11 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       // You can render any custom fallback UI
-      return <b>There was an error rendering this component. Please check the console.</b>
+      return (
+        <b>
+          There was an error rendering this component. Please check the console.
+        </b>
+      )
     }
 
     return this.props.children
@@ -26,3 +32,6 @@ class ErrorBoundary extends React.Component {
 }
 
 export default ErrorBoundary
+ErrorBoundary.propTypes = {
+  children: PropTypes.any,
+}
