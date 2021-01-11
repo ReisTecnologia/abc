@@ -7,7 +7,7 @@ import { TrailDot } from './TrailDot'
 import { colors } from '../colors'
 
 export const AudioButton = ({
-  src,
+  audioUrls,
   size,
   icon = 'Speaker',
   onClick,
@@ -25,8 +25,7 @@ export const AudioButton = ({
   if (!playingColor) playingColor = colors.playing
   const [errorCode, setErrorCode] = useState(null)
 
-  const isSequence = typeof src === 'object'
-  const [actualItem, setActualItem] = useState(isSequence ? 0 : null)
+  const [actualItem, setActualItem] = useState(0)
 
   var audioElement = useRef(new Audio())
   audioElement.current.onerror = () => {
@@ -34,27 +33,25 @@ export const AudioButton = ({
   }
 
   useEffect(() => {
-    audioElement.current.src = isSequence ? src[actualItem] : src
-  }, [actualItem, isSequence, src])
+    audioElement.current.src = audioUrls[actualItem]
+  }, [actualItem, audioUrls])
 
   const internalOnComplete = useCallback(() => {
-    if (isSequence) {
-      if (actualItem === src.length - 1) {
-        onStepComplete && onStepComplete(actualItem)
-        onComplete && onComplete()
-        setActualItem(0)
-      } else {
-        setActualItem((actualItem) => actualItem + 1)
-        onStepComplete && onStepComplete(actualItem)
-      }
-    } else {
+    if (actualItem === audioUrls.length - 1) {
+      onStepComplete && onStepComplete(actualItem)
       onComplete && onComplete()
+      setActualItem(0)
+    } else {
+      setActualItem((actualItem) => actualItem + 1)
+      onStepComplete && onStepComplete(actualItem)
     }
-  }, [onComplete, actualItem, setActualItem, isSequence, onStepComplete, src.length])
+  }, [onComplete, actualItem, setActualItem, onStepComplete, audioUrls.length])
+
   const { play, playing } = useMedia({
     mediaRef: audioElement,
     onComplete: internalOnComplete,
   })
+
   const playIfEnabled = useCallback(() => {
     if (!disabled) {
       if (actualItem === 0) onStart && onStart()
@@ -68,10 +65,9 @@ export const AudioButton = ({
   const showColor = errorCode ? colors.wrong : playing ? playingColor : color
   const content = <Icon shape={icon} color={showColor} size={size} />
 
-  const numDotsBefore = isSequence ? actualItem : beforeTrailCount
-  const numDotsAfter = isSequence
-    ? src.length - actualItem - 1
-    : afterTrailCount
+  const numDotsBefore = actualItem
+  const numDotsAfter =  audioUrls.length - actualItem - 1
+
   return (
     <Wrapper onClick={playIfEnabled} disabled={disabled}>
       {[...Array(numDotsBefore)].map((n,i) => (
@@ -87,10 +83,7 @@ export const AudioButton = ({
 }
 
 AudioButton.propTypes = {
-  src: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
-    PropTypes.arrayOf(PropTypes.string.isRequired),
-  ]),
+  audioUrls: PropTypes.arrayOf(PropTypes.string.isRequired),
   icon: PropTypes.string,
   size: PropTypes.string,
   onClick: PropTypes.func,

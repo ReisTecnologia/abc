@@ -9,48 +9,46 @@ export default {
   argTypes: { onComplete: { action: 'onComplete' } },
 }
 
-export const BasicElements = Template.bind({})
-BasicElements.args = {
+const defaultArgs = {
   elements: [
     {
-      correctLetters: ['a', 'r'],
-      texto: 'StartsWithLetterTextTask',
-      text: 'Letra A',
       type: 'ClickLetterInTheTextTask',
-      urlAudio: 'a1.m4a',
-    },
-    {
-      letter: 'a',
-      texto: 't6',
+      correctLetters: ['a', 'r'],
       text: 'Letra A',
+      audioUrls: ['a1.m4a'],
+    },
+    {
       type: 'ClickWordStartingWithALetterInTheTextTask',
-      urlAudio: 'a1.m4a',
+      letter: 'a',
+      description: 't6',
+      text: 'Letra A',
+      audioUrls: ['a1.m4a'],
     },
     {
-      texto: 't3',
       type: 'Audio',
-      urlAudio: 'a1.m4a',
+      description: 't3',
+      audioUrls: ['a1.m4a'],
     },
     {
-      texto: 'Boca falando o som "ã"',
       type: 'Video',
+      description: 'Boca falando o som "ã"',
       urlVideo: 'small.mp4',
     },
     {
-      letter: 'A',
-      texto: 't2',
       type: 'LetterAndAudio',
-      urlAudio: 'a1.m4a',
+      letter: 'A',
+      description: 't2',
+      audioUrls: ['a1.m4a'],
     },
     {
-      texto: 't5',
       type: 'Audio',
-      urlAudio: 'a2.m4a',
+      description: 't5',
+      audioUrls: ['a2.m4a'],
     },
     {
-      texto: 't4. certa, errada',
       type: 'CheckFirstLetter',
-      urlAudios: ['a1.m4a', 'a2.m4a', 'a3.m4a'],
+      description: 't4. certa, errada',
+      audioUrls: ['a1.m4a', 'a2.m4a', 'a3.m4a'],
       words: [
         {
           word: 'beleza',
@@ -68,11 +66,16 @@ BasicElements.args = {
         },
       ],
     },
-    // ,
-    // {
-    //   texto: 'ClickWordStartingWithALetterInTheTextTask',
-    //   type: 'ClickWordStartingWithALetterInTheTextTask',
-    //   urlAudio: 'a1.m4a',
-    // },
   ],
+}
+
+export const BasicElements = Template.bind({})
+BasicElements.args = {
+  elements: defaultArgs.elements
+}
+
+export const EditableElements = Template.bind({})
+EditableElements.args = {
+  editable: true,
+  elements: defaultArgs.elements,
 }

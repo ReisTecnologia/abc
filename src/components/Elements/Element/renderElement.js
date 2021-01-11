@@ -1,28 +1,26 @@
 import React from 'react'
-import { AudioElement } from '../AudioElement'
-import { ClickWordStartingWithALetterInTheTextTaskElement } from '../ClickWordStartingWithALetterInTheTextTaskElement'
-import { ClickLetterInTheTextTaskElement } from '../ClickLetterInTheTextTaskElement'
-import { LetterAndAudioElement } from '../LetterAndAudioElement'
-import { VideoElement } from '../VideoElement'
-import { CheckFirstLetter } from '../CheckFirstLetter'
+import { AudioElement } from '../../AudioElement'
+import { ClickWordStartingWithALetterInTheTextTaskElement } from '../../ClickWordStartingWithALetterInTheTextTaskElement'
+import { ClickLetterInTheTextTaskElement } from '../../ClickLetterInTheTextTaskElement'
+import { LetterAndAudioElement } from '../../LetterAndAudioElement'
+import { VideoElement } from '../../VideoElement'
+import { CheckFirstLetter } from '../../CheckFirstLetter'
 
-export const renderElement = (
-  {
+export const renderElement = ({
+  elementParamsWithBucketUrls: {
     type,
     correctLetters,
     letter,
-    urlAudio,
-    urlAudios,
+    audioUrls,
     urlVideo,
-    texto,
+    description,
     words,
     text,
   },
   onComplete,
   actual,
   index
-) => {
-
+}) => {
   switch (type) {
     case 'LetterAndAudio':
       return (
@@ -31,7 +29,7 @@ export const renderElement = (
           actual={actual}
           key={index}
           letter={letter}
-          src={urlAudio}
+          audioUrls={audioUrls}
         />
       )
     case 'Audio':
@@ -40,7 +38,7 @@ export const renderElement = (
           onComplete={onComplete}
           actual={actual}
           key={index}
-          src={urlAudio}
+          audioUrls={audioUrls}
         />
       )
     case 'Video':
@@ -49,7 +47,7 @@ export const renderElement = (
           onComplete={onComplete}
           actual={actual}
           key={index}
-          src={urlVideo}
+          urlVideo={urlVideo}
         />
       )
     case 'CheckFirstLetter':
@@ -58,8 +56,8 @@ export const renderElement = (
           onComplete={onComplete}
           actual={actual}
           key={index}
-          src={urlAudio}
-          conclusionAudio={urlAudio[1]}
+          audioUrls={audioUrls}
+          conclusionAudio={audioUrls[1]}
           words={words}
         />
       )
@@ -69,7 +67,7 @@ export const renderElement = (
           onComplete={onComplete}
           actual={actual}
           key={index}
-          urlAudio={urlAudio}
+          audioUrls={audioUrls}
           letter={letter}
           text={text}
         />
@@ -80,7 +78,7 @@ export const renderElement = (
           onComplete={onComplete}
           actual={actual}
           key={index}
-          urlAudio={urlAudio}
+          audioUrls={audioUrls}
           correctLetters={correctLetters}
           text={text}
         />
