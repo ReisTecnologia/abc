@@ -40,7 +40,7 @@ const typeDefs = gql`
 
   type EditLessonResponse {
     success: Boolean!
-    lesson(id: String!): Lesson
+    lesson: Lesson
   }
 
   input EditLessonInput {
