@@ -72,7 +72,10 @@ const editLesson = (id, name) => {
     ConditionExpression: ':id = id',
   }
 
-  return docClient.update(params).promise()
+  return docClient
+    .update(params)
+    .promise()
+    .then(({ Attributes }) => Attributes)
 }
 
 module.exports = {

@@ -91,14 +91,13 @@ const resolvers = {
     },
 
     editLesson: async (parent, args) => {
-      const success = await db
-        .editLesson(args.id, args.input.name)
-        .then((updatedItem) => {
-          console.log('name updated', updatedItem)
-          return true
-        })
-        .catch(() => false)
-      const lesson = await db.getLesson(args.id)
+      let success = false
+      let lesson = false
+      await db.editLesson(args.id, args.input.name).then((updatedItem) => {
+        console.log('updatedItem >', updatedItem)
+        lesson = updatedItem
+        success = true
+      })
       return { success, lesson }
     },
   },
