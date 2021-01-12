@@ -4,7 +4,7 @@ const config = require('./dbConfig.js')
 // console.log('node_env>>>>>', process.env.NODE_ENV)
 // console.log('config.aws_config', config)
 
-AWS.config.update(config.awsConfig.aws_config)
+AWS.config.update(config.prodConfigs.aws_config)
 
 const TABLE_NAME = 'lessons'
 
@@ -60,15 +60,15 @@ const addLesson = (id) => {
   return docClient.put(params).promise()
 }
 
-const editLesson = (id, name) => {
+const editLesson = (id, name, elements) => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
     TableName: TABLE_NAME,
     Key: { id: id },
     ExpressionAttributeNames: { '#updatedName': 'name' },
-    ExpressionAttributeValues: { ':newName': name },
+    ExpressionAttributeValues: { ':newName': name, ':elements': elements },
     ReturnValues: 'ALL_NEW',
-    UpdateExpression: 'set #updatedName = :newName',
+    UpdateExpression: 'set #updatedName = :newName, elements = :elements',
   }
 
   return docClient.update(params).promise()
