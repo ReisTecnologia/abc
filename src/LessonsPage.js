@@ -1,6 +1,6 @@
 import React from 'react'
 import { gql, useQuery } from '@apollo/client'
-import { AddLessonButton } from './AddLessonButton'
+import { AddLessonButton } from './components/AddLessonButton'
 import { BasicLayout, LessonListLayout, StyledLink } from './Layout'
 import './LoadSpinner.css'
 
@@ -13,7 +13,7 @@ const LESSONS = gql`
   }
 `
 
-export const Lessons = () => {
+export const LessonsPage = () => {
   const { data, refetch, loading } = useQuery(LESSONS, {
     notifyOnNetworkStatusChange: true,
   })

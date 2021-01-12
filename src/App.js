@@ -2,9 +2,9 @@ import React from 'react'
 import { ApolloClient, InMemoryCache } from '@apollo/client'
 import { ApolloProvider } from '@apollo/client'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { Lessons } from './Lessons'
-import { ViewLesson } from './ViewLesson'
-import { EditLesson } from './EditLesson'
+import { LessonsPage } from './LessonsPage'
+import { ViewLessonPage } from './ViewLessonPage'
+import { EditLessonPage } from './EditLessonPage'
 
 const client = new ApolloClient({
   uri: '/.netlify/functions/graphql',
@@ -30,13 +30,13 @@ const Wrapped = () => {
         </nav> */}
         <Switch>
           <Route path="/viewLesson">
-            <ViewLesson />
+            <ViewLessonPage />
           </Route>
           <Route path="/editLesson">
-            <EditLesson />
+            <EditLessonPage />
           </Route>
           <Route path="/">
-            <Lessons />
+            <LessonsPage />
           </Route>
         </Switch>
       </div>

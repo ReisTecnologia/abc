@@ -1,9 +1,9 @@
 import React from 'react'
-import { Lesson } from './Lesson'
+import { Lesson } from './components/Lesson'
 
 import { useRouteMatch, Switch, Route } from 'react-router-dom'
 
-export const ViewLesson = () => {
+export const ViewLessonPage = () => {
   let { path } = useRouteMatch()
   return (
     <Switch>

@@ -1,7 +1,7 @@
 import React from 'react'
-import { FooterLink } from '../components/FooterLink'
-import { FooterLinks } from '../components/FooterLinks'
-import { Footer } from '../components/Footer'
+import { FooterLink } from './FooterLink'
+import { FooterLinks } from './FooterLinks'
+import { Footer } from './Footer'
 
 export const Rodape = () => {
   return (

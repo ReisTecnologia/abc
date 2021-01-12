@@ -1,8 +1,8 @@
 import React from 'react'
-import { EditableLesson } from './EditableLesson'
+import { EditableLesson } from './components/EditableLesson'
 import { useRouteMatch, Switch, Route } from 'react-router-dom'
 
-export const EditLesson = () => {
+export const EditLessonPage = () => {
   let { path } = useRouteMatch()
   return (
     <Switch>
