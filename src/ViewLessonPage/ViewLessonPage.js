@@ -1,5 +1,5 @@
 import React from 'react'
-import { Lesson } from './shared/Lesson'
+import { Lesson } from './Lesson'
 
 import { useRouteMatch, Switch, Route } from 'react-router-dom'
 

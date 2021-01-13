@@ -16,7 +16,14 @@ export const DeleteButton = ({ id, afterDelete }) => {
     variables: { id },
     onCompleted: afterDelete,
   })
-  return loading ? '...' : <button onClick={mutate}>-</button>
+  const confirmAndDelete = () => {
+    var response = window.confirm('delete?')
+    if (response) {
+      mutate()
+      afterDelete()
+    }
+  }
+  return loading ? '...' : <button onClick={confirmAndDelete}>-</button>
 }
 
 DeleteButton.propTypes = {
