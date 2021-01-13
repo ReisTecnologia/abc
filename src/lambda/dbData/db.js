@@ -4,7 +4,7 @@ const config = require('./dbConfig.js')
 // console.log('node_env>>>>>', process.env.NODE_ENV)
 // console.log('config.aws_config', config)
 
-AWS.config.update(config.prodConfigs.aws_config)
+AWS.config.update(config.awsConfig.aws_config)
 
 const TABLE_NAME = 'lessons'
 
@@ -65,13 +65,23 @@ const editLesson = (id, name, elements) => {
   const params = {
     TableName: TABLE_NAME,
     Key: { id: id },
-    ExpressionAttributeNames: { '#updatedName': 'name' },
-    ExpressionAttributeValues: { ':newName': name, ':elements': elements },
+    ExpressionAttributeNames: { '#name': name ? 'name' : null, '#id': 'id' },
+    ExpressionAttributeValues: {
+      ':newName': name ? name : null,
+      ':id': id,
+      ':elements': elements ? elements : null,
+    },
     ReturnValues: 'ALL_NEW',
-    UpdateExpression: 'set #updatedName = :newName, elements = :elements',
+    UpdateExpression: name
+      ? 'set #name = :newName'
+      : 'set elements = :elements',
+    ConditionExpression: ':id = #id AND :newName <> :elements',
   }
 
-  return docClient.update(params).promise()
+  return docClient
+    .update(params)
+    .promise()
+    .then(({ Attributes }) => Attributes)
 }
 
 module.exports = {
