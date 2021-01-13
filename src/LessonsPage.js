@@ -1,6 +1,6 @@
 import React from 'react'
 import { gql, useQuery } from '@apollo/client'
-import { AddLessonButton } from './components/AddLessonButton'
+import { AddLessonButton } from './shared/AddLessonButton'
 import { BasicLayout, LessonListLayout, StyledLink } from './Layout'
 import './LoadSpinner.css'
 
