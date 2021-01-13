@@ -66,12 +66,16 @@ const editLesson = (id, name) => {
     TableName: TABLE_NAME,
     Key: { id: id },
     ExpressionAttributeNames: { '#updatedName': 'name' },
-    ExpressionAttributeValues: { ':newName': name },
+    ExpressionAttributeValues: { ':name': name, ':id': id },
     ReturnValues: 'ALL_NEW',
-    UpdateExpression: 'set #updatedName = :newName',
+    UpdateExpression: 'set #updatedName = :name',
+    ConditionExpression: ':id = id',
   }
 
-  return docClient.update(params).promise()
+  return docClient
+    .update(params)
+    .promise()
+    .then(({ Attributes }) => Attributes)
 }
 
 module.exports = {
