@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { gql } from '@apollo/client'
 import { useMutation } from '@apollo/client'
+import PropTypes from 'prop-types'
 
 export const EDIT_LESSON_NAME = gql`
   mutation editLesson($id: ID!, $input: EditLessonInput!) {
