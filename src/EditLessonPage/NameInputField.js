@@ -13,8 +13,8 @@ export const EDIT_LESSON_NAME = gql`
   }
 `
 
-export const NameInputForm = ({ currentLessonName, id, cancel }) => {
-  const [lessonName, setLessonName] = useState(currentLessonName)
+export const NameInputField = ({ name, id, cancel }) => {
+  const [lessonName, setLessonName] = useState(name)
 
   const [handleSubmit] = useMutation(EDIT_LESSON_NAME, {
     variables: { id, input: { name: lessonName } },
@@ -34,4 +34,10 @@ export const NameInputForm = ({ currentLessonName, id, cancel }) => {
       <button onClick={cancel}>Cancel</button>
     </form>
   )
+}
+
+NameInputField.propTypes = {
+  name: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  cancel: PropTypes.func.isRequired,
 }
