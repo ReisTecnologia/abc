@@ -7,7 +7,7 @@ import { MainWrapper } from './MainWrapper'
 export const Layout = ({ children }) => {
   return (
     <>
-      <GlobalStyle />.
+      <GlobalStyle />
       <MainWrapper>
         <main>{children}</main>
       </MainWrapper>

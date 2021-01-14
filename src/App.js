@@ -2,9 +2,9 @@ import React from 'react'
 import { ApolloClient, InMemoryCache } from '@apollo/client'
 import { ApolloProvider } from '@apollo/client'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { LessonsPage } from './LessonsPage'
-import { ViewLessonPage } from './ViewLessonPage'
-import { EditLessonPage } from './EditLessonPage'
+import { LessonsPage } from './LessonsPage/LessonsPage'
+import { ViewLessonPage } from './ViewLessonPage/ViewLessonPage'
+import { EditLessonPage } from './EditLessonPage/EditLessonPage'
 
 const client = new ApolloClient({
   uri: '/.netlify/functions/graphql',

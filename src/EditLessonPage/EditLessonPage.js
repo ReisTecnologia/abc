@@ -1,5 +1,5 @@
 import React from 'react'
-import { EditableLesson } from './components/EditableLesson'
+import { EditableLesson } from './EditableLesson'
 import { useRouteMatch, Switch, Route } from 'react-router-dom'
 
 export const EditLessonPage = () => {
