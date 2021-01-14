@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Element } from '../../shared/Element/Element'
+import { EditableElement } from '../../shared/EditableElement/EditableElement'
 import ErrorBoundary from '../../shared/ErrorBoundary'
 
 export const EditableElements = ({ elements }) => {
@@ -25,17 +26,15 @@ export const EditableElements = ({ elements }) => {
 
     return (
       <ErrorBoundary key={index}>
-        <Element
-          elements={innerElements}
-          setInnerElements={setInnerElements}
-          editable={true}
-          elementParams={elementParams}
-          index={index}
-          moveUp={moveUp}
-          moveDown={moveDown}
+        <EditableElement
+          onUp={moveUp}
+          onDown={moveDown}
           canMoveUp={canMoveUp}
           canMoveDown={canMoveDown}
-        />
+          elementParams={elementParams}
+        >
+          <Element elementParams={elementParams} />
+        </EditableElement>
       </ErrorBoundary>
     )
   })

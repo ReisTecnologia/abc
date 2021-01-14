@@ -3,46 +3,19 @@ import { ElementWrapper } from './ElementWrapper'
 import PropTypes from 'prop-types'
 import { addBucketPrefixesToElementParams } from './addBucketPrefixesToElementParams'
 import { renderElement } from './renderElement'
-import { Description } from './Description'
-import { EditableElement } from '../EditableElement'
 
-export const Element = ({
-  actual,
-  elementParams,
-  editable,
-  moveUp,
-  moveDown,
-  canMoveUp,
-  canMoveDown,
-  onComplete,
-}) => {
+export const Element = ({ elementParams, actual, onComplete }) => {
   const elementParamsWithBucketUrls = addBucketPrefixesToElementParams(
     elementParams
   )
 
   const element = renderElement({
     elementParamsWithBucketUrls,
-    onComplete,
     actual,
+    onComplete,
   })
 
-  return (
-    <ElementWrapper>
-      {editable ? (
-        <EditableElement
-          canMoveUp={canMoveUp}
-          canMoveDown={canMoveDown}
-          onUp={moveUp}
-          onDown={moveDown}
-        >
-          {element}
-        </EditableElement>
-      ) : (
-        element
-      )}
-      {editable && <Description elementParams={elementParamsWithBucketUrls} />}
-    </ElementWrapper>
-  )
+  return <ElementWrapper>{element}</ElementWrapper>
 }
 
 Element.propTypes = {
