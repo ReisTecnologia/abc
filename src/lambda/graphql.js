@@ -43,8 +43,28 @@ const typeDefs = gql`
     lesson: Lesson
   }
 
+  input WordLessonInput {
+    startsWithTheLetter: Boolean!
+    word: String!
+    urlRightAnswerExplanation: String
+    urlWrongAnswerExplanation: String
+    urlWord: String
+  }
+
+  input ElementLessonInput {
+    type: String
+    letter: String
+    correctLetters: [String]
+    audioUrls: [String]
+    urlVideo: String
+    description: String
+    text: String
+    words: [WordLessonInput]
+  }
+
   input EditLessonInput {
-    name: String!
+    name: String
+    elements: [ElementLessonInput]
   }
 
   type Query {
@@ -93,11 +113,12 @@ const resolvers = {
     editLesson: async (parent, args) => {
       let success = false
       let lesson = false
-      await db.editLesson(args.id, args.input.name).then((updatedItem) => {
-        console.log('updatedItem >', updatedItem)
-        lesson = updatedItem
-        success = true
-      })
+      await db
+        .editLesson(args.id, args.input.name, args.input.elements)
+        .then((updatedItem) => {
+          lesson = updatedItem
+          success = true
+        })
       return { success, lesson }
     },
   },

@@ -60,16 +60,22 @@ const addLesson = (id) => {
   return docClient.put(params).promise()
 }
 
-const editLesson = (id, name) => {
+const editLesson = (id, name, elements) => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
     TableName: TABLE_NAME,
     Key: { id: id },
-    ExpressionAttributeNames: { '#updatedName': 'name' },
-    ExpressionAttributeValues: { ':name': name, ':id': id },
+    ExpressionAttributeNames: { '#name': name ? 'name' : null, '#id': 'id' },
+    ExpressionAttributeValues: {
+      ':newName': name ? name : null,
+      ':id': id,
+      ':elements': elements ? elements : null,
+    },
     ReturnValues: 'ALL_NEW',
-    UpdateExpression: 'set #updatedName = :name',
-    ConditionExpression: ':id = id',
+    UpdateExpression: name
+      ? 'set #name = :newName'
+      : 'set elements = :elements',
+    ConditionExpression: ':id = #id AND :newName <> :elements',
   }
 
   return docClient
