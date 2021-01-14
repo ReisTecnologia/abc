@@ -1,10 +1,10 @@
 import React from 'react'
-import { AudioElement } from '../../AudioElement'
-import { ClickWordStartingWithALetterInTheTextTaskElement } from '../../ClickWordStartingWithALetterInTheTextTaskElement'
-import { ClickLetterInTheTextTaskElement } from '../../ClickLetterInTheTextTaskElement'
-import { LetterAndAudioElement } from '../../LetterAndAudioElement'
-import { VideoElement } from '../../VideoElement'
-import { CheckFirstLetter } from '../../CheckFirstLetter'
+import { AudioElement } from '../AudioElement'
+import { ClickWordStartingWithALetterInTheTextTaskElement } from '../ClickWordStartingWithALetterInTheTextTaskElement'
+import { ClickLetterInTheTextTaskElement } from '../ClickLetterInTheTextTaskElement'
+import { LetterAndAudioElement } from '../LetterAndAudioElement'
+import { VideoElement } from '../VideoElement'
+import { CheckFirstLetter } from '../CheckFirstLetter'
 
 export const renderElement = ({
   elementParamsWithBucketUrls: {
@@ -18,7 +18,6 @@ export const renderElement = ({
   },
   onComplete,
   actual,
-  index,
 }) => {
   switch (type) {
     case 'LetterAndAudio':
@@ -26,7 +25,6 @@ export const renderElement = ({
         <LetterAndAudioElement
           onComplete={onComplete}
           actual={actual}
-          key={index}
           letter={letter}
           audioUrls={audioUrls}
         />
@@ -36,7 +34,6 @@ export const renderElement = ({
         <AudioElement
           onComplete={onComplete}
           actual={actual}
-          key={index}
           audioUrls={audioUrls}
         />
       )
@@ -45,7 +42,6 @@ export const renderElement = ({
         <VideoElement
           onComplete={onComplete}
           actual={actual}
-          key={index}
           urlVideo={urlVideo}
         />
       )
@@ -54,7 +50,6 @@ export const renderElement = ({
         <CheckFirstLetter
           onComplete={onComplete}
           actual={actual}
-          key={index}
           audioUrls={audioUrls}
           conclusionAudio={audioUrls[1]}
           words={words}
@@ -65,7 +60,6 @@ export const renderElement = ({
         <ClickWordStartingWithALetterInTheTextTaskElement
           onComplete={onComplete}
           actual={actual}
-          key={index}
           audioUrls={audioUrls}
           letter={letter}
           text={text}
@@ -76,7 +70,6 @@ export const renderElement = ({
         <ClickLetterInTheTextTaskElement
           onComplete={onComplete}
           actual={actual}
-          key={index}
           audioUrls={audioUrls}
           correctLetters={correctLetters}
           text={text}

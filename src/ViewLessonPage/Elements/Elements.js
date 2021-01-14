@@ -1,21 +1,17 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Element } from './Element/Element'
-import ErrorBoundary from '../ErrorBoundary'
+import { Element } from '../../shared/Element/Element'
+import ErrorBoundary from '../../shared/ErrorBoundary'
 
-export const Elements = ({ elements, editable }) => {
-  const [innerElements, setInnerElements] = useState(elements)
+export const Elements = ({ elements }) => {
   const [actualElement, setActualElement] = useState(0)
 
-  return innerElements.map((elementParams, index) => (
+  return elements.map((elementParams, index) => (
     <ErrorBoundary key={index}>
       <Element
-        innerElements={innerElements}
-        setInnerElements={setInnerElements}
-        editable={editable}
+        actual={actualElement === index}
+        editable={false}
         elementParams={elementParams}
-        index={index}
-        actualElement={actualElement}
         setActualElement={setActualElement}
       />
     </ErrorBoundary>
@@ -23,7 +19,6 @@ export const Elements = ({ elements, editable }) => {
 }
 
 Elements.propTypes = {
-  editable: PropTypes.bool,
   elements: PropTypes.arrayOf(
     PropTypes.shape({
       type: PropTypes.string,
