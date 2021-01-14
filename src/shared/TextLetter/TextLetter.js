@@ -65,10 +65,8 @@ export const TextLetter = ({
   const noWrongLettersAreClicked = wrongClickedLetters.length === 0
 
   const clearStatus = allCorrectLettersAreClicked && noWrongLettersAreClicked
-
   useEffect(() => {
     if (clearStatus) {
-      console.log('clear... ', clearStatus, onComplete)
       onComplete && onComplete()
     }
   }, [onComplete, clearStatus])

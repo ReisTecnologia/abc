@@ -1,15 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { Element } from '../../shared/Element/Element'
 import ErrorBoundary from '../../shared/ErrorBoundary'
 
-export const Elements = ({ elements }) => {
+export const ViewableElements = ({ elements }) => {
   const [actualElement, setActualElement] = useState(0)
+
+  const onComplete = useCallback(() => {
+    setActualElement((actualValue) => {
+      return actualValue + 1
+    })
+  }, [setActualElement])
 
   return elements.map((elementParams, index) => (
     <ErrorBoundary key={index}>
       <Element
         actual={actualElement === index}
+        onComplete={onComplete}
         editable={false}
         elementParams={elementParams}
         setActualElement={setActualElement}
@@ -18,7 +25,7 @@ export const Elements = ({ elements }) => {
   ))
 }
 
-Elements.propTypes = {
+ViewableElements.propTypes = {
   elements: PropTypes.arrayOf(
     PropTypes.shape({
       type: PropTypes.string,

@@ -1,10 +1,10 @@
 import { useState, useCallback } from 'react'
 
-export const useCompleteState = ({ onComplete, actual = false }) => {
+export const useCompleteState = ({ onComplete }) => {
   const [complete, setComplete] = useState(false)
   const doComplete = useCallback(() => {
-    onComplete && onComplete({ actual })
+    onComplete && onComplete()
     setComplete(true)
-  }, [setComplete, onComplete, actual])
+  }, [setComplete, onComplete])
   return { complete, doComplete }
 }

@@ -1,11 +1,11 @@
 import React from 'react'
-import { Elements } from './Elements'
+import { EditableElements } from './EditableElements'
 
-const Template = (args) => <Elements {...args} />
+const Template = (args) => <EditableElements {...args} />
 
 export default {
-  title: 'Elements/Elements',
-  component: Elements,
+  title: 'Elements/EditableElements',
+  component: EditableElements,
   argTypes: { onComplete: { action: 'onComplete' } },
 }
 
@@ -69,13 +69,8 @@ const defaultArgs = {
   ],
 }
 
-export const BasicElements = Template.bind({})
-BasicElements.args = {
-  elements: defaultArgs.elements,
-}
-
-export const EditableElements = Template.bind({})
-EditableElements.args = {
+export const BasicEditableElements = Template.bind({})
+BasicEditableElements.args = {
   editable: true,
   elements: defaultArgs.elements,
 }

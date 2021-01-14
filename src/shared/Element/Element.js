@@ -10,19 +10,16 @@ export const Element = ({
   actual,
   elementParams,
   editable,
-  setActualElement,
   moveUp,
   moveDown,
   canMoveUp,
   canMoveDown,
+  onComplete,
 }) => {
-  const onComplete = () => {
-    setActualElement((actualElement) => actualElement + 1)
-  }
-
   const elementParamsWithBucketUrls = addBucketPrefixesToElementParams(
     elementParams
   )
+
   const element = renderElement({
     elementParamsWithBucketUrls,
     onComplete,
@@ -67,4 +64,5 @@ Element.propTypes = {
   moveDown: PropTypes.func,
   canMoveUp: PropTypes.bool,
   canMoveDown: PropTypes.bool,
+  onComplete: PropTypes.func,
 }
