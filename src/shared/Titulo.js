@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const Titulo = styled.div`
+  cursor: ${({ onClick }) => (onClick ? 'pointer' : null)};
   width: 100%;
   background: var(--primary-color);
   color: #fff;
