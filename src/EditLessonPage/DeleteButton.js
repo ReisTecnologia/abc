@@ -18,10 +18,7 @@ export const DeleteButton = ({ id, afterDelete }) => {
   })
   const confirmAndDelete = () => {
     var response = window.confirm('delete?')
-    if (response) {
-      mutate()
-      afterDelete()
-    }
+    response && mutate()
   }
   return loading ? '...' : <button onClick={confirmAndDelete}>-</button>
 }

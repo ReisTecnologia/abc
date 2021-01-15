@@ -5,7 +5,7 @@ import { Layout } from '../shared/Layout'
 import { Container } from '../shared/Container'
 import { Titulo } from '../shared/Titulo'
 import { Rodape } from '../shared/Rodape'
-import { Elements } from './Elements'
+import { ViewableElements } from './ViewableElements/ViewableElements'
 import { LESSON_QUERY } from '../shared/LESSON_QUERY'
 
 export const Lesson = () => {
@@ -16,7 +16,7 @@ export const Lesson = () => {
     <Layout>
       <Titulo>{data.lesson.name}</Titulo>
       <Container>
-        <Elements elements={data.lesson.elements} />
+        <ViewableElements elements={data.lesson.elements} />
       </Container>
       <Rodape />
     </Layout>
