@@ -2,7 +2,7 @@ import React from 'react'
 import { gql, useQuery } from '@apollo/client'
 import { AddLessonButton } from './AddLessonButton'
 import { BasicLayout, LessonListLayout, StyledLink } from '../Layout'
-import './LoadSpinner.css'
+import { LoadingDots } from './LoadingDots'
 
 const LESSONS = gql`
   query {
@@ -23,7 +23,7 @@ export const LessonsPage = () => {
       <h1> Aulas </h1>
       <LessonListLayout>
         {loading ? (
-          <div className="loader" />
+          <LoadingDots />
         ) : (
           lessons.map((lesson) => (
             <span key={lesson.id}>
