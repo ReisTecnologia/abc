@@ -16,8 +16,10 @@ const LESSONS = gql`
 export const LessonsPage = () => {
   const { data, refetch, loading } = useQuery(LESSONS, {
     notifyOnNetworkStatusChange: true,
+    fetchPolicy: 'cache-and-network',
   })
   const lessons = data && data.lessons ? data.lessons : []
+
   return (
     <BasicLayout>
       <h1> Aulas </h1>
