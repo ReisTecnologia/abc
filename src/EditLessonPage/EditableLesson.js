@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useQuery } from '@apollo/client'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { Layout } from '../shared/Layout'
 import { Container } from '../shared/Container'
 import { Titulo } from '../shared/Titulo'
@@ -19,6 +19,10 @@ export const EditableLesson = () => {
   const showTitleInput = () => setClicked(true)
   const hideTitleInput = () => setClicked(false)
 
+  let history = useHistory()
+  const navigateToHome = () => {
+    history.push('/')
+  }
   return data ? (
     <Layout>
       <Titulo onClick={showTitleInput}>
@@ -32,10 +36,7 @@ export const EditableLesson = () => {
           <span> EDIT: {data.lesson.name} </span>
         )}
 
-        <DeleteButton
-          id={data.lesson.id}
-          afterDelete={() => alert('navigate to the list')}
-        />
+        <DeleteButton id={data.lesson.id} afterDelete={navigateToHome} />
       </Titulo>
       <Container>
         <EditableElements elements={data.lesson.elements} />
