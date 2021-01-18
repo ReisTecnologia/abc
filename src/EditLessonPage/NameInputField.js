@@ -61,7 +61,7 @@ export const NameInputField = ({ name, id }) => {
     return () => {
       document.removeEventListener('keydown', listener)
     }
-  }, [])
+  }, [handleSubmit])
 
   const ref = useRef()
 
