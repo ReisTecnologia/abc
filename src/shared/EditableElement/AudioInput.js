@@ -2,16 +2,16 @@ import React, { useState, useRef, useEffect } from 'react'
 import { gql } from '@apollo/client'
 import { v4 as uuidv4 } from 'uuid'
 
-export const EDIT_LESSON_NAME = gql`
-  mutation editLesson($id: ID!, $input: EditLessonInput!) {
-    editLesson(id: $id, input: $input) {
-      success
-      lesson {
-        name
-      }
-    }
-  }
-`
+// export const EDIT_LESSON_NAME = gql`
+//   mutation editLesson($id: ID!, $input: EditLessonInput!) {
+//     editLesson(id: $id, input: $input) {
+//       success
+//       lesson {
+//         name
+//       }
+//     }
+//   }
+// `
 const formData = new FormData()
 
 export const AudioInput = ({ id, audioUrls }) => {
