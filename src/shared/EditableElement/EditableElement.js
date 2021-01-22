@@ -12,6 +12,7 @@ export const EditableElement = ({
   canMoveUp,
   canMoveDown,
   elementParams,
+  id,
 }) => {
   return (
     <EditableElementWrapper>
@@ -20,7 +21,7 @@ export const EditableElement = ({
         {canMoveUp ? <div /> : <Button onClick={onUp}>up</Button>}
         {canMoveDown ? <div /> : <Button onClick={onDown}>down</Button>}
       </UpDownWrapper>
-      <Description elementParams={elementParams} />
+      <Description elementParams={elementParams} id={id} />
     </EditableElementWrapper>
   )
 }

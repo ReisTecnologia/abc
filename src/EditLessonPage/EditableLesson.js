@@ -39,7 +39,10 @@ export const EditableLesson = () => {
         <DeleteButton id={data.lesson.id} afterDelete={navigateToHome} />
       </Titulo>
       <Container>
-        <EditableElements elements={data.lesson.elements} />
+        <EditableElements
+          elements={data.lesson.elements}
+          lessonId={data.lesson.id}
+        />
       </Container>
       <Rodape />
     </Layout>
