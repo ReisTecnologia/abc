@@ -22,22 +22,28 @@ export const AudioInput = ({ id, audioUrls }) => {
     setData(e.target.files[0])
   }
 
-  const handleSubmit = useCallback(async function () {
-    if (!data) return
-    else {
-      const nameTest = id + '-' + uuidv4() + '.' + data.type.split('/')[0]
-      formData.append('fileupload', data, nameTest)
-      const res = await fetch(
-        'https://flamboyant-bell-129af8.netlify.app/.netlify/functions/fileUpload',
-        {
-          method: 'POST',
-          body: formData,
-          mode: 'no-cors',
-        }
-      )
-      return console.log('res', res)
-    }
-  })
+  const handleSubmit = useCallback(
+    async function () {
+      if (!data) return
+      else {
+        const nameTest = id + '-' + uuidv4() + '.' + data.type.split('/')[0]
+        formData.append('fileupload', data, nameTest)
+        const res = await fetch(
+          'https://flamboyant-bell-129af8.netlify.app/.netlify/functions/fileUpload',
+          {
+            method: 'POST',
+            body: formData,
+            mode: 'no-cors',
+          }
+        )
+          .then((data) => console.log('data', data))
+          .then((result) => {
+            console.log('result', result)
+          })
+      }
+    },
+    [data]
+  )
 
   const toggleFileInput = () => setClicked(true)
   const hideFileInput = () => setClicked(false)
@@ -82,9 +88,9 @@ export const AudioInput = ({ id, audioUrls }) => {
     <div>
       <b>Audio Urls:</b>
       {audioUrls
-        ? audioUrls.map((audioUrl) => {
+        ? audioUrls.map((audioUrl, audioIndex) => {
             return (
-              <b ref={ref} onClick={toggleFileInput}>
+              <b ref={ref} onClick={toggleFileInput} key={audioIndex}>
                 {clicked && (
                   <label>
                     Upload Audio:
@@ -94,7 +100,6 @@ export const AudioInput = ({ id, audioUrls }) => {
                         name="fileupload"
                         onChange={handleFile}
                       />
-                      <input type="hidden" name="filename" />
                     </form>
                   </label>
                 )}
