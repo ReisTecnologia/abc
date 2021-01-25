@@ -1,17 +1,17 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { gql } from '@apollo/client'
 import { v4 as uuidv4 } from 'uuid'
 
-export const EDIT_LESSON_NAME = gql`
-  mutation editLesson($id: ID!, $input: EditLessonInput!) {
-    editLesson(id: $id, input: $input) {
-      success
-      lesson {
-        name
-      }
-    }
-  }
-`
+// export const EDIT_LESSON_NAME = gql`
+//   mutation editLesson($id: ID!, $input: EditLessonInput!) {
+//     editLesson(id: $id, input: $input) {
+//       success
+//       lesson {
+//         name
+//       }
+//     }
+//   }
+// `
 const formData = new FormData()
 
 export const AudioInput = ({ id, audioUrls }) => {
@@ -22,7 +22,7 @@ export const AudioInput = ({ id, audioUrls }) => {
     setData(e.target.files[0])
   }
 
-  const handleSubmit = async function () {
+  const handleSubmit = useCallback(async function () {
     if (!data) return
     else {
       const nameTest = id + '-' + uuidv4() + '.' + data.type.split('/')[0]
@@ -37,7 +37,7 @@ export const AudioInput = ({ id, audioUrls }) => {
       )
       return console.log('res', res)
     }
-  }
+  })
 
   const toggleFileInput = () => setClicked(true)
   const hideFileInput = () => setClicked(false)
@@ -80,30 +80,29 @@ export const AudioInput = ({ id, audioUrls }) => {
 
   return (
     <div>
-      {audioUrls ? (
-        audioUrls.map((audioUrl) => {
-          return (
-            <b ref={ref} onClick={toggleFileInput}>
-              {clicked && (
-                <label>
-                  Upload Audio:
-                  <form onSubmit={handleSubmit}>
-                    <input
-                      type="file"
-                      name="fileupload"
-                      onChange={handleFile}
-                    />
-                    <input type="hidden" name="filename" />
-                  </form>
-                </label>
-              )}
-              {!clicked && <b> Audio Urls: {audioUrl}</b>}
-            </b>
-          )
-        })
-      ) : (
-        <b>Audio Urls:</b>
-      )}
+      <b>Audio Urls:</b>
+      {audioUrls
+        ? audioUrls.map((audioUrl) => {
+            return (
+              <b ref={ref} onClick={toggleFileInput}>
+                {clicked && (
+                  <label>
+                    Upload Audio:
+                    <form onSubmit={handleSubmit}>
+                      <input
+                        type="file"
+                        name="fileupload"
+                        onChange={handleFile}
+                      />
+                      <input type="hidden" name="filename" />
+                    </form>
+                  </label>
+                )}
+                {!clicked && <b> {audioUrl}</b>}
+              </b>
+            )
+          })
+        : null}
     </div>
   )
 }
