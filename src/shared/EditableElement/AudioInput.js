@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react'
-import { gql } from '@apollo/client'
+// import { gql } from '@apollo/client'
 import { v4 as uuidv4 } from 'uuid'
 
 // export const EDIT_LESSON_NAME = gql`
@@ -33,16 +33,12 @@ export const AudioInput = ({ id, audioUrls }) => {
           {
             method: 'POST',
             body: formData,
-            mode: 'no-cors',
           }
-        )
-          .then((data) => console.log('data', data))
-          .then((result) => {
-            console.log('result', result)
-          })
+        ).then((data) => console.log('data', data))
+        console.log('res', res)
       }
     },
-    [data]
+    [data, id]
   )
 
   const toggleFileInput = () => setClicked(true)
