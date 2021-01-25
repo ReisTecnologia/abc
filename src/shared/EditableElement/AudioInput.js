@@ -26,6 +26,7 @@ export const AudioInput = ({ id, audioUrls }) => {
     async function () {
       if (!data) return
       else {
+        formData.delete('fileupload')
         const nameTest = id + '-' + uuidv4() + '.' + data.type.split('/')[0]
         formData.append('fileupload', data, nameTest)
         const res = await fetch(
