@@ -2,6 +2,7 @@ import React from 'react'
 
 import PropTypes from 'prop-types'
 import { gql, useMutation } from '@apollo/client'
+import { DeleteButtonWrapper } from './DeleteButtonWrapper'
 
 const DELETE_LESSON = gql`
   mutation DeleteLesson($id: ID!) {
@@ -20,7 +21,13 @@ export const DeleteButton = ({ id, afterDelete }) => {
     var response = window.confirm('delete?')
     response && mutate()
   }
-  return loading ? '...' : <button onClick={confirmAndDelete}>-</button>
+  return loading ? (
+    '...'
+  ) : (
+    <DeleteButtonWrapper>
+      <button onClick={confirmAndDelete}>-</button>
+    </DeleteButtonWrapper>
+  )
 }
 
 DeleteButton.propTypes = {

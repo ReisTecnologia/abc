@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useQuery } from '@apollo/client'
 import { useParams, useHistory } from 'react-router-dom'
 import { Layout } from '../shared/Layout'
@@ -14,28 +14,15 @@ export const EditableLesson = () => {
   let { lesson } = useParams()
   const { data } = useQuery(LESSON_QUERY, { variables: { id: lesson } })
 
-  const [clicked, setClicked] = useState(false)
-
-  const showTitleInput = () => setClicked(true)
-  const hideTitleInput = () => setClicked(false)
-
   let history = useHistory()
   const navigateToHome = () => {
     history.push('/')
   }
+
   return data ? (
     <Layout>
-      <Titulo onClick={showTitleInput}>
-        {clicked ? (
-          <NameInputField
-            name={data.lesson.name}
-            id={data.lesson.id}
-            cancel={hideTitleInput}
-          />
-        ) : (
-          <span> EDIT: {data.lesson.name} </span>
-        )}
-
+      <Titulo>
+        <NameInputField name={data.lesson.name} id={data.lesson.id} />
         <DeleteButton id={data.lesson.id} afterDelete={navigateToHome} />
       </Titulo>
       <Container>
