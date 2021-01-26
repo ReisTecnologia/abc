@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { Element } from '../../shared/Element/Element'
 import ErrorBoundary from '../../shared/ErrorBoundary'
+import { ElementWrapper } from './ElementWrapper'
 
 export const ViewableElements = ({ elements }) => {
   const [actualElement, setActualElement] = useState(0)
@@ -14,13 +15,15 @@ export const ViewableElements = ({ elements }) => {
 
   return elements.map((elementParams, index) => (
     <ErrorBoundary key={index}>
-      <Element
-        actual={actualElement === index}
-        onComplete={onComplete}
-        editable={false}
-        elementParams={elementParams}
-        setActualElement={setActualElement}
-      />
+      <ElementWrapper>
+        <Element
+          actual={actualElement === index}
+          onComplete={onComplete}
+          editable={false}
+          elementParams={elementParams}
+          setActualElement={setActualElement}
+        />
+      </ElementWrapper>
     </ErrorBoundary>
   ))
 }

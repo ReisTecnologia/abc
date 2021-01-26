@@ -9,7 +9,7 @@ const Text = styled.div`
   text-align: left;
 `
 
-export const Description = ({ elementParams, id }) => {
+export const ElementParams = ({ elementParams, id }) => {
   const { type, description, audioUrls, urlVideo } = elementParams
   return (
     <Text>
@@ -22,7 +22,7 @@ export const Description = ({ elementParams, id }) => {
   )
 }
 
-Description.propTypes = {
+ElementParams.propTypes = {
   id: PropTypes.string.isRequired,
   elementParams: PropTypes.shape({
     type: PropTypes.string.isRequired,
