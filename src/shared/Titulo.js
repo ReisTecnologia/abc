@@ -2,6 +2,8 @@ import styled from 'styled-components'
 
 export const Titulo = styled.div`
   cursor: ${({ onClick }) => (onClick ? 'pointer' : null)};
+  display: flex;
+  justify-content: center;
   width: 100%;
   background: var(--primary-color);
   color: #fff;
