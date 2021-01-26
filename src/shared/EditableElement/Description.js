@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import { AudioInput } from './AudioInput'
 
 const Text = styled.div`
   padding: 0px 21px;
@@ -8,13 +9,13 @@ const Text = styled.div`
   text-align: left;
 `
 
-export const Description = ({ elementParams }) => {
+export const Description = ({ elementParams, id }) => {
   const { type, description, audioUrls, urlVideo } = elementParams
   return (
     <Text>
       <b>{type}</b> - {description}
       <br />
-      <b>audioUrls</b>: {audioUrls && audioUrls.join(', ')}
+      <AudioInput id={id} audioUrls={audioUrls} />
       <br />
       <b>urlVideo</b>: {urlVideo}
     </Text>
@@ -22,6 +23,7 @@ export const Description = ({ elementParams }) => {
 }
 
 Description.propTypes = {
+  id: PropTypes.string.isRequired,
   elementParams: PropTypes.shape({
     type: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
