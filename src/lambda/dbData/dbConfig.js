@@ -11,8 +11,8 @@ const devConfigs = {
 const prodConfigs = {
   aws_table_name: 'lessons',
   aws_config: {
-    accessKeyId: process.env.MY_AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.MY_AWS_SECRET_ACCESS_KEY,
+    accessKeyId: process.env.MY_AWS_DB_ACCESS_KEY_ID,
+    secretAccessKey: process.env.MY_AWS_DB_SECRET_ACCESS_KEY,
     region: 'sa-east-1',
   },
 }

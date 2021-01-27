@@ -6,8 +6,8 @@ const cors = require('cors')
 const upload = multer()
 const app = express()
 const s3 = new AWS.S3({
-  accessKeyId: process.env.MY_BUCKET_ACCESS_KEY_ID,
-  secretAccessKey: process.env.MY_BUCKET_SECRET_ACCESS_KEY,
+  accessKeyId: process.env.MY_AWS_BUCKET_ACCESS_KEY_ID,
+  secretAccessKey: process.env.MY_AWS_BUCKET_SECRET_ACCESS_KEY,
 })
 
 app.use((req, res, next) => {
