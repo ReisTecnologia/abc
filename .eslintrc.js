@@ -3,27 +3,28 @@ module.exports = {
   env: {
     // es6: true,
     browser: true,
-    node: true
+    node: true,
   },
   parserOptions: {
     parser: 'babel-eslint',
     ecmaVersion: 2020,
     sourceType: 'module',
     ecmaFeatures: {
-      jsx: true
-    }
+      jsx: true,
+    },
   },
-  extends: [
-    'plugin:react/recommended',
-    'plugin:prettier/recommended'
-  ],
+  extends: ['plugin:react/recommended', 'plugin:prettier/recommended'],
   plugins: [],
   rules: {
-    "no-unused-vars": ["error", { "varsIgnorePattern": "_", "argsIgnorePattern": "_" }]
+    'no-unused-vars': [
+      'error',
+      { varsIgnorePattern: '_', argsIgnorePattern: '_' },
+    ],
+    'prettier/prettier': ['error', { endOfLine: 'auto' }],
   },
   settings: {
-    "react": {
-      "version": "detect"
-    }
-  }
+    react: {
+      version: 'detect',
+    },
+  },
 }
