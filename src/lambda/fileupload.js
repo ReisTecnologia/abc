@@ -28,7 +28,7 @@ app.post(
         ContentType: req.file.mimetype,
       })
         .promise()
-        .then((err) => console.log(err))
+        .then((err) => console.log('err >', err))
         .then(() => res.sendStatus(200))
     } else res.sendStatus(403)
   }
