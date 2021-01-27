@@ -52,7 +52,6 @@ export const AudioInput = ({ audioUrls }) => {
               if (!data) return
               else {
                 setLoading(true)
-                console.log('data', data)
                 formData.delete('fileupload')
                 formData.append('fileupload', data, audioUrl)
                 await fetch(
