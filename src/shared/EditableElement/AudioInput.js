@@ -52,7 +52,7 @@ export const AudioInput = ({ audioUrls }) => {
                 console.log('data', data)
                 formData.delete('fileupload')
                 formData.append('fileupload', data, audioUrl)
-                const res = await fetch(
+                await fetch(
                   'https://awesome-boyd-6862d3.netlify.app/.netlify/functions/fileUpload',
                   {
                     method: 'POST',
@@ -60,7 +60,7 @@ export const AudioInput = ({ audioUrls }) => {
                   }
                 ).then((response) =>
                   response.ok
-                    ? alert('Upload Sucessful') & console.log(res)
+                    ? alert('Upload Sucessful')
                     : alert('Upload failed')
                 )
               }
