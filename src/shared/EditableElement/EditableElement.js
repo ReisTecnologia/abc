@@ -2,8 +2,10 @@ import React from 'react'
 import { EditableElementWrapper } from './EditableElementWrapper'
 import PropTypes from 'prop-types'
 import { UpDownWrapper } from './UpDownWrapper'
+import { ElementControlWrapper } from './ElementControlWrapper'
+import { ElementWrapper } from './ElementWrapper'
 import { Button } from './Button'
-import { Description } from './Description'
+import { ElementParams } from './ElementParams'
 
 export const EditableElement = ({
   children,
@@ -16,17 +18,24 @@ export const EditableElement = ({
 }) => {
   return (
     <EditableElementWrapper>
-      {children}
-      <UpDownWrapper>
-        {canMoveUp ? <div /> : <Button onClick={onUp}>up</Button>}
-        {canMoveDown ? <div /> : <Button onClick={onDown}>down</Button>}
-      </UpDownWrapper>
-      <Description elementParams={elementParams} id={id} />
+      <ElementControlWrapper>
+        <UpDownWrapper>
+          <Button disabled={!canMoveUp} onClick={onUp}>
+            up
+          </Button>
+          <Button disabled={!canMoveDown} onClick={onDown}>
+            down
+          </Button>
+        </UpDownWrapper>
+        <ElementParams elementParams={elementParams} id={id} />
+      </ElementControlWrapper>
+      <ElementWrapper>{children}</ElementWrapper>
     </EditableElementWrapper>
   )
 }
 
 EditableElement.propTypes = {
+  id: PropTypes.string,
   children: PropTypes.object,
   onUp: PropTypes.func,
   onDown: PropTypes.func,

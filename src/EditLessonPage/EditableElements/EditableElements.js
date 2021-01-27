@@ -8,8 +8,8 @@ export const EditableElements = ({ elements, lessonId }) => {
   const [innerElements, setInnerElements] = useState(elements)
 
   return innerElements.map((elementParams, index) => {
-    const canMoveUp = index === 0
-    const canMoveDown = index === elements.length - 1
+    const canMoveUp = index !== 0
+    const canMoveDown = index !== elements.length - 1
     const moveUp = () => {
       const reorderedElements = [...innerElements]
       reorderedElements[index - 1] = innerElements[index]
