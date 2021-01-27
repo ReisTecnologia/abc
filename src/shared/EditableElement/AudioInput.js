@@ -1,22 +1,12 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react'
-// import { gql } from '@apollo/client'
+import React, { useState, useRef, useEffect } from 'react'
 import { AudioUrlWrapper } from './AudioUrlWrapper'
+import PropTypes from 'prop-types'
 
-// export const EDIT_LESSON_NAME = gql`
-//   mutation editLesson($id: ID!, $input: EditLessonInput!) {
-//     editLesson(id: $id, input: $input) {
-//       success
-//       lesson {
-//         name
-//       }
-//     }
-//   }
-// `
 const formData = new FormData()
 
 // const generateAudioName = id + '-' + uuidv4() + '.' + data.type.split('/')[0]
 
-export const AudioInput = ({ id, audioUrls }) => {
+export const AudioInput = ({ audioUrls }) => {
   const [clicked, setClicked] = useState(false)
   const [data, setData] = useState()
 
@@ -56,28 +46,26 @@ export const AudioInput = ({ id, audioUrls }) => {
       <b>Audio Urls:</b>
       {audioUrls
         ? audioUrls.map((audioUrl, audioIndex) => {
-            const handleSubmit = useCallback(
-              async function () {
-                if (!data) return
-                else {
-                  console.log('data', data)
-                  formData.delete('fileupload')
-                  formData.append('fileupload', data, audioUrl)
-                  const res = await fetch(
-                    'https://flamboyant-bell-129af8.netlify.app/.netlify/functions/fileUpload',
-                    {
-                      method: 'POST',
-                      body: formData,
-                    }
-                  ).then((response) =>
-                    response.ok
-                      ? alert('Upload Sucessful')
-                      : alert('Upload failed')
-                  )
-                }
-              },
-              [data, id]
-            )
+            const handleSubmit = async function () {
+              if (!data) return
+              else {
+                console.log('data', data)
+                formData.delete('fileupload')
+                formData.append('fileupload', data, audioUrl)
+                const res = await fetch(
+                  'https://awesome-boyd-6862d3.netlify.app/.netlify/functions/fileUpload',
+                  {
+                    method: 'POST',
+                    body: formData,
+                  }
+                ).then((response) =>
+                  response.ok
+                    ? alert('Upload Sucessful') & console.log(res)
+                    : alert('Upload failed')
+                )
+              }
+            }
+
             return (
               <b key={audioIndex}>
                 {clicked && (
@@ -108,4 +96,7 @@ export const AudioInput = ({ id, audioUrls }) => {
         : null}
     </div>
   )
+}
+AudioInput.propTypes = {
+  audioUrls: PropTypes.arrayOf(PropTypes.string),
 }
