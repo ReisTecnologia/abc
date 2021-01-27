@@ -1,5 +1,4 @@
-import React from 'react'
-import { ElementWrapper } from './ElementWrapper'
+// import React from 'react'
 import PropTypes from 'prop-types'
 import { addBucketPrefixesToElementParams } from './addBucketPrefixesToElementParams'
 import { renderElement } from './renderElement'
@@ -9,13 +8,11 @@ export const Element = ({ elementParams, actual, onComplete }) => {
     elementParams
   )
 
-  const element = renderElement({
+  return renderElement({
     elementParamsWithBucketUrls,
     actual,
     onComplete,
   })
-
-  return <ElementWrapper>{element}</ElementWrapper>
 }
 
 Element.propTypes = {
