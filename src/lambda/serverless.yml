@@ -1,0 +1,46 @@
+
+service: fileUpload
+
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+ iamRoleStatements:
+   - Effect: "Allow"
+     Action:
+       - "s3:*"
+     Resource: "arn:aws:s3:::alfabetizaserver/*"
+
+
+functions:
+  app:
+    handler: fileUpload.handler
+    events:
+      - http:
+          path: fileUpload
+          method: post
+          cors: true
+          async: true
+
+
+resources:
+ Resources:
+   UploadBucket:
+     Type: AWS::S3::Bucket
+     Properties:
+       BucketName: alfabetizaserver
+       AccessControl: PublicRead
+        CorsConfiguration:
+          CorsRules:
+          - AllowedMethods:
+            - GET
+            - PUT
+            - POST
+            - HEAD
+            AllowedOrigins:
+            - "*"
+            AllowedHeaders:
+            - "*"
