@@ -12,10 +12,6 @@ export const AudioInput = ({ audioUrl }) => {
   const [clicked, setClicked] = useState(false)
   const [data, setData] = useState()
   const [loading, setLoading] = useState(false)
-  console.log(
-    'process.env.REACT_APP_NTL_FUNCTION_ENDPOINT',
-    process.env.REACT_APP_NTL_FUNCTION_ENDPOINT
-  )
 
   const handleSubmit = async function () {
     if (!data) return
@@ -23,7 +19,7 @@ export const AudioInput = ({ audioUrl }) => {
       setLoading(true)
       formData.delete('fileupload')
       formData.append('fileupload', data, audioUrl)
-      await fetch(process.env.REACT_APP_NTL_FUNCTION_ENDPOINT, {
+      await fetch(process.env.NETLIFY_FUNCTION_ENDPOINT, {
         method: 'POST',
         body: formData,
       })

@@ -12,10 +12,7 @@ const LESSONS = gql`
     }
   }
 `
-console.log(
-  'process.env.REACT_APP_NTL_FUNCTION_ENDPOINT',
-  process.env.REACT_APP_NTL_FUNCTION_ENDPOINT
-)
+
 export const LessonsPage = () => {
   const { data, refetch, loading } = useQuery(LESSONS, {
     notifyOnNetworkStatusChange: true,
