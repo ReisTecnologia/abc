@@ -1,46 +1,20 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react'
-// import { gql } from '@apollo/client'
-import { v4 as uuidv4 } from 'uuid'
+import React, { useState, useRef, useEffect } from 'react'
+import { AudioUrlWrapper } from './AudioUrlWrapper'
+import PropTypes from 'prop-types'
+import { Spinner } from './LoadingSpinner'
 
-// export const EDIT_LESSON_NAME = gql`
-//   mutation editLesson($id: ID!, $input: EditLessonInput!) {
-//     editLesson(id: $id, input: $input) {
-//       success
-//       lesson {
-//         name
-//       }
-//     }
-//   }
-// `
 const formData = new FormData()
 
-export const AudioInput = ({ id, audioUrls }) => {
+// const generateAudioName = id + '-' + uuidv4() + '.' + data.type.split('/')[0]
+
+export const AudioInput = ({ audioUrls }) => {
   const [clicked, setClicked] = useState(false)
   const [data, setData] = useState()
+  const [loading, setLoading] = useState(false)
 
   const handleFile = (e) => {
     setData(e.target.files[0])
   }
-
-  const handleSubmit = useCallback(
-    async function () {
-      if (!data) return
-      else {
-        formData.delete('fileupload')
-        const nameTest = id + '-' + uuidv4() + '.' + data.type.split('/')[0]
-        formData.append('fileupload', data, nameTest)
-        const res = await fetch(
-          'https://flamboyant-bell-129af8.netlify.app/.netlify/functions/fileUpload',
-          {
-            method: 'POST',
-            body: formData,
-          }
-        ).then((data) => console.log('data', data))
-        console.log('res', res)
-      }
-    },
-    [data, id]
-  )
 
   const toggleFileInput = () => setClicked(true)
   const hideFileInput = () => setClicked(false)
@@ -65,46 +39,93 @@ export const AudioInput = ({ id, audioUrls }) => {
     }, [ref, handler])
   }
 
-  useEffect(() => {
-    const listener = (event) => {
-      if (event.code === 'Enter' || event.code === 'NumpadEnter') {
-        handleSubmit()
-      }
-    }
-    document.addEventListener('keydown', listener)
-    return () => {
-      document.removeEventListener('keydown', listener)
-    }
-  }, [handleSubmit])
-
   const ref = useRef()
 
   useOnClickOutside(ref, hideFileInput)
 
   return (
-    <div>
+    <div ref={ref}>
       <b>Audio Urls:</b>
       {audioUrls
         ? audioUrls.map((audioUrl, audioIndex) => {
+            const handleSubmit = async function () {
+              if (!data) return
+              else {
+                setLoading(true)
+                formData.delete('fileupload')
+                formData.append('fileupload', data, audioUrl)
+                await fetch(
+                  'https://awesome-boyd-6862d3.netlify.app/.netlify/functions/fileUpload',
+                  {
+                    method: 'POST',
+                    body: formData,
+                  }
+                )
+                  .then((response) =>
+                    response.ok
+                      ? alert('Upload Sucessful')
+                      : alert('Upload failed')
+                  )
+                  .then(() => setLoading(false))
+              }
+            }
+
             return (
-              <b ref={ref} onClick={toggleFileInput} key={audioIndex}>
-                {clicked && (
-                  <label>
+              <b key={audioIndex}>
+                {clicked && loading ? (
+                  <Spinner />
+                ) : clicked && !loading ? (
+                  <div>
                     Upload Audio:
-                    <form onSubmit={handleSubmit}>
+                    <form>
                       <input
                         type="file"
                         name="fileupload"
                         onChange={handleFile}
                       />
+                      <input
+                        type="button"
+                        value="Upload Áudio"
+                        onClick={handleSubmit}
+                      />
                     </form>
-                  </label>
+                  </div>
+                ) : (
+                  <AudioUrlWrapper onClick={toggleFileInput}>
+                    {audioUrl}
+                  </AudioUrlWrapper>
                 )}
-                {!clicked && <b> {audioUrl}</b>}
               </b>
+              // <b key={audioIndex}>
+              //   {clicked && (
+              //     <div>
+              //       Upload Audio:
+              //       <form>
+              //         <input
+              //           type="file"
+              //           name="fileupload"
+              //           onChange={handleFile}
+              //         />
+              //         <input
+              //           type="button"
+              //           value="Upload Áudio"
+              //           onClick={handleSubmit}
+              //         />
+              //       </form>
+              //     </div>
+              //   )}
+              //   {!clicked && (
+              //     <AudioUrlWrapper onClick={toggleFileInput}>
+              //       {audioUrl}
+              //     </AudioUrlWrapper>
+              //   )}
+              // </b>
             )
           })
         : null}
     </div>
   )
+}
+AudioInput.propTypes = {
+  audioUrls: PropTypes.arrayOf(PropTypes.string),
 }
