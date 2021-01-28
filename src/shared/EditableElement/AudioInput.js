@@ -19,13 +19,10 @@ export const AudioInput = ({ audioUrl }) => {
       setLoading(true)
       formData.delete('fileupload')
       formData.append('fileupload', data, audioUrl)
-      await fetch(
-        'https://awesome-boyd-6862d3.netlify.app/.netlify/functions/fileUpload',
-        {
-          method: 'POST',
-          body: formData,
-        }
-      )
+      await fetch(process.env.MY_NETLIFY_FUNCTION_ENDPOINT, {
+        method: 'POST',
+        body: formData,
+      })
         .then((response) =>
           response.ok ? alert('Upload Sucessful') : alert('Upload failed')
         )
