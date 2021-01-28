@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { AudioInput } from './AudioInput'
 import { AddAudioButton } from './AddAudioButton'
+import { v4 as uuidv4 } from 'uuid'
 
 const Text = styled.div`
   padding: 0px 21px;
@@ -17,7 +18,8 @@ const ElementType = styled.div`
 export const ElementParams = ({ elementParams, updateElementParams, id }) => {
   const addAudio = () => {
     const newElementParams = { ...elementParams }
-    newElementParams.audioUrls = [...elementParams.audioUrls, 'dude.m4a']
+    const newAudioName = `${uuidv4()}.m4a`
+    newElementParams.audioUrls = [...elementParams.audioUrls, newAudioName]
     updateElementParams(newElementParams)
   }
   const { type, description, audioUrls, urlVideo } = elementParams
