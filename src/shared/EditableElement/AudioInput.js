@@ -6,8 +6,6 @@ import { AudioInputWrapper } from './AudioInputWrapper'
 
 const formData = new FormData()
 
-// const generateAudioName = id + '-' + uuidv4() + '.' + data.type.split('/')[0]
-
 export const AudioInput = ({ audioUrl }) => {
   const [clicked, setClicked] = useState(false)
   const [data, setData] = useState()
@@ -18,7 +16,6 @@ export const AudioInput = ({ audioUrl }) => {
     else {
       const url =
         'https://' + window.location.hostname + '/.netlify/functions/fileUpload'
-      console.log('url', url)
       setLoading(true)
       formData.delete('fileupload')
       formData.append('fileupload', data, audioUrl)
