@@ -19,7 +19,7 @@ export const AudioInput = ({ audioUrl }) => {
       setLoading(true)
       formData.delete('fileupload')
       formData.append('fileupload', data, audioUrl)
-      await fetch(process.env.NETLIFY_FUNCTION_ENDPOINT, {
+      await fetch(process.env.NETLIFY_UPLOAD_FUNCTION_ENDPOINT, {
         method: 'POST',
         body: formData,
       })
