@@ -98,11 +98,43 @@ and see it on
 http://localhost:3000/
 ```
 
-## configure remote db on Netlify
+## configure remote db and bucket on Netlify
 
-This project is setup using Netlify, meaning the enviroment variables used to grant the app access to the Dynamodb are configured on the Netlify. On the deploy settings you have to setup the appropriate value for your AWS Access Key ID and AWS Secret Key. The variables are MY_AWS_ACCESS_KEY_ID, with the value being your AWS Access Key ID and MY_AWS_SECRET_ACCESS_KEY with the value being your AWS Secret Key. Note: this is only if you want to use the actual Dynamodb, the local version uses a mock set of values for both keys.
+This project is setup using Netlify, meaning the enviroment variables used to grant the app access to the Dynamodb and S3 Bucket are configured on the Netlify. On the deploy settings you have to setup the appropriate value for your AWS Access Key ID and AWS Secret Key.
 
-When running the local version of Dynamodb you can create a table with the table name: `lessons` and insert 5 mock items with `id` and `name` as its attributes with their values being `1` through `5` and `A` , `E`, `I`, `O`, `U` respectively, by running the script `createTable.js` inside the folder `src/lambda/dbData/createTable.js` .
+The variables are:
+
+```
+MY_AWS_DB_ACCESS_KEY_ID
+```
+
+with the value being your AWS Access Key ID for your Dynamodb.
+
+```
+ MY_AWS_DB_SECRET_ACCESS_KEY
+```
+
+with the value being your AWS Secret Key for your Dynamodb.
+
+```
+MY_AWS_BUCKET_ACCESS_KEY_ID
+```
+
+with the value being your AWS Access Key ID for your S3 Bucket.
+
+```
+MY_AWS_BUCKET_SECRET_ACCESS_KEY
+```
+
+with the value being your AWS Secret Key for your S3 Bucket.
+
+```
+MY_AWS_BUCKET_NAME
+```
+
+with the value being your AWS S3 Bucket name.
+
+When running the local version of Dynamodb you can create a table with the table name: `lessons` and insert a mock lesson, by running the script `createTable.js` inside the folder `src/lambda/dbData/createTable.js` .
 
 ## Create-React-App-Lambda
 

@@ -12,6 +12,10 @@ export const AudioInput = ({ audioUrl }) => {
   const [clicked, setClicked] = useState(false)
   const [data, setData] = useState()
   const [loading, setLoading] = useState(false)
+  console.log(
+    'process.env.REACT_APP_NTL_FUNCTION_ENDPOINT',
+    process.env.REACT_APP_NTL_FUNCTION_ENDPOINT
+  )
 
   const handleSubmit = async function () {
     if (!data) return
