@@ -134,6 +134,12 @@ MY_AWS_BUCKET_NAME
 
 with the value being your AWS S3 Bucket name.
 
+```
+NETLIFY_UPLOAD_FUNCTION_ENDPOINT
+```
+
+with the value being your file upload function endpoint on netlify for example: `https://yourNetlifyApp/.netlify/functions/fileUpload`
+
 When running the local version of Dynamodb you can create a table with the table name: `lessons` and insert a mock lesson, by running the script `createTable.js` inside the folder `src/lambda/dbData/createTable.js` .
 
 ## Create-React-App-Lambda
