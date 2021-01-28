@@ -12,16 +12,11 @@ export const AudioInput = ({ audioUrl }) => {
   const [clicked, setClicked] = useState(false)
   const [data, setData] = useState()
   const [loading, setLoading] = useState(false)
-  console.log('window.location.host', window.location.host)
-  console.log(
-    'window target',
-    window.location.host + '/.netlify/functions/fileUpload'
-  )
 
   const handleSubmit = async function () {
     if (!data) return
     else {
-      const url = window.location.host + '/.netlify/functions/fileUpload'
+      const url = window.location.hostname + '/.netlify/functions/fileUpload'
       setLoading(true)
       formData.delete('fileupload')
       formData.append('fileupload', data, audioUrl)
