@@ -17,7 +17,7 @@ const ElementType = styled.div`
   margin-bottom: 5px;
 `
 
-export const ElementParams = ({ elementParams, updateElementParams, id }) => {
+export const ElementParams = ({ elementParams, updateElementParams }) => {
   const addAudio = () => {
     const newElementParams = { ...elementParams }
     const newAudioName = `${uuidv4()}.m4a`
@@ -36,7 +36,13 @@ export const ElementParams = ({ elementParams, updateElementParams, id }) => {
       <ElementType>{type}</ElementType>
       <TextInput value={description} onChange={changeDescription} />
       <br />
-      <AudioInput id={id} audioUrls={audioUrls} />
+      {audioUrls ? (
+        audioUrls.map((audioUrl, audioUrlKey) => (
+          <AudioInput audioUrl={audioUrl} key={audioUrlKey} />
+        ))
+      ) : (
+        <AudioInput audioUrl={null} />
+      )}
       <AddAudioButton onClick={addAudio} />
       <br />
       <b>urlVideo</b>: {urlVideo}

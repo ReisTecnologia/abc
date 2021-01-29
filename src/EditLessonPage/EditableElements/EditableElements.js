@@ -4,7 +4,7 @@ import { Element } from '../../shared/Element/Element'
 import { EditableElement } from '../../shared/EditableElement/EditableElement'
 import ErrorBoundary from '../../shared/ErrorBoundary'
 
-export const EditableElements = ({ elements, lessonId }) => {
+export const EditableElements = ({ elements }) => {
   const [innerElements, setInnerElements] = useState(elements)
 
   const updateElementParams = useCallback(
