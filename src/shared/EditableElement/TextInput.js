@@ -23,7 +23,7 @@ export const TextInput = ({ value, onChange }) => {
   const cleanAndHideInput = useCallback(() => {
     setInputValue(value)
     setShowInput(false)
-  }, [setShowInput])
+  }, [setShowInput, value])
 
   const onInputChange = useCallback(
     (event) => {
