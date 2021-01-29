@@ -43,7 +43,6 @@ export const EditableElements = ({ elements }) => {
           updateElementParams={(newElementParams) =>
             updateElementParams(index, newElementParams)
           }
-          id={lessonId}
         >
           <Element elementParams={elementParams} />
         </EditableElement>
