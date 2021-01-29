@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 import { gql } from '@apollo/client'
 import { useMutation } from '@apollo/client'
 import PropTypes from 'prop-types'
 import { NameInputFieldWrapper } from './NameInputFieldWrapper'
+import { useOnClickOutside } from '../shared/useOnClickOutside'
 
 export const EDIT_LESSON_NAME = gql`
   mutation editLesson($id: ID!, $input: EditLessonInput!) {
@@ -18,69 +19,42 @@ export const EDIT_LESSON_NAME = gql`
 export const NameInputField = ({ name, id }) => {
   const [lessonName, setLessonName] = useState(name)
 
-  const [clicked, setClicked] = useState(false)
+  const [showInput, setShowInput] = useState(false)
 
-  const showTitleInput = () => setClicked(true)
-  const hideTitleInput = () => setClicked(false)
+  const showTitleInput = () => setShowInput(true)
+  const hideTitleInput = () => setShowInput(false)
 
   const [handleSubmit] = useMutation(EDIT_LESSON_NAME, {
     variables: { id, input: { name: lessonName } },
   })
 
-  function useOnClickOutside(ref, handler) {
-    useEffect(() => {
-      const listener = (event) => {
-        if (!ref.current || ref.current.contains(event.target)) {
-          return
-        }
-
-        handler(event)
-      }
-
-      document.addEventListener('mousedown', listener)
-      document.addEventListener('touchstart', listener)
-
-      return () => {
-        document.removeEventListener('mousedown', listener)
-        document.removeEventListener('touchstart', listener)
-      }
-    }, [ref, handler])
-  }
-
   const handleInputChange = (e) => {
     setLessonName(e.target.value)
   }
 
-  useEffect(() => {
-    const listener = (event) => {
-      if (event.code === 'Enter' || event.code === 'NumpadEnter') {
-        handleSubmit()
-      }
+  const submitOnEnter = (e) => {
+    if (e.charCode === 13) {
+      handleSubmit().then(hideTitleInput)
     }
-    document.addEventListener('keydown', listener)
-    return () => {
-      document.removeEventListener('keydown', listener)
-    }
-  }, [handleSubmit])
+  }
 
-  const ref = useRef()
-
-  useOnClickOutside(ref, hideTitleInput)
+  const onClickOutsideRef = useOnClickOutside(hideTitleInput)
 
   return (
-    <NameInputFieldWrapper ref={ref} onClick={showTitleInput}>
-      {clicked && (
+    <NameInputFieldWrapper ref={onClickOutsideRef} onClick={showTitleInput}>
+      {showInput && (
         <label>
           Nome da Aula:
           <input
             type="text"
+            onKeyPress={submitOnEnter}
             value={lessonName}
             onChange={handleInputChange}
             onSubmit={handleSubmit}
           />
         </label>
       )}
-      {!clicked && <span> EDIT: {lessonName} </span>}
+      {!showInput && <span> EDIT: {lessonName} </span>}
     </NameInputFieldWrapper>
   )
 }

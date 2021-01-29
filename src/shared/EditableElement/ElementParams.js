@@ -4,11 +4,13 @@ import PropTypes from 'prop-types'
 import { AudioInput } from './AudioInput'
 import { AddAudioButton } from './AddAudioButton'
 import { v4 as uuidv4 } from 'uuid'
+import { TextInput } from './TextInput'
 
-const Text = styled.div`
+const Wrapper = styled.div`
   padding: 0px 21px;
   color: #555;
   text-align: left;
+  width: 100%;
 `
 
 const ElementType = styled.div`
@@ -22,17 +24,23 @@ export const ElementParams = ({ elementParams, updateElementParams, id }) => {
     newElementParams.audioUrls = [...elementParams.audioUrls, newAudioName]
     updateElementParams(newElementParams)
   }
+  const changeDescription = (newDescription) => {
+    updateElementParams({
+      ...elementParams,
+      description: newDescription,
+    })
+  }
   const { type, description, audioUrls, urlVideo } = elementParams
   return (
-    <Text>
+    <Wrapper>
       <ElementType>{type}</ElementType>
-      {description}
+      <TextInput value={description} onChange={changeDescription} />
       <br />
       <AudioInput id={id} audioUrls={audioUrls} />
       <AddAudioButton onClick={addAudio} />
       <br />
       <b>urlVideo</b>: {urlVideo}
-    </Text>
+    </Wrapper>
   )
 }
 
