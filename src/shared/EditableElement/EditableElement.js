@@ -14,6 +14,8 @@ export const EditableElement = ({
   canMoveUp,
   canMoveDown,
   elementParams,
+  updateElementParams,
+  id,
 }) => {
   return (
     <EditableElementWrapper>
@@ -26,7 +28,11 @@ export const EditableElement = ({
             down
           </Button>
         </UpDownWrapper>
-        <ElementParams elementParams={elementParams} />
+        <ElementParams
+          updateElementParams={updateElementParams}
+          elementParams={elementParams}
+          id={id}
+        />
       </ElementControlWrapper>
       <ElementWrapper>{children}</ElementWrapper>
     </EditableElementWrapper>
@@ -50,4 +56,5 @@ EditableElement.propTypes = {
     text: PropTypes.string,
     words: PropTypes.array,
   }),
+  updateElementParams: PropTypes.func,
 }
