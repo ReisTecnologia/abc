@@ -9,13 +9,19 @@ const Text = styled.div`
   text-align: left;
 `
 
-export const ElementParams = ({ elementParams, id }) => {
+export const ElementParams = ({ elementParams }) => {
   const { type, description, audioUrls, urlVideo } = elementParams
   return (
     <Text>
       <b>{type}</b> - {description}
-      <br />
-      <AudioInput id={id} audioUrls={audioUrls} />
+      <br /> <b>Audio Urls</b>:
+      {audioUrls ? (
+        audioUrls.map((audioUrl, audioUrlKey) => (
+          <AudioInput audioUrl={audioUrl} key={audioUrlKey} />
+        ))
+      ) : (
+        <AudioInput audioUrl={null} />
+      )}
       <br />
       <b>urlVideo</b>: {urlVideo}
     </Text>

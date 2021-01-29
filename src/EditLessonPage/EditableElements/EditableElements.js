@@ -4,7 +4,7 @@ import { Element } from '../../shared/Element/Element'
 import { EditableElement } from '../../shared/EditableElement/EditableElement'
 import ErrorBoundary from '../../shared/ErrorBoundary'
 
-export const EditableElements = ({ elements, lessonId }) => {
+export const EditableElements = ({ elements }) => {
   const [innerElements, setInnerElements] = useState(elements)
 
   return innerElements.map((elementParams, index) => {
@@ -32,7 +32,6 @@ export const EditableElements = ({ elements, lessonId }) => {
           canMoveUp={canMoveUp}
           canMoveDown={canMoveDown}
           elementParams={elementParams}
-          id={lessonId}
         >
           <Element elementParams={elementParams} />
         </EditableElement>

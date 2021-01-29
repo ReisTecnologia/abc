@@ -2,15 +2,33 @@ import React, { useState, useRef, useEffect } from 'react'
 import { AudioUrlWrapper } from './AudioUrlWrapper'
 import PropTypes from 'prop-types'
 import { Spinner } from './LoadingSpinner'
+import { AudioInputWrapper } from './AudioInputWrapper'
 
 const formData = new FormData()
 
-// const generateAudioName = id + '-' + uuidv4() + '.' + data.type.split('/')[0]
-
-export const AudioInput = ({ audioUrls }) => {
+export const AudioInput = ({ audioUrl }) => {
   const [clicked, setClicked] = useState(false)
   const [data, setData] = useState()
   const [loading, setLoading] = useState(false)
+
+  const handleSubmit = async function () {
+    if (!data) return
+    else {
+      const url =
+        'https://' + window.location.hostname + '/.netlify/functions/fileUpload'
+      setLoading(true)
+      formData.delete('fileupload')
+      formData.append('fileupload', data, audioUrl)
+      await fetch(url, {
+        method: 'POST',
+        body: formData,
+      })
+        .then((response) =>
+          response.ok ? alert('Upload Sucessful') : alert('Upload failed')
+        )
+        .then(() => setLoading(false))
+    }
+  }
 
   const handleFile = (e) => {
     setData(e.target.files[0])
@@ -44,88 +62,33 @@ export const AudioInput = ({ audioUrls }) => {
   useOnClickOutside(ref, hideFileInput)
 
   return (
-    <div ref={ref}>
-      <b>Audio Urls:</b>
-      {audioUrls
-        ? audioUrls.map((audioUrl, audioIndex) => {
-            const handleSubmit = async function () {
-              if (!data) return
-              else {
-                setLoading(true)
-                formData.delete('fileupload')
-                formData.append('fileupload', data, audioUrl)
-                await fetch(
-                  'https://awesome-boyd-6862d3.netlify.app/.netlify/functions/fileUpload',
-                  {
-                    method: 'POST',
-                    body: formData,
-                  }
-                )
-                  .then((response) =>
-                    response.ok
-                      ? alert('Upload Sucessful')
-                      : alert('Upload failed')
-                  )
-                  .then(() => setLoading(false))
-              }
-            }
-
-            return (
-              <b key={audioIndex}>
-                {clicked && loading ? (
-                  <Spinner />
-                ) : clicked && !loading ? (
-                  <div>
-                    Upload Audio:
-                    <form>
-                      <input
-                        type="file"
-                        name="fileupload"
-                        onChange={handleFile}
-                      />
-                      <input
-                        type="button"
-                        value="Upload Áudio"
-                        onClick={handleSubmit}
-                      />
-                    </form>
-                  </div>
-                ) : (
-                  <AudioUrlWrapper onClick={toggleFileInput}>
-                    {audioUrl}
-                  </AudioUrlWrapper>
-                )}
-              </b>
-              // <b key={audioIndex}>
-              //   {clicked && (
-              //     <div>
-              //       Upload Audio:
-              //       <form>
-              //         <input
-              //           type="file"
-              //           name="fileupload"
-              //           onChange={handleFile}
-              //         />
-              //         <input
-              //           type="button"
-              //           value="Upload Áudio"
-              //           onClick={handleSubmit}
-              //         />
-              //       </form>
-              //     </div>
-              //   )}
-              //   {!clicked && (
-              //     <AudioUrlWrapper onClick={toggleFileInput}>
-              //       {audioUrl}
-              //     </AudioUrlWrapper>
-              //   )}
-              // </b>
-            )
-          })
-        : null}
-    </div>
+    <AudioInputWrapper ref={ref}>
+      {audioUrl ? (
+        <span>
+          {clicked && loading ? (
+            <Spinner />
+          ) : clicked && !loading ? (
+            <div>
+              Upload Audio:
+              <form>
+                <input type="file" name="fileupload" onChange={handleFile} />
+                <input
+                  type="button"
+                  value="Upload Áudio"
+                  onClick={handleSubmit}
+                />
+              </form>
+            </div>
+          ) : (
+            <AudioUrlWrapper onClick={toggleFileInput}>
+              {audioUrl}
+            </AudioUrlWrapper>
+          )}
+        </span>
+      ) : null}
+    </AudioInputWrapper>
   )
 }
 AudioInput.propTypes = {
-  audioUrls: PropTypes.arrayOf(PropTypes.string),
+  audioUrl: PropTypes.string,
 }
