@@ -1,4 +1,5 @@
-const bucketUrlPrefix = `https://${process.env.MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/`
+const bucketUrlPrefix = `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/`
+
 const addBucketPrefix = (relativeUri) =>
   relativeUri ? bucketUrlPrefix + relativeUri : null
 const addBucketPrefixToWords = (words) =>
