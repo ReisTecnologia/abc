@@ -60,7 +60,7 @@ export const Uploader = ({ children, filename }) => {
     ref.current.addEventListener('dragenter', cancel)
     ref.current.addEventListener('dragover', cancel)
     ref.current.addEventListener('drop', handleDrop(filename))
-  }, [])
+  }, [filename])
   return <Wrapper ref={ref}>{children}</Wrapper>
 }
 
