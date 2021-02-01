@@ -16,8 +16,36 @@ const handleDrop = (filename) => (e) => {
   e.preventDefault()
   var dt = e.dataTransfer
   var files = dt.files
+  console.log('drop', files)
   upload(filename, files)
   return false
+}
+
+const buildGetUploadTokenAndPostToAws = ({ filename, file, reader }) => () => {
+  fetch('/.netlify/functions/uploadToken', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name: filename,
+      // name: file.name,
+      type: file.type,
+    }),
+  })
+    .then(function (response) {
+      return response.json()
+    })
+    .then(function (json) {
+      const url = json.uploadURL
+      return fetch(url, {
+        method: 'PUT',
+        body: new Blob([reader.result], { type: file.type }),
+      })
+    })
+    .then(function () {
+      alert('ok')
+    })
 }
 
 const upload = (filename, files) => {
@@ -26,32 +54,10 @@ const upload = (filename, files) => {
   }
   const file = files[0]
   var reader = new FileReader()
-  reader.addEventListener('loadend', function () {
-    fetch('/.netlify/functions/uploadToken', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: filename,
-        // name: file.name,
-        type: file.type,
-      }),
-    })
-      .then(function (response) {
-        return response.json()
-      })
-      .then(function (json) {
-        const url = json.uploadURL
-        return fetch(url, {
-          method: 'PUT',
-          body: new Blob([reader.result], { type: file.type }),
-        })
-      })
-      .then(function () {
-        alert('ok')
-      })
-  })
+  reader.addEventListener(
+    'loadend',
+    buildGetUploadTokenAndPostToAws({ filename, file, reader })
+  )
   reader.readAsArrayBuffer(file)
 }
 
@@ -70,7 +76,8 @@ export const Uploader = ({ children, filename }) => {
         type="file"
         onChange={(e) => {
           // https://stackoverflow.com/Questions/5587973/javascript-upload-file
-          upload(filename, e.target.files[0])
+          console.log('input', e.target.files)
+          upload(filename, e.target.files)
         }}
       />
     </>
