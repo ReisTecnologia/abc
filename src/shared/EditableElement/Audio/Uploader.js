@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Spinner } from './LoadingSpinner'
@@ -46,20 +46,7 @@ export const Uploader = ({ children, filename }) => {
       })
   }
 
-  const upload = (filename, files) => {
-    if (files.length > 1) {
-      throw new Error('Please upload one single file')
-    }
-    const file = files[0]
-    var reader = new FileReader()
-    reader.addEventListener(
-      'loadend',
-      buildGetUploadTokenAndPostToAws({ filename, file, reader })
-    )
-    reader.readAsArrayBuffer(file)
-  }
-
-  // const upload = useCallback((filename, files) => {
+  // const upload = (filename, files) => {
   //   if (files.length > 1) {
   //     throw new Error('Please upload one single file')
   //   }
@@ -70,7 +57,20 @@ export const Uploader = ({ children, filename }) => {
   //     buildGetUploadTokenAndPostToAws({ filename, file, reader })
   //   )
   //   reader.readAsArrayBuffer(file)
-  // }, [])
+  // }
+
+  const upload = useCallback((filename, files) => {
+    if (files.length > 1) {
+      throw new Error('Please upload one single file')
+    }
+    const file = files[0]
+    var reader = new FileReader()
+    reader.addEventListener(
+      'loadend',
+      buildGetUploadTokenAndPostToAws({ filename, file, reader })
+    )
+    reader.readAsArrayBuffer(file)
+  }, [])
 
   const handleDragEnter = (e) => {
     e.preventDefault()
@@ -82,35 +82,35 @@ export const Uploader = ({ children, filename }) => {
     setDragging(false)
     return false
   }
-  const handleDrop = (filename) => (e) => {
-    e.preventDefault()
-    setDragging(false)
-    setLoading(true)
-    var dt = e.dataTransfer
-    var files = dt.files
-    upload(filename, files)
-    return false
-  }
+  // const handleDrop = (filename) => (e) => {
+  //   e.preventDefault()
+  //   setDragging(false)
+  //   setLoading(true)
+  //   var dt = e.dataTransfer
+  //   var files = dt.files
+  //   upload(filename, files)
+  //   return false
+  // }
 
-  // const handleDrop = useCallback(
-  //   (filename) => (e) => {
-  //     e.preventDefault()
-  //     setDragging(false)
-  //     setLoading(true)
-  //     var dt = e.dataTransfer
-  //     var files = dt.files
-  //     upload(filename, files)
-  //     return false
-  //   },
-  //   [upload]
-  // )
+  const handleDrop = useCallback(
+    (filename) => (e) => {
+      e.preventDefault()
+      setDragging(false)
+      setLoading(true)
+      var dt = e.dataTransfer
+      var files = dt.files
+      upload(filename, files)
+      return false
+    },
+    [upload]
+  )
 
   useEffect(() => {
     ref.current.addEventListener('dragenter', handleDragEnter)
     ref.current.addEventListener('dragleave', handleDragLeave)
     ref.current.addEventListener('dragover', handleDragEnter)
     ref.current.addEventListener('drop', handleDrop(filename))
-  }, [filename])
+  }, [filename, handleDrop])
   return loading ? (
     <Spinner />
   ) : (
