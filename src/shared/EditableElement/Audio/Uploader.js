@@ -16,11 +16,15 @@ const handleDrop = (filename) => (e) => {
   e.preventDefault()
   var dt = e.dataTransfer
   var files = dt.files
+  upload(filename, files)
+  return false
+}
+
+const upload = (filename, files) => {
   if (files.length > 1) {
     throw new Error('Please upload one single file')
   }
-
-  var file = files[0]
+  const file = files[0]
   var reader = new FileReader()
   reader.addEventListener('loadend', function () {
     fetch('/.netlify/functions/uploadToken', {
@@ -49,8 +53,6 @@ const handleDrop = (filename) => (e) => {
       })
   })
   reader.readAsArrayBuffer(file)
-
-  return false
 }
 
 export const Uploader = ({ children, filename }) => {
@@ -61,7 +63,18 @@ export const Uploader = ({ children, filename }) => {
     ref.current.addEventListener('dragover', cancel)
     ref.current.addEventListener('drop', handleDrop(filename))
   }, [filename])
-  return <Wrapper ref={ref}>{children}</Wrapper>
+  return (
+    <>
+      <Wrapper ref={ref}>{children}</Wrapper>...
+      <input
+        type="file"
+        onChange={(e) => {
+          // https://stackoverflow.com/Questions/5587973/javascript-upload-file
+          upload(filename, e.target.files[0])
+        }}
+      />
+    </>
+  )
 }
 
 Uploader.propTypes = {

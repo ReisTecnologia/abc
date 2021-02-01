@@ -20,10 +20,11 @@ export const InputWrapper = styled.div`
 export const Audio = ({ audioUrl }) => {
   const [inputIsVisible, setInputIsVisible] = useState(true)
   const showInput = () => setInputIsVisible(true)
-  const hideInput = () => setInputIsVisible(false)
+  // const hideInput = () => setInputIsVisible(false)
 
   return inputIsVisible ? (
-    <InputWrapper onClick={hideInput}>
+    // <InputWrapper onClick={hideInput}>
+    <InputWrapper>
       {audioUrl} <br />
       <Uploader filename={audioUrl}>
         <i>arraste seu arquivo para cá</i>
