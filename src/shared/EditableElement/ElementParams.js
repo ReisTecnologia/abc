@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { AudioInput } from './AudioInput'
+import { Audio } from './Audio/Audio'
 import { AddAudioButton } from './AddAudioButton'
 import { v4 as uuidv4 } from 'uuid'
 import { TextInput } from './TextInput'
@@ -36,13 +36,10 @@ export const ElementParams = ({ elementParams, updateElementParams }) => {
       <ElementType>{type}</ElementType>
       <TextInput value={description} onChange={changeDescription} />
       <br />
-      {audioUrls ? (
-        audioUrls.map((audioUrl, audioUrlKey) => (
-          <AudioInput audioUrl={audioUrl} key={audioUrlKey} />
-        ))
-      ) : (
-        <AudioInput audioUrl={null} />
-      )}
+      {audioUrls &&
+        audioUrls.map((audioUrl) => (
+          <Audio audioUrl={audioUrl} key={audioUrl} />
+        ))}
       <AddAudioButton onClick={addAudio} />
       <br />
       <b>urlVideo</b>: {urlVideo}

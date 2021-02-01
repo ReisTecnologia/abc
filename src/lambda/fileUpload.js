@@ -22,7 +22,7 @@ app.post(
   (req, res) => {
     if (req.method === 'POST') {
       s3.putObject({
-        Bucket: process.env.MY_AWS_BUCKET_NAME,
+        Bucket: process.env.REACT_APP_MY_AWS_BUCKET_NAME,
         Key: req.file.originalname,
         Body: Buffer.from(req.file.buffer),
         ContentType: req.file.mimetype,
