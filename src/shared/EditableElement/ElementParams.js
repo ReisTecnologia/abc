@@ -36,6 +36,7 @@ export const ElementParams = ({ elementParams, updateElementParams }) => {
       <ElementType>{type}</ElementType>
       <TextInput value={description} onChange={changeDescription} />
       <br />
+      <b>Audio Urls</b>:
       {audioUrls &&
         audioUrls.map((audioUrl) => (
           <Audio audioUrl={audioUrl} key={audioUrl} />
@@ -48,7 +49,6 @@ export const ElementParams = ({ elementParams, updateElementParams }) => {
 }
 
 ElementParams.propTypes = {
-  id: PropTypes.string.isRequired,
   elementParams: PropTypes.shape({
     type: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,

@@ -98,7 +98,7 @@ and see it on
 http://localhost:3000/
 ```
 
-## configure remote db and bucket on Netlify
+## configure remote db and bucket environment variables on Netlify
 
 This project is setup using Netlify, meaning the enviroment variables used to grant the app access to the Dynamodb and S3 Bucket are configured on the Netlify. On the deploy settings you have to setup the appropriate value for your AWS Access Key ID and AWS Secret Key.
 
@@ -134,7 +134,55 @@ MY_AWS_BUCKET_NAME
 
 with the value being your AWS S3 Bucket name.
 
+```
+REACT_APP_MY_AWS_BUCKET_NAME
+```
+
+with the value being your AWS S3 Bucket name.
+
 When running the local version of Dynamodb you can create a table with the table name: `lessons` and insert a mock lesson, by running the script `createTable.js` inside the folder `src/lambda/dbData/createTable.js` .
+
+## AWS s3 Bucket configurations
+
+In regards to Bucket permissions configs, its necessary to set your s3 Bucket policy and CORS policy to allow the application to interact with your Bucket using HTTP request methods. The configuration we recommend is the following:
+
+For the Bucket policy:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::YourBucketName/*"
+        }
+    ]
+}
+```
+
+And for the Bucket CORS policy:
+
+```
+[
+    {
+        "AllowedHeaders": [
+            "*"
+        ],
+        "AllowedMethods": [
+            "GET",
+            "PUT",
+            "POST",
+            "DELETE"
+        ],
+        "AllowedOrigins": [
+            "*"
+        ],
+        "ExposeHeaders": []
+    }
+]
+```
 
 ## Create-React-App-Lambda
 
