@@ -46,32 +46,22 @@ export const Uploader = ({ children, filename }) => {
       })
   }
 
-  // const upload = (filename, files) => {
-  //   if (files.length > 1) {
-  //     throw new Error('Please upload one single file')
-  //   }
-  //   const file = files[0]
-  //   var reader = new FileReader()
-  //   reader.addEventListener(
-  //     'loadend',
-  //     buildGetUploadTokenAndPostToAws({ filename, file, reader })
-  //   )
-  //   reader.readAsArrayBuffer(file)
-  // }
-
-  const upload = useCallback((filename, files) => {
-    setLoading(true)
-    if (files.length > 1) {
-      throw new Error('Please upload one single file')
-    }
-    const file = files[0]
-    var reader = new FileReader()
-    reader.addEventListener(
-      'loadend',
-      buildGetUploadTokenAndPostToAws({ filename, file, reader })
-    )
-    reader.readAsArrayBuffer(file)
-  }, [])
+  const upload = useCallback(
+    (filename, files) => {
+      setLoading(true)
+      if (files.length > 1) {
+        throw new Error('Please upload one single file')
+      }
+      const file = files[0]
+      var reader = new FileReader()
+      reader.addEventListener(
+        'loadend',
+        buildGetUploadTokenAndPostToAws({ filename, file, reader })
+      )
+      reader.readAsArrayBuffer(file)
+    },
+    [setLoading]
+  )
 
   const handleDragEnter = (e) => {
     e.preventDefault()
@@ -83,15 +73,6 @@ export const Uploader = ({ children, filename }) => {
     setDragging(false)
     return false
   }
-  // const handleDrop = (filename) => (e) => {
-  //   e.preventDefault()
-  //   setDragging(false)
-  //   setLoading(true)
-  //   var dt = e.dataTransfer
-  //   var files = dt.files
-  //   upload(filename, files)
-  //   return false
-  // }
 
   const handleDrop = useCallback(
     (filename) => (e) => {

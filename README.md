@@ -144,7 +144,25 @@ When running the local version of Dynamodb you can create a table with the table
 
 ## AWS s3 Bucket configurations
 
-In regards to Bucket permissions configs, its necessary to set your s3 Bucket CORS policy to allow the application to interact with your Bucket using HTTP request methods. The configuration we recommend is the following:
+In regards to Bucket permissions configs, its necessary to set your s3 Bucket policy and CORS policy to allow the application to interact with your Bucket using HTTP request methods. The configuration we recommend is the following:
+
+For the Bucket policy:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::YourBucketName/*"
+        }
+    ]
+}
+```
+
+And for the Bucket CORS policy:
 
 ```
 [
