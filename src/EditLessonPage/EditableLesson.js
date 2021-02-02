@@ -23,9 +23,13 @@ export const ButtonsWrapper = styled.div`
 `
 export const EditableLesson = () => {
   let { lesson } = useParams()
-  const { data, refetch: reloadLesson } = useQuery(LESSON_QUERY, {
-    variables: { id: lesson },
-  })
+  const { data, refetch: reloadLesson, loading: loadingLesson } = useQuery(
+    LESSON_QUERY,
+    {
+      variables: { id: lesson },
+      notifyOnNetworkStatusChange: true,
+    }
+  )
 
   let history = useHistory()
   const navigateToHome = () => {
@@ -40,7 +44,7 @@ export const EditableLesson = () => {
         </TitleWrapper>
         <ButtonsWrapper>
           <DeleteButton id={data.lesson.id} afterDelete={navigateToHome} />
-          <ReloadButton reload={reloadLesson} />
+          <ReloadButton reload={reloadLesson} loading={loadingLesson} />
         </ButtonsWrapper>
       </HeaderWrapper>
       <Container>
