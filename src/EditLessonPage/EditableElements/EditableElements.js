@@ -32,6 +32,8 @@ export const EditableElements = ({ elements }) => {
       setInnerElements(reorderedElements)
     }
 
+    console.log('innerElements', innerElements)
+
     return (
       <ErrorBoundary key={index}>
         <EditableElement

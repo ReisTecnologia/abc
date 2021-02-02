@@ -9,6 +9,7 @@ import { EditableElements } from './EditableElements/EditableElements'
 import { LESSON_QUERY } from '../shared/LESSON_QUERY'
 import { DeleteButton } from './DeleteButton'
 import { NameInputField } from './NameInputField'
+import { SaveButton } from './SaveButton'
 
 export const EditableLesson = () => {
   let { lesson } = useParams()
@@ -24,6 +25,11 @@ export const EditableLesson = () => {
       <Titulo>
         <NameInputField name={data.lesson.name} id={data.lesson.id} />
         <DeleteButton id={data.lesson.id} afterDelete={navigateToHome} />
+        <SaveButton
+          id={data.lesson.id}
+          name={data.lesson.name}
+          elements={data.lesson.elements}
+        />
       </Titulo>
       <Container>
         <EditableElements
