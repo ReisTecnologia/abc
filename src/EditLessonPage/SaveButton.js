@@ -2,7 +2,7 @@ import React from 'react'
 
 import PropTypes from 'prop-types'
 import { gql, useMutation } from '@apollo/client'
-import { SaveButtonWrapper } from './SaveButtonWrapper'
+// import { SaveButtonWrapper } from './SaveButtonWrapper'
 
 export const SAVE_LESSON = gql`
   mutation editLesson($id: ID!, $input: EditLessonInput!) {
@@ -19,7 +19,6 @@ export const SAVE_LESSON = gql`
 `
 
 export const SaveButton = ({ id, name, elements }) => {
-  console.log('elements', elements)
   const [mutate, { loading }] = useMutation(SAVE_LESSON, {
     variables: { id, input: { name, elements } },
   })
@@ -33,9 +32,9 @@ export const SaveButton = ({ id, name, elements }) => {
   return loading ? (
     '...'
   ) : (
-    <SaveButtonWrapper>
-      <button onClick={confirmAndSave}>Salvar</button>
-    </SaveButtonWrapper>
+    // <SaveButtonWrapper>
+    <button onClick={confirmAndSave}>Salvar</button>
+    /* </SaveButtonWrapper> */
   )
 }
 
