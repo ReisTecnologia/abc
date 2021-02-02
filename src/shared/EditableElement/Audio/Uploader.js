@@ -42,7 +42,6 @@ export const Uploader = ({ children, filename }) => {
       })
       .then(function () {
         setLoading(false)
-        alert('ok')
       })
   }
 
