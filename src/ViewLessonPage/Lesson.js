@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client'
 import { useParams } from 'react-router-dom'
 import { Layout } from '../shared/Layout'
 import { Container } from '../shared/Container'
-import { Titulo } from '../shared/Titulo'
+import { HeaderWrapper } from '../shared/HeaderWrapper'
 import { Rodape } from '../shared/Rodape'
 import { ViewableElements } from './ViewableElements/ViewableElements'
 import { LESSON_QUERY } from '../shared/LESSON_QUERY'
@@ -14,7 +14,7 @@ export const Lesson = () => {
 
   return data ? (
     <Layout>
-      <Titulo>{data.lesson.name}</Titulo>
+      <HeaderWrapper>{data.lesson.name}</HeaderWrapper>
       <Container>
         <ViewableElements elements={data.lesson.elements} />
       </Container>

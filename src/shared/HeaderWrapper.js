@@ -1,15 +1,13 @@
 import styled from 'styled-components'
 
-export const Titulo = styled.div`
-  cursor: ${({ onClick }) => (onClick ? 'pointer' : null)};
+export const HeaderWrapper = styled.div`
   display: flex;
-  justify-content: center;
+  padding: 5px 20px;
   width: 100%;
   background: var(--primary-color);
   color: #fff;
   position: fixed;
   top: 0;
-  text-align: center;
   height: 2rem;
   z-index: 2;
 `

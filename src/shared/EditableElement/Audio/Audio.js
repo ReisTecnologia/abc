@@ -7,6 +7,7 @@ import styled from 'styled-components'
 
 export const NameWrapper = styled.div`
   margin-right: 5px;
+  cursor: pointer;
 `
 
 export const InputWrapper = styled.div`
@@ -26,10 +27,11 @@ export const Audio = ({ audioUrl }) => {
 
   return inputIsVisible ? (
     <InputWrapper ref={ref}>
-      <Uploader filename={audioUrl}>
-        <i>arraste seu arquivo para cá</i>
-      </Uploader>
-      {audioUrl} <br />
+      <Uploader
+        filename={audioUrl}
+        dragHereMessage="arraste seu arquivo para cá"
+        dropHereMessage="solte o arquivo para enviar"
+      />
     </InputWrapper>
   ) : (
     <NameWrapper onClick={showInput}>{audioUrl}</NameWrapper>
