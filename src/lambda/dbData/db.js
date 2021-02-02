@@ -72,10 +72,13 @@ const editLesson = (id, name, elements) => {
       ':elements': elements ? elements : null,
     },
     ReturnValues: 'ALL_NEW',
-    UpdateExpression: name
-      ? 'set #name = :newName'
-      : 'set elements = :elements',
-    ConditionExpression: ':id = #id AND :newName <> :elements',
+    UpdateExpression:
+      name && elements
+        ? 'set #name = :newName, elements = :elements'
+        : name
+        ? 'set #name = :newName'
+        : 'set elements = :elements',
+    ConditionExpression: ':id = #id',
   }
 
   return docClient

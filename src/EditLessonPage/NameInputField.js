@@ -3,7 +3,14 @@ import { gql } from '@apollo/client'
 import { useMutation } from '@apollo/client'
 import PropTypes from 'prop-types'
 import { NameInputFieldWrapper } from './NameInputFieldWrapper'
-import { useOnClickOutside } from '../shared/useOnClickOutside'
+import styled from 'styled-components'
+
+export const InputField = styled.input`
+  background: transparent;
+  border: none;
+  color: #fff;
+  padding-left: 5px;
+`
 
 export const EDIT_LESSON_NAME = gql`
   mutation editLesson($id: ID!, $input: EditLessonInput!) {
@@ -19,11 +26,6 @@ export const EDIT_LESSON_NAME = gql`
 export const NameInputField = ({ name, id }) => {
   const [lessonName, setLessonName] = useState(name)
 
-  const [showInput, setShowInput] = useState(false)
-
-  const showTitleInput = () => setShowInput(true)
-  const hideTitleInput = () => setShowInput(false)
-
   const [handleSubmit] = useMutation(EDIT_LESSON_NAME, {
     variables: { id, input: { name: lessonName } },
   })
@@ -34,27 +36,22 @@ export const NameInputField = ({ name, id }) => {
 
   const submitOnEnter = (e) => {
     if (e.charCode === 13) {
-      handleSubmit().then(hideTitleInput)
+      handleSubmit()
     }
   }
 
-  const onClickOutsideRef = useOnClickOutside(hideTitleInput)
-
   return (
-    <NameInputFieldWrapper ref={onClickOutsideRef} onClick={showTitleInput}>
-      {showInput && (
-        <label>
-          Nome da Aula:
-          <input
-            type="text"
-            onKeyPress={submitOnEnter}
-            value={lessonName}
-            onChange={handleInputChange}
-            onSubmit={handleSubmit}
-          />
-        </label>
-      )}
-      {!showInput && <span> EDIT: {lessonName} </span>}
+    <NameInputFieldWrapper>
+      <label>
+        Nome da Aula:
+        <InputField
+          type="text"
+          onKeyPress={submitOnEnter}
+          value={lessonName}
+          onChange={handleInputChange}
+          onSubmit={handleSubmit}
+        />
+      </label>
     </NameInputFieldWrapper>
   )
 }

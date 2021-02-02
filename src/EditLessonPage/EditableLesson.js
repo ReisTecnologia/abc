@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { useParams, useHistory } from 'react-router-dom'
 import { Layout } from '../shared/Layout'
@@ -9,6 +9,7 @@ import { EditableElements } from './EditableElements/EditableElements'
 import { LESSON_QUERY } from '../shared/LESSON_QUERY'
 import { DeleteButton } from './DeleteButton'
 import { NameInputField } from './NameInputField'
+import { SaveButton } from './SaveButton'
 import { ReloadButton } from './ReloadButton'
 
 import styled from 'styled-components'
@@ -31,6 +32,25 @@ export const EditableLesson = () => {
     }
   )
 
+  const [innerElements, setInnerElements] = useState()
+
+  const innerElementsLoader = () => {
+    if (!innerElements) {
+      setInnerElements(data.lesson.elements)
+      return innerElements
+    } else {
+      return innerElements
+    }
+  }
+  console.log('innerElements parent', innerElements)
+
+  const wrapperSetElements = useCallback(
+    (elements) => {
+      setInnerElements(elements)
+    },
+    [setInnerElements]
+  )
+
   let history = useHistory()
   const navigateToHome = () => {
     history.push('/')
@@ -43,6 +63,11 @@ export const EditableLesson = () => {
           <NameInputField name={data.lesson.name} id={data.lesson.id} />
         </TitleWrapper>
         <ButtonsWrapper>
+          <SaveButton
+            id={data.lesson.id}
+            name={data.lesson.name}
+            elements={data.lesson.elements}
+          />
           <DeleteButton id={data.lesson.id} afterDelete={navigateToHome} />
           <ReloadButton reload={reloadLesson} loading={loadingLesson} />
         </ButtonsWrapper>
@@ -50,8 +75,9 @@ export const EditableLesson = () => {
       <Container>
         <EditableElements
           reloadLesson={reloadLesson}
-          elements={data.lesson.elements}
+          innerElements={innerElementsLoader()}
           lessonId={data.lesson.id}
+          elementsHandler={wrapperSetElements}
         />
       </Container>
       <Rodape />
