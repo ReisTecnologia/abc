@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Uploader } from './Uploader'
+import { useOnClickOutside } from '../../useOnClickOutside'
 
 import styled from 'styled-components'
 
@@ -21,8 +22,10 @@ export const Audio = ({ audioUrl }) => {
   const showInput = () => setInputIsVisible(true)
   const hideInput = () => setInputIsVisible(false)
 
+  const ref = useOnClickOutside(hideInput)
+
   return inputIsVisible ? (
-    <InputWrapper onClick={hideInput}>
+    <InputWrapper ref={ref}>
       <Uploader filename={audioUrl}>
         <i>arraste seu arquivo para cá</i>
       </Uploader>

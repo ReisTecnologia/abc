@@ -60,6 +60,7 @@ export const Uploader = ({ children, filename }) => {
   // }
 
   const upload = useCallback((filename, files) => {
+    setLoading(true)
     if (files.length > 1) {
       throw new Error('Please upload one single file')
     }
@@ -96,7 +97,6 @@ export const Uploader = ({ children, filename }) => {
     (filename) => (e) => {
       e.preventDefault()
       setDragging(false)
-      setLoading(true)
       var dt = e.dataTransfer
       var files = dt.files
       upload(filename, files)
