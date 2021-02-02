@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { Spinner } from './LoadingSpinner'
+import { Spinner } from '../../LoadingSpinner'
 
 export const Wrapper = styled.div`
   padding: 40px;

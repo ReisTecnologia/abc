@@ -1,16 +1,22 @@
 import React from 'react'
+import { Spinner } from '../shared/LoadingSpinner'
 
 import PropTypes from 'prop-types'
 
-export const ReloadButton = ({ reload }) => {
+export const ReloadButton = ({ reload, loading }) => {
   const confirmAndReload = () => {
-    var response = window.confirm('reload?')
-    response && reload()
+    // window.confirm('reload?') && reload()
+    reload()
   }
 
-  return <button onClick={confirmAndReload}>Reload</button>
+  return loading ? (
+    <Spinner />
+  ) : (
+    <button onClick={confirmAndReload}>Reload</button>
+  )
 }
 
 ReloadButton.propTypes = {
   reload: PropTypes.func,
+  loading: PropTypes.bool,
 }

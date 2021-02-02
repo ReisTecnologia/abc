@@ -71,7 +71,7 @@ export const AudioButton = ({
       {[...Array(numDotsBefore)].map((n, i) => (
         <TrailDot key={i} color={color} />
       ))}
-      {content}
+      {content} {audioUrls[actualItem]}
       {errorCode ? `error: ${errorCode}` : null}
       {[...Array(numDotsAfter)].map((n, i) => (
         <TrailDot key={i} color={color} />
