@@ -1,43 +1,49 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Uploader } from './Uploader'
-import { useOnClickOutside } from '../../useOnClickOutside'
+import { InputWrapper } from './InputWrapper'
+import { AudioWrapper } from './AudioWrapper'
+import { AudioNameWrapper } from './AudioNameWrapper'
+import { AudioUrlWrapper } from './AudioUrlWrapper'
+import { AudioNumberWrapper } from './AudioNumberWrapper'
+import { AudioNumber } from './AudioNumber'
+import { AudioFieldsWrapper } from './AudioFieldsWrapper'
+import { NameAndUrlWrapper } from './NameAndUrlWrapper'
 
-import styled from 'styled-components'
-
-export const NameWrapper = styled.div`
-  margin-right: 5px;
-  cursor: pointer;
-`
-
-export const InputWrapper = styled.div`
-  margin-right: 5px;
-  padding: 3px;
-  color: #999;
-  border: dashed 1px #999;
-  background-color: #fff;
-`
-
-export const Audio = ({ audioUrl }) => {
-  const [inputIsVisible, setInputIsVisible] = useState(false)
+export const Audio = ({ url, name, updateAudio }) => {
+  const [inputIsVisible, setInputIsVisible] = useState(true)
   const showInput = () => setInputIsVisible(true)
   const hideInput = () => setInputIsVisible(false)
-
-  const ref = useOnClickOutside(hideInput)
-
-  return inputIsVisible ? (
-    <InputWrapper ref={ref}>
+  const toggleInput = () => (inputIsVisible ? hideInput() : showInput())
+  const input = inputIsVisible && (
+    <InputWrapper>
       <Uploader
-        filename={audioUrl}
+        filename={url}
         dragHereMessage="arraste seu arquivo para cá"
         dropHereMessage="solte o arquivo para enviar"
+        updateAudio={updateAudio}
       />
     </InputWrapper>
-  ) : (
-    <NameWrapper onClick={showInput}>{audioUrl}</NameWrapper>
+  )
+
+  return (
+    <AudioWrapper>
+      <AudioNumberWrapper>
+        <AudioNumber>1</AudioNumber>
+      </AudioNumberWrapper>
+      <AudioFieldsWrapper>
+        <NameAndUrlWrapper onClick={toggleInput}>
+          <AudioNameWrapper>{name}</AudioNameWrapper>
+          <AudioUrlWrapper>{url}</AudioUrlWrapper>
+        </NameAndUrlWrapper>
+        {input}
+      </AudioFieldsWrapper>
+    </AudioWrapper>
   )
 }
 
 Audio.propTypes = {
-  audioUrl: PropTypes.string,
+  url: PropTypes.string,
+  name: PropTypes.string,
+  updateAudio: PropTypes.func,
 }

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useMutation } from '@apollo/client'
 import { useHistory } from 'react-router-dom'
 import { Layout } from '../shared/Layout'
@@ -30,41 +30,30 @@ export const EditableLesson = ({
   loadingLesson,
   lesson: { id, name, elements },
 }) => {
+  const isFirstRun = useRef(true)
   const [mutate, { loading: isSaving }] = useMutation(SAVE_LESSON_MUTATION)
 
   const [innerElements, setInnerElements] = useState(elements)
   const [lessonName, setLessonName] = useState(name)
 
-  const save = useCallback(() => {
-    if (timeoutId) {
-      clearTimeout(timeoutId)
-    }
-    timeoutId = setTimeout(() => {
-      const payload = {
-        variables: {
-          id: id,
-          input: { name: lessonName, elements: innerElements },
-        },
+  useEffect(() => {
+    if (isFirstRun.current) {
+      if (timeoutId) {
+        clearTimeout(timeoutId)
       }
-      mutate(payload)
-    }, 3000)
-  }, [innerElements, lessonName, mutate, id])
-
-  const setInnerElementsAndSave = useCallback(
-    (newInnerElementsValue) => {
-      setInnerElements(newInnerElementsValue)
-      save()
-    },
-    [setInnerElements, save]
-  )
-
-  const setLessonNameAndSave = useCallback(
-    (newLessonNameValue) => {
-      setLessonName(newLessonNameValue)
-      save()
-    },
-    [setLessonName, save]
-  )
+      timeoutId = setTimeout(() => {
+        const payload = {
+          variables: {
+            id: id,
+            input: { name: lessonName, elements: innerElements },
+          },
+        }
+        mutate(payload)
+      }, 3000)
+    } else {
+      isFirstRun.current = false
+    }
+  }, [mutate, id, lessonName, innerElements])
 
   let history = useHistory()
   const navigateToHome = () => {
@@ -77,7 +66,7 @@ export const EditableLesson = ({
         <TitleWrapper>
           <NameInputField
             lessonName={lessonName}
-            setLessonName={setLessonNameAndSave}
+            setLessonName={setLessonName}
           />
         </TitleWrapper>
         <ButtonsWrapper>
@@ -91,7 +80,7 @@ export const EditableLesson = ({
           reloadLesson={reloadLesson}
           innerElements={innerElements}
           lessonId={id}
-          setInnerElements={setInnerElementsAndSave}
+          setInnerElements={setInnerElements}
         />
       </Container>
       <Rodape />
