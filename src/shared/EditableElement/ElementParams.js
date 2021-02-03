@@ -15,6 +15,11 @@ const Wrapper = styled.div`
 
 const ElementType = styled.div`
   margin-bottom: 5px;
+  /* float: right; */
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+  font-weight: bold;
 `
 
 export const ElementParams = ({ elementParams, updateElementParams }) => {
@@ -28,17 +33,48 @@ export const ElementParams = ({ elementParams, updateElementParams }) => {
     updateElementParams(newElementParams)
   }
   const changeDescription = (newDescription) => {
+    if (newDescription.length < 1 || newDescription === ' ') {
+      updateElementParams({
+        ...elementParams,
+        description: 'Clique para adicionar uma descrição',
+      })
+    } else {
+      updateElementParams({
+        ...elementParams,
+        description: newDescription,
+      })
+    }
+  }
+  const changeText = (newText) => {
     updateElementParams({
       ...elementParams,
-      description: newDescription,
+      text: newText,
     })
   }
-  const { type, description, audios, urlVideo } = elementParams
+  const {
+    type,
+    correctLetters,
+    letter,
+    description,
+    audios,
+    urlVideo,
+    words,
+    text,
+  } = elementParams
+
+  console.log('correctLetters', correctLetters)
+  console.log('letter', letter)
+  console.log('words', words)
+  console.log('text', text)
+  console.log('description', description)
+
   return (
     <Wrapper>
       <ElementType>{type}</ElementType>
+      <b>Descrição</b>:
       <TextInput value={description} onChange={changeDescription} />
       <br />
+      {text && <TextInput value={text} onChange={changeText} />}
       <b>Audios</b>:
       {audios &&
         audios.map(({ name, url }) => (
@@ -51,15 +87,16 @@ export const ElementParams = ({ elementParams, updateElementParams }) => {
         ))}
       <AddAudioButton onClick={addAudio} />
       <br />
-      <b>urlVideo</b>: {urlVideo}
+      {urlVideo ? <b>urlVideo:</b> && urlVideo : null}
     </Wrapper>
   )
 }
 
 ElementParams.propTypes = {
   elementParams: PropTypes.shape({
-    type: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
+    type: PropTypes.string,
+    letter: PropTypes.string,
+    correctLetters: PropTypes.arrayOf(PropTypes.string),
     audios: PropTypes.arrayOf(
       PropTypes.shape({
         url: PropTypes.string.isRequired,
@@ -67,6 +104,9 @@ ElementParams.propTypes = {
       })
     ),
     urlVideo: PropTypes.string,
+    description: PropTypes.string,
+    text: PropTypes.string,
+    words: PropTypes.array,
   }),
   updateElementParams: PropTypes.func,
 }
