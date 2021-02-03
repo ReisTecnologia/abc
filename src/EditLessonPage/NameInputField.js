@@ -1,6 +1,4 @@
-import React, { useState } from 'react'
-import { gql } from '@apollo/client'
-import { useMutation } from '@apollo/client'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { NameInputFieldWrapper } from './NameInputFieldWrapper'
 import styled from 'styled-components'
@@ -12,32 +10,9 @@ export const InputField = styled.input`
   padding-left: 5px;
 `
 
-export const EDIT_LESSON_NAME = gql`
-  mutation editLesson($id: ID!, $input: EditLessonInput!) {
-    editLesson(id: $id, input: $input) {
-      success
-      lesson {
-        name
-      }
-    }
-  }
-`
-
-export const NameInputField = ({ name, id }) => {
-  const [lessonName, setLessonName] = useState(name)
-
-  const [handleSubmit] = useMutation(EDIT_LESSON_NAME, {
-    variables: { id, input: { name: lessonName } },
-  })
-
+export const NameInputField = ({ lessonName, setLessonName }) => {
   const handleInputChange = (e) => {
     setLessonName(e.target.value)
-  }
-
-  const submitOnEnter = (e) => {
-    if (e.charCode === 13) {
-      handleSubmit()
-    }
   }
 
   return (
@@ -46,10 +21,8 @@ export const NameInputField = ({ name, id }) => {
         Nome da Aula:
         <InputField
           type="text"
-          onKeyPress={submitOnEnter}
           value={lessonName}
           onChange={handleInputChange}
-          onSubmit={handleSubmit}
         />
       </label>
     </NameInputFieldWrapper>
@@ -57,6 +30,6 @@ export const NameInputField = ({ name, id }) => {
 }
 
 NameInputField.propTypes = {
-  name: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  lessonName: PropTypes.string.isRequired,
+  setLessonName: PropTypes.func.isRequired,
 }

@@ -31,17 +31,18 @@ export const EditableLesson = ({
   const [mutate, { loading: isSaving }] = useMutation(SAVE_LESSON_MUTATION)
 
   const [innerElements, setInnerElements] = useState(elements)
+  const [lessonName, setLessonName] = useState(name)
 
   useEffect(() => {
     const payload = {
       variables: {
         id: id,
-        input: { name, elements: innerElements },
+        input: { name: lessonName, elements: innerElements },
       },
     }
 
     mutate(payload)
-  }, [innerElements])
+  }, [innerElements, lessonName])
 
   let history = useHistory()
   const navigateToHome = () => {
@@ -52,7 +53,10 @@ export const EditableLesson = ({
     <Layout>
       <HeaderWrapper>
         <TitleWrapper>
-          <NameInputField name={name} id={id} />
+          <NameInputField
+            lessonName={lessonName}
+            setLessonName={setLessonName}
+          />
         </TitleWrapper>
         <ButtonsWrapper>
           <DeleteButton id={id} afterDelete={navigateToHome} />
