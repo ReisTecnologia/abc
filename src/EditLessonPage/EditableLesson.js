@@ -48,7 +48,7 @@ export const EditableLesson = ({
       }
       mutate(payload)
     }, 3000)
-  }, [innerElements, lessonName, mutate])
+  }, [innerElements, lessonName, mutate, id])
 
   const setInnerElementsAndSave = useCallback(
     (newInnerElementsValue) => {

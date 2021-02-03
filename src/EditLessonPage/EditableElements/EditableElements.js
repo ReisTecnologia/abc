@@ -11,7 +11,7 @@ export const EditableElements = ({ innerElements, setInnerElements }) => {
       newInnerElements[index] = newElementParams
       setInnerElements(newInnerElements)
     },
-    [innerElements]
+    [innerElements, setInnerElements]
   )
 
   return innerElements.map((elementParams, index) => {
