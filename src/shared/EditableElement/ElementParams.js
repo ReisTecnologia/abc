@@ -33,22 +33,31 @@ export const ElementParams = ({ elementParams, updateElementParams }) => {
     updateElementParams(newElementParams)
   }
   const changeDescription = (newDescription) => {
-    if (newDescription.length < 1 || newDescription === ' ') {
-      updateElementParams({
-        ...elementParams,
-        description: 'Clique para adicionar uma descrição',
-      })
-    } else {
-      updateElementParams({
-        ...elementParams,
-        description: newDescription,
-      })
-    }
+    updateElementParams({
+      ...elementParams,
+      description: newDescription,
+    })
   }
   const changeText = (newText) => {
     updateElementParams({
       ...elementParams,
       text: newText,
+    })
+  }
+  const changeLetter = (newLetter) => {
+    updateElementParams({
+      ...elementParams,
+      letter: newLetter,
+    })
+  }
+  const changeCorrectLetters = (newCorrectLetters) => {
+    const newCorrectLettersArray = newCorrectLetters
+      ? newCorrectLetters.split(',')
+      : null
+    console.log('newCorrectLettersArray', newCorrectLettersArray)
+    updateElementParams({
+      ...elementParams,
+      correctLetters: newCorrectLettersArray,
     })
   }
   const {
@@ -62,11 +71,9 @@ export const ElementParams = ({ elementParams, updateElementParams }) => {
     text,
   } = elementParams
 
-  console.log('correctLetters', correctLetters)
-  console.log('letter', letter)
-  console.log('words', words)
-  console.log('text', text)
-  console.log('description', description)
+  const correctLettersString = correctLetters ? correctLetters.join() : null
+
+  console.log(words)
 
   const buildUpdateAudio = (audioIndex) => (payload) => {
     console.log('updateAudio', 'index', audioIndex, payload)
@@ -84,10 +91,25 @@ export const ElementParams = ({ elementParams, updateElementParams }) => {
   return (
     <Wrapper>
       <ElementType>{type}</ElementType>
-      <b>Descrição</b>:
-      <TextInput value={description} onChange={changeDescription} />
+      <TextInput
+        value={description}
+        onChange={changeDescription}
+        title={'Descrição:'}
+      />
       <br />
-      {text && <TextInput value={text} onChange={changeText} />}
+      {text && (
+        <TextInput value={text} onChange={changeText} title={'Texto:'} />
+      )}
+      {letter && (
+        <TextInput value={letter} onChange={changeLetter} title={'Letra:'} />
+      )}
+      {correctLetters && (
+        <TextInput
+          value={correctLettersString}
+          onChange={changeCorrectLetters}
+          title={'Letras corretas:'}
+        />
+      )}
       <b>Audios</b>:
       {audios &&
         audios.map(({ name, url }, audioIndex) => (
