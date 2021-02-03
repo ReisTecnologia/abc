@@ -51,13 +51,13 @@ export const ElementParams = ({ elementParams, updateElementParams }) => {
     })
   }
   const changeCorrectLetters = (newCorrectLetters) => {
-    newCorrectLetters = correctLettersString
-      ? correctLettersString.split(',')
+    const newCorrectLettersArray = newCorrectLetters
+      ? newCorrectLetters.split(',')
       : null
-    console.log('newCorrectLetters', newCorrectLetters)
+    console.log('newCorrectLettersArray', newCorrectLettersArray)
     updateElementParams({
       ...elementParams,
-      correctletters: newCorrectLetters,
+      correctLetters: newCorrectLettersArray,
     })
   }
   const {
@@ -72,17 +72,8 @@ export const ElementParams = ({ elementParams, updateElementParams }) => {
   } = elementParams
 
   const correctLettersString = correctLetters ? correctLetters.join() : null
-  const correctLettersArray = correctLettersString
-    ? correctLettersString.split(',')
-    : null
-  console.log('correctLettersArray', correctLettersArray)
-  console.log('correctLetter', correctLettersString)
 
-  console.log('correctLetters', correctLetters)
-  // console.log('letter', letter)
-  console.log('words', words)
-  // console.log('text', text)
-  // console.log('description', description)
+  console.log(words)
 
   const buildUpdateAudio = (audioIndex) => (payload) => {
     console.log('updateAudio', 'index', audioIndex, payload)
