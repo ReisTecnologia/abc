@@ -1,13 +1,31 @@
 import React from 'react'
 import { ApolloClient, InMemoryCache } from '@apollo/client'
+import { ApolloLink, concat } from 'apollo-link'
 import { ApolloProvider } from '@apollo/client'
+import { HttpLink } from 'apollo-link-http'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { LessonsPage } from './LessonsPage/LessonsPage'
 import { ViewLessonPage } from './ViewLessonPage/ViewLessonPage'
 import { EditLessonPage } from './EditLessonPage/EditLessonPage'
 
+const cleanTypeName = new ApolloLink((operation, forward) => {
+  if (operation.variables) {
+    const omitTypename = (key, value) =>
+      key === '__typename' ? undefined : value
+    operation.variables = JSON.parse(
+      JSON.stringify(operation.variables),
+      omitTypename
+    )
+  }
+  return forward(operation).map((data) => {
+    return data
+  })
+})
+
+const httpLink = new HttpLink({ uri: '/.netlify/functions/graphql' })
+
 const client = new ApolloClient({
-  uri: '/.netlify/functions/graphql',
+  link: concat(cleanTypeName, httpLink),
   cache: new InMemoryCache(),
 })
 

@@ -1,25 +1,19 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { Element } from '../../shared/Element/Element'
 import { EditableElement } from '../../shared/EditableElement/EditableElement'
 import ErrorBoundary from '../../shared/ErrorBoundary'
 
-export const EditableElements = ({ innerElements, elementsHandler }) => {
-  const [childState, setChildState] = useState()
-  useEffect(() => {
-    elementsHandler(childState)
-  }, [elementsHandler, childState])
+export const EditableElements = ({ innerElements, setInnerElements }) => {
   const updateElementParams = useCallback(
     (index, newElementParams) => {
       const newInnerElements = [...innerElements]
       newInnerElements[index] = newElementParams
-      setChildState(newInnerElements)
+      setInnerElements(newInnerElements)
     },
     [innerElements]
   )
 
-  console.log('childState', childState)
-  console.log('innerElements', innerElements)
   return innerElements.map((elementParams, index) => {
     const canMoveUp = index !== 0
     const canMoveDown = index !== innerElements.length - 1
@@ -27,14 +21,14 @@ export const EditableElements = ({ innerElements, elementsHandler }) => {
       const reorderedElements = [...innerElements]
       reorderedElements[index - 1] = innerElements[index]
       reorderedElements[index] = innerElements[index - 1]
-      setChildState(reorderedElements)
+      setInnerElements(reorderedElements)
     }
 
     const moveDown = () => {
       const reorderedElements = [...innerElements]
       reorderedElements[index + 1] = innerElements[index]
       reorderedElements[index] = innerElements[index + 1]
-      setChildState(reorderedElements)
+      setInnerElements(reorderedElements)
     }
 
     return (

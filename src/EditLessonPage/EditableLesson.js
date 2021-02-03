@@ -1,18 +1,18 @@
-import React, { useCallback, useState } from 'react'
-import { useQuery } from '@apollo/client'
-import { useParams, useHistory } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { useMutation } from '@apollo/client'
+import { useHistory } from 'react-router-dom'
 import { Layout } from '../shared/Layout'
 import { Container } from '../shared/Container'
 import { HeaderWrapper } from '../shared/HeaderWrapper'
 import { Rodape } from '../shared/Rodape'
 import { EditableElements } from './EditableElements/EditableElements'
-import { LESSON_QUERY } from '../shared/LESSON_QUERY'
 import { DeleteButton } from './DeleteButton'
 import { NameInputField } from './NameInputField'
-import { SaveButton } from './SaveButton'
+import { Spinner } from '../shared/Spinner'
 import { ReloadButton } from './ReloadButton'
-
+import { SAVE_LESSON_MUTATION } from './SAVE_LESSON_MUTATION'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 export const TitleWrapper = styled.div`
   flex: 1;
@@ -22,65 +22,63 @@ export const ButtonsWrapper = styled.div`
   flex: 1;
   display: flex;
 `
-export const EditableLesson = () => {
-  let { lesson } = useParams()
-  const { data, refetch: reloadLesson, loading: loadingLesson } = useQuery(
-    LESSON_QUERY,
-    {
-      variables: { id: lesson },
-      notifyOnNetworkStatusChange: true,
+
+export const EditableLesson = ({
+  reloadLesson,
+  loadingLesson,
+  lesson: { id, name, elements },
+}) => {
+  const [mutate, { loading: isSaving }] = useMutation(SAVE_LESSON_MUTATION)
+
+  const [innerElements, setInnerElements] = useState(elements)
+
+  useEffect(() => {
+    const payload = {
+      variables: {
+        id: id,
+        input: { name, elements: innerElements },
+      },
     }
-  )
 
-  const [innerElements, setInnerElements] = useState()
-
-  const innerElementsLoader = () => {
-    if (!innerElements) {
-      setInnerElements(data.lesson.elements)
-      return innerElements
-    } else {
-      return innerElements
-    }
-  }
-  console.log('innerElements parent', innerElements)
-
-  const wrapperSetElements = useCallback(
-    (elements) => {
-      setInnerElements(elements)
-    },
-    [setInnerElements]
-  )
+    mutate(payload)
+  }, [innerElements])
 
   let history = useHistory()
   const navigateToHome = () => {
     history.push('/')
   }
 
-  return data ? (
+  return (
     <Layout>
       <HeaderWrapper>
         <TitleWrapper>
-          <NameInputField name={data.lesson.name} id={data.lesson.id} />
+          <NameInputField name={name} id={id} />
         </TitleWrapper>
         <ButtonsWrapper>
-          <SaveButton
-            id={data.lesson.id}
-            name={data.lesson.name}
-            elements={data.lesson.elements}
-          />
-          <DeleteButton id={data.lesson.id} afterDelete={navigateToHome} />
+          <DeleteButton id={id} afterDelete={navigateToHome} />
           <ReloadButton reload={reloadLesson} loading={loadingLesson} />
+          {isSaving && <Spinner />}
         </ButtonsWrapper>
       </HeaderWrapper>
       <Container>
         <EditableElements
           reloadLesson={reloadLesson}
-          innerElements={innerElementsLoader()}
-          lessonId={data.lesson.id}
-          elementsHandler={wrapperSetElements}
+          innerElements={innerElements}
+          lessonId={id}
+          setInnerElements={setInnerElements}
         />
       </Container>
       <Rodape />
     </Layout>
-  ) : null
+  )
+}
+
+EditableLesson.propTypes = {
+  lesson: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+    elements: PropTypes.arrayOf(PropTypes.any),
+  }),
+  loadingLesson: PropTypes.bool,
+  reloadLesson: PropTypes.func,
 }

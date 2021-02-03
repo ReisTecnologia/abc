@@ -1,5 +1,5 @@
 import React from 'react'
-import { EditableLesson } from './EditableLesson'
+import { EditableLessonLoader } from './EditableLessonLoader'
 import { useRouteMatch, Switch, Route } from 'react-router-dom'
 
 export const EditLessonPage = () => {
@@ -7,7 +7,7 @@ export const EditLessonPage = () => {
   return (
     <Switch>
       <Route path={`${path}/:lesson`}>
-        <EditableLesson />
+        <EditableLessonLoader />
       </Route>
     </Switch>
   )

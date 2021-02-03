@@ -53,7 +53,7 @@ ElementParams.propTypes = {
     type: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     audioUrls: PropTypes.arrayOf(PropTypes.string.isRequired),
-    urlVideo: PropTypes.string.isRequired,
+    urlVideo: PropTypes.string,
   }),
   updateElementParams: PropTypes.func,
 }

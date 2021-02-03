@@ -1,5 +1,5 @@
 import React from 'react'
-import { Spinner } from '../shared/LoadingSpinner'
+import { Spinner } from '../shared/Spinner'
 
 import PropTypes from 'prop-types'
 
