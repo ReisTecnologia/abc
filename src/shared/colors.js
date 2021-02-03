@@ -1,6 +1,8 @@
 export const colors = {
   ready: '#B5BBC2',
   playing: '#01796f',
+  primary: '#017970',
+  grayText: '#999',
   actual: '#000',
   highlight: '#1DA7FD',
   right: '#090',
@@ -9,4 +11,5 @@ export const colors = {
   textWrong: '#b33',
   textUnanswered: '#333',
   textClear: '#5ed65e',
+  white: '#fff',
 }

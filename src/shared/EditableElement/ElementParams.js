@@ -84,6 +84,19 @@ export const ElementParams = ({ elementParams, updateElementParams }) => {
   // console.log('text', text)
   // console.log('description', description)
 
+  const buildUpdateAudio = (audioIndex) => (payload) => {
+    console.log('updateAudio', 'index', audioIndex, payload)
+    const newAudios = [...elementParams.audios]
+    newAudios[audioIndex] = {
+      ...elementParams.audios[audioIndex],
+      ...payload,
+    }
+    updateElementParams({
+      ...elementParams,
+      audios: newAudios,
+    })
+  }
+
   return (
     <Wrapper>
       <ElementType>{type}</ElementType>
@@ -108,13 +121,13 @@ export const ElementParams = ({ elementParams, updateElementParams }) => {
       )}
       <b>Audios</b>:
       {audios &&
-        audios.map(({ name, url }) => (
-          <span key={url}>
-            <br />
-            <b>{name}</b>
-            <br />
-            <Audio audioUrl={url} key={url} />
-          </span>
+        audios.map(({ name, url }, audioIndex) => (
+          <Audio
+            url={url}
+            updateAudio={buildUpdateAudio(audioIndex)}
+            name={name}
+            key={url}
+          />
         ))}
       <AddAudioButton onClick={addAudio} />
       <br />
