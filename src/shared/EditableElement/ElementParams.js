@@ -90,7 +90,12 @@ ElementParams.propTypes = {
     type: PropTypes.string,
     letter: PropTypes.string,
     correctLetters: PropTypes.arrayOf(PropTypes.string),
-    audios: PropTypes.arrayOf(PropTypes.string.isRequired),
+    audios: PropTypes.arrayOf(
+      PropTypes.shape({
+        url: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+      })
+    ),
     urlVideo: PropTypes.string,
     description: PropTypes.string,
     text: PropTypes.string,
