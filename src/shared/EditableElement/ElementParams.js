@@ -33,10 +33,17 @@ export const ElementParams = ({ elementParams, updateElementParams }) => {
     updateElementParams(newElementParams)
   }
   const changeDescription = (newDescription) => {
-    updateElementParams({
-      ...elementParams,
-      description: newDescription,
-    })
+    if (newDescription.length < 1 || newDescription === ' ') {
+      updateElementParams({
+        ...elementParams,
+        description: 'Clique para adicionar uma descrição',
+      })
+    } else {
+      updateElementParams({
+        ...elementParams,
+        description: newDescription,
+      })
+    }
   }
   const changeText = (newText) => {
     updateElementParams({
