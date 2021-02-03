@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useCallback } from 'react'
 import { useMutation } from '@apollo/client'
 import { useHistory } from 'react-router-dom'
 import { Layout } from '../shared/Layout'
@@ -23,27 +23,48 @@ export const ButtonsWrapper = styled.div`
   display: flex;
 `
 
+let timeoutId = null
+
 export const EditableLesson = ({
   reloadLesson,
   loadingLesson,
   lesson: { id, name, elements },
 }) => {
-  console.log('editable lesson')
   const [mutate, { loading: isSaving }] = useMutation(SAVE_LESSON_MUTATION)
 
   const [innerElements, setInnerElements] = useState(elements)
   const [lessonName, setLessonName] = useState(name)
 
-  useEffect(() => {
-    const payload = {
-      variables: {
-        id: id,
-        input: { name: lessonName, elements: innerElements },
-      },
+  const save = useCallback(() => {
+    if (timeoutId) {
+      clearTimeout(timeoutId)
     }
+    timeoutId = setTimeout(() => {
+      const payload = {
+        variables: {
+          id: id,
+          input: { name: lessonName, elements: innerElements },
+        },
+      }
+      mutate(payload)
+    }, 3000)
+  }, [innerElements, lessonName, mutate])
 
-    mutate(payload)
-  }, [innerElements, lessonName])
+  const setInnerElementsAndSave = useCallback(
+    (newInnerElementsValue) => {
+      setInnerElements(newInnerElementsValue)
+      save()
+    },
+    [setInnerElements, save]
+  )
+
+  const setLessonNameAndSave = useCallback(
+    (newLessonNameValue) => {
+      setLessonName(newLessonNameValue)
+      save()
+    },
+    [setLessonName, save]
+  )
 
   let history = useHistory()
   const navigateToHome = () => {
@@ -56,7 +77,7 @@ export const EditableLesson = ({
         <TitleWrapper>
           <NameInputField
             lessonName={lessonName}
-            setLessonName={setLessonName}
+            setLessonName={setLessonNameAndSave}
           />
         </TitleWrapper>
         <ButtonsWrapper>
@@ -70,7 +91,7 @@ export const EditableLesson = ({
           reloadLesson={reloadLesson}
           innerElements={innerElements}
           lessonId={id}
-          setInnerElements={setInnerElements}
+          setInnerElements={setInnerElementsAndSave}
         />
       </Container>
       <Rodape />

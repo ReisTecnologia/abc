@@ -60,7 +60,12 @@ ElementParams.propTypes = {
   elementParams: PropTypes.shape({
     type: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    audios: PropTypes.arrayOf(PropTypes.string.isRequired),
+    audios: PropTypes.arrayOf(
+      PropTypes.shape({
+        url: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+      })
+    ),
     urlVideo: PropTypes.string,
   }),
   updateElementParams: PropTypes.func,

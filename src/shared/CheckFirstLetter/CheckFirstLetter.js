@@ -20,7 +20,7 @@ const SimpleAudio = loadable(async () => {
 })
 
 export const CheckFirstLetter = ({
-  audioUrls,
+  audios,
   conclusionAudio,
   words,
   actual,
@@ -88,7 +88,7 @@ export const CheckFirstLetter = ({
     <Card complete={complete}>
       <Wrapper>
         <AudioButton
-          audioUrls={audioUrls}
+          audioUrls={audios.map(({ url }) => url)}
           onStepStart={onStepStart}
           onStepComplete={onStepComplete}
           width={20}
@@ -119,7 +119,7 @@ export const CheckFirstLetter = ({
           />
         )}
         <SimpleAudio
-          src={conclusionAudio}
+          src={conclusionAudio && conclusionAudio.url}
           startPlaying={end}
           onComplete={doComplete}
         />
@@ -129,8 +129,16 @@ export const CheckFirstLetter = ({
 }
 
 CheckFirstLetter.propTypes = {
-  audioUrls: PropTypes.arrayOf(PropTypes.string.isRequired),
-  conclusionAudio: PropTypes.string,
+  audios: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      url: PropTypes.string,
+    })
+  ),
+  conclusionAudio: PropTypes.shape({
+    name: PropTypes.string,
+    url: PropTypes.string,
+  }),
   actual: PropTypes.bool,
   words: PropTypes.array,
   onComplete: PropTypes.func,

@@ -17,11 +17,11 @@ export const Element = ({ elementParams, actual, onComplete }) => {
     type,
     correctLetters,
     letter,
-    audioUrls,
     audios,
     urlVideo,
     words,
     text,
+    conclusionAudio,
   } = elementParamsWithBucketUrls
 
   switch (type) {
@@ -52,7 +52,7 @@ export const Element = ({ elementParams, actual, onComplete }) => {
           onComplete={onComplete}
           actual={actual}
           audios={audios}
-          conclusionAudio={audioUrls[1]}
+          conclusionAudio={conclusionAudio && conclusionAudio.url}
           words={words}
         />
       )
@@ -90,7 +90,16 @@ Element.propTypes = {
     type: PropTypes.string,
     letter: PropTypes.string,
     correctLetters: PropTypes.arrayOf(PropTypes.string),
-    audioUrls: PropTypes.arrayOf(PropTypes.string),
+    audios: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string,
+        url: PropTypes.string,
+      })
+    ),
+    conclusionAudio: PropTypes.shape({
+      name: PropTypes.string,
+      url: PropTypes.string,
+    }),
     urlVideo: PropTypes.string,
     description: PropTypes.string,
     text: PropTypes.string,

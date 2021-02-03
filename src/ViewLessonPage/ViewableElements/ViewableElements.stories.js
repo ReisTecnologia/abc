@@ -50,32 +50,31 @@ const defaultArgs = {
       description: 't2',
       audios: [{ name: 'a um', url: 'a1.m4a' }],
     },
-    //   {
-    //     type: 'Audio',
-    //     description: 't5',
-    //     audios: [{ name: 'a um', url: 'a1.m4a'}],
-    //   },
-    //   {
-    //     type: 'CheckFirstLetter',
-    //     description: 't4. certa, errada',
-    //     audios: [{ name: 'a um', url: 'a1.m4a'}, { name: 'a um', url: 'a1.m4a'}, { name: 'a um', url: 'a1.m4a'}],
-    //     words: [
-    //       {
-    //         word: 'beleza',
-    //         urlWord: 'a1.m4a',
-    //         startsWithTheLetter: false,
-    //         urlRightAnswerExplanation: 'a2.m4a',
-    //         urlWrongAnswerExplanation: 'a3.m4a',
-    //       },
-    //       {
-    //         word: 'alimento',
-    //         urlWord: 'a1.m4a',
-    //         startsWithTheLetter: true,
-    //         urlRightAnswerExplanation: 'a2.m4a',
-    //         urlWrongAnswerExplanation: 'a3.m4a',
-    //       },
-    //     ],
-    //   },
+    {
+      type: 'CheckFirstLetter',
+      description: 't4. certa, errada',
+      audios: [
+        { name: 'a um', url: 'a1.m4a' },
+        { name: 'a um', url: 'a1.m4a' },
+        { name: 'a um', url: 'a1.m4a' },
+      ],
+      words: [
+        {
+          word: 'beleza',
+          urlWord: 'a1.m4a',
+          startsWithTheLetter: false,
+          urlRightAnswerExplanation: 'a2.m4a',
+          urlWrongAnswerExplanation: 'a3.m4a',
+        },
+        {
+          word: 'alimento',
+          urlWord: 'a1.m4a',
+          startsWithTheLetter: true,
+          urlRightAnswerExplanation: 'a2.m4a',
+          urlWrongAnswerExplanation: 'a3.m4a',
+        },
+      ],
+    },
   ],
 }
 
