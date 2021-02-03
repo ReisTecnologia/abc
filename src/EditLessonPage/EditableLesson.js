@@ -37,7 +37,7 @@ export const EditableLesson = ({
   const [lessonName, setLessonName] = useState(name)
 
   useEffect(() => {
-    if (isFirstRun.current) {
+    if (!isFirstRun.current) {
       if (timeoutId) {
         clearTimeout(timeoutId)
       }
