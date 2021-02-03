@@ -2,9 +2,13 @@ import React, { useRef, useEffect, useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Spinner } from '../../Spinner'
+import { v4 as uuidv4 } from 'uuid'
 
 export const Wrapper = styled.div`
-  padding: 40px;
+  display: flex;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
   background-color: ${({ highlighted }) => (highlighted ? '#ffe9' : null)};
 `
 
@@ -39,19 +43,29 @@ const buildGetUploadTokenAndPostToAws = ({
     })
 }
 
-export const Uploader = ({ filename, dropHereMessage, dragHereMessage }) => {
+export const Uploader = ({
+  filename,
+  dropHereMessage,
+  dragHereMessage,
+  updateAudio,
+}) => {
   const ref = useRef()
   const [isDraggingOver, setDraggingOver] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const upload = useCallback(
-    (filename, files) => {
+    (files) => {
+      console.log('upload', files)
       if (files.length > 1) {
-        alert('Please upload one single file')
+        alert('Por favor mande apenas um arquivo')
         return null
       }
       setLoading(true)
       const file = files[0]
+      const filename = `${uuidv4()}.m4a`
+      updateAudio({
+        url: filename,
+      })
       var reader = new FileReader()
       reader.addEventListener(
         'loadend',
@@ -59,7 +73,7 @@ export const Uploader = ({ filename, dropHereMessage, dragHereMessage }) => {
       )
       reader.readAsArrayBuffer(file)
     },
-    [setLoading]
+    [updateAudio]
   )
 
   const handleDragEnter = (e) => {
@@ -74,12 +88,12 @@ export const Uploader = ({ filename, dropHereMessage, dragHereMessage }) => {
   }
 
   const handleDrop = useCallback(
-    (filename) => (e) => {
+    (e) => {
       e.preventDefault()
       setDraggingOver(false)
       var dt = e.dataTransfer
       var files = dt.files
-      upload(filename, files)
+      upload(files)
       return false
     },
     [upload]
@@ -89,14 +103,14 @@ export const Uploader = ({ filename, dropHereMessage, dragHereMessage }) => {
     ref.current.addEventListener('dragenter', handleDragEnter)
     ref.current.addEventListener('dragleave', handleDragLeave)
     ref.current.addEventListener('dragover', handleDragEnter)
-    ref.current.addEventListener('drop', handleDrop(filename))
+    ref.current.addEventListener('drop', handleDrop)
   }, [filename, handleDrop])
   return (
     <>
       <input
         type="file"
         onChange={(e) => {
-          upload(filename, e.target.files)
+          upload(e.target.files)
         }}
       />
       <Wrapper ref={ref} highlighted={isDraggingOver}>
@@ -116,4 +130,5 @@ Uploader.propTypes = {
   dragHereMessage: PropTypes.string,
   dropHereMessage: PropTypes.string,
   filename: PropTypes.string,
+  updateAudio: PropTypes.func,
 }

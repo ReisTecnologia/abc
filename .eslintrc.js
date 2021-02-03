@@ -14,8 +14,9 @@ module.exports = {
     },
   },
   extends: ['plugin:react/recommended', 'plugin:prettier/recommended'],
-  plugins: [],
+  plugins: ["react", "react-hooks"],
   rules: {
+    'react-hooks/exhaustive-deps': [ 'error'],
     'no-unused-vars': [
       'error',
       { varsIgnorePattern: '_', argsIgnorePattern: '_' },
