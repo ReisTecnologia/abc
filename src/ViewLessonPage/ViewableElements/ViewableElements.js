@@ -35,6 +35,12 @@ ViewableElements.propTypes = {
       letter: PropTypes.string,
       correctLetters: PropTypes.arrayOf(PropTypes.string),
       audioUrls: PropTypes.arrayOf(PropTypes.string),
+      audios: PropTypes.arrayOf(
+        PropTypes.shape({
+          name: PropTypes.string,
+          url: PropTypes.string,
+        })
+      ),
       urlVideo: PropTypes.string,
       description: PropTypes.string,
       text: PropTypes.string,

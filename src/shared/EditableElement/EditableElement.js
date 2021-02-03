@@ -47,6 +47,12 @@ EditableElement.propTypes = {
     type: PropTypes.string,
     letter: PropTypes.string,
     correctLetters: PropTypes.arrayOf(PropTypes.string),
+    audios: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string,
+        url: PropTypes.string,
+      })
+    ),
     audioUrls: PropTypes.arrayOf(PropTypes.string),
     urlVideo: PropTypes.string,
     description: PropTypes.string,

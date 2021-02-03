@@ -15,7 +15,7 @@ const AudioButton = loadable(async () => {
 })
 
 export const ClickWordStartingWithALetterInTheTextTaskElement = ({
-  audioUrls,
+  audios,
   text,
   letter,
   actual,
@@ -43,7 +43,7 @@ export const ClickWordStartingWithALetterInTheTextTaskElement = ({
           <AudioButton
             color={!audioIsListened && actual ? colors.actual : colors.ready}
             onComplete={setListened}
-            audioUrls={audioUrls}
+            audioUrls={audios.map(({ url }) => url)}
           />
         </ItemWrapper>
         <ItemWrapper>
@@ -60,7 +60,12 @@ export const ClickWordStartingWithALetterInTheTextTaskElement = ({
 }
 
 ClickWordStartingWithALetterInTheTextTaskElement.propTypes = {
-  audioUrls: PropTypes.arrayOf(PropTypes.string.isRequired),
+  audios: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      url: PropTypes.string,
+    })
+  ),
   text: PropTypes.string,
   color: PropTypes.string,
   letter: PropTypes.string,

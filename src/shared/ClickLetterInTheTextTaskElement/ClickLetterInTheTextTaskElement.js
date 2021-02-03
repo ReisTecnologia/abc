@@ -15,12 +15,13 @@ const AudioButton = loadable(async () => {
 })
 
 export const ClickLetterInTheTextTaskElement = ({
-  audioUrls,
+  audios,
   text,
   correctLetters,
   actual,
   onComplete,
 }) => {
+  console.log('audios', audios)
   const { complete, doComplete } = useCompleteState({ actual, onComplete })
   const [audioIsListened, setAudioIsListened] = useState(false)
 
@@ -34,7 +35,7 @@ export const ClickLetterInTheTextTaskElement = ({
           <AudioButton
             color={!audioIsListened && actual ? colors.actual : null}
             onComplete={setListened}
-            audioUrls={audioUrls}
+            audioUrls={audios.map(({ url }) => url)}
           />
         </ItemWrapper>
         <ItemWrapper>
@@ -51,7 +52,12 @@ export const ClickLetterInTheTextTaskElement = ({
 }
 
 ClickLetterInTheTextTaskElement.propTypes = {
-  audioUrls: PropTypes.arrayOf(PropTypes.string.isRequired),
+  audios: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      url: PropTypes.string,
+    })
+  ),
   text: PropTypes.string,
   correctLetters: PropTypes.arrayOf(PropTypes.string),
   actual: PropTypes.bool,

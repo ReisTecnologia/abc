@@ -19,6 +19,12 @@ export const addBucketPrefixesToElementParams = (elementParams) => {
   return {
     ...elementParams,
     audioUrls: fullAudioUrls,
+    audios: elementParams.audios
+      ? elementParams.audios.map(({ url, ...rest }) => ({
+          url: addBucketPrefix(url),
+          ...rest,
+        }))
+      : [],
     urlVideo: fullUrlVideo,
     words: fullUrlWords,
   }

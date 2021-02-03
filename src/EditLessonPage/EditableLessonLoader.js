@@ -6,14 +6,20 @@ import { useParams } from 'react-router-dom'
 import { Spinner } from '../shared/Spinner'
 
 export const EditableLessonLoader = () => {
+  console.log('loader...')
   let { lesson } = useParams()
-  const { data, refetch: reloadLesson, loading: loadingLesson } = useQuery(
-    LESSON_QUERY,
-    {
-      variables: { id: lesson },
-      notifyOnNetworkStatusChange: true,
-    }
-  )
+  const {
+    data,
+    refetch: reloadLesson,
+    loading: loadingLesson,
+    error,
+  } = useQuery(LESSON_QUERY, {
+    variables: { id: lesson },
+    notifyOnNetworkStatusChange: true,
+  })
+  if (error) {
+    console.error(error)
+  }
 
   return loadingLesson ? (
     <Spinner />

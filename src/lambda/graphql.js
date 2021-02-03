@@ -11,11 +11,17 @@ const typeDefs = gql`
     urlWord: String
   }
 
+  type Audio {
+    name: String!
+    url: String!
+  }
+
   type Element {
     type: String!
     letter: String
     correctLetters: [String]
     audioUrls: [String]
+    audios: [Audio]
     urlVideo: String
     description: String
     text: String
@@ -51,11 +57,17 @@ const typeDefs = gql`
     urlWord: String
   }
 
+  input AudioInput {
+    name: String
+    url: String
+  }
+
   input ElementLessonInput {
     type: String
     letter: String
     correctLetters: [String]
     audioUrls: [String]
+    audios: [AudioInput]
     urlVideo: String
     description: String
     text: String

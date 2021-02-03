@@ -13,7 +13,7 @@ const AudioButton = loadable(async () => {
   return LoadableAudioButton
 })
 
-export const AudioElement = ({ audioUrls, actual, onComplete }) => {
+export const AudioElement = ({ audios, actual, onComplete }) => {
   const { complete, doComplete } = useCompleteState({ onComplete, actual })
 
   return (
@@ -23,7 +23,7 @@ export const AudioElement = ({ audioUrls, actual, onComplete }) => {
           <AudioButton
             color={actual ? colors.actual : null}
             onComplete={doComplete}
-            audioUrls={audioUrls}
+            audioUrls={audios.map(({ url }) => url)}
           />
         </InnerWrapper>
       </Wrapper>
@@ -32,7 +32,12 @@ export const AudioElement = ({ audioUrls, actual, onComplete }) => {
 }
 
 AudioElement.propTypes = {
-  audioUrls: PropTypes.arrayOf(PropTypes.string),
+  audios: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      url: PropTypes.string,
+    })
+  ),
   actual: PropTypes.bool,
   onComplete: PropTypes.func,
 }

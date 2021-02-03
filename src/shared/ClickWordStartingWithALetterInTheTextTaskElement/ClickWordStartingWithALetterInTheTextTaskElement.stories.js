@@ -12,7 +12,7 @@ export default {
 }
 
 const defaultArgs = {
-  audioUrls: ['https://alfabetiza.s3-sa-east-1.amazonaws.com/a1.m4a'],
+  audios: [{ name: 'a um', url: 'a1.m4a' }],
   letter: 'a',
   text: `Antes de ontem, dona Prudência foi à feira.
     Garantir as compras do mês.`,

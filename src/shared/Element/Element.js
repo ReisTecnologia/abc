@@ -1,18 +1,84 @@
-// import React from 'react'
+import React from 'react'
+import { AudioElement } from '../AudioElement'
+import { ClickWordStartingWithALetterInTheTextTaskElement } from '../ClickWordStartingWithALetterInTheTextTaskElement'
+import { ClickLetterInTheTextTaskElement } from '../ClickLetterInTheTextTaskElement'
+import { LetterAndAudioElement } from '../LetterAndAudioElement'
+import { VideoElement } from '../VideoElement'
+import { CheckFirstLetter } from '../CheckFirstLetter'
 import PropTypes from 'prop-types'
 import { addBucketPrefixesToElementParams } from './addBucketPrefixesToElementParams'
-import { renderElement } from './renderElement'
 
 export const Element = ({ elementParams, actual, onComplete }) => {
   const elementParamsWithBucketUrls = addBucketPrefixesToElementParams(
     elementParams
   )
 
-  return renderElement({
-    elementParamsWithBucketUrls,
-    actual,
-    onComplete,
-  })
+  const {
+    type,
+    correctLetters,
+    letter,
+    audioUrls,
+    audios,
+    urlVideo,
+    words,
+    text,
+  } = elementParamsWithBucketUrls
+
+  switch (type) {
+    case 'LetterAndAudio':
+      return (
+        <LetterAndAudioElement
+          onComplete={onComplete}
+          actual={actual}
+          letter={letter}
+          audios={audios}
+        />
+      )
+    case 'Audio':
+      return (
+        <AudioElement onComplete={onComplete} actual={actual} audios={audios} />
+      )
+    case 'Video':
+      return (
+        <VideoElement
+          onComplete={onComplete}
+          actual={actual}
+          urlVideo={urlVideo}
+        />
+      )
+    case 'CheckFirstLetter':
+      return (
+        <CheckFirstLetter
+          onComplete={onComplete}
+          actual={actual}
+          audios={audios}
+          conclusionAudio={audioUrls[1]}
+          words={words}
+        />
+      )
+    case 'ClickWordStartingWithALetterInTheTextTask':
+      return (
+        <ClickWordStartingWithALetterInTheTextTaskElement
+          onComplete={onComplete}
+          actual={actual}
+          audios={audios}
+          letter={letter}
+          text={text}
+        />
+      )
+    case 'ClickLetterInTheTextTask':
+      return (
+        <ClickLetterInTheTextTaskElement
+          onComplete={onComplete}
+          actual={actual}
+          audios={audios}
+          correctLetters={correctLetters}
+          text={text}
+        />
+      )
+    default:
+      throw new Error(`Unknown element type: ${type}`)
+  }
 }
 
 Element.propTypes = {

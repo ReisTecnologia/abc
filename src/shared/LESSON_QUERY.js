@@ -10,6 +10,10 @@ export const LESSON_QUERY = gql`
         letter
         correctLetters
         audioUrls
+        audios {
+          name
+          url
+        }
         urlVideo
         description
         text

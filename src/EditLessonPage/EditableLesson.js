@@ -28,6 +28,7 @@ export const EditableLesson = ({
   loadingLesson,
   lesson: { id, name, elements },
 }) => {
+  console.log('editable lesson')
   const [mutate, { loading: isSaving }] = useMutation(SAVE_LESSON_MUTATION)
 
   const [innerElements, setInnerElements] = useState(elements)

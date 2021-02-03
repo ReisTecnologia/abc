@@ -20,8 +20,11 @@ const ElementType = styled.div`
 export const ElementParams = ({ elementParams, updateElementParams }) => {
   const addAudio = () => {
     const newElementParams = { ...elementParams }
-    const newAudioName = `${uuidv4()}.m4a`
-    newElementParams.audioUrls = [...elementParams.audioUrls, newAudioName]
+    const newAudioUrl = `${uuidv4()}.m4a`
+    newElementParams.audioUrls = [
+      ...elementParams.audios,
+      { url: newAudioUrl, name: 'new name' },
+    ]
     updateElementParams(newElementParams)
   }
   const changeDescription = (newDescription) => {
@@ -30,16 +33,21 @@ export const ElementParams = ({ elementParams, updateElementParams }) => {
       description: newDescription,
     })
   }
-  const { type, description, audioUrls, urlVideo } = elementParams
+  const { type, description, audios, urlVideo } = elementParams
   return (
     <Wrapper>
       <ElementType>{type}</ElementType>
       <TextInput value={description} onChange={changeDescription} />
       <br />
-      <b>Audio Urls</b>:
-      {audioUrls &&
-        audioUrls.map((audioUrl) => (
-          <Audio audioUrl={audioUrl} key={audioUrl} />
+      <b>Audios</b>:
+      {audios &&
+        audios.map(({ name, url }) => (
+          <span key={url}>
+            <br />
+            <b>{name}</b>
+            <br />
+            <Audio audioUrl={url} key={url} />
+          </span>
         ))}
       <AddAudioButton onClick={addAudio} />
       <br />
@@ -52,7 +60,7 @@ ElementParams.propTypes = {
   elementParams: PropTypes.shape({
     type: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    audioUrls: PropTypes.arrayOf(PropTypes.string.isRequired),
+    audios: PropTypes.arrayOf(PropTypes.string.isRequired),
     urlVideo: PropTypes.string,
   }),
   updateElementParams: PropTypes.func,
