@@ -18,7 +18,7 @@ export const Element = ({ elementParams, actual, onComplete }) => {
     correctLetters,
     letter,
     audios,
-    urlVideo,
+    videos,
     words,
     text,
     conclusionAudio,
@@ -40,11 +40,7 @@ export const Element = ({ elementParams, actual, onComplete }) => {
       )
     case 'Video':
       return (
-        <VideoElement
-          onComplete={onComplete}
-          actual={actual}
-          urlVideo={urlVideo}
-        />
+        <VideoElement onComplete={onComplete} actual={actual} videos={videos} />
       )
     case 'CheckFirstLetter':
       return (
@@ -100,7 +96,12 @@ Element.propTypes = {
       name: PropTypes.string,
       url: PropTypes.string,
     }),
-    urlVideo: PropTypes.string,
+    videos: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string,
+        url: PropTypes.string,
+      })
+    ),
     description: PropTypes.string,
     text: PropTypes.string,
     words: PropTypes.array,

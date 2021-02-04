@@ -37,7 +37,12 @@ const defaultArgs = {
     {
       type: 'Video',
       description: 'Boca falando o som "ã"',
-      urlVideo: 'small.mp4',
+      videos: [
+        {
+          name: 'video um',
+          url: 'https://alfabetiza.s3-sa-east-1.amazonaws.com/small.mp4',
+        },
+      ],
     },
     {
       type: 'LetterAndAudio',

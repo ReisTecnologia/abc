@@ -59,7 +59,7 @@ export const Uploader = ({ videoFilePrefix, updateVideo }) => {
       }
       setLoading(true)
       const file = files[0]
-      const filename = `${videoFilePrefix}${uuidv4()}.m4a`
+      const filename = `${videoFilePrefix}${uuidv4()}.mp4`
       var reader = new FileReader()
       const onComplete = () => {
         updateVideo({
