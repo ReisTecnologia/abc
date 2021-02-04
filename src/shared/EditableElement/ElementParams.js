@@ -96,7 +96,7 @@ export const ElementParams = ({ elementParams, updateElementParams }) => {
           title={'Letras corretas:'}
         />
       )}
-      <ElementTitleWrapper>Audios:</ElementTitleWrapper>
+      <ElementTitleWrapper>Áudios:</ElementTitleWrapper>
       <Audios audios={audios} changeAudios={changeAudios} />
       <br />
       {urlVideo ? <b>urlVideo:</b> && urlVideo : null}
