@@ -45,7 +45,7 @@ const buildGetUploadTokenAndPostToAws = ({
     })
 }
 
-export const Uploader = ({ filename, updateAudio }) => {
+export const Uploader = ({ audioFilePrefix, updateAudio }) => {
   const ref = useRef()
   const [isDraggingOver, setDraggingOver] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -59,7 +59,7 @@ export const Uploader = ({ filename, updateAudio }) => {
       }
       setLoading(true)
       const file = files[0]
-      const filename = `${uuidv4()}.m4a`
+      const filename = `${audioFilePrefix}${uuidv4()}.m4a`
       var reader = new FileReader()
       const onComplete = () => {
         updateAudio({
@@ -78,19 +78,26 @@ export const Uploader = ({ filename, updateAudio }) => {
       )
       reader.readAsArrayBuffer(file)
     },
-    [updateAudio]
+    [updateAudio, audioFilePrefix]
   )
 
-  const handleDragEnter = (e) => {
-    e.preventDefault()
-    setDraggingOver(true)
-    return false
-  }
-  const handleDragLeave = (e) => {
-    e.preventDefault()
-    setDraggingOver(false)
-    return false
-  }
+  const handleDragEnter = useCallback(
+    (e) => {
+      e.preventDefault()
+      setDraggingOver(true)
+      return false
+    },
+    [setDraggingOver]
+  )
+
+  const handleDragLeave = useCallback(
+    (e) => {
+      e.preventDefault()
+      setDraggingOver(false)
+      return false
+    },
+    [setDraggingOver]
+  )
 
   const handleDrop = useCallback(
     (e) => {
@@ -109,11 +116,12 @@ export const Uploader = ({ filename, updateAudio }) => {
     ref.current.addEventListener('dragleave', handleDragLeave)
     ref.current.addEventListener('dragover', handleDragEnter)
     ref.current.addEventListener('drop', handleDrop)
-  }, [filename, handleDrop])
+  }, [handleDrop, handleDragLeave, handleDragEnter])
+  const id = Math.random()
   return (
     <>
       <Wrapper ref={ref} highlighted={isDraggingOver}>
-        <label htmlFor={`img${filename}`}>
+        <label htmlFor={`img${id}`}>
           {loading ? (
             <Spinner />
           ) : isDraggingOver ? (
@@ -128,7 +136,7 @@ export const Uploader = ({ filename, updateAudio }) => {
             upload(e.target.files)
           }}
           style={{ display: 'none' }}
-          id={`img${filename}`}
+          id={`img${id}`}
         />
       </Wrapper>
     </>
@@ -136,6 +144,6 @@ export const Uploader = ({ filename, updateAudio }) => {
 }
 
 Uploader.propTypes = {
-  filename: PropTypes.string,
+  audioFilePrefix: PropTypes.string,
   updateAudio: PropTypes.func,
 }

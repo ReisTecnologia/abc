@@ -24,7 +24,11 @@ export const ElementTitleWrapper = styled.div`
   font-size: 1.4rem;
 `
 
-export const ElementParams = ({ elementParams, updateElementParams }) => {
+export const ElementParams = ({
+  lessonId,
+  elementParams,
+  updateElementParams,
+}) => {
   const changeAudios = useCallback(
     (newAudios) => {
       updateElementParams({
@@ -119,7 +123,11 @@ export const ElementParams = ({ elementParams, updateElementParams }) => {
       {showAudios && (
         <>
           <ElementTitleWrapper>Áudios:</ElementTitleWrapper>
-          <Audios audios={audios} changeAudios={changeAudios} />
+          <Audios
+            audioFilePrefix={`${lessonId}___`}
+            audios={audios}
+            changeAudios={changeAudios}
+          />
           <br />
         </>
       )}
@@ -135,6 +143,7 @@ export const ElementParams = ({ elementParams, updateElementParams }) => {
 }
 
 ElementParams.propTypes = {
+  lessonId: PropTypes.string,
   elementParams: PropTypes.shape({
     type: PropTypes.string,
     letter: PropTypes.string,

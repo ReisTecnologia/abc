@@ -8,6 +8,7 @@ import { Button } from './Button'
 import { ElementParams } from './ElementParams'
 
 export const EditableElement = ({
+  lessonId,
   children,
   onUp,
   onDown,
@@ -28,6 +29,7 @@ export const EditableElement = ({
           </Button>
         </UpDownWrapper>
         <ElementParams
+          lessonId={lessonId}
           updateElementParams={updateElementParams}
           elementParams={elementParams}
         />
@@ -60,4 +62,5 @@ EditableElement.propTypes = {
     words: PropTypes.array,
   }),
   updateElementParams: PropTypes.func,
+  lessonId: PropTypes.string,
 }

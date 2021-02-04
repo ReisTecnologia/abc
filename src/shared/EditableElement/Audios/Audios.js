@@ -29,7 +29,7 @@ const buildChangeName = ({ audios, audioIndex, changeAudios }) => (name) => {
   changeAudios(newAudios)
 }
 
-export const Audios = ({ audios, changeAudios }) => {
+export const Audios = ({ audios, changeAudios, audioFilePrefix }) => {
   const addAudio = () =>
     changeAudios([...audios, { url: '', name: 'new name' }])
 
@@ -39,6 +39,7 @@ export const Audios = ({ audios, changeAudios }) => {
         audios.map(({ name, url }, audioIndex) => (
           <Audio
             url={url}
+            audioFilePrefix={audioFilePrefix}
             index={audioIndex}
             updateAudio={buildUpdateAudio({ audios, audioIndex, changeAudios })}
             deleteAudio={buildDeleteAudio({ audios, audioIndex, changeAudios })}
@@ -53,6 +54,7 @@ export const Audios = ({ audios, changeAudios }) => {
 }
 
 Audios.propTypes = {
+  audioFilePrefix: PropTypes.string,
   audios: PropTypes.arrayOf(
     PropTypes.shape({
       url: PropTypes.string.isRequired,
