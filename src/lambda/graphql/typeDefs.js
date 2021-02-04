@@ -14,13 +14,19 @@ export default gql`
     url: String!
   }
 
+  type Video {
+    name: String!
+    url: String!
+  }
+
   type Element {
     type: String!
     letter: String
     correctLetters: [String]
     audioUrls: [String]
     audios: [Audio]
-    urlVideo: String
+    urlVideo: [String]
+    videos: [Video]
     description: String
     text: String
     words: [Word]
@@ -64,13 +70,19 @@ export default gql`
     url: String
   }
 
+  input VideoInput {
+    name: String
+    url: String
+  }
+
   input ElementLessonInput {
     type: String
     letter: String
     correctLetters: [String]
     audioUrls: [String]
     audios: [AudioInput]
-    urlVideo: String
+    urlVideo: [String]
+    videos: [VideoInput]
     description: String
     text: String
     words: [WordLessonInput]

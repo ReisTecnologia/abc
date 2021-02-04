@@ -41,6 +41,7 @@ ViewableElements.propTypes = {
           url: PropTypes.string,
         })
       ),
+      urlVideo: PropTypes.arrayOf(PropTypes.string),
       videos: PropTypes.arrayOf(
         PropTypes.shape({
           name: PropTypes.string,
