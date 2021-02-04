@@ -45,7 +45,7 @@ export const VideoElement = ({ videos, actual, onComplete }) => {
           <Icon color={color} />
         </PlayWrapper>
         <VideoComponent ref={videoElement}>
-          <source src={videos.url} type="video/mp4" />
+          <source src={videos.map(({ url }) => url)} type="video/mp4" />
         </VideoComponent>
         {hasError && 'video error'}
       </VideoElementWrapper>

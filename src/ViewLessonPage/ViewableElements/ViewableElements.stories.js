@@ -45,7 +45,7 @@ const defaultArgs = {
       videos: [
         {
           name: 'video um',
-          url: 'https://alfabetiza.s3-sa-east-1.amazonaws.com/small.mp4',
+          url: 'small.mp4',
         },
       ],
     },
