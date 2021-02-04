@@ -7,6 +7,7 @@ import { HeaderWrapper } from '../shared/HeaderWrapper'
 import { Rodape } from '../shared/Rodape'
 import { EditableElements } from './EditableElements/EditableElements'
 import { DeleteButton } from './DeleteButton'
+import { CleanupFilesButton } from './CleanupFilesButton'
 import { NameInputField } from './NameInputField'
 import { Spinner } from '../shared/Spinner'
 import { ReloadButton } from './ReloadButton'
@@ -70,6 +71,7 @@ export const EditableLesson = ({
           />
         </TitleWrapper>
         <ButtonsWrapper>
+          <CleanupFilesButton id={id} />
           <DeleteButton id={id} afterDelete={navigateToHome} />
           <ReloadButton reload={reloadLesson} loading={loadingLesson} />
           {isSaving && <Spinner />}

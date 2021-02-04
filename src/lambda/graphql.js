@@ -2,6 +2,9 @@ const { ApolloServer } = require('apollo-server-lambda')
 import db from './dbData/db'
 import { v4 as uuidv4 } from 'uuid'
 import typeDefs from './graphql/typeDefs'
+const AWS = require('aws-sdk')
+import { getAllFilesFromLesson } from './graphql/getAllFilesFromLesson'
+import { detectOrphanFiles } from './graphql/detectOrphanFiles'
 
 const resolvers = {
   Query: {
@@ -35,8 +38,30 @@ const resolvers = {
     },
     cleanupLessonFiles: async (parent, args) => {
       const lesson = await db.getLesson(args.id)
-      console.log('lesson', lesson)
-      return { success }
+      const dbLessonFiles = getAllFilesFromLesson(lesson)
+      const s3 = new AWS.S3({
+        accessKeyId: process.env.MY_AWS_BUCKET_ACCESS_KEY_ID,
+        secretAccessKey: process.env.MY_AWS_BUCKET_SECRET_ACCESS_KEY,
+      })
+      var params = {
+        Bucket: process.env.REACT_APP_MY_AWS_BUCKET_NAME,
+        Prefix: `${args.id}___`,
+      }
+      const list = await s3.listObjectsV2(params).promise()
+      const bucketFiles = list.Contents.map(({ Key }) => Key)
+      const orphanFiles = detectOrphanFiles(dbLessonFiles, bucketFiles)
+      if (orphanFiles.length) {
+        console.log('orphanFiles', orphanFiles)
+        const deleteParams = {
+          Bucket: process.env.REACT_APP_MY_AWS_BUCKET_NAME,
+          Delete: {
+            Objects: orphanFiles.map((file) => ({ Key: file })),
+            Quiet: true,
+          },
+        }
+        await s3.deleteObjects(deleteParams).promise()
+      }
+      return { success: true }
     },
 
     editLesson: async (parent, args) => {
