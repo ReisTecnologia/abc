@@ -78,6 +78,11 @@ export const ElementParams = ({ elementParams, updateElementParams }) => {
       return 'Palavras iniciando em:'
     else if (type === 'LetterAndAudio') return 'Letra:'
   }
+  const showCorrectLetters = correctLetters !== null
+  const showLetter = letter !== null
+  const showText = text !== null
+  const showAudios = audios !== null
+  const showUrlVideo = urlVideo !== null
 
   const correctLettersString = correctLetters ? correctLetters.join() : null
 
@@ -88,21 +93,21 @@ export const ElementParams = ({ elementParams, updateElementParams }) => {
       <TextAndInput value={description} onChange={changeDescription} />
       <br />
 
-      {text && (
+      {showText && (
         <>
           <ElementTitleWrapper>Texto:</ElementTitleWrapper>
           <TextAndInput value={text} onChange={changeText} />
         </>
       )}
 
-      {letter && (
+      {showLetter && (
         <>
           <ElementTitleWrapper>{letterTitle()}</ElementTitleWrapper>
           <TextAndInput value={letter} onChange={changeLetter} />
         </>
       )}
 
-      {correctLetters && (
+      {showCorrectLetters && (
         <>
           <ElementTitleWrapper>Letras corretas:</ElementTitleWrapper>
           <TextAndInput
@@ -111,14 +116,14 @@ export const ElementParams = ({ elementParams, updateElementParams }) => {
           />
         </>
       )}
-      {audios && (
+      {showAudios && (
         <>
           <ElementTitleWrapper>Áudios:</ElementTitleWrapper>
           <Audios audios={audios} changeAudios={changeAudios} />
           <br />
         </>
       )}
-      {urlVideo && (
+      {showUrlVideo && (
         <>
           <ElementTitleWrapper>Vídeos:</ElementTitleWrapper>
           {urlVideo}
