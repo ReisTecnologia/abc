@@ -15,6 +15,10 @@ export const LESSON_QUERY = gql`
           url
         }
         urlVideo
+        videos {
+          name
+          url
+        }
         description
         text
         words {

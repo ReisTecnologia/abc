@@ -42,7 +42,12 @@ const defaultArgs = {
     {
       type: 'Video',
       description: 'Boca falando o som "ã"',
-      urlVideo: 'small.mp4',
+      videos: [
+        {
+          name: 'video um',
+          url: 'small.mp4',
+        },
+      ],
     },
     {
       type: 'LetterAndAudio',

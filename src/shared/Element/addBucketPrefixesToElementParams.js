@@ -14,7 +14,7 @@ export const addBucketPrefixesToElementParams = (elementParams) => {
   const { audioUrls, urlVideo, words, conclusionAudio } = elementParams
   const fullUrlWords = words && addBucketPrefixToWords(words)
   const fullAudioUrls = audioUrls && audioUrls.map(addBucketPrefix)
-  const fullUrlVideo = addBucketPrefix(urlVideo)
+  const fullUrlVideo = urlVideo && urlVideo.map(addBucketPrefix)
   const fullUrlConclusionAudio =
     conclusionAudio && addBucketPrefix(conclusionAudio)
 
@@ -28,6 +28,12 @@ export const addBucketPrefixesToElementParams = (elementParams) => {
         }))
       : [],
     urlVideo: fullUrlVideo,
+    videos: elementParams.videos
+      ? elementParams.videos.map(({ url, ...rest }) => ({
+          url: addBucketPrefix(url),
+          ...rest,
+        }))
+      : [],
     words: fullUrlWords,
     conclusionAudio: fullUrlConclusionAudio,
   }

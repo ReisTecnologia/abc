@@ -69,7 +69,13 @@ EditableElements.propTypes = {
           url: PropTypes.string,
         })
       ),
-      urlVideo: PropTypes.string,
+      urlVideo: PropTypes.arrayOf(PropTypes.string),
+      videos: PropTypes.arrayOf(
+        PropTypes.shape({
+          name: PropTypes.string,
+          url: PropTypes.string,
+        })
+      ),
       description: PropTypes.string,
       text: PropTypes.string,
       words: PropTypes.array,

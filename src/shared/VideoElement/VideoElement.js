@@ -10,7 +10,7 @@ import { useCompleteState } from '../useCompleteState'
 import { Icon } from '../Icon'
 import { colors } from '../colors'
 
-export const VideoElement = ({ urlVideo, actual, onComplete }) => {
+export const VideoElement = ({ videos, actual, onComplete }) => {
   const videoElement = useRef(null)
   const [hasError, setHasError] = useState(false)
   const { complete, doComplete } = useCompleteState({ actual, onComplete })
@@ -45,7 +45,7 @@ export const VideoElement = ({ urlVideo, actual, onComplete }) => {
           <Icon color={color} />
         </PlayWrapper>
         <VideoComponent ref={videoElement}>
-          <source src={urlVideo} type="video/mp4" />
+          <source src={videos.map(({ url }) => url)} type="video/mp4" />
         </VideoComponent>
         {hasError && 'video error'}
       </VideoElementWrapper>
@@ -54,7 +54,12 @@ export const VideoElement = ({ urlVideo, actual, onComplete }) => {
 }
 
 VideoElement.propTypes = {
-  urlVideo: PropTypes.string.isRequired,
+  videos: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      url: PropTypes.string,
+    })
+  ),
   actual: PropTypes.bool,
   onComplete: PropTypes.func,
 }
