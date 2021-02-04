@@ -4,7 +4,11 @@ import { Element } from '../../shared/Element/Element'
 import { EditableElement } from '../../shared/EditableElement/EditableElement'
 import ErrorBoundary from '../../shared/ErrorBoundary'
 
-export const EditableElements = ({ innerElements, setInnerElements }) => {
+export const EditableElements = ({
+  innerElements,
+  setInnerElements,
+  lessonId,
+}) => {
   const updateElementParams = useCallback(
     (index, newElementParams) => {
       const newInnerElements = [...innerElements]
@@ -39,6 +43,7 @@ export const EditableElements = ({ innerElements, setInnerElements }) => {
           canMoveUp={canMoveUp}
           canMoveDown={canMoveDown}
           elementParams={elementParams}
+          lessonId={lessonId}
           updateElementParams={(newElementParams) =>
             updateElementParams(index, newElementParams)
           }
@@ -51,6 +56,7 @@ export const EditableElements = ({ innerElements, setInnerElements }) => {
 }
 
 EditableElements.propTypes = {
+  lessonId: PropTypes.string,
   elements: PropTypes.arrayOf(
     PropTypes.shape({
       type: PropTypes.string,

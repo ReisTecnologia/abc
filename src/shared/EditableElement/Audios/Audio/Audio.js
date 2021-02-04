@@ -12,7 +12,7 @@ import { DeleteAudioButton } from './DeleteAudioButton'
 import { TextAndInput } from '../../TextAndInput'
 
 export const Audio = ({
-  url,
+  audioFilePrefix,
   name,
   updateAudio,
   deleteAudio,
@@ -27,7 +27,7 @@ export const Audio = ({
   const extraFields = showFileUploadInput && (
     <>
       <InputWrapper>
-        <Uploader filename={url} updateAudio={updateAudio} />
+        <Uploader audioFilePrefix={audioFilePrefix} updateAudio={updateAudio} />
       </InputWrapper>
       <DeleteAudioButton deleteAudio={deleteAudio} />
     </>
@@ -51,7 +51,7 @@ export const Audio = ({
 }
 
 Audio.propTypes = {
-  url: PropTypes.string,
+  audioFilePrefix: PropTypes.string,
   name: PropTypes.string,
   updateAudio: PropTypes.func,
   deleteAudio: PropTypes.func,
