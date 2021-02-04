@@ -31,6 +31,9 @@ export const AudioButton = ({
   }
 
   useEffect(() => {
+    if (audioUrls[actualItem] === undefined) {
+      setActualItem(0)
+    }
     audioElement.current.src = audioUrls[actualItem]
   }, [actualItem, audioUrls])
 
@@ -63,15 +66,16 @@ export const AudioButton = ({
   const showColor = errorCode ? colors.wrong : playing ? playingColor : color
   const content = <Icon shape={icon} color={showColor} size={size} />
 
-  const numDotsBefore = actualItem
-  const numDotsAfter = audioUrls.length - actualItem - 1
+  const empty = audioUrls.length === 0
+  const numDotsBefore = empty ? 0 : actualItem
+  const numDotsAfter = empty ? 0 : audioUrls.length - actualItem - 1
 
   return (
     <Wrapper onClick={playIfEnabled} disabled={disabled}>
       {[...Array(numDotsBefore)].map((n, i) => (
         <TrailDot key={i} color={color} />
       ))}
-      {content} {audioUrls[actualItem]}
+      {content}
       {errorCode ? `error: ${errorCode}` : null}
       {[...Array(numDotsAfter)].map((n, i) => (
         <TrailDot key={i} color={color} />

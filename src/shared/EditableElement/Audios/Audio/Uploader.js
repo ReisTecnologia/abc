@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { Spinner } from '../../Spinner'
+import { Spinner } from '../../../Spinner'
 import { v4 as uuidv4 } from 'uuid'
 
 export const Wrapper = styled.div`
@@ -17,6 +17,7 @@ const buildGetUploadTokenAndPostToAws = ({
   file,
   reader,
   setLoading,
+  onComplete,
 }) => () => {
   fetch('/.netlify/functions/uploadToken', {
     method: 'POST',
@@ -40,15 +41,11 @@ const buildGetUploadTokenAndPostToAws = ({
     })
     .then(function () {
       setLoading(false)
+      onComplete()
     })
 }
 
-export const Uploader = ({
-  filename,
-  dropHereMessage,
-  dragHereMessage,
-  updateAudio,
-}) => {
+export const Uploader = ({ filename, updateAudio }) => {
   const ref = useRef()
   const [isDraggingOver, setDraggingOver] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -63,13 +60,21 @@ export const Uploader = ({
       setLoading(true)
       const file = files[0]
       const filename = `${uuidv4()}.m4a`
-      updateAudio({
-        url: filename,
-      })
       var reader = new FileReader()
+      const onComplete = () => {
+        updateAudio({
+          url: filename,
+        })
+      }
       reader.addEventListener(
         'loadend',
-        buildGetUploadTokenAndPostToAws({ filename, file, reader, setLoading })
+        buildGetUploadTokenAndPostToAws({
+          filename,
+          file,
+          reader,
+          setLoading,
+          onComplete,
+        })
       )
       reader.readAsArrayBuffer(file)
     },
@@ -107,28 +112,30 @@ export const Uploader = ({
   }, [filename, handleDrop])
   return (
     <>
-      <input
-        type="file"
-        onChange={(e) => {
-          upload(e.target.files)
-        }}
-      />
       <Wrapper ref={ref} highlighted={isDraggingOver}>
-        {loading ? (
-          <Spinner />
-        ) : isDraggingOver ? (
-          dropHereMessage
-        ) : (
-          dragHereMessage
-        )}
+        <label htmlFor={`img${filename}`}>
+          {loading ? (
+            <Spinner />
+          ) : isDraggingOver ? (
+            'Solte para fazer upload.'
+          ) : (
+            'Clique para escolher um arquivo.'
+          )}
+        </label>
+        <input
+          type="file"
+          onChange={(e) => {
+            upload(e.target.files)
+          }}
+          style={{ display: 'none' }}
+          id={`img${filename}`}
+        />
       </Wrapper>
     </>
   )
 }
 
 Uploader.propTypes = {
-  dragHereMessage: PropTypes.string,
-  dropHereMessage: PropTypes.string,
   filename: PropTypes.string,
   updateAudio: PropTypes.func,
 }

@@ -22,7 +22,7 @@ export const ButtonsWrapper = styled.div`
   flex: 1;
   display: flex;
 `
-
+const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
 
 export const EditableLesson = ({
@@ -49,7 +49,7 @@ export const EditableLesson = ({
           },
         }
         mutate(payload)
-      }, 3000)
+      }, AUTO_SAVE_DEBOUNCE_MILISECONDS)
     } else {
       isFirstRun.current = false
     }

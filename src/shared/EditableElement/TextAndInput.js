@@ -13,18 +13,12 @@ export const TextWrapper = styled.div`
   cursor: pointer;
 `
 
-export const ElementTitleWrapper = styled.div`
-  display: block;
-  font-weight: bold;
-  cursor: pointer;
-`
-
 export const InputWrapper = styled.textarea`
   flex: 1;
   display: flex;
 `
 
-export const TextInput = ({ value, onChange, title }) => {
+export const TextAndInput = ({ value, onChange }) => {
   const [inputValue, setInputValue] = useState(value)
   const [showInput, setShowInput] = useState(false)
 
@@ -51,9 +45,6 @@ export const TextInput = ({ value, onChange, title }) => {
 
   return (
     <Wrapper ref={ref}>
-      <ElementTitleWrapper onClick={() => setShowInput(true)}>
-        {title}
-      </ElementTitleWrapper>
       {showInput ? (
         <TextareaAutosize
           value={inputValue}
@@ -61,14 +52,15 @@ export const TextInput = ({ value, onChange, title }) => {
           onKeyPress={submitOnEnter}
         />
       ) : (
-        <TextWrapper onClick={() => setShowInput(true)}>{value}</TextWrapper>
+        <TextWrapper onClick={() => setShowInput(true)}>
+          {value || '...'}
+        </TextWrapper>
       )}
     </Wrapper>
   )
 }
 
-TextInput.propTypes = {
+TextAndInput.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
-  title: PropTypes.string,
 }
