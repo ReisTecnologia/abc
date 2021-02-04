@@ -14,9 +14,7 @@ const Wrapper = styled.div`
 
 const ElementType = styled.div`
   margin-bottom: 5px;
-  /* float: right; */
-  display: flex;
-  justify-content: center;
+  float: right;
   background-color: #fff;
   font-weight: bold;
 `
@@ -57,9 +55,9 @@ export const ElementParams = ({ elementParams, updateElementParams }) => {
   }
   const changeCorrectLetters = (newCorrectLetters) => {
     const newCorrectLettersArray = newCorrectLetters
-      ? newCorrectLetters.split(',')
-      : null
-    console.log('newCorrectLettersArray', newCorrectLettersArray)
+      .split(',')
+      .map((letters) => letters.trim())
+
     updateElementParams({
       ...elementParams,
       correctLetters: newCorrectLettersArray,
@@ -75,6 +73,17 @@ export const ElementParams = ({ elementParams, updateElementParams }) => {
     text,
   } = elementParams
 
+  const letterTitle = () => {
+    if (type === 'ClickWordStartingWithALetterInTheTextTask')
+      return 'Palavras iniciando em:'
+    else if (type === 'LetterAndAudio') return 'Letra:'
+  }
+  const showCorrectLetters = correctLetters !== null
+  const showLetter = letter !== null
+  const showText = text !== null
+  const showAudios = audios !== null
+  const showUrlVideo = urlVideo !== null
+
   const correctLettersString = correctLetters ? correctLetters.join() : null
 
   return (
@@ -83,23 +92,44 @@ export const ElementParams = ({ elementParams, updateElementParams }) => {
       <ElementTitleWrapper>Descrição:</ElementTitleWrapper>
       <TextAndInput value={description} onChange={changeDescription} />
       <br />
-      {text && (
-        <TextAndInput value={text} onChange={changeText} title={'Texto:'} />
+
+      {showText && (
+        <>
+          <ElementTitleWrapper>Texto:</ElementTitleWrapper>
+          <TextAndInput value={text} onChange={changeText} />
+        </>
       )}
-      {letter && (
-        <TextAndInput value={letter} onChange={changeLetter} title={'Letra:'} />
+
+      {showLetter && (
+        <>
+          <ElementTitleWrapper>{letterTitle()}</ElementTitleWrapper>
+          <TextAndInput value={letter} onChange={changeLetter} />
+        </>
       )}
-      {correctLetters && (
-        <TextAndInput
-          value={correctLettersString}
-          onChange={changeCorrectLetters}
-          title={'Letras corretas:'}
-        />
+
+      {showCorrectLetters && (
+        <>
+          <ElementTitleWrapper>Letras corretas:</ElementTitleWrapper>
+          <TextAndInput
+            value={correctLettersString}
+            onChange={changeCorrectLetters}
+          />
+        </>
       )}
-      <ElementTitleWrapper>Áudios:</ElementTitleWrapper>
-      <Audios audios={audios} changeAudios={changeAudios} />
-      <br />
-      {urlVideo ? <b>urlVideo:</b> && urlVideo : null}
+      {showAudios && (
+        <>
+          <ElementTitleWrapper>Áudios:</ElementTitleWrapper>
+          <Audios audios={audios} changeAudios={changeAudios} />
+          <br />
+        </>
+      )}
+      {showUrlVideo && (
+        <>
+          <ElementTitleWrapper>Vídeos:</ElementTitleWrapper>
+          {urlVideo}
+          <br />
+        </>
+      )}
     </Wrapper>
   )
 }
