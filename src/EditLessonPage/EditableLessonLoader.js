@@ -6,7 +6,6 @@ import { useParams } from 'react-router-dom'
 import { Spinner } from '../shared/Spinner'
 
 export const EditableLessonLoader = () => {
-  console.log('loader...')
   let { lesson } = useParams()
   const {
     data,

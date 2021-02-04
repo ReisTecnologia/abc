@@ -1,10 +1,9 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { Audio } from './Audio/Audio'
-import { AddAudioButton } from './AddAudioButton'
-import { v4 as uuidv4 } from 'uuid'
-import { TextInput } from './TextInput'
+
+import { TextAndInput } from './TextAndInput'
+import { Audios } from './Audios/Audios'
 
 const Wrapper = styled.div`
   padding: 0px 21px;
@@ -22,16 +21,22 @@ const ElementType = styled.div`
   font-weight: bold;
 `
 
+export const ElementTitleWrapper = styled.div`
+  display: block;
+  font-size: 1.4rem;
+`
+
 export const ElementParams = ({ elementParams, updateElementParams }) => {
-  const addAudio = () => {
-    const newElementParams = { ...elementParams }
-    const newAudioUrl = `${uuidv4()}.m4a`
-    newElementParams.audioUrls = [
-      ...elementParams.audios,
-      { url: newAudioUrl, name: 'new name' },
-    ]
-    updateElementParams(newElementParams)
-  }
+  const changeAudios = useCallback(
+    (newAudios) => {
+      updateElementParams({
+        ...elementParams,
+        audios: newAudios,
+      })
+    },
+    [updateElementParams, elementParams]
+  )
+
   const changeDescription = (newDescription) => {
     updateElementParams({
       ...elementParams,
@@ -67,60 +72,32 @@ export const ElementParams = ({ elementParams, updateElementParams }) => {
     description,
     audios,
     urlVideo,
-    words,
     text,
   } = elementParams
 
   const correctLettersString = correctLetters ? correctLetters.join() : null
 
-  console.log(words)
-
-  const buildUpdateAudio = (audioIndex) => (payload) => {
-    console.log('updateAudio', 'index', audioIndex, payload)
-    const newAudios = [...elementParams.audios]
-    newAudios[audioIndex] = {
-      ...elementParams.audios[audioIndex],
-      ...payload,
-    }
-    updateElementParams({
-      ...elementParams,
-      audios: newAudios,
-    })
-  }
-
   return (
     <Wrapper>
       <ElementType>{type}</ElementType>
-      <TextInput
-        value={description}
-        onChange={changeDescription}
-        title={'Descrição:'}
-      />
+      <ElementTitleWrapper>Descrição:</ElementTitleWrapper>
+      <TextAndInput value={description} onChange={changeDescription} />
       <br />
       {text && (
-        <TextInput value={text} onChange={changeText} title={'Texto:'} />
+        <TextAndInput value={text} onChange={changeText} title={'Texto:'} />
       )}
       {letter && (
-        <TextInput value={letter} onChange={changeLetter} title={'Letra:'} />
+        <TextAndInput value={letter} onChange={changeLetter} title={'Letra:'} />
       )}
       {correctLetters && (
-        <TextInput
+        <TextAndInput
           value={correctLettersString}
           onChange={changeCorrectLetters}
           title={'Letras corretas:'}
         />
       )}
-      <b>Audios</b>:
-      {audios &&
-        audios.map(({ name, url }, audioIndex) => (
-          <Audio
-            url={url}
-            updateAudio={buildUpdateAudio(audioIndex)}
-            name={name}
-            key={url}
-          />
-        ))}
-      <AddAudioButton onClick={addAudio} />
+      <ElementTitleWrapper>Audios:</ElementTitleWrapper>
+      <Audios audios={audios} changeAudios={changeAudios} />
       <br />
       {urlVideo ? <b>urlVideo:</b> && urlVideo : null}
     </Wrapper>
