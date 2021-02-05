@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 import { TextAndInput } from './TextAndInput'
 import { Audios } from './Audios/Audios'
+import { Videos } from './Videos/Videos'
 
 const Wrapper = styled.div`
   padding: 0px 21px;
@@ -34,6 +35,16 @@ export const ElementParams = ({
       updateElementParams({
         ...elementParams,
         audios: newAudios,
+      })
+    },
+    [updateElementParams, elementParams]
+  )
+
+  const changeVideos = useCallback(
+    (newVideos) => {
+      updateElementParams({
+        ...elementParams,
+        videos: newVideos,
       })
     },
     [updateElementParams, elementParams]
@@ -73,7 +84,7 @@ export const ElementParams = ({
     letter,
     description,
     audios,
-    urlVideo,
+    videos,
     text,
   } = elementParams
 
@@ -86,7 +97,7 @@ export const ElementParams = ({
   const showLetter = letter !== null
   const showText = text !== null
   const showAudios = audios !== null
-  const showUrlVideo = urlVideo !== null
+  const showVideos = videos !== null
 
   const correctLettersString = correctLetters ? correctLetters.join() : null
 
@@ -131,10 +142,14 @@ export const ElementParams = ({
           <br />
         </>
       )}
-      {showUrlVideo && (
+      {showVideos && (
         <>
           <ElementTitleWrapper>Vídeos:</ElementTitleWrapper>
-          {urlVideo}
+          <Videos
+            videoFilePrefix={`${lessonId}___`}
+            videos={videos}
+            changeVideos={changeVideos}
+          />
           <br />
         </>
       )}
@@ -154,7 +169,12 @@ ElementParams.propTypes = {
         name: PropTypes.string.isRequired,
       })
     ),
-    urlVideo: PropTypes.string,
+    videos: PropTypes.arrayOf(
+      PropTypes.shape({
+        url: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+      })
+    ),
     description: PropTypes.string,
     text: PropTypes.string,
     words: PropTypes.array,
