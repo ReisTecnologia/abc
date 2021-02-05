@@ -75,15 +75,14 @@ export const CheckFirstLetter = ({
     [setState]
   )
 
-  const onStepStart = useCallback(
-    () =>
-      setState((state) => ({
-        ...state,
-        showYesIcon: false,
-        showNoIcon: false,
-      })),
-    [setState]
-  )
+  const onStepStart = useCallback(() => {
+    setState((state) => ({
+      ...state,
+      showYesIcon: false,
+      showNoIcon: false,
+    }))
+  }, [setState])
+
   return (
     <Card complete={complete}>
       <Wrapper>

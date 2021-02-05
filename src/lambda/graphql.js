@@ -51,7 +51,6 @@ const resolvers = {
       const bucketFiles = list.Contents.map(({ Key }) => Key)
       const orphanFiles = detectOrphanFiles(dbLessonFiles, bucketFiles)
       if (orphanFiles.length) {
-        console.log('orphanFiles', orphanFiles)
         const deleteParams = {
           Bucket: process.env.REACT_APP_MY_AWS_BUCKET_NAME,
           Delete: {

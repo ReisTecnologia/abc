@@ -34,7 +34,10 @@ export const AudioButton = ({
     if (audioUrls[actualItem] === undefined) {
       setActualItem(0)
     }
-    audioElement.current.src = audioUrls[actualItem]
+
+    if (audioElement.current.src !== audioUrls[actualItem]) {
+      audioElement.current.src = audioUrls[actualItem]
+    }
   }, [actualItem, audioUrls])
 
   const internalOnComplete = useCallback(() => {
@@ -49,15 +52,15 @@ export const AudioButton = ({
   }, [onComplete, actualItem, setActualItem, onStepComplete, audioUrls.length])
 
   const { play, playing } = useMedia({
-    mediaRef: audioElement,
+    media: audioElement.current,
     onComplete: internalOnComplete,
   })
 
   const playIfEnabled = useCallback(() => {
     if (!disabled) {
       if (actualItem === 0) onStart && onStart()
-      onStepStart && onStepStart(actualItem)
       play()
+      onStepStart && onStepStart(actualItem)
       onClick && onClick()
     }
   }, [disabled, play, onClick, actualItem, onStepStart, onStart])

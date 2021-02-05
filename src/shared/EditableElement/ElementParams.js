@@ -93,11 +93,12 @@ export const ElementParams = ({
       return 'Palavras iniciando em:'
     else if (type === 'LetterAndAudio') return 'Letra:'
   }
-  const showCorrectLetters = correctLetters !== null
-  const showLetter = letter !== null
-  const showText = text !== null
-  const showAudios = audios !== null
-  const showVideos = videos !== null
+  const showCorrectLetters =
+    correctLetters !== null && correctLetters !== undefined
+  const showLetter = letter !== null && letter !== undefined
+  const showText = text !== null && text !== undefined
+  const showAudios = audios !== null && audios !== undefined
+  const showVideos = videos !== null && videos !== undefined
 
   const correctLettersString = correctLetters ? correctLetters.join() : null
 

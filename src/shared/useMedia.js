@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, useCallback } from 'react'
 
-export const useMedia = ({ mediaRef, onComplete }) => {
+export const useMedia = ({ media, onComplete }) => {
   const [playing, setPlaying] = useState(false)
   const [loading, setLoading] = useState(false)
   const [paused, setPaused] = useState(false)
@@ -13,13 +13,10 @@ export const useMedia = ({ mediaRef, onComplete }) => {
 
   useEffect(() => {
     if (listeners.current.loadeddata) {
-      mediaRef.current.removeEventListener(
-        'loadeddata',
-        listeners.current.loadeddata
-      )
-      mediaRef.current.removeEventListener('play', listeners.current.play)
-      mediaRef.current.removeEventListener('ended', listeners.current.ended)
-      mediaRef.current.removeEventListener('pause', listeners.current.pause)
+      media.removeEventListener('loadeddata', listeners.current.loadeddata)
+      media.removeEventListener('play', listeners.current.play)
+      media.removeEventListener('ended', listeners.current.ended)
+      media.removeEventListener('pause', listeners.current.pause)
     }
     listeners.current.loadeddata = () => {
       setLoading(false)
@@ -36,29 +33,26 @@ export const useMedia = ({ mediaRef, onComplete }) => {
       setPaused(true)
     }
 
-    if (mediaRef.current) {
-      mediaRef.current.addEventListener(
-        'loadeddata',
-        listeners.current.loadeddata
-      )
-      mediaRef.current.addEventListener('play', listeners.current.play)
-      mediaRef.current.addEventListener('ended', listeners.current.ended)
-      mediaRef.current.addEventListener('pause', listeners.current.pause)
+    if (media) {
+      media.addEventListener('loadeddata', listeners.current.loadeddata)
+      media.addEventListener('play', listeners.current.play)
+      media.addEventListener('ended', listeners.current.ended)
+      media.addEventListener('pause', listeners.current.pause)
     }
-  }, [mediaRef, onComplete])
+  }, [media, onComplete])
 
   const play = useCallback(() => {
     if (!loading) {
       if (playing) {
-        mediaRef.current.pause()
+        media.pause()
       } else {
         if (paused) {
-          mediaRef.current.currentTime = 0
+          media.currentTime = 0
         }
-        mediaRef.current.play()
+        media.play()
       }
     }
-  }, [loading, mediaRef, paused, playing])
+  }, [loading, media, paused, playing])
 
   return {
     play,

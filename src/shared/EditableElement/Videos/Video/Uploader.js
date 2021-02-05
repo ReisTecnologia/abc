@@ -120,8 +120,8 @@ export const Uploader = ({ videoFilePrefix, updateVideo }) => {
   const id = Math.random()
   return (
     <>
-      <Wrapper ref={ref} highlighted={isDraggingOver}>
-        <label htmlFor={`img${id}`}>
+      <label htmlFor={`img${id}`}>
+        <Wrapper ref={ref} highlighted={isDraggingOver}>
           {loading ? (
             <Spinner />
           ) : isDraggingOver ? (
@@ -129,16 +129,16 @@ export const Uploader = ({ videoFilePrefix, updateVideo }) => {
           ) : (
             'Clique para escolher um arquivo.'
           )}
-        </label>
-        <input
-          type="file"
-          onChange={(e) => {
-            upload(e.target.files)
-          }}
-          style={{ display: 'none' }}
-          id={`img${id}`}
-        />
-      </Wrapper>
+          <input
+            type="file"
+            onChange={(e) => {
+              upload(e.target.files)
+            }}
+            style={{ display: 'none' }}
+            id={`img${id}`}
+          />
+        </Wrapper>
+      </label>
     </>
   )
 }

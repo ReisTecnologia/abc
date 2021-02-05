@@ -49,8 +49,8 @@ export const EditableElements = ({
     }
 
     return (
-      <>
-        <ErrorBoundary key={index}>
+      <span key={index}>
+        <ErrorBoundary>
           <EditableElement
             onUp={moveUp}
             onDown={moveDown}
@@ -67,11 +67,11 @@ export const EditableElements = ({
           </EditableElement>
         </ErrorBoundary>
         <AddElementButtons addElement={addElement} />
-      </>
+      </span>
     )
   })
 
-  const addElement = (element) => {
+  const addFirstElement = (element) => {
     const newInnerElements = [...innerElements]
     newInnerElements.unshift(element)
     setInnerElements(newInnerElements)
@@ -79,7 +79,7 @@ export const EditableElements = ({
 
   return (
     <>
-      <AddElementButtons addElement={addElement} />
+      <AddElementButtons addElement={addFirstElement} />
       {elementList}
     </>
   )

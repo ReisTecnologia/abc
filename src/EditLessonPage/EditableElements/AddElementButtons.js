@@ -38,12 +38,21 @@ export const AddElementButtons = ({ addElement }) => {
     hideButtons()
   }, [addElement, hideButtons])
 
+  const addVideo = useCallback(() => {
+    addElement({
+      type: 'Video',
+      videos: [],
+      description: '',
+    })
+    hideButtons()
+  }, [addElement, hideButtons])
+
   return (
     <Wrapper>
       {isShowingButtons ? (
         <>
           <ButtonWrapper onClick={addAudio}>Áudio</ButtonWrapper>
-          <ButtonWrapper>Vídeo</ButtonWrapper>
+          <ButtonWrapper onClick={addVideo}>Vídeo</ButtonWrapper>
         </>
       ) : (
         <ButtonWrapper onClick={showButtons}>
