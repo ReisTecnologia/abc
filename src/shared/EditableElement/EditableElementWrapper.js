@@ -5,4 +5,5 @@ export const EditableElementWrapper = styled.div`
   margin-bottom: 10px;
   padding: 20px;
   display: flex;
+  flex-direction: column;
 `
