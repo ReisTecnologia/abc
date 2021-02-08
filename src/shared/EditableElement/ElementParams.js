@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import { TextAndInput } from './TextAndInput'
 import { Audios } from './Audios/Audios'
 import { Videos } from './Videos/Videos'
+import { Words } from './Words/Words'
 
 const Wrapper = styled.div`
   padding: 0px 21px;
@@ -50,6 +51,16 @@ export const ElementParams = ({
     [updateElementParams, elementParams]
   )
 
+  const changeWords = useCallback(
+    (newWords) => {
+      updateElementParams({
+        ...elementParams,
+        words: newWords,
+      })
+    },
+    [updateElementParams, elementParams]
+  )
+
   const changeDescription = (newDescription) => {
     updateElementParams({
       ...elementParams,
@@ -83,10 +94,12 @@ export const ElementParams = ({
     correctLetters,
     letter,
     description,
+    words,
     audios,
     videos,
     text,
   } = elementParams
+  console.log('words', words)
 
   const letterTitle = () => {
     if (type === 'ClickWordStartingWithALetterInTheTextTask')
@@ -99,6 +112,7 @@ export const ElementParams = ({
   const showText = text !== null && text !== undefined
   const showAudios = audios !== null && audios !== undefined
   const showVideos = videos !== null && videos !== undefined
+  const showWords = words !== null && words !== undefined
 
   const correctLettersString = correctLetters ? correctLetters.join() : null
 
@@ -150,6 +164,17 @@ export const ElementParams = ({
             videoFilePrefix={`${lessonId}___`}
             videos={videos}
             changeVideos={changeVideos}
+          />
+          <br />
+        </>
+      )}
+      {showWords && (
+        <>
+          <ElementTitleWrapper>Palavras:</ElementTitleWrapper>
+          <Words
+            audioFilePrefix={`${lessonId}___`}
+            words={words}
+            changeWords={changeWords}
           />
           <br />
         </>
