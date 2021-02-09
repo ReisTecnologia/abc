@@ -32,7 +32,7 @@ export const Words = ({ words, changeWords, audioFilePrefix }) => {
     changeWords([
       ...words,
       {
-        startsWithTheLetter: false,
+        startsWithTheLetter: true,
         urlRightAnswerExplanation: '',
         urlWord: '',
         urlWrongAnswerExplanation: '',
