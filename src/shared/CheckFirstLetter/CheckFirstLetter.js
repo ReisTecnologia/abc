@@ -38,7 +38,7 @@ export const CheckFirstLetter = ({
 
   const { actualWordIndex, showYesOrNo, instructionsCompleted, end } = state
   const actualWord = words[actualWordIndex]
-  const urlWord = actualWord.urlWord
+  const urlWord = actualWord ? actualWord.urlWord : null
   const setListened = () => {
     setState((s) => ({ ...s, showYesOrNo: true }))
   }
