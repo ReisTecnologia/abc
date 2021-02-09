@@ -16,6 +16,10 @@ const resolvers = {
       const lesson = await db.getLesson(args.id)
       return lesson
     },
+    menu: async (parent, args) => {
+      const menu = await db.getMenu(args.id)
+      return menu
+    },
   },
   Mutation: {
     addLesson: async () => {
