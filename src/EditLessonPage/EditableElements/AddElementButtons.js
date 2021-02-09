@@ -19,6 +19,37 @@ const ButtonWrapper = styled.div`
   cursor: pointer;
 `
 
+const newElements = {
+  Audio: {
+    type: 'Audio',
+    audios: [],
+    description: '',
+  },
+  Video: {
+    type: 'Video',
+    videos: [],
+    description: '',
+  },
+  LetterAndAudio: {
+    type: 'LetterAndAudio',
+    audios: [],
+    letter: '',
+    description: '',
+  },
+  CheckFirstLetter: {
+    type: 'CheckFirstLetter',
+    audios: [],
+    description: '',
+    words: [],
+  },
+  ClickLetterInTheTextTask: {
+    type: 'ClickLetterInTheTextTask',
+    audios: [],
+    correctLetters: [],
+    text: '',
+  },
+}
+
 export const AddElementButtons = ({ addElement }) => {
   const [isShowingButtons, setIsShowingButtons] = useState(false)
 
@@ -29,30 +60,35 @@ export const AddElementButtons = ({ addElement }) => {
     setIsShowingButtons,
   ])
 
-  const addAudio = useCallback(() => {
-    addElement({
-      type: 'Audio',
-      audios: [],
-      description: '',
-    })
-    hideButtons()
-  }, [addElement, hideButtons])
-
-  const addVideo = useCallback(() => {
-    addElement({
-      type: 'Video',
-      videos: [],
-      description: '',
-    })
-    hideButtons()
-  }, [addElement, hideButtons])
+  const addNewElement = useCallback(
+    (type) => {
+      addElement(newElements[type])
+      hideButtons()
+    },
+    [addElement, hideButtons]
+  )
 
   return (
     <Wrapper>
       {isShowingButtons ? (
         <>
-          <ButtonWrapper onClick={addAudio}>Áudio</ButtonWrapper>
-          <ButtonWrapper onClick={addVideo}>Vídeo</ButtonWrapper>
+          <ButtonWrapper onClick={() => addNewElement('Audio')}>
+            Áudio
+          </ButtonWrapper>
+          <ButtonWrapper onClick={() => addNewElement('Video')}>
+            Vídeo
+          </ButtonWrapper>
+          <ButtonWrapper onClick={() => addNewElement('LetterAndAudio')}>
+            Letra e Áudio
+          </ButtonWrapper>
+          <ButtonWrapper onClick={() => addNewElement('CheckFirstLetter')}>
+            Escute a primeira letra
+          </ButtonWrapper>
+          <ButtonWrapper
+            onClick={() => addNewElement('ClickLetterInTheTextTask')}
+          >
+            Ache a letra no texto
+          </ButtonWrapper>
         </>
       ) : (
         <ButtonWrapper onClick={showButtons}>

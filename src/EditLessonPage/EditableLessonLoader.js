@@ -4,6 +4,7 @@ import { LESSON_QUERY } from '../shared/LESSON_QUERY'
 import { EditableLesson } from './EditableLesson'
 import { useParams } from 'react-router-dom'
 import { Spinner } from '../shared/Spinner'
+import { mapLesson } from '../shared/mapLesson'
 
 export const EditableLessonLoader = () => {
   let { lesson } = useParams()
@@ -23,6 +24,9 @@ export const EditableLessonLoader = () => {
   return loadingLesson ? (
     <Spinner />
   ) : data && data.lesson ? (
-    <EditableLesson reloadLesson={reloadLesson} lesson={data.lesson} />
+    <EditableLesson
+      reloadLesson={reloadLesson}
+      lesson={mapLesson(data.lesson)}
+    />
   ) : null
 }
