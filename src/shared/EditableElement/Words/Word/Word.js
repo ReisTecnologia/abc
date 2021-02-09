@@ -3,125 +3,98 @@ import PropTypes from 'prop-types'
 import { Uploader } from './Uploader'
 import { InputWrapper } from './InputWrapper'
 import { DeleteWordButton } from './DeleteWordButton'
-import { TextAndInput } from '../../TextAndInput'
+import { TextInput } from './TextInput'
 import { WordInputFieldsWrapper } from './WordInputFieldsWrapper'
 import { WordNumberWrapper } from './WordNumberWrapper'
 import { WordNumber } from './WordNumber'
 import { WordWrapper } from './WordWrapper'
 import { WordFieldWrapper } from './WordFieldWrapper'
+import { AnswerChoiceWrapper } from './AnswerChoiceWrapper'
 
 export const Word = ({
   audioFilePrefix,
   word,
   updateAudio,
+  startsWithTheLetter,
   deleteWord,
   index,
   changeName,
 }) => {
-  const [showWordUploadInput, setShowWordUploadInput] = useState(false)
-  const [
-    showStartsWithTheLetterInput,
-    setshowStartsWithTheLetterInput,
-  ] = useState(false)
-  const [showWrongAnwserUploadInput, setshowWrongAnwserUploadInput] = useState(
-    false
-  )
-  const [
-    showCorrectAnwserUploadInput,
-    setshowCorrectAnwserUploadInput,
-  ] = useState(false)
   const [showWordFields, setShowWordFields] = useState(false)
 
-  const showWordInput = () => setShowWordUploadInput(true)
-  const hideWordInput = () => setShowWordUploadInput(false)
-  const showWrongInput = () => setshowWrongAnwserUploadInput(true)
-  const hideWrongInput = () => setshowWrongAnwserUploadInput(false)
-  const showCorrectInput = () => setshowCorrectAnwserUploadInput(true)
-  const hideCorrectInput = () => setshowCorrectAnwserUploadInput(false)
-  const showStartsWithInput = () => setshowStartsWithTheLetterInput(true)
-  const hideStartsWithInput = () => setshowStartsWithTheLetterInput(false)
   const showFields = () => setShowWordFields(true)
   const hideFields = () => setShowWordFields(false)
 
-  const toggleWordUploadInput = () =>
-    showWordUploadInput ? hideWordInput() : showWordInput()
-  const toggleWrongAnswerInput = () =>
-    showWrongAnwserUploadInput ? hideWrongInput() : showWrongInput()
-  const toggleCorrectAnswerInput = () =>
-    showCorrectAnwserUploadInput ? hideCorrectInput() : showCorrectInput()
-  const toggleStartsWithTheLetterInput = () =>
-    showStartsWithTheLetterInput ? hideStartsWithInput() : showStartsWithInput()
-  const hideAllFields = () => {
-    hideWordInput()
-    hideWrongInput()
-    hideCorrectInput()
-    hideStartsWithInput()
-    hideFields()
-  }
-  const toggleFields = () => (showWordFields ? hideAllFields() : showFields())
+  const toggleFields = () => (showWordFields ? hideFields() : showFields())
 
-  const wordUploadInputField = showWordUploadInput ? (
+  const wordUploadInputField = (
     <>
-      <div onClick={toggleWordUploadInput}>Áudio da palavra</div>
       <InputWrapper>
         <Uploader
           audioFilePrefix={audioFilePrefix}
           updateWordAudio={updateAudio}
+          inputBoxMessage={'Clique aqui para escolher o áudio da palavra'}
         />
       </InputWrapper>
     </>
-  ) : (
-    <div onClick={toggleWordUploadInput}>Áudio da palavra</div>
   )
 
-  const correctWordUploadInputField = showCorrectAnwserUploadInput ? (
+  const correctWordUploadInputField = (
     <>
-      <div onClick={toggleCorrectAnswerInput}>Áudio da resposta certa</div>
       <InputWrapper>
         <Uploader
           audioFilePrefix={audioFilePrefix}
           updateCorrectAnswerAudio={updateAudio}
+          inputBoxMessage={'Clique aqui para escolher o áudio do acerto'}
         />
       </InputWrapper>
     </>
-  ) : (
-    <div onClick={toggleCorrectAnswerInput}>Áudio da resposta certa</div>
   )
 
-  const wrongWordUploadInputField = showWrongAnwserUploadInput ? (
+  const wrongWordUploadInputField = (
     <>
-      <div onClick={toggleWrongAnswerInput}>Áudio da resposta errada</div>
       <InputWrapper>
         <Uploader
           audioFilePrefix={audioFilePrefix}
           updateWrongAnswerAudio={updateAudio}
+          inputBoxMessage={'Clique aqui para escolher o áudio do erro'}
         />
       </InputWrapper>
     </>
-  ) : (
-    <div onClick={toggleWrongAnswerInput}>Áudio da resposta errada</div>
   )
 
-  const updateAnswerCorrect = useCallback(() => {
+  const setStartsWithTheLetterTrue = useCallback(() => {
     updateAudio({ startsWithTheLetter: true })
   }, [updateAudio])
 
-  const updateAnswerWrong = useCallback(() => {
+  const setStartsWithTheLetterFalse = useCallback(() => {
     updateAudio({ startsWithTheLetter: false })
   }, [updateAudio])
 
-  const startsWithTheLetterInputField = showStartsWithTheLetterInput ? (
+  const startsWithTheLetterInputField = (
     <>
-      <div onClick={toggleStartsWithTheLetterInput}>{`A resposta é:`}</div>
-      <div>
-        <input type="radio" name="answer" onClick={updateAnswerCorrect} />
-        Certo
-        <input type="radio" name="answer" onClick={updateAnswerWrong} />
-        Errado
-      </div>
+      <AnswerChoiceWrapper>
+        <div>{`A resposta é:`}</div>
+        <label>
+          <input
+            type="radio"
+            name={`answer:${word}`}
+            onClick={setStartsWithTheLetterTrue}
+            checked={startsWithTheLetter}
+          />
+          Certo
+        </label>
+        <label>
+          <input
+            type="radio"
+            name={`answer:${word}`}
+            onClick={setStartsWithTheLetterFalse}
+            checked={!startsWithTheLetter}
+          />
+          Errado
+        </label>
+      </AnswerChoiceWrapper>
     </>
-  ) : (
-    <div onClick={toggleStartsWithTheLetterInput}>{`A resposta é:`}</div>
   )
 
   return (
@@ -135,13 +108,13 @@ export const Word = ({
       {showWordFields && (
         <>
           <WordInputFieldsWrapper>
-            <TextAndInput value={word} onChange={changeName} />
+            <TextInput value={word} onChange={changeName} />
             <WordFieldWrapper>{wordUploadInputField}</WordFieldWrapper>
+            <WordFieldWrapper>{startsWithTheLetterInputField}</WordFieldWrapper>
             <WordFieldWrapper>{correctWordUploadInputField}</WordFieldWrapper>
             <WordFieldWrapper>{wrongWordUploadInputField}</WordFieldWrapper>
-            <WordFieldWrapper>{startsWithTheLetterInputField}</WordFieldWrapper>
+            <DeleteWordButton deleteWord={deleteWord} />
           </WordInputFieldsWrapper>
-          <DeleteWordButton deleteWord={deleteWord} />
         </>
       )}
     </WordWrapper>
@@ -155,4 +128,5 @@ Word.propTypes = {
   deleteWord: PropTypes.func,
   index: PropTypes.number,
   changeName: PropTypes.func,
+  startsWithTheLetter: PropTypes.bool,
 }
