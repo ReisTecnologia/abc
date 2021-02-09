@@ -47,6 +47,7 @@ const buildGetUploadTokenAndPostToAws = ({
 
 export const Uploader = ({
   audioFilePrefix,
+  inputBoxMessage,
   updateWordAudio,
   updateCorrectAnswerAudio,
   updateWrongAnswerAudio,
@@ -146,7 +147,7 @@ export const Uploader = ({
           ) : isDraggingOver ? (
             'Solte para fazer upload.'
           ) : (
-            'Clique para escolher um arquivo.'
+            inputBoxMessage
           )}
         </label>
         <input
@@ -164,6 +165,7 @@ export const Uploader = ({
 
 Uploader.propTypes = {
   audioFilePrefix: PropTypes.string,
+  inputBoxMessage: PropTypes.string,
   updateWordAudio: PropTypes.func,
   updateCorrectAnswerAudio: PropTypes.func,
   updateWrongAnswerAudio: PropTypes.func,
