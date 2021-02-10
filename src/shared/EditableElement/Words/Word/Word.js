@@ -13,10 +13,14 @@ import { WordUploadInputField } from './WordUploadInputField'
 export const Word = ({
   audioFilePrefix,
   word,
+  rightAnswerExplanation,
+  wrongAnswerExplanation,
   updateAudio,
   deleteWord,
   index,
   changeName,
+  changeRightAnswerExplanation,
+  changeWrongAnswerExplanation,
 }) => {
   const [showWordFields, setShowWordFields] = useState(false)
 
@@ -31,7 +35,9 @@ export const Word = ({
         <WordNumber>{index + 1}</WordNumber>
       </WordNumberWrapper>
       {!showWordFields && (
-        <WordFieldWrapper onClick={toggleFields}>{word}</WordFieldWrapper>
+        <>
+          <WordFieldWrapper onClick={toggleFields}>{word}</WordFieldWrapper>
+        </>
       )}
       {showWordFields && (
         <>
@@ -43,10 +49,18 @@ export const Word = ({
               inputBoxMessage={'Clique aqui para escolher o áudio da palavra'}
             />
             <StartsWithTheLetterInputField />
+            <TextInput
+              value={rightAnswerExplanation}
+              onChange={changeRightAnswerExplanation}
+            />
             <WordUploadInputField
               audioFilePrefix={audioFilePrefix}
               updateCorrectAnswerAudio={updateAudio}
               inputBoxMessage={'Clique aqui para escolher o áudio do acerto'}
+            />
+            <TextInput
+              value={wrongAnswerExplanation}
+              onChange={changeWrongAnswerExplanation}
             />
             <WordUploadInputField
               audioFilePrefix={audioFilePrefix}
@@ -64,8 +78,12 @@ export const Word = ({
 Word.propTypes = {
   audioFilePrefix: PropTypes.string,
   word: PropTypes.string,
+  rightAnswerExplanation: PropTypes.string,
+  wrongAnswerExplanation: PropTypes.string,
   updateAudio: PropTypes.func,
   deleteWord: PropTypes.func,
   index: PropTypes.number,
   changeName: PropTypes.func,
+  changeRightAnswerExplanation: PropTypes.func,
+  changeWrongAnswerExplanation: PropTypes.func,
 }

@@ -5,7 +5,9 @@ export default gql`
     startsWithTheLetter: Boolean!
     word: String!
     urlRightAnswerExplanation: String
+    rightAnswerExplanation: String
     urlWrongAnswerExplanation: String
+    wrongAnswerExplanation: String
     urlWord: String
   }
 
@@ -61,7 +63,9 @@ export default gql`
     startsWithTheLetter: Boolean!
     word: String!
     urlRightAnswerExplanation: String
+    rightAnswerExplanation: String
     urlWrongAnswerExplanation: String
+    wrongAnswerExplanation: String
     urlWord: String
   }
 
