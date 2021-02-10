@@ -18,7 +18,9 @@ const ElementType = styled.div`
   margin-bottom: 5px;
   float: right;
   background-color: #fff;
+  padding: 4px;
   font-weight: bold;
+  border-radius: 5px;
 `
 
 export const ElementTitleWrapper = styled.div`

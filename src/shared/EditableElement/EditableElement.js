@@ -9,6 +9,10 @@ import { Button } from './Button'
 import { ElementParams } from './ElementParams'
 import { DeleteElementRow } from './DeleteElementRow'
 import { DeleteElementButton } from './DeleteElementButton'
+import { colors } from '../../shared/colors'
+import { Icon } from '@iconify/react'
+import arrowUpSquareFill from '@iconify-icons/bi/arrow-up-square-fill'
+import arrowDownSquareFill from '@iconify-icons/bi/arrow-down-square-fill'
 
 export const EditableElement = ({
   lessonId,
@@ -27,10 +31,20 @@ export const EditableElement = ({
         <ElementControlWrapper>
           <UpDownWrapper>
             <Button disabled={!canMoveUp} onClick={onUp}>
-              up
+              <Icon
+                icon={arrowUpSquareFill}
+                color={() => (!canMoveUp ? '#eee' : colors.primary)}
+                height="30"
+                cursor={() => (!canMoveUp ? null : 'pointer')}
+              />
             </Button>
             <Button disabled={!canMoveDown} onClick={onDown}>
-              down
+              <Icon
+                icon={arrowDownSquareFill}
+                color={() => (!canMoveDown ? '#eee' : colors.primary)}
+                height="30"
+                cursor={() => (!canMoveDown ? null : 'pointer')}
+              />
             </Button>
           </UpDownWrapper>
           <ElementParams
