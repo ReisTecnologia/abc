@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { LessonsPage } from './LessonsPage/LessonsPage'
 import { ViewLessonPage } from './ViewLessonPage/ViewLessonPage'
 import { EditLessonPage } from './EditLessonPage/EditLessonPage'
+import { MenuPage } from './MenuPage/MenuPage'
 
 const cleanTypeName = new ApolloLink((operation, forward) => {
   if (operation.variables) {
@@ -50,11 +51,14 @@ const Wrapped = () => {
           <Route path="/viewLesson">
             <ViewLessonPage />
           </Route>
+          <Route path="/lessons">
+            <LessonsPage />
+          </Route>
           <Route path="/editLesson">
             <EditLessonPage />
           </Route>
           <Route path="/">
-            <LessonsPage />
+            <MenuPage id="main" />
           </Route>
         </Switch>
       </div>

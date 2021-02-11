@@ -46,6 +46,17 @@ export default gql`
     elements: [Element]
   }
 
+  type MenuElement {
+    lessonId: String!
+    initials: String!
+  }
+
+  type Menu {
+    id: ID!
+    name: String!
+    elements: [MenuElement]
+  }
+
   type AddLessonResponse {
     success: Boolean!
     lessons: [Lesson]
@@ -112,6 +123,7 @@ export default gql`
   type Query {
     lessons: [Lesson]
     lesson(id: String!): Lesson
+    menu(id: String!): Menu
   }
 
   type Mutation {

@@ -7,6 +7,7 @@ const config = require('./dbConfig.js')
 AWS.config.update(config.awsConfig.aws_config)
 
 const TABLE_NAME = 'lessons'
+const MENU_TABLE_NAME = 'menus'
 
 const getLessons = async function () {
   const docClient = new AWS.DynamoDB.DocumentClient()
@@ -18,6 +19,21 @@ const getLessons = async function () {
     .scan(params)
     .promise()
     .then(({ Items }) => Items)
+}
+
+const getMenu = (id) => {
+  const docClient = new AWS.DynamoDB.DocumentClient()
+  const params = {
+    ExpressionAttributeValues: {
+      ':id': id,
+    },
+    KeyConditionExpression: 'id = :id',
+    TableName: MENU_TABLE_NAME,
+  }
+  return docClient
+    .query(params)
+    .promise()
+    .then(({ Items }) => Items[0])
 }
 
 const getLesson = (id) => {
@@ -91,6 +107,7 @@ module.exports = {
   getLessons,
   getLesson,
   addLesson,
+  getMenu,
   deleteLesson,
   editLesson,
 }
