@@ -4,21 +4,31 @@ import { useParams } from 'react-router-dom'
 import { Layout } from '../shared/Layout'
 import { Container } from '../shared/Container'
 import { HeaderWrapper } from '../shared/HeaderWrapper'
-import { Rodape } from '../shared/Rodape'
 import { ViewableElements } from './ViewableElements/ViewableElements'
 import { LESSON_QUERY } from '../shared/LESSON_QUERY'
+import { LessonItem } from '../shared/LessonItem'
+import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-export const Lesson = () => {
+export const Lesson = ({ initials, menuId }) => {
   const { lesson } = useParams()
   const { data } = useQuery(LESSON_QUERY, { variables: { id: lesson } })
 
   return data ? (
     <Layout>
-      <HeaderWrapper>{data.lesson.name}</HeaderWrapper>
+      <HeaderWrapper>
+        <Link to={`/viewMenu/${menuId}`}>
+          <LessonItem initials={initials} />
+        </Link>
+      </HeaderWrapper>
       <Container>
         <ViewableElements elements={data.lesson.elements} />
       </Container>
-      <Rodape />
     </Layout>
   ) : null
+}
+
+Lesson.propTypes = {
+  menuId: PropTypes.string,
+  initials: PropTypes.string,
 }

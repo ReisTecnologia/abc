@@ -5,5 +5,5 @@ export const MainWrapper = styled.div`
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  background-color: #f3fffc;
+  background-color: ${({ backgroundColor }) => backgroundColor};
 `
