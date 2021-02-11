@@ -61,6 +61,10 @@ ViewableElements.propTypes = {
           word: PropTypes.string,
         })
       ),
+      conclusionAudio: PropTypes.shape({
+        name: PropTypes.string,
+        url: PropTypes.string,
+      }),
     })
   ),
 }

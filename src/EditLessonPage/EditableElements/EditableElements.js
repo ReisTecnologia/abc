@@ -109,6 +109,11 @@ EditableElements.propTypes = {
       ),
       description: PropTypes.string,
       text: PropTypes.string,
+      conclusionAudio: PropTypes.shape({
+        name: PropTypes.string,
+        url: PropTypes.string,
+      }),
+
       words: PropTypes.arrayOf(
         PropTypes.shape({
           startsWithTheLetter: PropTypes.bool,

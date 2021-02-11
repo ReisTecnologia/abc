@@ -86,6 +86,10 @@ EditableElement.propTypes = {
         word: PropTypes.string,
       })
     ),
+    conclusionAudio: PropTypes.shape({
+      name: PropTypes.string,
+      url: PropTypes.string,
+    }),
   }),
   updateElementParams: PropTypes.func,
   lessonId: PropTypes.string,

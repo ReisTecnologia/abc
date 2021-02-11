@@ -9,6 +9,8 @@ import { WordWrapper } from './WordWrapper'
 import { WordFieldWrapper } from './WordFieldWrapper'
 import { StartsWithTheLetterInputField } from './StartsWithTheLetterInputField'
 import { WordUploadInputField } from './WordUploadInputField'
+import { WordSubFieldWrapper } from './WordSubFieldWrapper'
+import { WordInfoWrapper } from './WordInfoWrapper'
 
 export const Word = ({
   audioFilePrefix,
@@ -19,6 +21,7 @@ export const Word = ({
   deleteWord,
   index,
   changeName,
+  startsWithTheLetter,
   changeRightAnswerExplanation,
   changeWrongAnswerExplanation,
 }) => {
@@ -29,15 +32,24 @@ export const Word = ({
 
   const toggleFields = () => (showWordFields ? hideFields() : showFields())
 
+  const resposta = startsWithTheLetter ? 'Certo' : 'Errado'
+
   return (
     <WordWrapper>
       <WordNumberWrapper onClick={toggleFields}>
         <WordNumber>{index + 1}</WordNumber>
       </WordNumberWrapper>
       {!showWordFields && (
-        <>
-          <WordFieldWrapper onClick={toggleFields}>{word}</WordFieldWrapper>
-        </>
+        <WordInfoWrapper>
+          <WordFieldWrapper onClick={toggleFields}>{word} </WordFieldWrapper>
+          <WordSubFieldWrapper>A resposta é: {resposta}</WordSubFieldWrapper>
+          <WordSubFieldWrapper>
+            Acertou? {rightAnswerExplanation}
+          </WordSubFieldWrapper>
+          <WordSubFieldWrapper>
+            Errou? {wrongAnswerExplanation}
+          </WordSubFieldWrapper>
+        </WordInfoWrapper>
       )}
       {showWordFields && (
         <>
@@ -48,7 +60,11 @@ export const Word = ({
               updateWordAudio={updateAudio}
               inputBoxMessage={'Clique aqui para escolher o áudio da palavra'}
             />
-            <StartsWithTheLetterInputField />
+            <StartsWithTheLetterInputField
+              word={word}
+              startsWithTheLetter={startsWithTheLetter}
+              updateAudio={updateAudio}
+            />
             <TextInput
               value={rightAnswerExplanation}
               onChange={changeRightAnswerExplanation}
@@ -78,6 +94,7 @@ export const Word = ({
 Word.propTypes = {
   audioFilePrefix: PropTypes.string,
   word: PropTypes.string,
+  startsWithTheLetter: PropTypes.bool,
   rightAnswerExplanation: PropTypes.string,
   wrongAnswerExplanation: PropTypes.string,
   updateAudio: PropTypes.func,

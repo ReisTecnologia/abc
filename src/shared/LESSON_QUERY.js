@@ -30,6 +30,10 @@ export const LESSON_QUERY = gql`
           wrongAnswerExplanation
           urlWord
         }
+        conclusionAudio {
+          name
+          url
+        }
       }
     }
   }

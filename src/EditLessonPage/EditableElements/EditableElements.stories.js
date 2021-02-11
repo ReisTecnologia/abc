@@ -76,6 +76,7 @@ const defaultArgs = {
           urlWrongAnswerExplanation: 'a3.m4a',
         },
       ],
+      conclusionAudio: '1.m4a',
     },
   ],
 }

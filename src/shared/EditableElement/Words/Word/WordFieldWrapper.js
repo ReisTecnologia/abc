@@ -3,5 +3,6 @@ import { colors } from '../../../colors'
 
 export const WordFieldWrapper = styled.div`
   color: ${colors.primary};
-  padding: 3px 0px;
+  flex: 1;
+  padding: 3px;
 `

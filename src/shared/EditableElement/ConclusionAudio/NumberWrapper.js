@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const AudioNumberWrapper = styled.div`
+export const NumberWrapper = styled.div`
   width: 50px;
   display: flex;
   justify-content: center;

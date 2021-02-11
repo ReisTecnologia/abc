@@ -6,6 +6,7 @@ import { TextAndInput } from './TextAndInput'
 import { Audios } from './Audios/Audios'
 import { Videos } from './Videos/Videos'
 import { Words } from './Words/Words'
+import { ConclusionAudio } from './ConclusionAudio/ConclusionAudio'
 
 const Wrapper = styled.div`
   padding: 0px 21px;
@@ -36,6 +37,15 @@ export const ElementParams = ({
       updateElementParams({
         ...elementParams,
         audios: newAudios,
+      })
+    },
+    [updateElementParams, elementParams]
+  )
+  const changeConclusionAudio = useCallback(
+    (newConclusionAudio) => {
+      updateElementParams({
+        ...elementParams,
+        conclusionAudio: newConclusionAudio,
       })
     },
     [updateElementParams, elementParams]
@@ -98,8 +108,9 @@ export const ElementParams = ({
     audios,
     videos,
     text,
+    conclusionAudio,
   } = elementParams
-  console.log('words', words)
+  console.log('conclusionAudio', conclusionAudio)
 
   const letterTitle = () => {
     if (type === 'ClickWordStartingWithALetterInTheTextTask')
@@ -113,6 +124,8 @@ export const ElementParams = ({
   const showAudios = audios !== null && audios !== undefined
   const showVideos = videos !== null && videos !== undefined
   const showWords = words !== null && words !== undefined
+  const showConclusionAudio =
+    conclusionAudio !== null && conclusionAudio !== undefined
 
   const correctLettersString = correctLetters ? correctLetters.join() : null
 
@@ -153,6 +166,17 @@ export const ElementParams = ({
             audioFilePrefix={`${lessonId}___`}
             audios={audios}
             changeAudios={changeAudios}
+          />
+          <br />
+        </>
+      )}
+      {showConclusionAudio && (
+        <>
+          <ElementTitleWrapper>Áudio de conclusão:</ElementTitleWrapper>
+          <ConclusionAudio
+            audioFilePrefix={`${lessonId}___`}
+            conclusionAudio={conclusionAudio}
+            changeConclusionAudio={changeConclusionAudio}
           />
           <br />
         </>
@@ -214,6 +238,10 @@ ElementParams.propTypes = {
         word: PropTypes.string,
       })
     ),
+    conclusionAudio: PropTypes.shape({
+      url: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    }),
   }),
   updateElementParams: PropTypes.func,
 }

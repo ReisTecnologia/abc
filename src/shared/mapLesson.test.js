@@ -100,6 +100,7 @@ const lesson = {
           word: 'alimento',
         },
       ],
+      conclusionAudio: '1.m4a',
     },
     {
       audios: [
@@ -198,6 +199,7 @@ const expectedValue = {
           word: 'alimento',
         },
       ],
+      conclusionAudio: '1.m4a',
     },
     {
       type: 'ClickLetterInTheTextTask',
