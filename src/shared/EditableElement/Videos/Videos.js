@@ -48,7 +48,7 @@ export const Videos = ({ videos, changeVideos, videoFilePrefix }) => {
             key={url}
           />
         ))}
-      <AddVideoButton onClick={addVideo} />
+      {!videos[0] ? <AddVideoButton onClick={addVideo} /> : null}
     </>
   )
 }

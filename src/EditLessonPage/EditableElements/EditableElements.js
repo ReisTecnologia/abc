@@ -43,9 +43,11 @@ export const EditableElements = ({
     }
 
     const deleteElement = () => {
-      const newInnerElements = [...innerElements]
-      newInnerElements.splice(index, 1)
-      setInnerElements(newInnerElements)
+      if (window.confirm('Deletar elemento?')) {
+        const newInnerElements = [...innerElements]
+        newInnerElements.splice(index, 1)
+        setInnerElements(newInnerElements)
+      } else return
     }
 
     return (

@@ -3,8 +3,9 @@ import { colors } from '../../../colors'
 export const VideoNumber = styled.div`
   background-color: ${colors.primary};
   color: #fff;
-  min-width: 30px;
+  filter: opacity(60%);
+  min-width: 23px;
   text-align: center;
-  padding: 5px;
+  padding: 3px;
   border-radius: 15px;
 `
