@@ -41,6 +41,7 @@ const newElements = {
     audios: [],
     description: '',
     words: [],
+    conclusionAudio: {},
   },
   ClickLetterInTheTextTask: {
     type: 'ClickLetterInTheTextTask',

@@ -50,7 +50,21 @@ ViewableElements.propTypes = {
       ),
       description: PropTypes.string,
       text: PropTypes.string,
-      words: PropTypes.array,
+      words: PropTypes.arrayOf(
+        PropTypes.shape({
+          startsWithTheLetter: PropTypes.bool,
+          urlRightAnswerExplanation: PropTypes.string,
+          rightAnswerExplanation: PropTypes.string,
+          urlWord: PropTypes.string,
+          urlWrongAnswerExplanation: PropTypes.string,
+          wrongAnswerExplanation: PropTypes.string,
+          word: PropTypes.string,
+        })
+      ),
+      conclusionAudio: PropTypes.shape({
+        name: PropTypes.string,
+        url: PropTypes.string,
+      }),
     })
   ),
 }

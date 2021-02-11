@@ -139,6 +139,16 @@ CheckFirstLetter.propTypes = {
     url: PropTypes.string,
   }),
   actual: PropTypes.bool,
-  words: PropTypes.array,
+  words: PropTypes.arrayOf(
+    PropTypes.shape({
+      startsWithTheLetter: PropTypes.bool,
+      urlRightAnswerExplanation: PropTypes.string,
+      rightAnswerExplanation: PropTypes.string,
+      urlWord: PropTypes.string,
+      urlWrongAnswerExplanation: PropTypes.string,
+      wrongAnswerExplanation: PropTypes.string,
+      word: PropTypes.string,
+    })
+  ),
   onComplete: PropTypes.func,
 }

@@ -86,8 +86,10 @@ const lesson = {
           startsWithTheLetter: true,
           urlRightAnswerExplanation:
             'a___01928d91-f3cb-4e5d-bf0b-e8433dd830cc.m4a',
+          rightAnswerExplanation: 'Explicação da resposta certa',
           urlWord: 'a___35efce3a-d846-4e74-a2fe-78d1b9e855cf.m4a',
           urlWrongAnswerExplanation: '13.m4a',
+          wrongAnswerExplanation: 'Explicação da resposta errada',
           word: 'beleza',
         },
         {
@@ -98,6 +100,7 @@ const lesson = {
           word: 'alimento',
         },
       ],
+      conclusionAudio: '1.m4a',
     },
     {
       audios: [
@@ -182,8 +185,10 @@ const expectedValue = {
           startsWithTheLetter: true,
           urlRightAnswerExplanation:
             'a___01928d91-f3cb-4e5d-bf0b-e8433dd830cc.m4a',
+          rightAnswerExplanation: 'Explicação da resposta certa',
           urlWord: 'a___35efce3a-d846-4e74-a2fe-78d1b9e855cf.m4a',
           urlWrongAnswerExplanation: '13.m4a',
+          wrongAnswerExplanation: 'Explicação da resposta errada',
           word: 'beleza',
         },
         {
@@ -194,6 +199,7 @@ const expectedValue = {
           word: 'alimento',
         },
       ],
+      conclusionAudio: '1.m4a',
     },
     {
       type: 'ClickLetterInTheTextTask',

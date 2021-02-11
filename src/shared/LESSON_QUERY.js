@@ -25,8 +25,14 @@ export const LESSON_QUERY = gql`
           startsWithTheLetter
           word
           urlRightAnswerExplanation
+          rightAnswerExplanation
           urlWrongAnswerExplanation
+          wrongAnswerExplanation
           urlWord
+        }
+        conclusionAudio {
+          name
+          url
         }
       }
     }

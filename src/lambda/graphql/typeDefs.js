@@ -5,7 +5,9 @@ export default gql`
     startsWithTheLetter: Boolean!
     word: String!
     urlRightAnswerExplanation: String
+    rightAnswerExplanation: String
     urlWrongAnswerExplanation: String
+    wrongAnswerExplanation: String
     urlWord: String
   }
 
@@ -19,6 +21,11 @@ export default gql`
     url: String!
   }
 
+  type ConclusionAudio {
+    name: String
+    url: String
+  }
+
   type Element {
     type: String!
     letter: String
@@ -30,6 +37,7 @@ export default gql`
     description: String
     text: String
     words: [Word]
+    conclusionAudio: ConclusionAudio
   }
 
   type Lesson {
@@ -61,7 +69,9 @@ export default gql`
     startsWithTheLetter: Boolean!
     word: String!
     urlRightAnswerExplanation: String
+    rightAnswerExplanation: String
     urlWrongAnswerExplanation: String
+    wrongAnswerExplanation: String
     urlWord: String
   }
 
@@ -71,6 +81,11 @@ export default gql`
   }
 
   input VideoInput {
+    name: String
+    url: String
+  }
+
+  input ConclusionAudioInput {
     name: String
     url: String
   }
@@ -86,6 +101,7 @@ export default gql`
     description: String
     text: String
     words: [WordLessonInput]
+    conclusionAudio: ConclusionAudioInput
   }
 
   input EditLessonInput {

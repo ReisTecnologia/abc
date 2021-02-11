@@ -12,8 +12,8 @@ const mappers = {
     return { type, videos, description }
   },
   CheckFirstLetter: (el) => {
-    const { type, audios, description, words } = el
-    return { type, audios, description, words }
+    const { type, audios, description, words, conclusionAudio } = el
+    return { type, audios, description, words, conclusionAudio }
   },
   ClickLetterInTheTextTask: (el) => {
     const { type, audios, correctLetters, text } = el

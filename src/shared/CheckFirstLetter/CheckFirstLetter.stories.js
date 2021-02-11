@@ -9,8 +9,10 @@ const words = [
     startsWithTheLetter: true,
     urlRightAnswerExplanation:
       'https://alfabetiza.s3-sa-east-1.amazonaws.com/a2.m4a',
+    rightAnswerExplanation: 'Explicação da resposta certa',
     urlWrongAnswerExplanation:
       'https://alfabetiza.s3-sa-east-1.amazonaws.com/a3.m4a',
+    wrongAnswerExplanation: 'Explicação da resposta errada',
   },
   {
     word: 'batata',
@@ -18,8 +20,10 @@ const words = [
     startsWithTheLetter: false,
     urlRightAnswerExplanation:
       'https://alfabetiza.s3-sa-east-1.amazonaws.com/a1.m4a',
+    rightAnswerExplanation: 'Explicação da resposta certa',
     urlWrongAnswerExplanation:
       'https://alfabetiza.s3-sa-east-1.amazonaws.com/a3.m4a',
+    wrongAnswerExplanation: 'Explicação da resposta errada',
   },
 ]
 

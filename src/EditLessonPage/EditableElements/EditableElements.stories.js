@@ -64,7 +64,9 @@ const defaultArgs = {
           urlWord: 'a1.m4a',
           startsWithTheLetter: false,
           urlRightAnswerExplanation: 'a2.m4a',
+          rightAnswerExplanation: 'Explicação em caso de resposta certa',
           urlWrongAnswerExplanation: 'a3.m4a',
+          wrongAnswerExplanation: 'Explicação em caso de resposta errada',
         },
         {
           word: 'alimento',
@@ -74,6 +76,7 @@ const defaultArgs = {
           urlWrongAnswerExplanation: 'a3.m4a',
         },
       ],
+      conclusionAudio: '1.m4a',
     },
   ],
 }

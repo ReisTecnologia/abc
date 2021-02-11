@@ -27,6 +27,32 @@ const buildChangeWord = ({ words, wordIndex, changeWords }) => (word) => {
   changeWords(newWords)
 }
 
+const buildChangeRightAnswerExplanation = ({
+  words,
+  wordIndex,
+  changeWords,
+}) => (rightAnswerExplanation) => {
+  const newWords = [...words]
+  newWords[wordIndex] = {
+    ...newWords[wordIndex],
+    rightAnswerExplanation,
+  }
+  changeWords(newWords)
+}
+
+const buildChangeWrongAnswerExplanation = ({
+  words,
+  wordIndex,
+  changeWords,
+}) => (wrongAnswerExplanation) => {
+  const newWords = [...words]
+  newWords[wordIndex] = {
+    ...newWords[wordIndex],
+    wrongAnswerExplanation,
+  }
+  changeWords(newWords)
+}
+
 export const Words = ({ words, changeWords, audioFilePrefix }) => {
   const addWord = () =>
     changeWords([
@@ -34,8 +60,10 @@ export const Words = ({ words, changeWords, audioFilePrefix }) => {
       {
         startsWithTheLetter: true,
         urlRightAnswerExplanation: '',
+        rightAnswerExplanation: 'Explicação em caso de resposta correta',
         urlWord: '',
         urlWrongAnswerExplanation: '',
+        wrongAnswerExplanation: 'Explicação em caso de resposta errada',
         word: 'nova palavra',
       },
     ])
@@ -49,7 +77,9 @@ export const Words = ({ words, changeWords, audioFilePrefix }) => {
               word,
               urlWord,
               urlRightAnswerExplanation,
+              rightAnswerExplanation,
               urlWrongAnswerExplanation,
+              wrongAnswerExplanation,
               startsWithTheLetter,
             },
             wordIndex
@@ -57,7 +87,9 @@ export const Words = ({ words, changeWords, audioFilePrefix }) => {
             <Word
               urlWord={urlWord}
               urlRightAnswerExplanation={urlRightAnswerExplanation}
+              rightAnswerExplanation={rightAnswerExplanation}
               urlWrongAnswerExplanation={urlWrongAnswerExplanation}
+              wrongAnswerExplanation={wrongAnswerExplanation}
               startsWithTheLetter={startsWithTheLetter}
               audioFilePrefix={audioFilePrefix}
               index={wordIndex}
@@ -72,6 +104,16 @@ export const Words = ({ words, changeWords, audioFilePrefix }) => {
                 changeWords,
               })}
               changeName={buildChangeWord({ words, wordIndex, changeWords })}
+              changeRightAnswerExplanation={buildChangeRightAnswerExplanation({
+                words,
+                wordIndex,
+                changeWords,
+              })}
+              changeWrongAnswerExplanation={buildChangeWrongAnswerExplanation({
+                words,
+                wordIndex,
+                changeWords,
+              })}
               word={word}
               key={urlWord}
             />
@@ -88,8 +130,10 @@ Words.propTypes = {
     PropTypes.shape({
       startsWithTheLetter: PropTypes.bool.isRequired,
       urlRightAnswerExplanation: PropTypes.string.isRequired,
+      rightAnswerExplanation: PropTypes.string.isRequired,
       urlWord: PropTypes.string.isRequired,
       urlWrongAnswerExplanation: PropTypes.string.isRequired,
+      wrongAnswerExplanation: PropTypes.string.isRequired,
       word: PropTypes.string.isRequired,
     })
   ),
