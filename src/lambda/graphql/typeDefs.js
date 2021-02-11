@@ -40,7 +40,7 @@ export default gql`
 
   type MenuElement {
     lessonId: String!
-    name: String!
+    initials: String!
   }
 
   type Menu {

@@ -6,7 +6,7 @@ export const MENU_QUERY = gql`
       id
       name
       elements {
-        name
+        initials
         lessonId
       }
     }
