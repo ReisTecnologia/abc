@@ -2,6 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Word } from './Word/Word'
 import { AddWordButton } from './AddWordButton'
+import { AudioButton } from '../../AudioButton'
+import { SeparateAudioWrapper } from './SeparateAudioWrapper'
+import { WordWrapper } from './WordWrapper'
 
 const buildUpdateWord = ({ words, wordIndex, changeWords }) => (payload) => {
   const newWords = [...words]
@@ -84,39 +87,65 @@ export const Words = ({ words, changeWords, audioFilePrefix }) => {
             },
             wordIndex
           ) => (
-            <Word
-              urlWord={urlWord}
-              urlRightAnswerExplanation={urlRightAnswerExplanation}
-              rightAnswerExplanation={rightAnswerExplanation}
-              urlWrongAnswerExplanation={urlWrongAnswerExplanation}
-              wrongAnswerExplanation={wrongAnswerExplanation}
-              startsWithTheLetter={startsWithTheLetter}
-              audioFilePrefix={audioFilePrefix}
-              index={wordIndex}
-              updateAudio={buildUpdateWord({
-                words,
-                wordIndex,
-                changeWords,
-              })}
-              deleteWord={buildDeleteWord({
-                words,
-                wordIndex,
-                changeWords,
-              })}
-              changeName={buildChangeWord({ words, wordIndex, changeWords })}
-              changeRightAnswerExplanation={buildChangeRightAnswerExplanation({
-                words,
-                wordIndex,
-                changeWords,
-              })}
-              changeWrongAnswerExplanation={buildChangeWrongAnswerExplanation({
-                words,
-                wordIndex,
-                changeWords,
-              })}
-              word={word}
-              key={urlWord}
-            />
+            <WordWrapper key={word}>
+              <Word
+                urlWord={urlWord}
+                urlRightAnswerExplanation={urlRightAnswerExplanation}
+                rightAnswerExplanation={rightAnswerExplanation}
+                urlWrongAnswerExplanation={urlWrongAnswerExplanation}
+                wrongAnswerExplanation={wrongAnswerExplanation}
+                startsWithTheLetter={startsWithTheLetter}
+                audioFilePrefix={audioFilePrefix}
+                index={wordIndex}
+                updateAudio={buildUpdateWord({
+                  words,
+                  wordIndex,
+                  changeWords,
+                })}
+                deleteWord={buildDeleteWord({
+                  words,
+                  wordIndex,
+                  changeWords,
+                })}
+                changeName={buildChangeWord({ words, wordIndex, changeWords })}
+                changeRightAnswerExplanation={buildChangeRightAnswerExplanation(
+                  {
+                    words,
+                    wordIndex,
+                    changeWords,
+                  }
+                )}
+                changeWrongAnswerExplanation={buildChangeWrongAnswerExplanation(
+                  {
+                    words,
+                    wordIndex,
+                    changeWords,
+                  }
+                )}
+                word={word}
+                key={urlWord}
+              />
+              <SeparateAudioWrapper>
+                <AudioButton
+                  audioUrls={[
+                    `https://alfabetiza.s3-sa-east-1.amazonaws.com/${urlWord}`,
+                  ]}
+                  size={'20'}
+                />
+                <AudioButton
+                  audioUrls={[
+                    `https://alfabetiza.s3-sa-east-1.amazonaws.com/${urlRightAnswerExplanation}`,
+                  ]}
+                  size={'20'}
+                />
+                <AudioButton
+                  audioUrls={[
+                    `https://alfabetiza.s3-sa-east-1.amazonaws.com/${urlWrongAnswerExplanation}`,
+                  ]}
+                  size={'20'}
+                />
+              </SeparateAudioWrapper>
+            </WordWrapper>
           )
         )}
       <AddWordButton onClick={addWord} />
