@@ -93,11 +93,10 @@ export const ConclusionAudio = ({
 
 ConclusionAudio.propTypes = {
   audioFilePrefix: PropTypes.string,
-  conclusionAudio: PropTypes.arrayOf(
-    PropTypes.shape({
-      url: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-    })
-  ),
+  conclusionAudio: PropTypes.shape({
+    url: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+  }),
+
   changeConclusionAudio: PropTypes.func,
 }
