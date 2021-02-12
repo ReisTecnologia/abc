@@ -23,6 +23,9 @@ const ElementType = styled.div`
   font-weight: bold;
   border-radius: 5px;
 `
+const ElementWrapper = styled.div`
+  padding: 10px 0px;
+`
 
 export const ElementTitleWrapper = styled.div`
   display: block;
@@ -139,30 +142,30 @@ export const ElementParams = ({
       <br />
 
       {showText && (
-        <>
+        <ElementWrapper>
           <ElementTitleWrapper>Texto:</ElementTitleWrapper>
           <TextAndInput value={text} onChange={changeText} />
-        </>
+        </ElementWrapper>
       )}
 
       {showLetter && (
-        <>
+        <ElementWrapper>
           <ElementTitleWrapper>{letterTitle()}</ElementTitleWrapper>
           <TextAndInput value={letter} onChange={changeLetter} />
-        </>
+        </ElementWrapper>
       )}
 
       {showCorrectLetters && (
-        <>
+        <ElementWrapper>
           <ElementTitleWrapper>Letras corretas:</ElementTitleWrapper>
           <TextAndInput
             value={correctLettersString}
             onChange={changeCorrectLetters}
           />
-        </>
+        </ElementWrapper>
       )}
       {showAudios && (
-        <>
+        <ElementWrapper>
           <ElementTitleWrapper>Áudios:</ElementTitleWrapper>
           <Audios
             audioFilePrefix={`${lessonId}___`}
@@ -170,21 +173,10 @@ export const ElementParams = ({
             changeAudios={changeAudios}
           />
           <br />
-        </>
-      )}
-      {showConclusionAudio && (
-        <>
-          <ElementTitleWrapper>Áudio de conclusão:</ElementTitleWrapper>
-          <ConclusionAudio
-            audioFilePrefix={`${lessonId}___`}
-            conclusionAudio={conclusionAudio}
-            changeConclusionAudio={changeConclusionAudio}
-          />
-          <br />
-        </>
+        </ElementWrapper>
       )}
       {showVideos && (
-        <>
+        <ElementWrapper>
           <ElementTitleWrapper>Vídeos:</ElementTitleWrapper>
           <Videos
             videoFilePrefix={`${lessonId}___`}
@@ -192,10 +184,10 @@ export const ElementParams = ({
             changeVideos={changeVideos}
           />
           <br />
-        </>
+        </ElementWrapper>
       )}
       {showWords && (
-        <>
+        <ElementWrapper>
           <ElementTitleWrapper>Palavras:</ElementTitleWrapper>
           <Words
             audioFilePrefix={`${lessonId}___`}
@@ -203,7 +195,18 @@ export const ElementParams = ({
             changeWords={changeWords}
           />
           <br />
-        </>
+        </ElementWrapper>
+      )}
+      {showConclusionAudio && (
+        <ElementWrapper>
+          <ElementTitleWrapper>Áudio de conclusão:</ElementTitleWrapper>
+          <ConclusionAudio
+            audioFilePrefix={`${lessonId}___`}
+            conclusionAudio={conclusionAudio}
+            changeConclusionAudio={changeConclusionAudio}
+          />
+          <br />
+        </ElementWrapper>
       )}
     </Wrapper>
   )

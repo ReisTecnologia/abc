@@ -33,16 +33,16 @@ export const EditableElement = ({
             <Button disabled={!canMoveUp} onClick={onUp}>
               <Icon
                 icon={arrowUpSquareFill}
-                color={() => (!canMoveUp ? '#eee' : colors.primary)}
-                height="30"
+                color={() => (!canMoveUp ? '#eee' : colors.light)}
+                height="50"
                 cursor={() => (!canMoveUp ? null : 'pointer')}
               />
             </Button>
             <Button disabled={!canMoveDown} onClick={onDown}>
               <Icon
                 icon={arrowDownSquareFill}
-                color={() => (!canMoveDown ? '#eee' : colors.primary)}
-                height="30"
+                color={() => (!canMoveDown ? '#eee' : colors.light)}
+                height="50"
                 cursor={() => (!canMoveDown ? null : 'pointer')}
               />
             </Button>

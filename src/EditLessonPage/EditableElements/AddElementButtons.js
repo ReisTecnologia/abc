@@ -18,6 +18,16 @@ const ButtonWrapper = styled.div`
   border-radius: 7px;
   cursor: pointer;
 `
+const AddElementButtonWrapper = styled.div`
+  border-radius: 7px;
+  display: flex;
+  font-size: 30px;
+  padding: 0px 12px 3px;
+  /* border: solid 2px; */
+  background-color: ${colors.light};
+  color: ${colors.white};
+  cursor: pointer;
+`
 
 const newElements = {
   Audio: {
@@ -92,9 +102,9 @@ export const AddElementButtons = ({ addElement }) => {
           </ButtonWrapper>
         </>
       ) : (
-        <ButtonWrapper onClick={showButtons}>
-          Adicionar novo elemento
-        </ButtonWrapper>
+        <AddElementButtonWrapper onClick={showButtons}>
+          +
+        </AddElementButtonWrapper>
       )}
     </Wrapper>
   )
