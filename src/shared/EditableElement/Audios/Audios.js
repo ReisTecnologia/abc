@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Audio } from './Audio/Audio'
 import { AddAudioButton } from './AddAudioButton'
+import { AudioButton } from '../../AudioButton'
+import { AudiosWrapper } from './AudiosWrapper'
 
 const buildUpdateAudio = ({ audios, audioIndex, changeAudios }) => (
   payload
@@ -37,16 +39,32 @@ export const Audios = ({ audios, changeAudios, audioFilePrefix }) => {
     <>
       {audios &&
         audios.map(({ name, url }, audioIndex) => (
-          <Audio
-            url={url}
-            audioFilePrefix={audioFilePrefix}
-            index={audioIndex}
-            updateAudio={buildUpdateAudio({ audios, audioIndex, changeAudios })}
-            deleteAudio={buildDeleteAudio({ audios, audioIndex, changeAudios })}
-            changeName={buildChangeName({ audios, audioIndex, changeAudios })}
-            name={name}
-            key={url}
-          />
+          <AudiosWrapper key={audioIndex}>
+            <Audio
+              url={url}
+              audioFilePrefix={audioFilePrefix}
+              index={audioIndex}
+              updateAudio={buildUpdateAudio({
+                audios,
+                audioIndex,
+                changeAudios,
+              })}
+              deleteAudio={buildDeleteAudio({
+                audios,
+                audioIndex,
+                changeAudios,
+              })}
+              changeName={buildChangeName({ audios, audioIndex, changeAudios })}
+              name={name}
+              key={url}
+            />
+            <AudioButton
+              audioUrls={[
+                `https://alfabetiza.s3-sa-east-1.amazonaws.com/${url}`,
+              ]}
+              size={'20'}
+            />
+          </AudiosWrapper>
         ))}
       <AddAudioButton onClick={addAudio} />
     </>
