@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { TextInput } from './TextInput'
 import { Uploader } from './Uploader'
@@ -6,10 +6,10 @@ import { DeleteConclusionAudioButton } from './DeleteConclusionAudioButton'
 import { InputWrapper } from './InputWrapper'
 import { AddConclusionAudioButton } from './AddConclusionAudioButton'
 import { ConclusionAudioNameWrapper } from './ConclusionAudioNameWrapper'
-import { ConclusionAudioNumber } from './ConclusionAudioNumber'
-import { NumberWrapper } from './NumberWrapper'
 import { ConclusionAudioWrapper } from './ConclusionAudioWrapper'
 import { ConclusionAudioFieldsWrapper } from './ConclusionAudioFieldsWrapper'
+import { OptionalTextWrapper } from './OptionalTextWrapper'
+import { useOnClickOutside } from '../../useOnClickOutside'
 
 const buildUpdateAudio = ({ conclusionAudio, changeConclusionAudio }) => (
   payload
@@ -18,11 +18,6 @@ const buildUpdateAudio = ({ conclusionAudio, changeConclusionAudio }) => (
     ...conclusionAudio,
     ...payload,
   }
-  changeConclusionAudio(newConclusionAudio)
-}
-
-const buildDeleteAudio = ({ changeConclusionAudio }) => () => {
-  const newConclusionAudio = {}
   changeConclusionAudio(newConclusionAudio)
 }
 
@@ -41,30 +36,36 @@ export const ConclusionAudio = ({
   changeConclusionAudio,
   audioFilePrefix,
 }) => {
-  const addAudio = () =>
-    changeConclusionAudio({
-      url: '',
-      name: 'Áudio de conclusão',
-    })
-
   const [showFileUploadInput, setShowFileUploadInput] = useState(false)
   const showInput = () => setShowFileUploadInput(true)
   const hideInput = () => setShowFileUploadInput(false)
   const toggleInputFields = () =>
     showFileUploadInput ? hideInput() : showInput()
+  const buildDeleteAudio = ({ changeConclusionAudio }) => () => {
+    const newConclusionAudio = {}
+    changeConclusionAudio(newConclusionAudio)
+    hideInput()
+  }
+
+  const hideInputOnClickOutside = useCallback(() => {
+    setShowFileUploadInput(false)
+  }, [setShowFileUploadInput])
+
+  const ref = useOnClickOutside(hideInputOnClickOutside)
 
   return (
     <ConclusionAudioWrapper>
-      <NumberWrapper onClick={toggleInputFields}>
-        <ConclusionAudioNumber>1</ConclusionAudioNumber>
-      </NumberWrapper>
+      <OptionalTextWrapper>(Opcional)</OptionalTextWrapper>
       {!showFileUploadInput && (
-        <ConclusionAudioNameWrapper>
-          {conclusionAudio.name}
-        </ConclusionAudioNameWrapper>
+        <>
+          <ConclusionAudioNameWrapper onClick={toggleInputFields}>
+            {conclusionAudio.name}
+          </ConclusionAudioNameWrapper>
+          <AddConclusionAudioButton onClick={toggleInputFields} />
+        </>
       )}
       {showFileUploadInput && (
-        <ConclusionAudioFieldsWrapper>
+        <ConclusionAudioFieldsWrapper ref={ref}>
           <TextInput
             value={conclusionAudio.name}
             onChange={buildChangeName({
@@ -86,7 +87,6 @@ export const ConclusionAudio = ({
           />
         </ConclusionAudioFieldsWrapper>
       )}
-      {!conclusionAudio && <AddConclusionAudioButton onClick={addAudio} />}
     </ConclusionAudioWrapper>
   )
 }

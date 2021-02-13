@@ -3,17 +3,29 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
 export const WordButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  position: relative;
+  bottom: -30px;
+`
+export const WordButtonInnerWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #fff;
-  padding: 4px 10px;
+  padding: 8px 10px;
   background-color: #017970;
   cursor: pointer;
   border-radius: 5px;
   text-align: center;
 `
+
 export const AddWordButton = ({ onClick }) => {
   return (
-    <WordButtonWrapper onClick={onClick}>
-      Adicionar nova palavra
+    <WordButtonWrapper>
+      <WordButtonInnerWrapper onClick={onClick}>
+        Nova palavra
+      </WordButtonInnerWrapper>
     </WordButtonWrapper>
   )
 }

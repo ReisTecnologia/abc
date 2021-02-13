@@ -13,4 +13,6 @@ export const colors = {
   textUnanswered: '#333',
   textClear: '#5ed65e',
   white: '#fff',
+  pink: '#cc6666',
+  light: '#c9cdd1',
 }

@@ -1,8 +1,7 @@
 import styled from 'styled-components'
 import { colors } from '../../../colors'
 
-export const WordSubFieldWrapper = styled.div`
-  color: ${colors.grayText};
+export const WordAnswerInfoWrapper = styled.div`
   display: inline;
-  padding-left: 8px;
+  color: ${colors.light};
 `
