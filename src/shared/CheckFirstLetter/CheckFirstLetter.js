@@ -118,7 +118,7 @@ export const CheckFirstLetter = ({
           />
         )}
         <SimpleAudio
-          src={conclusionAudio && conclusionAudio.url}
+          urlAudio={conclusionAudio && conclusionAudio.url}
           startPlaying={end}
           onComplete={doComplete}
         />

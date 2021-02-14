@@ -48,7 +48,7 @@ export const Element = ({ elementParams, actual, onComplete }) => {
           onComplete={onComplete}
           actual={actual}
           audios={audios}
-          conclusionAudio={conclusionAudio && conclusionAudio.url}
+          conclusionAudio={conclusionAudio}
           words={words}
         />
       )
