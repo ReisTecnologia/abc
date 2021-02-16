@@ -1,47 +1,31 @@
 import React from 'react'
-import { gql, useQuery } from '@apollo/client'
-import { AddLessonButton } from './AddLessonButton'
-import { BasicLayout, LessonListLayout, StyledLink } from '../Layout'
-import { LoadingDots } from './LoadingDots'
-
-const LESSONS = gql`
-  query {
-    lessons {
-      id
-      name
-    }
-  }
-`
+import { useQuery } from '@apollo/client'
+import { AddLessonButton } from './AddLessonButton/AddLessonButton'
+import { ListItem } from './ListItem/ListItem'
+import { Spinner } from '../shared/Spinner'
+import { LESSONS_QUERY } from './LESSONS_QUERY'
+import { Header, Title, PageActions } from './LessonsPage.styles.js'
 
 export const LessonsPage = () => {
-  const { data, refetch, loading } = useQuery(LESSONS, {
+  const { data, refetch, loading } = useQuery(LESSONS_QUERY, {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: 'cache-and-network',
   })
+
   const lessons = data && data.lessons ? data.lessons : []
 
   return (
-    <BasicLayout>
-      <h1> Aulas </h1>
-      <LessonListLayout>
-        {loading ? (
-          <LoadingDots />
-        ) : (
-          lessons.map((lesson) => (
-            <span key={lesson.id}>
-              <StyledLink to={`/viewLesson/${lesson.id}`}>
-                {lesson.name}
-              </StyledLink>
-              &nbsp;&nbsp;
-              <StyledLink to={`/editLesson/${lesson.id}`}>(edit)</StyledLink>
-              <br />
-            </span>
-          ))
-        )}
-      </LessonListLayout>
-      <div>
-        <AddLessonButton afterAdd={refetch} />
-      </div>
-    </BasicLayout>
+    <>
+      <Header>
+        <Title>Aulas</Title>
+        {loading && <Spinner />}
+        <PageActions>
+          <AddLessonButton afterAdd={refetch} />
+        </PageActions>
+      </Header>
+      {lessons.map((lesson) => (
+        <ListItem key={lesson.id} lesson={lesson} />
+      ))}
+    </>
   )
 }

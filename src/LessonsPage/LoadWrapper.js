@@ -7,7 +7,7 @@ export const BounceAnimation = keyframes`
 `
 
 export const LoadingDot = styled.div`
-  background-color: white;
+  background-color: green;
   border-radius: 50%;
   width: 10px;
   height: 10px;
