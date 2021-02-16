@@ -5,6 +5,7 @@ import { ApolloProvider } from '@apollo/client'
 import { HttpLink } from 'apollo-link-http'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { LessonsPage } from './LessonsPage/LessonsPage'
+import { MenusPage } from './MenusPage/MenusPage'
 import { ViewLessonPage } from './ViewLessonPage/ViewLessonPage'
 import { EditLessonPage } from './EditLessonPage/EditLessonPage'
 import { MenuPage } from './MenuPage/MenuPage'
@@ -53,6 +54,9 @@ const Wrapped = () => {
           </Route>
           <Route path="/lessons">
             <LessonsPage />
+          </Route>
+          <Route path="/menus">
+            <MenusPage />
           </Route>
           <Route path="/editLesson">
             <EditLessonPage />
