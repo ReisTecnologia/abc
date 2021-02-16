@@ -21,6 +21,19 @@ const getLessons = async function () {
     .then(({ Items }) => Items)
 }
 
+const getMenus = async function () {
+  const docClient = new AWS.DynamoDB.DocumentClient()
+  const params = {
+    TableName: MENU_TABLE_NAME,
+  }
+
+  return docClient
+    .scan(params)
+    .promise()
+    .then(({ Items }) => Items)
+    .catch((e) => console.log('error', e))
+}
+
 const getMenu = (id) => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
@@ -62,6 +75,17 @@ const deleteLesson = (id) => {
     .promise()
 }
 
+const deleteMenu = (id) => {
+  const docClient = new AWS.DynamoDB.DocumentClient()
+  return docClient
+    .delete({
+      Key: { id: id },
+      ReturnItemCollectionMetrics: 'SIZE',
+      TableName: MENU_TABLE_NAME,
+    })
+    .promise()
+}
+
 const addLesson = (id) => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
@@ -71,6 +95,20 @@ const addLesson = (id) => {
       elements: [],
     },
     TableName: TABLE_NAME,
+  }
+
+  return docClient.put(params).promise()
+}
+
+const addMenu = (id) => {
+  const docClient = new AWS.DynamoDB.DocumentClient()
+  const params = {
+    Item: {
+      id: id,
+      name: 'Novo Menu',
+      elements: [],
+    },
+    TableName: MENU_TABLE_NAME,
   }
 
   return docClient.put(params).promise()
@@ -108,6 +146,9 @@ module.exports = {
   getLesson,
   addLesson,
   getMenu,
+  getMenus,
+  addMenu,
+  deleteMenu,
   deleteLesson,
   editLesson,
 }

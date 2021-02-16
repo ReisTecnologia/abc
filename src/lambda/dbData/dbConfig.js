@@ -19,5 +19,6 @@ const prodConfigs = {
 
 module.exports = {
   devConfigs,
-  awsConfig: process.env.NODE_ENV === 'development' ? devConfigs : prodConfigs,
+  awsConfig: prodConfigs,
+  // awsConfig: process.env.NODE_ENV === 'development' ? devConfigs : prodConfigs,
 }

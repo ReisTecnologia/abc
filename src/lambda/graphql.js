@@ -20,6 +20,10 @@ const resolvers = {
       const menu = await db.getMenu(args.id)
       return menu
     },
+    menus: async () => {
+      const menus = db.getMenus()
+      return menus
+    },
   },
   Mutation: {
     addLesson: async () => {
@@ -30,13 +34,27 @@ const resolvers = {
       const lessons = await db.getLessons()
       return { success, lessons }
     },
+    addMenu: async () => {
+      const success = await db
+        .addMenu(uuidv4())
+        .then(() => true)
+        .catch((e) => {
+          console.log(e)
+          return false
+        })
+      return { success }
+    },
     deleteLesson: async (parent, args) => {
       const success = await db
         .deleteLesson(args.id)
-        .then((u) => {
-          console.log('deleted', u)
-          return true
-        })
+        .then(() => true)
+        .catch(() => false)
+      return { success }
+    },
+    deleteMenu: async (parent, args) => {
+      const success = await db
+        .deleteMenu(args.id)
+        .then(() => true)
         .catch(() => false)
       return { success }
     },

@@ -62,9 +62,18 @@ export default gql`
     lessons: [Lesson]
   }
 
+  type AddMenuResponse {
+    success: Boolean!
+    lessons: [Lesson]
+  }
+
   type DeleteLessonResponse {
     success: Boolean!
     lessons: [Lesson]
+  }
+
+  type DeleteMenuResponse {
+    success: Boolean!
   }
 
   type EditLessonResponse {
@@ -124,11 +133,14 @@ export default gql`
     lessons: [Lesson]
     lesson(id: String!): Lesson
     menu(id: String!): Menu
+    menus: [Menu]
   }
 
   type Mutation {
     addLesson: AddLessonResponse
+    addMenu: AddMenuResponse
     deleteLesson(id: ID!): DeleteLessonResponse
+    deleteMenu(id: ID!): DeleteMenuResponse
     cleanupLessonFiles(id: ID!): CleanupLessonFilesResponse
     editLesson(id: ID!, input: EditLessonInput!): EditLessonResponse
   }
