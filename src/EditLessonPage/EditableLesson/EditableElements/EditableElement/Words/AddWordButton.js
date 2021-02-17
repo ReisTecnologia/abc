@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import { colors } from 'shared/colors'
 
 export const WordButtonWrapper = styled.div`
   display: flex;
@@ -14,7 +15,7 @@ export const WordButtonInnerWrapper = styled.div`
   justify-content: center;
   color: #fff;
   padding: 8px 10px;
-  background-color: #017970;
+  background-color: ${colors.dimmedPrimary};
   cursor: pointer;
   border-radius: 5px;
   text-align: center;
