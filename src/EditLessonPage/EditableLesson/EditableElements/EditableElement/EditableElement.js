@@ -1,6 +1,4 @@
 import React from 'react'
-import { EditableElementWrapper } from './EditableElementWrapper'
-import { EditableElementRow } from './EditableElementRow'
 import PropTypes from 'prop-types'
 
 import { ElementParams } from './ElementParams'
@@ -11,6 +9,8 @@ import {
   ElementControlWrapper,
   ElementWrapper,
   TitleRow,
+  EditableElementRow,
+  EditableElementWrapper,
 } from './EditableElement.styles.js'
 
 const typesAndNames = {

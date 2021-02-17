@@ -20,3 +20,13 @@ export const TitleRow = styled.div`
   border-bottom: solid 1px ${colors.grayText};
   padding-bottom: 0.5rem;
 `
+
+export const EditableElementRow = styled.div`
+  display: flex;
+`
+
+export const EditableElementWrapper = styled.div`
+  background-color: #eee;
+  display: flex;
+  flex-direction: column;
+`
