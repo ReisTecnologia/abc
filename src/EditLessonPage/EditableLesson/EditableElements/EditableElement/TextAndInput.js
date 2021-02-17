@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { useOnClickOutside } from 'shared/useOnClickOutside'
 import TextareaAutosize from 'react-textarea-autosize'
+import { colors } from 'shared/colors'
 
 export const Wrapper = styled.div`
   display: flex;
@@ -10,6 +11,7 @@ export const Wrapper = styled.div`
 `
 export const TextWrapper = styled.div`
   flex: 1;
+  color: ${colors.dimmedPrimary}
   cursor: pointer;
 `
 

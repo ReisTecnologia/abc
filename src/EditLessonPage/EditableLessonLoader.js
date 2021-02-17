@@ -17,6 +17,7 @@ export const EditableLessonLoader = () => {
     variables: { id: lesson },
     notifyOnNetworkStatusChange: true,
   })
+
   if (error) {
     console.error(error)
   }

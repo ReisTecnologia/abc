@@ -8,7 +8,7 @@ const ButtonWrapper = styled.div`
   padding: 3px;
   margin: 5px;
   cursor: ${({ disabled }) => (disabled ? null : 'pointer')};
-  color: ${({ disabled }) => (disabled ? '#eee' : '#999')};
+  color: ${({ disabled }) => (disabled ? '#ddd' : '#999')};
 `
 
 export const Button = ({ children, onClick, disabled }) => (

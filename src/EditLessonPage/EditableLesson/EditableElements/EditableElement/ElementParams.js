@@ -9,27 +9,19 @@ import { Words } from './Words/Words'
 import { ConclusionAudio } from './ConclusionAudio/ConclusionAudio'
 
 const Wrapper = styled.div`
-  padding: 0px 21px;
+  padding: 2rem 2rem;
   color: #555;
   text-align: left;
   width: 100%;
 `
 
-const ElementType = styled.div`
-  margin-bottom: 5px;
-  float: right;
-  background-color: #fff;
-  padding: 4px;
-  font-weight: bold;
-  border-radius: 5px;
-`
 const ElementWrapper = styled.div`
   padding: 10px 0px;
 `
 
 export const ElementTitleWrapper = styled.div`
-  display: block;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
+  margin-bottom: 0.2rem;
 `
 
 export const ElementParams = ({
@@ -115,7 +107,6 @@ export const ElementParams = ({
     text,
     conclusionAudio,
   } = elementParams
-  console.log('conclusionAudio', conclusionAudio)
 
   const letterTitle = () => {
     if (type === 'ClickWordStartingWithALetterInTheTextTask')
@@ -136,7 +127,6 @@ export const ElementParams = ({
 
   return (
     <Wrapper>
-      <ElementType>{type}</ElementType>
       <ElementTitleWrapper>Descrição:</ElementTitleWrapper>
       <TextAndInput value={description} onChange={changeDescription} />
       <br />

@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useMutation } from '@apollo/client'
 import { useHistory } from 'react-router-dom'
-import { Layout } from '../../shared/Layout'
-import { Container } from '../../shared/Container'
-import { HeaderWrapper } from '../../shared/HeaderWrapper'
-import { Rodape } from '../../shared/Rodape'
+import { Layout } from 'shared/Layout'
+import { Container } from 'shared/Container'
+import { HeaderWrapper } from 'shared/HeaderWrapper'
 import { EditableElements } from './EditableElements/EditableElements'
 import { DeleteButton } from './DeleteButton'
 import { CleanupFilesButton } from './CleanupFilesButton'
-import { NameInputField } from './NameInputField'
-import { Spinner } from '../../shared/Spinner'
+import { InputField } from './InputField'
+import { Spinner } from 'shared/Spinner'
 import { ReloadButton } from './ReloadButton'
 import { SAVE_LESSON_MUTATION } from './SAVE_LESSON_MUTATION'
 import styled from 'styled-components'
@@ -22,6 +21,7 @@ export const TitleWrapper = styled.div`
 export const ButtonsWrapper = styled.div`
   flex: 1;
   display: flex;
+  flex-direction: row-reverse;
 `
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -65,16 +65,13 @@ export const EditableLesson = ({
     <Layout>
       <HeaderWrapper>
         <TitleWrapper>
-          <NameInputField
-            lessonName={lessonName}
-            setLessonName={setLessonName}
-          />
+          <InputField value={lessonName} setValue={setLessonName} />
         </TitleWrapper>
+        {isSaving && <Spinner />}
         <ButtonsWrapper>
           <CleanupFilesButton id={id} />
           <DeleteButton id={id} afterDelete={navigateToHome} />
           <ReloadButton reload={reloadLesson} loading={loadingLesson} />
-          {isSaving && <Spinner />}
         </ButtonsWrapper>
       </HeaderWrapper>
       <Container>
@@ -85,7 +82,6 @@ export const EditableLesson = ({
           setInnerElements={setInnerElements}
         />
       </Container>
-      <Rodape />
     </Layout>
   )
 }

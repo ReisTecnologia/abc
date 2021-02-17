@@ -2,17 +2,24 @@ import React from 'react'
 import { EditableElementWrapper } from './EditableElementWrapper'
 import { EditableElementRow } from './EditableElementRow'
 import PropTypes from 'prop-types'
-import { UpDownWrapper } from './UpDownWrapper'
-import { ElementControlWrapper } from './ElementControlWrapper'
-import { ElementWrapper } from './ElementWrapper'
-import { Button } from './Button'
+
 import { ElementParams } from './ElementParams'
-import { DeleteElementRow } from './DeleteElementRow'
 import { DeleteElementButton } from './DeleteElementButton'
-import { colors } from 'shared/colors'
-import { Icon } from '@iconify/react'
-import arrowUpSquareFill from '@iconify-icons/bi/arrow-up-square-fill'
-import arrowDownSquareFill from '@iconify-icons/bi/arrow-down-square-fill'
+import { MoveButtons } from './MoveButtons/MoveButtons'
+
+import {
+  ElementControlWrapper,
+  ElementWrapper,
+  TitleRow,
+} from './EditableElement.styles.js'
+
+const typesAndNames = {
+  Audio: 'Áudio',
+  Video: 'Vídeo',
+  LetterAndAudio: 'Letra e Áudio',
+  CheckFirstLetter: 'Escute a primeira letra',
+  ClickLetterInTheTextTask: 'Ache a letra no texto',
+}
 
 export const EditableElement = ({
   lessonId,
@@ -27,26 +34,18 @@ export const EditableElement = ({
 }) => {
   return (
     <EditableElementWrapper>
+      <TitleRow>
+        {typesAndNames[elementParams.type]}{' '}
+        <DeleteElementButton deleteElement={deleteElement} />
+      </TitleRow>
       <EditableElementRow>
         <ElementControlWrapper>
-          <UpDownWrapper>
-            <Button disabled={!canMoveUp} onClick={onUp}>
-              <Icon
-                icon={arrowUpSquareFill}
-                color={() => (!canMoveUp ? '#eee' : colors.light)}
-                height="50"
-                cursor={() => (!canMoveUp ? null : 'pointer')}
-              />
-            </Button>
-            <Button disabled={!canMoveDown} onClick={onDown}>
-              <Icon
-                icon={arrowDownSquareFill}
-                color={() => (!canMoveDown ? '#eee' : colors.light)}
-                height="50"
-                cursor={() => (!canMoveDown ? null : 'pointer')}
-              />
-            </Button>
-          </UpDownWrapper>
+          <MoveButtons
+            onUp={onUp}
+            onDown={onDown}
+            canMoveDown={canMoveDown}
+            canMoveUp={canMoveUp}
+          />
           <ElementParams
             lessonId={lessonId}
             updateElementParams={updateElementParams}
@@ -55,9 +54,6 @@ export const EditableElement = ({
         </ElementControlWrapper>
         <ElementWrapper>{children}</ElementWrapper>
       </EditableElementRow>
-      <DeleteElementRow>
-        <DeleteElementButton deleteElement={deleteElement} />
-      </DeleteElementRow>
     </EditableElementWrapper>
   )
 }

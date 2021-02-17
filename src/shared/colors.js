@@ -3,6 +3,7 @@ export const colors = {
   red: '#b77',
   playing: '#01796f',
   primary: '#017970',
+  dimmedPrimary: '#71A9A3',
   grayText: '#999',
   actual: '#000',
   highlight: '#1DA7FD',
