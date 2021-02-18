@@ -1,11 +1,14 @@
 import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import { useOnClickOutside } from 'shared/useOnClickOutside'
 import TextareaAutosize from 'react-textarea-autosize'
+// import { colors } from 'shared/colors'
 
 export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
+  flex: 3;
+  width: 100%;
 `
 export const TextWrapper = styled.div`
   flex: 1;
@@ -17,8 +20,14 @@ export const InputWrapper = styled.textarea`
   display: flex;
 `
 
-export const TextInput = ({ value, onChange }) => {
+export const TextInput = ({ value, onChange, color }) => {
   const [inputValue, setInputValue] = useState(value)
+  const [showInput, setShowInput] = useState(false)
+
+  const cleanAndHideInput = useCallback(() => {
+    setInputValue(value)
+    setShowInput(false)
+  }, [setShowInput, value])
 
   const onInputChange = useCallback(
     (event) => {
@@ -27,19 +36,31 @@ export const TextInput = ({ value, onChange }) => {
     [setInputValue]
   )
 
+  const ref = useOnClickOutside(cleanAndHideInput)
+
   const submitOnEnter = (e) => {
     if (e.charCode === 13) {
       onChange(inputValue)
+      setShowInput(false)
     }
   }
 
   return (
-    <Wrapper>
-      <TextareaAutosize
-        value={inputValue}
-        onChange={onInputChange}
-        onKeyPress={submitOnEnter}
-      />
+    <Wrapper ref={ref}>
+      {showInput ? (
+        <TextareaAutosize
+          value={inputValue}
+          onChange={onInputChange}
+          onKeyPress={submitOnEnter}
+        />
+      ) : (
+        <TextWrapper
+          onClick={() => setShowInput(true)}
+          style={{ color: color }}
+        >
+          {value || '...'}
+        </TextWrapper>
+      )}
     </Wrapper>
   )
 }
@@ -47,4 +68,5 @@ export const TextInput = ({ value, onChange }) => {
 TextInput.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
+  color: PropTypes.string,
 }

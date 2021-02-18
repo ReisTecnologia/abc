@@ -9,6 +9,7 @@ import {
   ElementControlWrapper,
   ElementWrapper,
   TitleRow,
+  Title,
   EditableElementRow,
   EditableElementWrapper,
 } from './EditableElement.styles.js'
@@ -35,17 +36,17 @@ export const EditableElement = ({
   return (
     <EditableElementWrapper>
       <TitleRow>
-        {typesAndNames[elementParams.type]}{' '}
+        <Title>{typesAndNames[elementParams.type]} </Title>
         <DeleteElementButton deleteElement={deleteElement} />
+        <MoveButtons
+          onUp={onUp}
+          onDown={onDown}
+          canMoveDown={canMoveDown}
+          canMoveUp={canMoveUp}
+        />
       </TitleRow>
       <EditableElementRow>
         <ElementControlWrapper>
-          <MoveButtons
-            onUp={onUp}
-            onDown={onDown}
-            canMoveDown={canMoveDown}
-            canMoveUp={canMoveUp}
-          />
           <ElementParams
             lessonId={lessonId}
             updateElementParams={updateElementParams}

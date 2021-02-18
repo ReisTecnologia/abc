@@ -5,4 +5,5 @@ export const AudioWrapper = styled.div`
   margin-top: 10px;
   margin-bottom: 10px;
   display: flex;
+  width: 100%;
 `

@@ -18,7 +18,7 @@ export const MoveButtons = ({ canMoveDown, canMoveUp, onUp, onDown }) => {
         icon={arrowUpSquareFill}
         onClick={canMoveUp && onUp}
         color={canMoveUp ? colors.grayText : colors.light}
-        height="50"
+        height="40"
         cursor={() => (!canMoveUp ? null : 'pointer')}
       />
 
@@ -26,7 +26,7 @@ export const MoveButtons = ({ canMoveDown, canMoveUp, onUp, onDown }) => {
         icon={arrowDownSquareFill}
         onClick={canMoveDown && onDown}
         color={canMoveDown ? colors.grayText : colors.light}
-        height="50"
+        height="40"
         cursor={() => (!canMoveDown ? null : 'pointer')}
       />
     </UpDownWrapper>

@@ -8,7 +8,15 @@ export const ElementControlWrapper = styled.div`
 `
 
 export const ElementWrapper = styled.div`
+  margin-right: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   flex: 1;
+`
+export const Title = styled.div`
+  display: inline-block;
+  position: relative;
+  left: 60px;
 `
 
 export const TitleRow = styled.div`

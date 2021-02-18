@@ -7,11 +7,12 @@ import { colors } from 'shared/colors'
 
 export const Wrapper = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: column;
 `
 export const TextWrapper = styled.div`
   flex: 1;
-  color: ${colors.dimmedPrimary}
+  color: ${colors.dimmedPrimary};
   cursor: pointer;
 `
 

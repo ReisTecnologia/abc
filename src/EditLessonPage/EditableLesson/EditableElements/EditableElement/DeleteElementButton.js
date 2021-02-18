@@ -7,10 +7,11 @@ import trashIcon from '@iconify-icons/ion/trash'
 
 const Wrapper = styled.div`
   cursor: pointer;
-  position: absolute;
+  float: right;
+  /* position: absolute; */
   padding: 0 0.5rem;
-  right: 0;
-  top: 2px;
+  /* right: 0; */
+  /* top: 2px; */
 `
 
 export const DeleteElementButton = ({ deleteElement }) => {
