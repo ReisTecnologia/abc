@@ -52,6 +52,7 @@ export const Audio = ({
         </NameAndUrlWrapper>
         {extraFields}
       </AudioFieldsWrapper>
+      <DeleteAudioButton deleteAudio={deleteAudio} />
     </AudioWrapper>
   )
 }

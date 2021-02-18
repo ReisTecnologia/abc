@@ -90,6 +90,7 @@ export const Word = ({
           </WordAnswerInfoWrapper>
         </WordInfoWrapper>
       )}
+      <DeleteWordButton deleteWord={deleteWord} />
       {showWordFields && (
         <WordInputFieldsWrapper>
           <TextInput value={word} onChange={changeName} />

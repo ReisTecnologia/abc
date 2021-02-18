@@ -6,7 +6,6 @@ import { Icon } from '@iconify/react'
 import trashIcon from '@iconify-icons/ion/trash'
 const Wrapper = styled.div`
   text-align: right;
-  margin-top: 7px;
 `
 
 export const DeleteWordButton = ({ deleteWord }) => (
@@ -14,8 +13,8 @@ export const DeleteWordButton = ({ deleteWord }) => (
     <Icon
       icon={trashIcon}
       onClick={deleteWord}
-      color={colors.pink}
-      height="30"
+      color={colors.grayText}
+      height="20"
       cursor="pointer"
     />
   </Wrapper>
