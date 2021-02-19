@@ -5,11 +5,11 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const RadioWrapper = styled.input`
-  margin-right: 8px;
+  margin-right: 5px;
 `
 const LabelWrapper = styled.label`
   display: flex;
-  align-items: center;
+  padding-right: 15px;
 `
 
 export const StartsWithTheLetterInputField = ({
@@ -27,7 +27,6 @@ export const StartsWithTheLetterInputField = ({
   return (
     <WordFieldWrapper>
       <AnswerChoiceWrapper>
-        <div>{`A resposta é:`}</div>
         <LabelWrapper>
           <RadioWrapper
             type="radio"

@@ -17,7 +17,7 @@ const Wrapper = styled.div`
 export const DeleteElementButton = ({ deleteElement }) => {
   return (
     <Wrapper onClick={deleteElement}>
-      <Icon icon={trashIcon} color={colors.grayText} height="40" />
+      <Icon icon={trashIcon} color={colors.grayText} height="30" />
     </Wrapper>
   )
 }

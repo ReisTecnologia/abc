@@ -53,7 +53,7 @@ export const Audios = ({ audios, changeAudios, audioFilePrefix }) => {
             })}
             changeName={buildChangeName({ audios, audioIndex, changeAudios })}
             name={name}
-            key={url}
+            key={audioIndex}
           />
         ))}
       <AddAudioButton onClick={addAudio} />

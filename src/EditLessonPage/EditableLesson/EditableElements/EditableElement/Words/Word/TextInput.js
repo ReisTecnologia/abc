@@ -7,7 +7,7 @@ import TextareaAutosize from 'react-textarea-autosize'
 
 export const Wrapper = styled.div`
   display: inline-flex;
-  flex: 3;
+  padding-left: 5px;
   width: 100%;
 `
 export const TextWrapper = styled.div`
@@ -20,7 +20,7 @@ export const InputWrapper = styled.textarea`
   display: flex;
 `
 
-export const TextInput = ({ value, onChange, color }) => {
+export const TextInput = ({ value, onChange, color, width }) => {
   const [inputValue, setInputValue] = useState(value)
   const [showInput, setShowInput] = useState(false)
 
@@ -52,7 +52,7 @@ export const TextInput = ({ value, onChange, color }) => {
           value={inputValue}
           onChange={onInputChange}
           onKeyPress={submitOnEnter}
-          style={{ minWidth: '100%' }}
+          style={{ minWidth: width }}
         />
       ) : (
         <TextWrapper
@@ -70,4 +70,5 @@ TextInput.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
   color: PropTypes.string,
+  width: PropTypes.string,
 }

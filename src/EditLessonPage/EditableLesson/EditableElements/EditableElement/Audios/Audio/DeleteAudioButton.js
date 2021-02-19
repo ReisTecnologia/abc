@@ -15,7 +15,7 @@ export const DeleteAudioButton = ({ deleteAudio }) => (
       icon={trashIcon}
       onClick={deleteAudio}
       color={colors.grayText}
-      height="20"
+      height="25"
       cursor="pointer"
     />
   </Wrapper>
