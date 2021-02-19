@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { AddButton } from '../AddButton.js'
+import { colors } from 'shared/colors'
 
 export const ConclusionAudioButtonWrapper = styled.div`
   display: flex;
@@ -13,7 +14,7 @@ export const ConclusionAudioButtonWrapper = styled.div`
 export const AddConclusionAudioButton = ({ onClick }) => {
   return (
     <ConclusionAudioButtonWrapper>
-      <AddButton onClick={onClick}></AddButton>
+      <AddButton onClick={onClick} color={colors.grayText}></AddButton>
     </ConclusionAudioButtonWrapper>
   )
 }

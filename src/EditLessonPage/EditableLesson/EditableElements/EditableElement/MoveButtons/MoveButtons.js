@@ -28,6 +28,7 @@ export const MoveButtons = ({ canMoveDown, canMoveUp, onUp, onDown }) => {
         color={canMoveDown ? colors.grayText : colors.light}
         height="40"
         cursor={() => (!canMoveDown ? null : 'pointer')}
+        style={{ marginLeft: 20, marginRight: 10 }}
       />
     </UpDownWrapper>
   )

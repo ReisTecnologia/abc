@@ -52,6 +52,7 @@ export const TextInput = ({ value, onChange, color }) => {
           value={inputValue}
           onChange={onInputChange}
           onKeyPress={submitOnEnter}
+          style={{ minWidth: '100%' }}
         />
       ) : (
         <TextWrapper

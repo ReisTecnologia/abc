@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { AddButton } from '../AddButton.js'
+import { colors } from 'shared/colors'
 
 export const WordButtonWrapper = styled.div`
   display: flex;
@@ -13,7 +14,7 @@ export const WordButtonWrapper = styled.div`
 export const AddWordButton = ({ onClick }) => {
   return (
     <WordButtonWrapper>
-      <AddButton onClick={onClick}></AddButton>
+      <AddButton onClick={onClick} color={colors.grayText}></AddButton>
     </WordButtonWrapper>
   )
 }

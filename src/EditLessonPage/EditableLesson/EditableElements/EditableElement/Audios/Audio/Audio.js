@@ -11,6 +11,7 @@ import { DeleteAudioButton } from './DeleteAudioButton'
 import { TextAndInput } from '../../TextAndInput'
 import { AudioButton } from 'shared/AudioButton'
 import { UploadButton } from '../../UploadButton'
+import { colors } from 'shared/colors'
 
 export const Audio = ({
   audioFilePrefix,
@@ -40,9 +41,9 @@ export const Audio = ({
       <AudioButtonWrapper>
         <AudioButton
           audioUrls={[`https://alfabetiza.s3-sa-east-1.amazonaws.com/${url}`]}
-          size={'20'}
+          size={'25'}
         />
-        <UploadButton onClick={toggleFileInput} />
+        <UploadButton onClick={toggleFileInput} color={colors.grayText} />
       </AudioButtonWrapper>
       <AudioFieldsWrapper>
         <NameAndUrlWrapper>

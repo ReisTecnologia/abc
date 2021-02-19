@@ -16,7 +16,7 @@ export const ElementWrapper = styled.div`
 export const Title = styled.div`
   display: inline-block;
   position: relative;
-  left: 60px;
+  left: 80px;
 `
 
 export const TitleRow = styled.div`

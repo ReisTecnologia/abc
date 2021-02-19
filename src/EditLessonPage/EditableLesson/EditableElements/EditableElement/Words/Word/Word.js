@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { DeleteWordButton } from './DeleteWordButton'
 import { TextInput } from './TextInput'
 import { WordInputFieldsWrapper } from './WordInputFieldsWrapper'
-import { WordButtonWrapper } from './WordButtonWrapper'
+import { WordAudioButtonWrapper } from './WordAudioButtonWrapper'
 import { WordWrapper } from './WordWrapper'
 import { StartsWithTheLetterInputField } from './StartsWithTheLetterInputField'
 import { WordUploadInputField } from './WordUploadInputField'
@@ -11,6 +11,8 @@ import { WordSubFieldWrapper } from './WordSubFieldWrapper'
 import { WordInfoWrapper } from './WordInfoWrapper'
 import { WordAnswerInfoWrapper } from './WordAnswerInfoWrapper'
 import { WordFirstLineWrapper } from './WordFirstLineWrapper'
+import { WordUploadButtonWrapper } from './WordUploadButtonWrapper'
+import { UploadButton } from '../../UploadButton'
 import { AudioButton } from 'shared/AudioButton'
 import { colors } from 'shared/colors'
 
@@ -40,26 +42,31 @@ export const Word = ({
 
   return (
     <WordWrapper>
-      <WordButtonWrapper>
+      <WordAudioButtonWrapper>
         <AudioButton
           audioUrls={[
             `https://alfabetiza.s3-sa-east-1.amazonaws.com/${urlWord}`,
           ]}
-          size={'20'}
+          size={'25'}
         />
         <AudioButton
           audioUrls={[
             `https://alfabetiza.s3-sa-east-1.amazonaws.com/${urlRightAnswerExplanation}`,
           ]}
-          size={'20'}
+          size={'25'}
         />
         <AudioButton
           audioUrls={[
             `https://alfabetiza.s3-sa-east-1.amazonaws.com/${urlWrongAnswerExplanation}`,
           ]}
-          size={'20'}
+          size={'25'}
         />
-      </WordButtonWrapper>
+      </WordAudioButtonWrapper>
+      <WordUploadButtonWrapper>
+        <UploadButton color={colors.grayText} />
+        <UploadButton color={colors.grayText} />
+        <UploadButton color={colors.grayText} />
+      </WordUploadButtonWrapper>
       {!showWordFields && (
         <WordInfoWrapper>
           <WordFirstLineWrapper>
