@@ -3,16 +3,16 @@ import PropTypes from 'prop-types'
 import { DeleteWordButton } from './DeleteWordButton'
 import { TextInput } from './TextInput'
 import { WordInputFieldsWrapper } from './WordInputFieldsWrapper'
-import { WordNumberWrapper } from './WordNumberWrapper'
-import { WordNumber } from './WordNumber'
+import { WordButtonWrapper } from './WordButtonWrapper'
 import { WordWrapper } from './WordWrapper'
-import { WordFieldWrapper } from './WordFieldWrapper'
 import { StartsWithTheLetterInputField } from './StartsWithTheLetterInputField'
 import { WordUploadInputField } from './WordUploadInputField'
 import { WordSubFieldWrapper } from './WordSubFieldWrapper'
 import { WordInfoWrapper } from './WordInfoWrapper'
 import { WordAnswerInfoWrapper } from './WordAnswerInfoWrapper'
 import { WordFirstLineWrapper } from './WordFirstLineWrapper'
+import { AudioButton } from 'shared/AudioButton'
+import { colors } from 'shared/colors'
 
 export const Word = ({
   audioFilePrefix,
@@ -21,7 +21,9 @@ export const Word = ({
   wrongAnswerExplanation,
   updateAudio,
   deleteWord,
-  index,
+  urlWord,
+  urlRightAnswerExplanation,
+  urlWrongAnswerExplanation,
   changeName,
   startsWithTheLetter,
   changeRightAnswerExplanation,
@@ -38,25 +40,57 @@ export const Word = ({
 
   return (
     <WordWrapper>
-      <WordNumberWrapper onClick={toggleFields}>
-        <WordNumber>{index + 1}</WordNumber>
-      </WordNumberWrapper>
+      <WordButtonWrapper>
+        <AudioButton
+          audioUrls={[
+            `https://alfabetiza.s3-sa-east-1.amazonaws.com/${urlWord}`,
+          ]}
+          size={'20'}
+        />
+        <AudioButton
+          audioUrls={[
+            `https://alfabetiza.s3-sa-east-1.amazonaws.com/${urlRightAnswerExplanation}`,
+          ]}
+          size={'20'}
+        />
+        <AudioButton
+          audioUrls={[
+            `https://alfabetiza.s3-sa-east-1.amazonaws.com/${urlWrongAnswerExplanation}`,
+          ]}
+          size={'20'}
+        />
+      </WordButtonWrapper>
       {!showWordFields && (
         <WordInfoWrapper>
           <WordFirstLineWrapper>
-            <WordFieldWrapper onClick={toggleFields}>{word} </WordFieldWrapper>
-            <WordSubFieldWrapper>{resposta}</WordSubFieldWrapper>
+            <TextInput
+              value={word}
+              onChange={changeName}
+              color={colors.dimmedPrimary}
+            />
+            <WordSubFieldWrapper onClick={toggleFields}>
+              {resposta}
+            </WordSubFieldWrapper>
           </WordFirstLineWrapper>
           <WordAnswerInfoWrapper>
             Acertou?
-            <WordSubFieldWrapper>{rightAnswerExplanation}</WordSubFieldWrapper>
+            <TextInput
+              value={rightAnswerExplanation}
+              onChange={changeRightAnswerExplanation}
+              color={colors.grayText}
+            />
           </WordAnswerInfoWrapper>
           <WordAnswerInfoWrapper>
             Errou?
-            <WordSubFieldWrapper>{wrongAnswerExplanation}</WordSubFieldWrapper>
+            <TextInput
+              value={wrongAnswerExplanation}
+              onChange={changeWrongAnswerExplanation}
+              color={colors.grayText}
+            />
           </WordAnswerInfoWrapper>
         </WordInfoWrapper>
       )}
+      <DeleteWordButton deleteWord={deleteWord} />
       {showWordFields && (
         <WordInputFieldsWrapper>
           <TextInput value={word} onChange={changeName} />
@@ -98,6 +132,9 @@ export const Word = ({
 Word.propTypes = {
   audioFilePrefix: PropTypes.string,
   word: PropTypes.string,
+  urlWord: PropTypes.string,
+  urlRightAnswerExplanation: PropTypes.string,
+  urlWrongAnswerExplanation: PropTypes.string,
   startsWithTheLetter: PropTypes.bool,
   rightAnswerExplanation: PropTypes.string,
   wrongAnswerExplanation: PropTypes.string,

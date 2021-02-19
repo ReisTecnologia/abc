@@ -7,7 +7,6 @@ import trashIcon from '@iconify-icons/ion/trash'
 
 const Wrapper = styled.div`
   text-align: right;
-  margin-top: 7px;
 `
 
 export const DeleteAudioButton = ({ deleteAudio }) => (
@@ -15,8 +14,8 @@ export const DeleteAudioButton = ({ deleteAudio }) => (
     <Icon
       icon={trashIcon}
       onClick={deleteAudio}
-      color={colors.pink}
-      height="30"
+      color={colors.grayText}
+      height="20"
       cursor="pointer"
     />
   </Wrapper>

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { colors } from 'shared/colors'
+import { AddButton } from '../AddButton.js'
 
 export const AudioButtonWrapper = styled.div`
   display: flex;
@@ -9,24 +9,11 @@ export const AudioButtonWrapper = styled.div`
   position: relative;
   bottom: -30px;
 `
-export const AudioButtonInnerWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  padding: 8px 10px;
-  background-color: ${colors.dimmedPrimary};
-  cursor: pointer;
-  border-radius: 5px;
-  text-align: center;
-`
 
 export const AddAudioButton = ({ onClick }) => {
   return (
     <AudioButtonWrapper>
-      <AudioButtonInnerWrapper onClick={onClick}>
-        Novo áudio
-      </AudioButtonInnerWrapper>
+      <AddButton onClick={onClick}></AddButton>
     </AudioButtonWrapper>
   )
 }

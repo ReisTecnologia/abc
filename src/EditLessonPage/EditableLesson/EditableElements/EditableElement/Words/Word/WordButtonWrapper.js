@@ -1,7 +1,8 @@
 import styled from 'styled-components'
-import { colors } from 'shared/colors'
-export const WordNumber = styled.div`
-  background-color: ${colors.primary};
+export const WordButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   color: #fff;
   filter: opacity(60%);
   min-width: 23px;

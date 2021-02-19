@@ -2,8 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Word } from './Word/Word'
 import { AddWordButton } from './AddWordButton'
-import { AudioButton } from 'shared/AudioButton'
-import { SeparateAudioWrapper } from './SeparateAudioWrapper'
 import { WordWrapper } from './WordWrapper'
 
 const buildUpdateWord = ({ words, wordIndex, changeWords }) => (payload) => {
@@ -125,26 +123,6 @@ export const Words = ({ words, changeWords, audioFilePrefix }) => {
                 word={word}
                 key={urlWord}
               />
-              <SeparateAudioWrapper>
-                <AudioButton
-                  audioUrls={[
-                    `https://alfabetiza.s3-sa-east-1.amazonaws.com/${urlWord}`,
-                  ]}
-                  size={'20'}
-                />
-                <AudioButton
-                  audioUrls={[
-                    `https://alfabetiza.s3-sa-east-1.amazonaws.com/${urlRightAnswerExplanation}`,
-                  ]}
-                  size={'20'}
-                />
-                <AudioButton
-                  audioUrls={[
-                    `https://alfabetiza.s3-sa-east-1.amazonaws.com/${urlWrongAnswerExplanation}`,
-                  ]}
-                  size={'20'}
-                />
-              </SeparateAudioWrapper>
             </WordWrapper>
           )
         )}

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { colors } from 'shared/colors'
 import { emptyElementTemplates } from './emptyElementTemplates'
-import { AddButton } from './AddButton.js'
+import { AddButton } from '../EditableElement/AddButton.js'
 import { XButton } from './XButton.js'
 
 const Wrapper = styled.div`

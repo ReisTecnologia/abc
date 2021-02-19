@@ -4,19 +4,20 @@ import { Uploader } from './Uploader'
 import { InputWrapper } from './InputWrapper'
 import { AudioWrapper } from './AudioWrapper'
 import { AudioNameWrapper } from './AudioNameWrapper'
-import { AudioNumberWrapper } from './AudioNumberWrapper'
-import { AudioNumber } from './AudioNumber'
+import { AudioButtonWrapper } from './AudioButtonWrapper'
 import { AudioFieldsWrapper } from './AudioFieldsWrapper'
 import { NameAndUrlWrapper } from './NameAndUrlWrapper'
 import { DeleteAudioButton } from './DeleteAudioButton'
 import { TextAndInput } from '../../TextAndInput'
+import { AudioButton } from 'shared/AudioButton'
+import { UploadButton } from '../../UploadButton'
 
 export const Audio = ({
   audioFilePrefix,
   name,
+  url,
   updateAudio,
   deleteAudio,
-  index,
   changeName,
 }) => {
   const [showFileUploadInput, setShowFileUploadInput] = useState(false)
@@ -32,12 +33,17 @@ export const Audio = ({
       <DeleteAudioButton deleteAudio={deleteAudio} />
     </>
   )
+  console.log('url', url)
 
   return (
     <AudioWrapper>
-      <AudioNumberWrapper onClick={toggleFileInput}>
-        <AudioNumber>{index + 1}</AudioNumber>
-      </AudioNumberWrapper>
+      <AudioButtonWrapper>
+        <AudioButton
+          audioUrls={[`https://alfabetiza.s3-sa-east-1.amazonaws.com/${url}`]}
+          size={'20'}
+        />
+        <UploadButton onClick={toggleFileInput} />
+      </AudioButtonWrapper>
       <AudioFieldsWrapper>
         <NameAndUrlWrapper>
           <AudioNameWrapper>
@@ -46,6 +52,7 @@ export const Audio = ({
         </NameAndUrlWrapper>
         {extraFields}
       </AudioFieldsWrapper>
+      <DeleteAudioButton deleteAudio={deleteAudio} />
     </AudioWrapper>
   )
 }
@@ -55,6 +62,6 @@ Audio.propTypes = {
   name: PropTypes.string,
   updateAudio: PropTypes.func,
   deleteAudio: PropTypes.func,
-  index: PropTypes.number,
+  url: PropTypes.string,
   changeName: PropTypes.func,
 }
