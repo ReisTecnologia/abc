@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react'
 import { AnswerChoiceWrapper } from './AnswerChoiceWrapper'
-import { WordFieldWrapper } from './WordFieldWrapper'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const RadioWrapper = styled.input`
   margin-right: 5px;
+  margin-top: 3px;
 `
 const LabelWrapper = styled.label`
   display: flex;
@@ -25,28 +25,26 @@ export const StartsWithTheLetterInputField = ({
     updateAudio({ startsWithTheLetter: false })
   }, [updateAudio])
   return (
-    <WordFieldWrapper>
-      <AnswerChoiceWrapper>
-        <LabelWrapper>
-          <RadioWrapper
-            type="radio"
-            name={`answer:${word}`}
-            onClick={setStartsWithTheLetterTrue}
-            checked={startsWithTheLetter}
-          />
-          Certo
-        </LabelWrapper>
-        <LabelWrapper>
-          <RadioWrapper
-            type="radio"
-            name={`answer:${word}`}
-            onClick={setStartsWithTheLetterFalse}
-            checked={!startsWithTheLetter}
-          />
-          Errado
-        </LabelWrapper>
-      </AnswerChoiceWrapper>
-    </WordFieldWrapper>
+    <AnswerChoiceWrapper>
+      <LabelWrapper>
+        <RadioWrapper
+          type="radio"
+          name={`answer:${word}`}
+          onClick={setStartsWithTheLetterTrue}
+          checked={startsWithTheLetter}
+        />
+        Certo
+      </LabelWrapper>
+      <LabelWrapper>
+        <RadioWrapper
+          type="radio"
+          name={`answer:${word}`}
+          onClick={setStartsWithTheLetterFalse}
+          checked={!startsWithTheLetter}
+        />
+        Errado
+      </LabelWrapper>
+    </AnswerChoiceWrapper>
   )
 }
 StartsWithTheLetterInputField.propTypes = {

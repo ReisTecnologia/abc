@@ -1,16 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
+import { useOnClickOutside } from 'shared/useOnClickOutside'
 import { DeleteWordButton } from './DeleteWordButton'
 import { TextInput } from './TextInput'
 import { WordFieldsWrapper } from './WordFieldsWrapper'
 import { WordWrapper } from './WordWrapper'
 import { StartsWithTheLetterInputField } from './StartsWithTheLetterInputField'
-import { WordSubFieldWrapper } from './WordSubFieldWrapper'
+import { AnswerButtonsWrapper } from './AnswerButtonsWrapper'
 import { WordAndAnswerWrapper } from './WordAndAnswerWrapper'
 import { WordAnswerInfoWrapper } from './WordAnswerInfoWrapper'
 import { WordWrongAnswerWrapper } from './WordWrongAnswerWrapper'
 import { WordRightAnswerWrapper } from './WordRightAnswerWrapper'
-import { UploadButton } from '../../UploadButton'
+import { FileUploader } from '../../FileUploader'
 import { AudioButton } from 'shared/AudioButton'
 import { DragAndDrop } from '../../DragAndDrop'
 import { colors } from 'shared/colors'
@@ -37,12 +38,18 @@ export const Word = ({
 
   const toggleButtons = () => (showRadioButtons ? hideButtons() : showButtons())
 
+  const hideOnClickOutside = useCallback(() => {
+    setShowRadioButtons(false)
+  }, [setShowRadioButtons])
+
+  const ref = useOnClickOutside(hideOnClickOutside)
+
   const resposta = startsWithTheLetter ? 'Certo' : 'Errado'
 
   return (
     <WordWrapper>
       <WordFieldsWrapper>
-        <WordAndAnswerWrapper>
+        <WordAndAnswerWrapper ref={ref}>
           <DragAndDrop
             audioFilePrefix={audioFilePrefix}
             updateWordAudio={updateAudio}
@@ -51,17 +58,21 @@ export const Word = ({
               audioUrls={[
                 `https://alfabetiza.s3-sa-east-1.amazonaws.com/${urlWord}`,
               ]}
-              size={'25'}
+              size={25}
               color={colors.grayText}
             />
-            <UploadButton color={colors.grayText} />
+            <FileUploader
+              color={colors.grayText}
+              audioFilePrefix={audioFilePrefix}
+              updateWordAudio={updateAudio}
+            />
             <TextInput
               value={word}
               onChange={changeName}
               color={colors.dimmedPrimary}
               width={'20%'}
             />
-            <WordSubFieldWrapper onClick={toggleButtons}>
+            <AnswerButtonsWrapper onClick={toggleButtons}>
               {showRadioButtons ? (
                 <StartsWithTheLetterInputField
                   word={word}
@@ -71,7 +82,7 @@ export const Word = ({
               ) : (
                 resposta
               )}
-            </WordSubFieldWrapper>
+            </AnswerButtonsWrapper>
           </DragAndDrop>
         </WordAndAnswerWrapper>
         <WordRightAnswerWrapper>
@@ -83,10 +94,14 @@ export const Word = ({
               audioUrls={[
                 `https://alfabetiza.s3-sa-east-1.amazonaws.com/${urlRightAnswerExplanation}`,
               ]}
-              size={'25'}
+              size={25}
               color={colors.grayText}
             />
-            <UploadButton color={colors.grayText} />
+            <FileUploader
+              color={colors.grayText}
+              audioFilePrefix={audioFilePrefix}
+              updateRightAnswerAudio={updateAudio}
+            />
             <WordAnswerInfoWrapper>
               Acertou?
               <TextInput
@@ -107,10 +122,14 @@ export const Word = ({
               audioUrls={[
                 `https://alfabetiza.s3-sa-east-1.amazonaws.com/${urlWrongAnswerExplanation}`,
               ]}
-              size={'25'}
+              size={25}
               color={colors.grayText}
             />
-            <UploadButton color={colors.grayText} />
+            <FileUploader
+              color={colors.grayText}
+              audioFilePrefix={audioFilePrefix}
+              updateWrongAnswerAudio={updateAudio}
+            />
             <WordAnswerInfoWrapper>
               Errou?
               <TextInput

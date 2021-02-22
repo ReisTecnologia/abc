@@ -3,12 +3,10 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { useOnClickOutside } from 'shared/useOnClickOutside'
 import TextareaAutosize from 'react-textarea-autosize'
-// import { colors } from 'shared/colors'
 
 export const Wrapper = styled.div`
   display: inline-flex;
   padding-left: 5px;
-  width: 100%;
 `
 export const TextWrapper = styled.div`
   flex: 1;
@@ -46,7 +44,7 @@ export const TextInput = ({ value, onChange, color, width }) => {
   }
 
   return (
-    <Wrapper ref={ref}>
+    <Wrapper ref={ref} style={{ width: width }}>
       {showInput ? (
         <TextareaAutosize
           value={inputValue}

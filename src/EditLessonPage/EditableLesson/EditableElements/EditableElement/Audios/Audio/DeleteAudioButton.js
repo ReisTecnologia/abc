@@ -22,5 +22,5 @@ export const DeleteAudioButton = ({ deleteAudio }) => (
 )
 
 DeleteAudioButton.propTypes = {
-  deleteAudio: PropTypes.string,
+  deleteAudio: PropTypes.func,
 }
