@@ -1,51 +1,42 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { Uploader } from './Uploader'
-import { VideoInputWrapper } from './VideoInputWrapper'
 import { VideoWrapper } from './VideoWrapper'
 import { VideoNameWrapper } from './VideoNameWrapper'
-import { VideoNumberWrapper } from './VideoNumberWrapper'
-import { VideoNumber } from './VideoNumber'
+import { UploadButtonWrapper } from './UploadButtonWrapper'
 import { VideoFieldsWrapper } from './VideoFieldsWrapper'
 import { VideoNameAndUrlWrapper } from './VideoNameAndUrlWrapper'
 import { DeleteVideoButton } from './DeleteVideoButton'
 import { TextAndInput } from '../../TextAndInput'
+import { FileUploader } from '../../FileUploader'
+import { DragAndDrop } from '../../DragAndDrop'
+import { colors } from 'shared/colors'
 
 export const Video = ({
   videoFilePrefix,
   name,
   updateVideo,
   deleteVideo,
-  index,
   changeName,
 }) => {
-  const [showFileUploadInput, setShowFileUploadInput] = useState(false)
-  const showInput = () => setShowFileUploadInput(true)
-  const hideInput = () => setShowFileUploadInput(false)
-  const toggleFileInput = () =>
-    showFileUploadInput ? hideInput() : showInput()
-  const extraFields = showFileUploadInput && (
-    <>
-      <VideoInputWrapper>
-        <Uploader videoFilePrefix={videoFilePrefix} updateVideo={updateVideo} />
-      </VideoInputWrapper>
-      <DeleteVideoButton deleteVideo={deleteVideo} />
-    </>
-  )
-
   return (
     <VideoWrapper>
-      <VideoNumberWrapper onClick={toggleFileInput}>
-        <VideoNumber>{index + 1}</VideoNumber>
-      </VideoNumberWrapper>
-      <VideoFieldsWrapper>
-        <VideoNameAndUrlWrapper>
-          <VideoNameWrapper>
-            <TextAndInput value={name} onChange={changeName} />
-          </VideoNameWrapper>
-        </VideoNameAndUrlWrapper>
-        {extraFields}
-      </VideoFieldsWrapper>
+      <DragAndDrop videoFilePrefix={videoFilePrefix} updateVideo={updateVideo}>
+        <UploadButtonWrapper>
+          <FileUploader
+            color={colors.grayText}
+            videoFilePrefix={videoFilePrefix}
+            updateVideo={updateVideo}
+          />
+        </UploadButtonWrapper>
+        <VideoFieldsWrapper>
+          <VideoNameAndUrlWrapper>
+            <VideoNameWrapper>
+              <TextAndInput value={name} onChange={changeName} />
+            </VideoNameWrapper>
+          </VideoNameAndUrlWrapper>
+        </VideoFieldsWrapper>
+      </DragAndDrop>
+      <DeleteVideoButton deleteVideo={deleteVideo} />
     </VideoWrapper>
   )
 }

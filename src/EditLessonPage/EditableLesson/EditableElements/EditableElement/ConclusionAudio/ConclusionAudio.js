@@ -56,7 +56,7 @@ export const ConclusionAudio = ({
             audioUrls={[
               `https://alfabetiza.s3-sa-east-1.amazonaws.com/${conclusionAudio.url}`,
             ]}
-            size={'25'}
+            size={20}
             color={colors.grayText}
           />
           <FileUploader
