@@ -84,6 +84,9 @@ export default gql`
   type CleanupLessonFilesResponse {
     success: Boolean!
   }
+  type DeleteLessonFilesResponse {
+    success: Boolean!
+  }
 
   input WordLessonInput {
     startsWithTheLetter: Boolean!
@@ -142,6 +145,7 @@ export default gql`
     deleteLesson(id: ID!): DeleteLessonResponse
     deleteMenu(id: ID!): DeleteMenuResponse
     cleanupLessonFiles(id: ID!): CleanupLessonFilesResponse
+    deleteLessonFiles(id: ID!): DeleteLessonFilesResponse
     editLesson(id: ID!, input: EditLessonInput!): EditLessonResponse
   }
 `

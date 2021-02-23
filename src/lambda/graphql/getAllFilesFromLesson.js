@@ -3,6 +3,10 @@ export const getAllFilesFromLesson = (lesson) => {
   const audios = lesson.elements
     .map(({ audios }) => audios.map(({ url }) => url))
     .flat()
-  files = [...files, ...audios]
+  const videos = lesson.elements
+    .map(({ videos }) => videos.map(({ url }) => url))
+    .flat()
+  files = [...files, ...audios, ...videos]
+
   return files
 }

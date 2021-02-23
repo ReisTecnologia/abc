@@ -12,15 +12,25 @@ const DELETE_LESSON = gql`
     }
   }
 `
+const DELETE_LESSON_FILES = gql`
+  mutation DeleteLessonFiles($id: ID!) {
+    deleteLessonFiles(id: $id) {
+      success
+    }
+  }
+`
 
 export const DeleteButton = ({ id, afterDelete }) => {
   const [mutate, { loading }] = useMutation(DELETE_LESSON, {
     variables: { id },
     onCompleted: afterDelete,
   })
+  const [deleteFileMutate] = useMutation(DELETE_LESSON_FILES, {
+    variables: { id },
+  })
   const confirmAndDelete = () => {
     var response = window.confirm('Apagar completamente esta aula?')
-    response && mutate()
+    response && mutate() && deleteFileMutate()
   }
   return loading ? (
     <Spinner />

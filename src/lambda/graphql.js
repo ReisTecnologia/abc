@@ -85,6 +85,42 @@ const resolvers = {
       return { success: true }
     },
 
+    deleteLessonFiles: async (parent, args) => {
+      const getDeleteObjects = (listedObjects) => {
+        return listedObjects.Contents.reduce(
+          (array, { Key }) => [
+            ...array,
+            {
+              Key,
+            },
+          ],
+          []
+        )
+      }
+      const s3 = new AWS.S3({
+        accessKeyId: process.env.MY_AWS_BUCKET_ACCESS_KEY_ID,
+        secretAccessKey: process.env.MY_AWS_BUCKET_SECRET_ACCESS_KEY,
+      })
+      var params = {
+        Bucket: process.env.REACT_APP_MY_AWS_BUCKET_NAME,
+        Prefix: `${args.id}___`,
+      }
+      const list = await s3.listObjectsV2(params).promise()
+      const bucketFiles = list.Contents.map(({ Key }) => Key)
+
+      if (bucketFiles.length) {
+        const deleteParams = {
+          Bucket: process.env.REACT_APP_MY_AWS_BUCKET_NAME,
+          Delete: {
+            Objects: getDeleteObjects(list),
+            Quiet: true,
+          },
+        }
+        await s3.deleteObjects(deleteParams).promise()
+      }
+      return { success: true }
+    },
+
     editLesson: async (parent, args) => {
       let success = false
       let lesson = false
