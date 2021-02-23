@@ -3,5 +3,7 @@ import { colors } from 'shared/colors'
 
 export const ConclusionAudioNameWrapper = styled.div`
   color: ${colors.primary};
-  padding: 3px 0px;
+  padding-left: 5px;
+  padding-top: 3px;
+  width: 100%;
 `

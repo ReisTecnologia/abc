@@ -1,8 +1,14 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react'
+import React, { useRef, useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Spinner } from 'shared/Spinner'
+import { UploadButton } from './UploadButton'
 import { v4 as uuidv4 } from 'uuid'
+
+export const SpinnerWrapper = styled.div`
+  display: inline-flex;
+  position: relative;
+`
 
 export const Wrapper = styled.div`
   display: flex;
@@ -45,10 +51,20 @@ const buildGetUploadTokenAndPostToAws = ({
     })
 }
 
-export const Uploader = ({ audioFilePrefix, updateAudio }) => {
-  const ref = useRef()
-  const [isDraggingOver, setDraggingOver] = useState(false)
+export const FileUploader = ({
+  audioFilePrefix,
+  updateWordAudio,
+  updateRightAnswerAudio,
+  updateWrongAnswerAudio,
+  updateAudio,
+  color,
+}) => {
+  const inputFile = useRef(null)
   const [loading, setLoading] = useState(false)
+
+  const onUploadButtonClick = () => {
+    inputFile.current.click()
+  }
 
   const upload = useCallback(
     (files) => {
@@ -62,9 +78,22 @@ export const Uploader = ({ audioFilePrefix, updateAudio }) => {
       const filename = `${audioFilePrefix}${uuidv4()}.m4a`
       var reader = new FileReader()
       const onComplete = () => {
-        updateAudio({
-          url: filename,
-        })
+        if (updateAudio)
+          updateAudio({
+            url: filename,
+          })
+        else if (updateWordAudio)
+          updateWordAudio({
+            urlWord: filename,
+          })
+        else if (updateRightAnswerAudio)
+          updateRightAnswerAudio({
+            urlRightAnswerExplanation: filename,
+          })
+        else if (updateWrongAnswerAudio)
+          updateWrongAnswerAudio({
+            urlWrongAnswerExplanation: filename,
+          })
       }
       reader.addEventListener(
         'loadend',
@@ -78,72 +107,44 @@ export const Uploader = ({ audioFilePrefix, updateAudio }) => {
       )
       reader.readAsArrayBuffer(file)
     },
-    [updateAudio, audioFilePrefix]
+    [
+      updateWordAudio,
+      updateRightAnswerAudio,
+      updateWrongAnswerAudio,
+      audioFilePrefix,
+      updateAudio,
+    ]
   )
-
-  const handleDragEnter = useCallback(
-    (e) => {
-      e.preventDefault()
-      setDraggingOver(true)
-      return false
-    },
-    [setDraggingOver]
-  )
-
-  const handleDragLeave = useCallback(
-    (e) => {
-      e.preventDefault()
-      setDraggingOver(false)
-      return false
-    },
-    [setDraggingOver]
-  )
-
-  const handleDrop = useCallback(
-    (e) => {
-      e.preventDefault()
-      setDraggingOver(false)
-      var dt = e.dataTransfer
-      var files = dt.files
-      upload(files)
-      return false
-    },
-    [upload]
-  )
-
-  useEffect(() => {
-    ref.current.addEventListener('dragenter', handleDragEnter)
-    ref.current.addEventListener('dragleave', handleDragLeave)
-    ref.current.addEventListener('dragover', handleDragEnter)
-    ref.current.addEventListener('drop', handleDrop)
-  }, [handleDrop, handleDragLeave, handleDragEnter])
-  const id = Math.random()
   return (
     <>
-      <Wrapper ref={ref} highlighted={isDraggingOver}>
-        <label htmlFor={`img${id}`}>
-          {loading ? (
-            <Spinner />
-          ) : isDraggingOver ? (
-            'Solte para fazer upload.'
-          ) : (
-            'Clique para escolher um arquivo.'
-          )}
-        </label>
-        <input
-          type="file"
-          onChange={(e) => {
-            upload(e.target.files)
-          }}
-          style={{ display: 'none' }}
-          id={`img${id}`}
-        />
-      </Wrapper>
+      {loading ? (
+        <SpinnerWrapper>
+          <Spinner />
+        </SpinnerWrapper>
+      ) : (
+        <>
+          <UploadButton color={color} onClick={onUploadButtonClick} />
+          <input
+            type="file"
+            id="file"
+            ref={inputFile}
+            onChange={(e) => {
+              upload(e.target.files)
+            }}
+            style={{ display: 'none' }}
+          />
+        </>
+      )}
     </>
   )
 }
 
-Uploader.propTypes = {
+FileUploader.propTypes = {
   audioFilePrefix: PropTypes.string,
+  inputBoxMessage: PropTypes.string,
   updateAudio: PropTypes.func,
+  updateWordAudio: PropTypes.func,
+  updateRightAnswerAudio: PropTypes.func,
+  updateWrongAnswerAudio: PropTypes.func,
+  color: PropTypes.string,
 }

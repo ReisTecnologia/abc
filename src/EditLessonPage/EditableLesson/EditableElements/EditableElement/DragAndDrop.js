@@ -104,7 +104,7 @@ export const DragAndDrop = ({
           updateAudio({
             url: filename,
           })
-        if (updateWordAudio)
+        else if (updateWordAudio)
           updateWordAudio({
             urlWord: filename,
           })
@@ -202,7 +202,7 @@ export const DragAndDrop = ({
 
 DragAndDrop.propTypes = {
   audioFilePrefix: PropTypes.string,
-  children: PropTypes.object,
+  children: PropTypes.array,
   updateAudio: PropTypes.func,
   updateWordAudio: PropTypes.func,
   updateRightAnswerAudio: PropTypes.func,

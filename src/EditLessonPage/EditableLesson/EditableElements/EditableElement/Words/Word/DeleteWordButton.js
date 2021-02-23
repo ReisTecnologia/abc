@@ -21,5 +21,5 @@ export const DeleteWordButton = ({ deleteWord }) => (
 )
 
 DeleteWordButton.propTypes = {
-  deleteWord: PropTypes.string,
+  deleteWord: PropTypes.func,
 }
