@@ -22,7 +22,7 @@ export const UploadButton = ({ color, onClick }) => {
           transform="translate(0.000000,676.000000) scale(0.100000,-0.100000)"
           color={color}
           stroke="none"
-          fill="#000000"
+          fill="currentcolor"
         >
           <path
             d="M3215 6341 c-53 -25 -146 -115 -766 -737 -792 -794 -744 -737 -744

@@ -2,16 +2,17 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { DeleteWordButton } from './DeleteWordButton'
 import { TextInput } from './TextInput'
-import { WordInputFieldsWrapper } from './WordInputFieldsWrapper'
-import { WordButtonWrapper } from './WordButtonWrapper'
+import { WordFieldsWrapper } from './WordFieldsWrapper'
 import { WordWrapper } from './WordWrapper'
 import { StartsWithTheLetterInputField } from './StartsWithTheLetterInputField'
-import { WordUploadInputField } from './WordUploadInputField'
 import { WordSubFieldWrapper } from './WordSubFieldWrapper'
-import { WordInfoWrapper } from './WordInfoWrapper'
+import { WordAndAnswerWrapper } from './WordAndAnswerWrapper'
 import { WordAnswerInfoWrapper } from './WordAnswerInfoWrapper'
-import { WordFirstLineWrapper } from './WordFirstLineWrapper'
+import { WordWrongAnswerWrapper } from './WordWrongAnswerWrapper'
+import { WordRightAnswerWrapper } from './WordRightAnswerWrapper'
+import { UploadButton } from '../../UploadButton'
 import { AudioButton } from 'shared/AudioButton'
+import { DragAndDrop } from '../../DragAndDrop'
 import { colors } from 'shared/colors'
 
 export const Word = ({
@@ -29,102 +30,100 @@ export const Word = ({
   changeRightAnswerExplanation,
   changeWrongAnswerExplanation,
 }) => {
-  const [showWordFields, setShowWordFields] = useState(false)
+  const [showRadioButtons, setShowRadioButtons] = useState(false)
 
-  const showFields = () => setShowWordFields(true)
-  const hideFields = () => setShowWordFields(false)
+  const showButtons = () => setShowRadioButtons(true)
+  const hideButtons = () => setShowRadioButtons(false)
 
-  const toggleFields = () => (showWordFields ? hideFields() : showFields())
+  const toggleButtons = () => (showRadioButtons ? hideButtons() : showButtons())
 
   const resposta = startsWithTheLetter ? 'Certo' : 'Errado'
 
   return (
     <WordWrapper>
-      <WordButtonWrapper>
-        <AudioButton
-          audioUrls={[
-            `https://alfabetiza.s3-sa-east-1.amazonaws.com/${urlWord}`,
-          ]}
-          size={'20'}
-        />
-        <AudioButton
-          audioUrls={[
-            `https://alfabetiza.s3-sa-east-1.amazonaws.com/${urlRightAnswerExplanation}`,
-          ]}
-          size={'20'}
-        />
-        <AudioButton
-          audioUrls={[
-            `https://alfabetiza.s3-sa-east-1.amazonaws.com/${urlWrongAnswerExplanation}`,
-          ]}
-          size={'20'}
-        />
-      </WordButtonWrapper>
-      {!showWordFields && (
-        <WordInfoWrapper>
-          <WordFirstLineWrapper>
+      <WordFieldsWrapper>
+        <WordAndAnswerWrapper>
+          <DragAndDrop
+            audioFilePrefix={audioFilePrefix}
+            updateWordAudio={updateAudio}
+          >
+            <AudioButton
+              audioUrls={[
+                `https://alfabetiza.s3-sa-east-1.amazonaws.com/${urlWord}`,
+              ]}
+              size={'25'}
+              color={colors.grayText}
+            />
+            <UploadButton color={colors.grayText} />
             <TextInput
               value={word}
               onChange={changeName}
               color={colors.dimmedPrimary}
+              width={'20%'}
             />
-            <WordSubFieldWrapper onClick={toggleFields}>
-              {resposta}
+            <WordSubFieldWrapper onClick={toggleButtons}>
+              {showRadioButtons ? (
+                <StartsWithTheLetterInputField
+                  word={word}
+                  updateAudio={updateAudio}
+                  startsWithTheLetter={startsWithTheLetter}
+                />
+              ) : (
+                resposta
+              )}
             </WordSubFieldWrapper>
-          </WordFirstLineWrapper>
-          <WordAnswerInfoWrapper>
-            Acertou?
-            <TextInput
-              value={rightAnswerExplanation}
-              onChange={changeRightAnswerExplanation}
+          </DragAndDrop>
+        </WordAndAnswerWrapper>
+        <WordRightAnswerWrapper>
+          <DragAndDrop
+            audioFilePrefix={audioFilePrefix}
+            updateRightAnswerAudio={updateAudio}
+          >
+            <AudioButton
+              audioUrls={[
+                `https://alfabetiza.s3-sa-east-1.amazonaws.com/${urlRightAnswerExplanation}`,
+              ]}
+              size={'25'}
               color={colors.grayText}
             />
-          </WordAnswerInfoWrapper>
-          <WordAnswerInfoWrapper>
-            Errou?
-            <TextInput
-              value={wrongAnswerExplanation}
-              onChange={changeWrongAnswerExplanation}
-              color={colors.grayText}
-            />
-          </WordAnswerInfoWrapper>
-        </WordInfoWrapper>
-      )}
-      <DeleteWordButton deleteWord={deleteWord} />
-      {showWordFields && (
-        <WordInputFieldsWrapper>
-          <TextInput value={word} onChange={changeName} />
-          <WordUploadInputField
-            audioFilePrefix={audioFilePrefix}
-            updateWordAudio={updateAudio}
-            inputBoxMessage={'Clique aqui para escolher o áudio da palavra'}
-          />
-          <StartsWithTheLetterInputField
-            word={word}
-            startsWithTheLetter={startsWithTheLetter}
-            updateAudio={updateAudio}
-          />
-          <TextInput
-            value={rightAnswerExplanation}
-            onChange={changeRightAnswerExplanation}
-          />
-          <WordUploadInputField
-            audioFilePrefix={audioFilePrefix}
-            updateCorrectAnswerAudio={updateAudio}
-            inputBoxMessage={'Clique aqui para escolher o áudio do acerto'}
-          />
-          <TextInput
-            value={wrongAnswerExplanation}
-            onChange={changeWrongAnswerExplanation}
-          />
-          <WordUploadInputField
+            <UploadButton color={colors.grayText} />
+            <WordAnswerInfoWrapper>
+              Acertou?
+              <TextInput
+                value={rightAnswerExplanation}
+                onChange={changeRightAnswerExplanation}
+                color={colors.grayText}
+                width={'100%'}
+              />
+            </WordAnswerInfoWrapper>
+          </DragAndDrop>
+        </WordRightAnswerWrapper>
+        <WordWrongAnswerWrapper>
+          <DragAndDrop
             audioFilePrefix={audioFilePrefix}
             updateWrongAnswerAudio={updateAudio}
-            inputBoxMessage={'Clique aqui para escolher o áudio do erro'}
-          />
-          <DeleteWordButton deleteWord={deleteWord} />
-        </WordInputFieldsWrapper>
-      )}
+          >
+            <AudioButton
+              audioUrls={[
+                `https://alfabetiza.s3-sa-east-1.amazonaws.com/${urlWrongAnswerExplanation}`,
+              ]}
+              size={'25'}
+              color={colors.grayText}
+            />
+            <UploadButton color={colors.grayText} />
+            <WordAnswerInfoWrapper>
+              Errou?
+              <TextInput
+                value={wrongAnswerExplanation}
+                onChange={changeWrongAnswerExplanation}
+                color={colors.grayText}
+                width={'100%'}
+              />
+            </WordAnswerInfoWrapper>
+          </DragAndDrop>
+        </WordWrongAnswerWrapper>
+      </WordFieldsWrapper>
+      <DeleteWordButton deleteWord={deleteWord} />
     </WordWrapper>
   )
 }

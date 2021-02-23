@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-
-export const WordFirstLineWrapper = styled.div`
+export const WordRightAnswerWrapper = styled.div`
   display: flex;
 `

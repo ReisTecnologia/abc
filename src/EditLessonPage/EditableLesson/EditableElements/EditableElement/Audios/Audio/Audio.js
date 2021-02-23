@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Uploader } from './Uploader'
-import { InputWrapper } from './InputWrapper'
 import { AudioWrapper } from './AudioWrapper'
 import { AudioNameWrapper } from './AudioNameWrapper'
 import { AudioButtonWrapper } from './AudioButtonWrapper'
@@ -11,6 +9,8 @@ import { DeleteAudioButton } from './DeleteAudioButton'
 import { TextAndInput } from '../../TextAndInput'
 import { AudioButton } from 'shared/AudioButton'
 import { UploadButton } from '../../UploadButton'
+import { DragAndDrop } from '../../DragAndDrop'
+import { colors } from 'shared/colors'
 
 export const Audio = ({
   audioFilePrefix,
@@ -25,33 +25,26 @@ export const Audio = ({
   const hideInput = () => setShowFileUploadInput(false)
   const toggleFileInput = () =>
     showFileUploadInput ? hideInput() : showInput()
-  const extraFields = showFileUploadInput && (
-    <>
-      <InputWrapper>
-        <Uploader audioFilePrefix={audioFilePrefix} updateAudio={updateAudio} />
-      </InputWrapper>
-      <DeleteAudioButton deleteAudio={deleteAudio} />
-    </>
-  )
-  console.log('url', url)
 
   return (
     <AudioWrapper>
-      <AudioButtonWrapper>
-        <AudioButton
-          audioUrls={[`https://alfabetiza.s3-sa-east-1.amazonaws.com/${url}`]}
-          size={'20'}
-        />
-        <UploadButton onClick={toggleFileInput} />
-      </AudioButtonWrapper>
-      <AudioFieldsWrapper>
-        <NameAndUrlWrapper>
-          <AudioNameWrapper>
-            <TextAndInput value={name} onChange={changeName} />
-          </AudioNameWrapper>
-        </NameAndUrlWrapper>
-        {extraFields}
-      </AudioFieldsWrapper>
+      <DragAndDrop audioFilePrefix={audioFilePrefix} updateAudio={updateAudio}>
+        <AudioButtonWrapper>
+          <AudioButton
+            audioUrls={[`https://alfabetiza.s3-sa-east-1.amazonaws.com/${url}`]}
+            size={'25'}
+            color={colors.grayText}
+          />
+          <UploadButton onClick={toggleFileInput} color={colors.grayText} />
+        </AudioButtonWrapper>
+        <AudioFieldsWrapper>
+          <NameAndUrlWrapper>
+            <AudioNameWrapper>
+              <TextAndInput value={name} onChange={changeName} />
+            </AudioNameWrapper>
+          </NameAndUrlWrapper>
+        </AudioFieldsWrapper>
+      </DragAndDrop>
       <DeleteAudioButton deleteAudio={deleteAudio} />
     </AudioWrapper>
   )

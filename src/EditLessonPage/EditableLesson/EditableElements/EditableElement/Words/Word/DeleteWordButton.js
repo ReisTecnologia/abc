@@ -14,7 +14,7 @@ export const DeleteWordButton = ({ deleteWord }) => (
       icon={trashIcon}
       onClick={deleteWord}
       color={colors.grayText}
-      height="20"
+      height="25"
       cursor="pointer"
     />
   </Wrapper>
