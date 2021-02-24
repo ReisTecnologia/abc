@@ -11,8 +11,8 @@ export const UploadButton = ({ color, onClick }) => {
   return (
     <Wrapper onClick={onClick}>
       <svg
-        height="25"
-        width="25"
+        height="20"
+        width="20"
         x="0px"
         y="0px"
         viewBox="0 0 676 647"

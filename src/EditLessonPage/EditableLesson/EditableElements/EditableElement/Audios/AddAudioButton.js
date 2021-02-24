@@ -8,7 +8,7 @@ export const AudioButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   position: relative;
-  bottom: -30px;
+  bottom: -10px;
 `
 
 export const AddAudioButton = ({ onClick }) => {

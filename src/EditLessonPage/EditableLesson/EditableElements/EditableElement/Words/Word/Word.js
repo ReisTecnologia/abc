@@ -58,7 +58,7 @@ export const Word = ({
               audioUrls={[
                 `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${urlWord}`,
               ]}
-              size={25}
+              size={20}
               color={colors.grayText}
             />
             <FileUploader
@@ -94,7 +94,7 @@ export const Word = ({
               audioUrls={[
                 `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${urlRightAnswerExplanation}`,
               ]}
-              size={25}
+              size={20}
               color={colors.grayText}
             />
             <FileUploader
@@ -122,7 +122,7 @@ export const Word = ({
               audioUrls={[
                 `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${urlWrongAnswerExplanation}`,
               ]}
-              size={25}
+              size={20}
               color={colors.grayText}
             />
             <FileUploader

@@ -26,7 +26,7 @@ export const StartsWithTheLetterInputField = ({
   }, [updateAudio])
   return (
     <AnswerChoiceWrapper>
-      <LabelWrapper>
+      <LabelWrapper onClick={setStartsWithTheLetterTrue}>
         <RadioWrapper
           type="radio"
           name={`answer:${word}`}
@@ -35,7 +35,7 @@ export const StartsWithTheLetterInputField = ({
         />
         Certo
       </LabelWrapper>
-      <LabelWrapper>
+      <LabelWrapper onClick={setStartsWithTheLetterFalse}>
         <RadioWrapper
           type="radio"
           name={`answer:${word}`}
