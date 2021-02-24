@@ -8,14 +8,8 @@ import { Spinner } from 'shared/Spinner'
 const DELETE_LESSON = gql`
   mutation DeleteLesson($id: ID!) {
     deleteLesson(id: $id) {
-      success
-    }
-  }
-`
-const DELETE_LESSON_FILES = gql`
-  mutation DeleteLessonFiles($id: ID!) {
-    deleteLessonFiles(id: $id) {
-      success
+      dbSuccess
+      s3Success
     }
   }
 `
@@ -25,12 +19,9 @@ export const DeleteButton = ({ id, afterDelete }) => {
     variables: { id },
     onCompleted: afterDelete,
   })
-  const [deleteFileMutate] = useMutation(DELETE_LESSON_FILES, {
-    variables: { id },
-  })
   const confirmAndDelete = () => {
     var response = window.confirm('Apagar completamente esta aula?')
-    response && mutate() && deleteFileMutate()
+    response && mutate()
   }
   return loading ? (
     <Spinner />

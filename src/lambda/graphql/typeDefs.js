@@ -68,7 +68,8 @@ export default gql`
   }
 
   type DeleteLessonResponse {
-    success: Boolean!
+    dbSuccess: Boolean!
+    s3Success: Boolean!
     lessons: [Lesson]
   }
 
@@ -82,9 +83,6 @@ export default gql`
   }
 
   type CleanupLessonFilesResponse {
-    success: Boolean!
-  }
-  type DeleteLessonFilesResponse {
     success: Boolean!
   }
 
@@ -145,7 +143,6 @@ export default gql`
     deleteLesson(id: ID!): DeleteLessonResponse
     deleteMenu(id: ID!): DeleteMenuResponse
     cleanupLessonFiles(id: ID!): CleanupLessonFilesResponse
-    deleteLessonFiles(id: ID!): DeleteLessonFilesResponse
     editLesson(id: ID!, input: EditLessonInput!): EditLessonResponse
   }
 `
