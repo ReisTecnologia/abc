@@ -86,7 +86,7 @@ export const DragAndDrop = ({
   const [isDraggingOver, setDraggingOver] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  let dragCounter = 0
+  const dragCounter = useRef(0)
 
   const upload = useCallback(
     (files) => {
@@ -143,12 +143,12 @@ export const DragAndDrop = ({
     (e) => {
       e.preventDefault()
       e.stopPropagation()
-      dragCounter++
+      dragCounter.current++
       setDraggingOver(true)
       console.log('dragenter')
       return false
     },
-    [setDraggingOver, dragCounter]
+    [setDraggingOver]
   )
 
   const handleDrag = useCallback((e) => {
@@ -160,19 +160,21 @@ export const DragAndDrop = ({
     (e) => {
       e.preventDefault()
       e.stopPropagation()
-      dragCounter--
-      if (dragCounter > 0) return
+      dragCounter.current--
+
+      if (dragCounter.current > 0) return
       setDraggingOver(false)
-      console.log('dragleave')
+
       return false
     },
-    [setDraggingOver, dragCounter]
+    [setDraggingOver]
   )
 
   const handleDrop = useCallback(
     (e) => {
       e.preventDefault()
       e.stopPropagation()
+      dragCounter.current = 0
       setDraggingOver(false)
       var dt = e.dataTransfer
       var files = dt.files
