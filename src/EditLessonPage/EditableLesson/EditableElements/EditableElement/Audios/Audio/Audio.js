@@ -26,7 +26,7 @@ export const Audio = ({
         <AudioButtonWrapper>
           <AudioButton
             audioUrls={[`https://alfabetiza.s3-sa-east-1.amazonaws.com/${url}`]}
-            size={25}
+            size={20}
             color={colors.grayText}
           />
           <FileUploader

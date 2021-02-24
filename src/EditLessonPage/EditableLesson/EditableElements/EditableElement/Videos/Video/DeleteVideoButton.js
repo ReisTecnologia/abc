@@ -15,8 +15,8 @@ export const DeleteVideoButton = ({ deleteVideo }) => (
     <Icon
       icon={trashIcon}
       onClick={deleteVideo}
-      color={colors.pink}
-      height="30"
+      color={colors.grayText}
+      height="25"
       cursor="pointer"
     />
   </Wrapper>

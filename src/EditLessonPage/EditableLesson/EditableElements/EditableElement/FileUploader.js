@@ -12,10 +12,10 @@ export const SpinnerWrapper = styled.div`
 
 export const Wrapper = styled.div`
   display: flex;
-  height: 50px;
   align-items: center;
-  justify-content: center;
-  background-color: ${({ highlighted }) => (highlighted ? '#ffe9' : null)};
+  padding-left: 7px;
+  padding-right: 10px;
+  cursor: pointer;
 `
 
 const buildGetUploadTokenAndPostToAws = ({
@@ -57,6 +57,8 @@ export const FileUploader = ({
   updateRightAnswerAudio,
   updateWrongAnswerAudio,
   updateAudio,
+  videoFilePrefix,
+  updateVideo,
   color,
 }) => {
   const inputFile = useRef(null)
@@ -75,11 +77,17 @@ export const FileUploader = ({
       }
       setLoading(true)
       const file = files[0]
-      const filename = `${audioFilePrefix}${uuidv4()}.m4a`
+      const filename = audioFilePrefix
+        ? `${audioFilePrefix}${uuidv4()}.m4a`
+        : `${videoFilePrefix}${uuidv4()}.mp4`
       var reader = new FileReader()
       const onComplete = () => {
         if (updateAudio)
           updateAudio({
+            url: filename,
+          })
+        else if (updateVideo)
+          updateVideo({
             url: filename,
           })
         else if (updateWordAudio)
@@ -111,6 +119,8 @@ export const FileUploader = ({
       updateWordAudio,
       updateRightAnswerAudio,
       updateWrongAnswerAudio,
+      videoFilePrefix,
+      updateVideo,
       audioFilePrefix,
       updateAudio,
     ]
@@ -122,8 +132,8 @@ export const FileUploader = ({
           <Spinner />
         </SpinnerWrapper>
       ) : (
-        <>
-          <UploadButton color={color} onClick={onUploadButtonClick} />
+        <Wrapper onClick={onUploadButtonClick}>
+          <UploadButton color={color} />
           <input
             type="file"
             id="file"
@@ -133,7 +143,7 @@ export const FileUploader = ({
             }}
             style={{ display: 'none' }}
           />
-        </>
+        </Wrapper>
       )}
     </>
   )
@@ -147,4 +157,6 @@ FileUploader.propTypes = {
   updateRightAnswerAudio: PropTypes.func,
   updateWrongAnswerAudio: PropTypes.func,
   color: PropTypes.string,
+  videoFilePrefix: PropTypes.string,
+  updateVideo: PropTypes.func,
 }

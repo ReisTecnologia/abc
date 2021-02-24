@@ -8,7 +8,7 @@ export const WordButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   position: relative;
-  bottom: -30px;
+  bottom: -20px;
 `
 
 export const AddWordButton = ({ onClick }) => {
