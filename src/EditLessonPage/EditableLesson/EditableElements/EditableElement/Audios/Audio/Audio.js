@@ -25,8 +25,10 @@ export const Audio = ({
       <DragAndDrop audioFilePrefix={audioFilePrefix} updateAudio={updateAudio}>
         <AudioButtonWrapper>
           <AudioButton
-            audioUrls={[`https://alfabetiza.s3-sa-east-1.amazonaws.com/${url}`]}
-            size={20}
+            audioUrls={[
+              `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${url}`,
+            ]}
+            size={25}
             color={colors.grayText}
           />
           <FileUploader

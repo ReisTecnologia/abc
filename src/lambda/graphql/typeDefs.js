@@ -68,7 +68,8 @@ export default gql`
   }
 
   type DeleteLessonResponse {
-    success: Boolean!
+    dbSuccess: Boolean!
+    s3Success: Boolean!
     lessons: [Lesson]
   }
 

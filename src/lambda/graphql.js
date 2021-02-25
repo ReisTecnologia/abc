@@ -45,11 +45,46 @@ const resolvers = {
       return { success }
     },
     deleteLesson: async (parent, args) => {
-      const success = await db
+      let s3Success = false
+      const getDeleteObjects = (listedObjects) => {
+        return listedObjects.Contents.reduce(
+          (array, { Key }) => [
+            ...array,
+            {
+              Key,
+            },
+          ],
+          []
+        )
+      }
+      const s3 = new AWS.S3({
+        accessKeyId: process.env.MY_AWS_BUCKET_ACCESS_KEY_ID,
+        secretAccessKey: process.env.MY_AWS_BUCKET_SECRET_ACCESS_KEY,
+      })
+      var params = {
+        Bucket: process.env.REACT_APP_MY_AWS_BUCKET_NAME,
+        Prefix: `${args.id}___`,
+      }
+      const list = await s3.listObjectsV2(params).promise()
+      const deleteParams = {
+        Bucket: process.env.REACT_APP_MY_AWS_BUCKET_NAME,
+        Delete: {
+          Objects: getDeleteObjects(list),
+          Quiet: true,
+        },
+      }
+      const dbSuccess = await db
         .deleteLesson(args.id)
         .then(() => true)
         .catch(() => false)
-      return { success }
+      if (dbSuccess) {
+        s3Success = await s3
+          .deleteObjects(deleteParams)
+          .promise()
+          .then(() => true)
+          .catch(() => false)
+      }
+      return { dbSuccess, s3Success }
     },
     deleteMenu: async (parent, args) => {
       const success = await db

@@ -8,7 +8,8 @@ import { Spinner } from 'shared/Spinner'
 const DELETE_LESSON = gql`
   mutation DeleteLesson($id: ID!) {
     deleteLesson(id: $id) {
-      success
+      dbSuccess
+      s3Success
     }
   }
 `

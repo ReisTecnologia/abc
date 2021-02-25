@@ -56,7 +56,7 @@ export const Word = ({
           >
             <AudioButton
               audioUrls={[
-                `https://alfabetiza.s3-sa-east-1.amazonaws.com/${urlWord}`,
+                `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${urlWord}`,
               ]}
               size={20}
               color={colors.grayText}
@@ -92,7 +92,7 @@ export const Word = ({
           >
             <AudioButton
               audioUrls={[
-                `https://alfabetiza.s3-sa-east-1.amazonaws.com/${urlRightAnswerExplanation}`,
+                `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${urlRightAnswerExplanation}`,
               ]}
               size={20}
               color={colors.grayText}
@@ -120,7 +120,7 @@ export const Word = ({
           >
             <AudioButton
               audioUrls={[
-                `https://alfabetiza.s3-sa-east-1.amazonaws.com/${urlWrongAnswerExplanation}`,
+                `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${urlWrongAnswerExplanation}`,
               ]}
               size={20}
               color={colors.grayText}
