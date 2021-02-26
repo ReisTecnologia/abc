@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-import { TextAndInput } from './TextAndInput'
+import { TextAndInput } from 'shared/TextAndInput'
 import { Audios } from './Audios/Audios'
 import { Videos } from './Videos/Videos'
 import { Words } from './Words/Words'

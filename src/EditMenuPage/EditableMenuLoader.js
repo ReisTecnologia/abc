@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client'
 import { MENU_QUERY } from './MENU_QUERY'
 import { EditableMenu } from './EditableMenu/EditableMenu'
 import { useParams } from 'react-router-dom'
-import { Spinner } from '../shared/Spinner'
+import { Spinner } from 'shared/Spinner'
 
 export const EditableMenuLoader = () => {
   let { menu } = useParams()

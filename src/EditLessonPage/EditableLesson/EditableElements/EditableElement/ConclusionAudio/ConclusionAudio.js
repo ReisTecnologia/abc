@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { TextAndInput } from '../TextAndInput'
+import { TextAndInput } from 'shared/TextAndInput'
 import { DeleteConclusionAudioButton } from './DeleteConclusionAudioButton'
 import { AudioButton } from 'shared/AudioButton'
 import { FileUploader } from '../FileUploader'

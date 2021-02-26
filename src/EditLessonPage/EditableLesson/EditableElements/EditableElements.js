@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
-import { Element } from '../../../shared/Element/Element'
+import { Element } from 'shared/Element/Element'
 import { EditableElement } from './EditableElement/EditableElement'
-import ErrorBoundary from '../../../shared/ErrorBoundary'
+import ErrorBoundary from 'shared/ErrorBoundary'
 import { AddElementButtons } from './AddElementButtons/AddElementButtons'
 
 export const EditableElements = ({
