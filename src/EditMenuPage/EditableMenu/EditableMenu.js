@@ -16,16 +16,20 @@ import { DeleteLessonButton } from './DeleteLessonButton'
 export const TitleWrapper = styled.div`
   flex: 1;
 `
-export const InitialsWrapper = styled.div`
+export const ElementsInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 100%;
+  font-size: 20px;
 `
 
 export const ElementsWrapper = styled.div`
   border-top: 1px solid grey;
   display: flex;
+`
+export const InitialWrapper = styled.div`
+  display: inline-flex;
 `
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
@@ -38,7 +42,6 @@ const changeInitials = ({ innerElements, elementIndex, setInnerElements }) => (
     ...newInnerElements[elementIndex],
     initials,
   }
-  console.log('newInnerElements build', newInnerElements)
   setInnerElements(newInnerElements)
 }
 
@@ -82,7 +85,6 @@ export const EditableMenu = ({ menu: { id, name, elements } }) => {
       isFirstRun.current = false
     }
   }, [mutate, id, menuName, innerElements])
-  console.log('innerElements', innerElements)
   return (
     <Layout>
       <HeaderWrapper>
@@ -95,17 +97,20 @@ export const EditableMenu = ({ menu: { id, name, elements } }) => {
         {innerElements.map(({ initials, lessonId }, elementIndex) => (
           <ElementsWrapper key={elementIndex}>
             <LessonItem initials={initials} />
-            <InitialsWrapper>
-              <TextAndInput
-                value={initials}
-                onChange={changeInitials({
-                  innerElements,
-                  elementIndex,
-                  setInnerElements,
-                })}
-              />
-              {lessonId}
-            </InitialsWrapper>
+            <ElementsInfoWrapper>
+              <InitialWrapper>
+                Inicial:
+                <TextAndInput
+                  value={initials}
+                  onChange={changeInitials({
+                    innerElements,
+                    elementIndex,
+                    setInnerElements,
+                  })}
+                />
+              </InitialWrapper>
+              ID: {lessonId}
+            </ElementsInfoWrapper>
             <DeleteLessonButton
               deleteLesson={deleteLesson({
                 innerElements,

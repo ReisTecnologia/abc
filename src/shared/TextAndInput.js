@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { useOnClickOutside } from 'shared/useOnClickOutside'
 import TextareaAutosize from 'react-textarea-autosize'
-import { colors } from 'shared/colors'
 
 export const Wrapper = styled.div`
   display: flex;
@@ -12,7 +11,6 @@ export const Wrapper = styled.div`
 `
 export const TextWrapper = styled.div`
   flex: 1;
-  color: ${colors.dimmedPrimary};
   cursor: pointer;
 `
 
@@ -21,7 +19,7 @@ export const InputWrapper = styled.textarea`
   display: flex;
 `
 
-export const TextAndInput = ({ value, onChange }) => {
+export const TextAndInput = ({ value, onChange, color }) => {
   const [inputValue, setInputValue] = useState(value)
   const [showInput, setShowInput] = useState(false)
 
@@ -55,7 +53,7 @@ export const TextAndInput = ({ value, onChange }) => {
           onKeyPress={submitOnEnter}
         />
       ) : (
-        <TextWrapper onClick={() => setShowInput(true)}>
+        <TextWrapper onClick={() => setShowInput(true)} color={color}>
           {value || '...'}
         </TextWrapper>
       )}
@@ -66,4 +64,5 @@ export const TextAndInput = ({ value, onChange }) => {
 TextAndInput.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
+  color: PropTypes.string,
 }

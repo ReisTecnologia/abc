@@ -31,7 +31,11 @@ export const Video = ({
         <VideoFieldsWrapper>
           <VideoNameAndUrlWrapper>
             <VideoNameWrapper>
-              <TextAndInput value={name} onChange={changeName} />
+              <TextAndInput
+                value={name}
+                onChange={changeName}
+                color={colors.dimmedPrimary}
+              />
             </VideoNameWrapper>
           </VideoNameAndUrlWrapper>
         </VideoFieldsWrapper>

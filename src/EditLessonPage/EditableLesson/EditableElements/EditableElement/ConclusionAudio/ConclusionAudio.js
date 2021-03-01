@@ -74,6 +74,7 @@ export const ConclusionAudio = ({
                 conclusionAudio,
                 changeConclusionAudio,
               })}
+              color={colors.dimmedPrimary}
             />
           </ConclusionAudioNameWrapper>
           <DeleteConclusionAudioButton

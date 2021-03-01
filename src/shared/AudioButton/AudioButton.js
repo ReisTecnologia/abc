@@ -87,9 +87,9 @@ export const AudioButton = ({
 }
 
 AudioButton.propTypes = {
-  audioUrls: PropTypes.arrayOf(PropTypes.string.isRequired),
+  audioUrls: PropTypes.arrayOf(PropTypes.string),
   icon: PropTypes.string,
-  size: PropTypes.string,
+  size: PropTypes.number,
   onClick: PropTypes.func,
   onStart: PropTypes.func,
   onComplete: PropTypes.func,
