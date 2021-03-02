@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useMutation } from '@apollo/client'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 import { Layout } from 'shared/Layout'
 import { Spinner } from 'shared/Spinner'
 import { InputField } from 'shared/InputField'
@@ -14,52 +13,21 @@ import { LessonSelect } from './LessonSelect'
 import { DeleteLessonButton } from './DeleteLessonButton'
 import { LESSONS_QUERY } from './LESSONS_QUERY'
 import { useQuery } from '@apollo/client'
-import { colors } from 'shared/colors'
+import {
+  InicialWrapper,
+  TitleWrapper,
+  LessonNameWrapper,
+  ButtonsWrapper,
+  InitialWrapper,
+  ElementsWrapper,
+  LabelWrapper,
+  AddSelectWrapper,
+  ElementsInfoWrapper,
+} from './EditableMenu.styles'
 import { DeleteMenuButton } from './DeleteMenuButton'
 import { useHistory } from 'react-router-dom'
 import { LessonName } from './LessonName'
-
-export const InicialWrapper = styled.div`
-  display: inline-flex;
-  color: ${colors.grayText};
-  padding-right: 5px;
-  padding-top: 2px;
-  font-size: 17px;
-`
-
-export const TitleWrapper = styled.div`
-  flex: 1;
-`
-export const ElementsInfoWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  font-size: 20px;
-`
-export const AddSelectWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-`
-export const LabelWrapper = styled.label`
-  padding-right: 8px;
-`
-
-export const ElementsWrapper = styled.div`
-  border-top: 1px solid grey;
-  display: flex;
-`
-export const InitialWrapper = styled.div`
-  display: inline-flex;
-  width: 5%;
-`
-export const ButtonsWrapper = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: row-reverse;
-`
-
-export const LessonNameWrapper = styled.div``
+import { MoveButtons } from './MoveButtons/MoveButtons'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -103,6 +71,20 @@ export const EditableMenu = ({ menu: { id, name, elements } }) => {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: 'cache-and-network',
   })
+
+  const moveUp = ({ elementIndex }) => () => {
+    const reorderedElements = [...innerElements]
+    reorderedElements[elementIndex - 1] = innerElements[elementIndex]
+    reorderedElements[elementIndex] = innerElements[elementIndex - 1]
+    setInnerElements(reorderedElements)
+  }
+
+  const moveDown = ({ elementIndex }) => () => {
+    const reorderedElements = [...innerElements]
+    reorderedElements[elementIndex + 1] = innerElements[elementIndex]
+    reorderedElements[elementIndex] = innerElements[elementIndex + 1]
+    setInnerElements(reorderedElements)
+  }
 
   const lessons = data && data.lessons ? data.lessons : []
 
@@ -175,6 +157,12 @@ export const EditableMenu = ({ menu: { id, name, elements } }) => {
                 />
               </InitialWrapper>
             </ElementsInfoWrapper>
+            <MoveButtons
+              onUp={moveUp({ elementIndex })}
+              onDown={moveDown({ elementIndex })}
+              canMoveDown={elementIndex !== 0}
+              canMoveUp={elementIndex !== innerElements.length - 1}
+            />
             <DeleteLessonButton
               deleteLesson={deleteLesson({
                 innerElements,
