@@ -12,6 +12,20 @@ import { SAVE_MENU_MUTATION } from './SAVE_MENU_MUTATION'
 import { Container } from 'shared/Container'
 import { LessonSelect } from './LessonSelect'
 import { DeleteLessonButton } from './DeleteLessonButton'
+import { LESSONS_QUERY } from './LESSONS_QUERY'
+import { useQuery } from '@apollo/client'
+import { colors } from 'shared/colors'
+import { DeleteMenuButton } from './DeleteMenuButton'
+import { useHistory } from 'react-router-dom'
+import { LessonName } from './LessonName'
+
+export const InicialWrapper = styled.div`
+  display: inline-flex;
+  color: ${colors.grayText};
+  padding-right: 5px;
+  padding-top: 2px;
+  font-size: 17px;
+`
 
 export const TitleWrapper = styled.div`
   flex: 1;
@@ -23,6 +37,13 @@ export const ElementsInfoWrapper = styled.div`
   width: 100%;
   font-size: 20px;
 `
+export const AddSelectWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`
+export const LabelWrapper = styled.label`
+  padding-right: 8px;
+`
 
 export const ElementsWrapper = styled.div`
   border-top: 1px solid grey;
@@ -30,7 +51,15 @@ export const ElementsWrapper = styled.div`
 `
 export const InitialWrapper = styled.div`
   display: inline-flex;
+  width: 5%;
 `
+export const ButtonsWrapper = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: row-reverse;
+`
+
+export const LessonNameWrapper = styled.div``
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -41,6 +70,16 @@ const changeInitials = ({ innerElements, elementIndex, setInnerElements }) => (
   newInnerElements[elementIndex] = {
     ...newInnerElements[elementIndex],
     initials,
+  }
+  setInnerElements(newInnerElements)
+}
+const changeLesson = ({ innerElements, elementIndex, setInnerElements }) => (
+  lessonId
+) => {
+  const newInnerElements = [...innerElements]
+  newInnerElements[elementIndex] = {
+    lessonId: lessonId,
+    initials: '?',
   }
   setInnerElements(newInnerElements)
 }
@@ -60,9 +99,15 @@ export const EditableMenu = ({ menu: { id, name, elements } }) => {
   const [innerElements, setInnerElements] = useState(elements)
   const [menuName, setMenuName] = useState(name)
   const [mutate, { loading: isSaving }] = useMutation(SAVE_MENU_MUTATION)
+  const { data } = useQuery(LESSONS_QUERY, {
+    notifyOnNetworkStatusChange: true,
+    fetchPolicy: 'cache-and-network',
+  })
+
+  const lessons = data && data.lessons ? data.lessons : []
 
   const addLesson = (lessonId) =>
-    setInnerElements([...innerElements, { lessonId: lessonId, initials: 'A' }])
+    setInnerElements([...innerElements, { lessonId: lessonId, initials: '?' }])
 
   useEffect(() => {
     if (!isFirstRun.current) {
@@ -85,6 +130,11 @@ export const EditableMenu = ({ menu: { id, name, elements } }) => {
       isFirstRun.current = false
     }
   }, [mutate, id, menuName, innerElements])
+
+  let history = useHistory()
+  const navigateToMenus = () => {
+    history.push('/menus')
+  }
   return (
     <Layout>
       <HeaderWrapper>
@@ -92,14 +142,29 @@ export const EditableMenu = ({ menu: { id, name, elements } }) => {
           <InputField value={menuName} setValue={setMenuName} />
         </TitleWrapper>
         {isSaving && <Spinner />}
+        <ButtonsWrapper>
+          <DeleteMenuButton id={id} afterDelete={navigateToMenus} />
+        </ButtonsWrapper>
       </HeaderWrapper>
       <Container>
         {innerElements.map(({ initials, lessonId }, elementIndex) => (
           <ElementsWrapper key={elementIndex}>
             <LessonItem initials={initials} />
             <ElementsInfoWrapper>
+              <LessonNameWrapper>
+                <LessonName
+                  lessonId={lessonId}
+                  onSelect={changeLesson({
+                    innerElements,
+                    elementIndex,
+                    setInnerElements,
+                  })}
+                  lessons={lessons}
+                  defaultSelect={lessonId}
+                />
+              </LessonNameWrapper>
               <InitialWrapper>
-                Inicial:
+                <InicialWrapper>Inicial:</InicialWrapper>
                 <TextAndInput
                   value={initials}
                   onChange={changeInitials({
@@ -109,7 +174,6 @@ export const EditableMenu = ({ menu: { id, name, elements } }) => {
                   })}
                 />
               </InitialWrapper>
-              ID: {lessonId}
             </ElementsInfoWrapper>
             <DeleteLessonButton
               deleteLesson={deleteLesson({
@@ -120,7 +184,10 @@ export const EditableMenu = ({ menu: { id, name, elements } }) => {
             />
           </ElementsWrapper>
         ))}
-        <LessonSelect onSelect={addLesson} />
+        <AddSelectWrapper>
+          <LabelWrapper>Escolha aulas para adicionar ao menu:</LabelWrapper>
+          <LessonSelect onSelect={addLesson} lessons={lessons} />
+        </AddSelectWrapper>
       </Container>
     </Layout>
   )
