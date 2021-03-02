@@ -3,10 +3,10 @@ import { useQuery } from '@apollo/client'
 import { MENU_QUERY } from './MENU_QUERY'
 import PropTypes from 'prop-types'
 import { mapMenu } from './mapMenu'
-import { LessonItem } from '../shared/LessonItem'
-import { Layout } from '../shared/Layout'
+import { LessonItem } from 'shared/LessonItem'
+import { Layout } from 'shared/Layout'
 import styled from 'styled-components'
-import { colors } from '../shared/colors'
+import { colors } from 'shared/colors'
 import { Link } from 'react-router-dom'
 
 const Wrapper = styled.div`

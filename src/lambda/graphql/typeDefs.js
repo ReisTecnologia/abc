@@ -82,6 +82,11 @@ export default gql`
     lesson: Lesson
   }
 
+  type EditMenuResponse {
+    success: Boolean!
+    menu: Menu
+  }
+
   type CleanupLessonFilesResponse {
     success: Boolean!
   }
@@ -125,9 +130,19 @@ export default gql`
     conclusionAudio: ConclusionAudioInput
   }
 
+  input ElementMenuInput {
+    initials: String
+    lessonId: String
+  }
+
   input EditLessonInput {
     name: String
     elements: [ElementLessonInput]
+  }
+
+  input EditMenuInput {
+    name: String
+    elements: [ElementMenuInput]
   }
 
   type Query {
@@ -142,6 +157,7 @@ export default gql`
     addMenu: AddMenuResponse
     deleteLesson(id: ID!): DeleteLessonResponse
     deleteMenu(id: ID!): DeleteMenuResponse
+    editMenu(id: ID!, input: EditMenuInput!): EditMenuResponse
     cleanupLessonFiles(id: ID!): CleanupLessonFilesResponse
     editLesson(id: ID!, input: EditLessonInput!): EditLessonResponse
   }

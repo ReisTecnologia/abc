@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import { colors } from 'shared/colors'
 
-import { TextAndInput } from './TextAndInput'
+import { TextAndInput } from 'shared/TextAndInput'
 import { Audios } from './Audios/Audios'
 import { Videos } from './Videos/Videos'
 import { Words } from './Words/Words'
@@ -128,20 +129,32 @@ export const ElementParams = ({
   return (
     <Wrapper>
       <ElementTitleWrapper>Descrição:</ElementTitleWrapper>
-      <TextAndInput value={description} onChange={changeDescription} />
+      <TextAndInput
+        value={description}
+        onChange={changeDescription}
+        color={colors.dimmedPrimary}
+      />
       <br />
 
       {showText && (
         <ElementWrapper>
           <ElementTitleWrapper>Texto:</ElementTitleWrapper>
-          <TextAndInput value={text} onChange={changeText} />
+          <TextAndInput
+            value={text}
+            onChange={changeText}
+            color={colors.dimmedPrimary}
+          />
         </ElementWrapper>
       )}
 
       {showLetter && (
         <ElementWrapper>
           <ElementTitleWrapper>{letterTitle()}</ElementTitleWrapper>
-          <TextAndInput value={letter} onChange={changeLetter} />
+          <TextAndInput
+            value={letter}
+            onChange={changeLetter}
+            color={colors.dimmedPrimary}
+          />
         </ElementWrapper>
       )}
 
@@ -151,6 +164,7 @@ export const ElementParams = ({
           <TextAndInput
             value={correctLettersString}
             onChange={changeCorrectLetters}
+            color={colors.dimmedPrimary}
           />
         </ElementWrapper>
       )}

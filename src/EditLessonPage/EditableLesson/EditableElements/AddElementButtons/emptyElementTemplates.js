@@ -20,7 +20,7 @@ export const emptyElementTemplates = {
     audios: [],
     description: '',
     words: [],
-    conclusionAudio: {},
+    conclusionAudio: { name: '', url: '' },
   },
   ClickLetterInTheTextTask: {
     type: 'ClickLetterInTheTextTask',

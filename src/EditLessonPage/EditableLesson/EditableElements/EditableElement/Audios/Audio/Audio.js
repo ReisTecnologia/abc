@@ -6,7 +6,7 @@ import { AudioButtonWrapper } from './AudioButtonWrapper'
 import { AudioFieldsWrapper } from './AudioFieldsWrapper'
 import { NameAndUrlWrapper } from './NameAndUrlWrapper'
 import { DeleteAudioButton } from './DeleteAudioButton'
-import { TextAndInput } from '../../TextAndInput'
+import { TextAndInput } from 'shared/TextAndInput'
 import { AudioButton } from 'shared/AudioButton'
 import { FileUploader } from '../../FileUploader'
 import { DragAndDrop } from '../../DragAndDrop'
@@ -28,7 +28,7 @@ export const Audio = ({
             audioUrls={[
               `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${url}`,
             ]}
-            size={25}
+            size={20}
             color={colors.grayText}
           />
           <FileUploader
@@ -40,7 +40,11 @@ export const Audio = ({
         <AudioFieldsWrapper>
           <NameAndUrlWrapper>
             <AudioNameWrapper>
-              <TextAndInput value={name} onChange={changeName} />
+              <TextAndInput
+                value={name}
+                onChange={changeName}
+                color={colors.dimmedPrimary}
+              />
             </AudioNameWrapper>
           </NameAndUrlWrapper>
         </AudioFieldsWrapper>

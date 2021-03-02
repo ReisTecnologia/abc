@@ -131,6 +131,17 @@ const resolvers = {
         })
       return { success, lesson }
     },
+    editMenu: async (parent, args) => {
+      let success = false
+      let menu = false
+      await db
+        .editMenu(args.id, args.input.name, args.input.elements)
+        .then((updatedItem) => {
+          menu = updatedItem
+          success = true
+        })
+      return { success, menu }
+    },
   },
 }
 

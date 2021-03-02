@@ -16,7 +16,7 @@ export const MoveButtons = ({ canMoveDown, canMoveUp, onUp, onDown }) => {
     <UpDownWrapper>
       <IIcon
         icon={arrowUpSquareFill}
-        onClick={canMoveUp && onUp}
+        onClick={canMoveUp ? onUp : null}
         color={canMoveUp ? colors.grayText : colors.light}
         height="30"
         cursor={() => (!canMoveUp ? null : 'pointer')}
@@ -24,7 +24,7 @@ export const MoveButtons = ({ canMoveDown, canMoveUp, onUp, onDown }) => {
 
       <IIcon
         icon={arrowDownSquareFill}
-        onClick={canMoveDown && onDown}
+        onClick={canMoveDown ? onDown : null}
         color={canMoveDown ? colors.grayText : colors.light}
         height="30"
         cursor={() => (!canMoveDown ? null : 'pointer')}

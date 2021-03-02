@@ -6,7 +6,7 @@ import { UploadButtonWrapper } from './UploadButtonWrapper'
 import { VideoFieldsWrapper } from './VideoFieldsWrapper'
 import { VideoNameAndUrlWrapper } from './VideoNameAndUrlWrapper'
 import { DeleteVideoButton } from './DeleteVideoButton'
-import { TextAndInput } from '../../TextAndInput'
+import { TextAndInput } from 'shared/TextAndInput'
 import { FileUploader } from '../../FileUploader'
 import { DragAndDrop } from '../../DragAndDrop'
 import { colors } from 'shared/colors'
@@ -31,7 +31,11 @@ export const Video = ({
         <VideoFieldsWrapper>
           <VideoNameAndUrlWrapper>
             <VideoNameWrapper>
-              <TextAndInput value={name} onChange={changeName} />
+              <TextAndInput
+                value={name}
+                onChange={changeName}
+                color={colors.dimmedPrimary}
+              />
             </VideoNameWrapper>
           </VideoNameAndUrlWrapper>
         </VideoFieldsWrapper>

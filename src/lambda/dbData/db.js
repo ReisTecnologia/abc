@@ -114,6 +114,32 @@ const addMenu = (id) => {
   return docClient.put(params).promise()
 }
 
+const editMenu = (id, name, elements) => {
+  const docClient = new AWS.DynamoDB.DocumentClient()
+  const params = {
+    TableName: MENU_TABLE_NAME,
+    Key: { id: id },
+    ExpressionAttributeNames: { '#name': name ? 'name' : null, '#id': 'id' },
+    ExpressionAttributeValues: {
+      ':newName': name ? name : null,
+      ':id': id,
+      ':elements': elements ? elements : null,
+    },
+    ReturnValues: 'ALL_NEW',
+    UpdateExpression:
+      name && elements
+        ? 'set #name = :newName, elements = :elements'
+        : name
+        ? 'set #name = :newName'
+        : 'set elements = :elements',
+    ConditionExpression: ':id = #id',
+  }
+  return docClient
+    .update(params)
+    .promise()
+    .then(({ Attributes }) => Attributes)
+}
+
 const editLesson = (id, name, elements) => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
@@ -151,4 +177,5 @@ module.exports = {
   deleteMenu,
   deleteLesson,
   editLesson,
+  editMenu,
 }
