@@ -33,7 +33,7 @@ export const ElementsWrapper = styled.div`
 `
 export const InitialWrapper = styled.div`
   display: inline-flex;
-  width: 5%;
+  width: 15%;
 `
 export const ButtonsWrapper = styled.div`
   flex: 1;

@@ -160,8 +160,8 @@ export const EditableMenu = ({ menu: { id, name, elements } }) => {
             <MoveButtons
               onUp={moveUp({ elementIndex })}
               onDown={moveDown({ elementIndex })}
-              canMoveDown={elementIndex !== 0}
-              canMoveUp={elementIndex !== innerElements.length - 1}
+              canMoveDown={elementIndex !== innerElements.length - 1}
+              canMoveUp={elementIndex !== 0}
             />
             <DeleteLessonButton
               deleteLesson={deleteLesson({
