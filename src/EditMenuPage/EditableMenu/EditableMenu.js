@@ -12,6 +12,7 @@ import { SAVE_MENU_MUTATION } from './SAVE_MENU_MUTATION'
 import { Container } from 'shared/Container'
 import { LessonSelect } from './LessonSelect'
 import { DeleteLessonButton } from './DeleteLessonButton'
+import { MenuDrawer } from './MenuDrawer'
 
 export const TitleWrapper = styled.div`
   flex: 1;
@@ -88,6 +89,7 @@ export const EditableMenu = ({ menu: { id, name, elements } }) => {
   return (
     <Layout>
       <HeaderWrapper>
+        <MenuDrawer />
         <TitleWrapper>
           <InputField value={menuName} setValue={setMenuName} />
         </TitleWrapper>
