@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   padding-right: 2rem;
   padding-top: 0.5rem;
   align-items: center;
-  color: ${colors.grayText}
+  color: ${colors.grayText};
   cursor: pointer;
   &:hover {
     background-color: ${colors.primary};

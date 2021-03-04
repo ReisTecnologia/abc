@@ -8,6 +8,7 @@ import { ViewableElements } from './ViewableElements/ViewableElements'
 import { LESSON_QUERY } from 'shared/LESSON_QUERY'
 import { LessonItem } from 'shared/LessonItem'
 import { Link } from 'react-router-dom'
+import { MenuDrawer } from 'shared/MenuDrawer'
 import PropTypes from 'prop-types'
 
 export const Lesson = ({ initials, menuId }) => {
@@ -17,6 +18,7 @@ export const Lesson = ({ initials, menuId }) => {
   return data ? (
     <Layout>
       <HeaderWrapper>
+        <MenuDrawer />
         <Link to={`/viewMenu/${menuId}`}>
           <LessonItem initials={initials} />
         </Link>
