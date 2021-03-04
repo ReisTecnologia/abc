@@ -4,7 +4,11 @@ import { AddMenuButton } from './AddMenuButton/AddMenuButton'
 import { ListItem } from './ListItem/ListItem'
 import { Spinner } from 'shared/Spinner'
 import { MENUS_QUERY } from './MENUS_QUERY'
-import { Header, Title, PageActions } from './MenusPage.styles.js'
+import { Title, PageActions } from './MenusPage.styles.js'
+import { Layout } from 'shared/Layout'
+import { HeaderWrapper } from 'shared/HeaderWrapper'
+import { Container } from 'shared/Container'
+import { MenuDrawer } from 'shared/MenuDrawer'
 
 export const MenusPage = () => {
   const { data, refetch, loading } = useQuery(MENUS_QUERY, {
@@ -15,17 +19,20 @@ export const MenusPage = () => {
   const menus = data && data.menus ? data.menus : []
 
   return (
-    <>
-      <Header>
+    <Layout>
+      <HeaderWrapper>
+        <MenuDrawer />
         <Title>Menus</Title>
         {loading && <Spinner />}
         <PageActions>
           <AddMenuButton afterAdd={refetch} />
         </PageActions>
-      </Header>
-      {menus.map((menu) => (
-        <ListItem key={menu.id} menu={menu} />
-      ))}
-    </>
+      </HeaderWrapper>
+      <Container>
+        {menus.map((menu) => (
+          <ListItem key={menu.id} menu={menu} />
+        ))}
+      </Container>
+    </Layout>
   )
 }

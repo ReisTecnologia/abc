@@ -6,7 +6,7 @@ import { useOnClickOutside } from 'shared/useOnClickOutside'
 const InputFieldWrapper = styled.div`
   cursor: ${({ onClick }) => (onClick ? 'pointer' : null)};
   position: absolute;
-  left: 0;
+  left: 10;
   padding-left: 10px;
   height: 1.5rem;
 `

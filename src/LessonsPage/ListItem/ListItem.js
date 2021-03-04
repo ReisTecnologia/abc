@@ -22,10 +22,7 @@ export const ListItem = ({ lesson }) => {
       <LessonName>{lesson.name}</LessonName>
       &nbsp;&nbsp;
       <LessonButtons>
-        <ListItemButton
-          text="ver"
-          onClick={navigateToViewLesson(history, lesson.id)}
-        />
+        <ListItemButton onClick={navigateToViewLesson(history, lesson.id)} />
       </LessonButtons>
       <br />
     </Wrapper>

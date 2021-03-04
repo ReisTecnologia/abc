@@ -1,5 +1,5 @@
 import React from 'react'
-
+import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { gql, useMutation } from '@apollo/client'
 import { Button } from './Button'
@@ -12,6 +12,11 @@ const DELETE_LESSON = gql`
       s3Success
     }
   }
+`
+const Wrapper = styled.div`
+  padding-left: 5px;
+  position: fixed;
+  right: 207px;
 `
 
 export const DeleteButton = ({ id, afterDelete }) => {
@@ -26,7 +31,9 @@ export const DeleteButton = ({ id, afterDelete }) => {
   return loading ? (
     <Spinner />
   ) : (
-    <Button onClick={confirmAndDelete}> Apagar </Button>
+    <Wrapper>
+      <Button onClick={confirmAndDelete}> Apagar </Button>
+    </Wrapper>
   )
 }
 

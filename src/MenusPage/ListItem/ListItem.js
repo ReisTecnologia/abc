@@ -22,10 +22,7 @@ export const ListItem = ({ menu }) => {
       <MenuName>{menu.name}</MenuName>
       &nbsp;&nbsp;
       <MenuButtons>
-        <ListItemButton
-          text="ver"
-          onClick={navigateToViewMenu(history, menu.id)}
-        />
+        <ListItemButton onClick={navigateToViewMenu(history, menu.id)} />
       </MenuButtons>
       <br />
     </Wrapper>

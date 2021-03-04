@@ -28,6 +28,8 @@ import { DeleteMenuButton } from './DeleteMenuButton'
 import { useHistory } from 'react-router-dom'
 import { LessonName } from './LessonName'
 import { MoveButtons } from './MoveButtons/MoveButtons'
+import { MenuDrawer } from 'shared/MenuDrawer'
+import { ViewMenuButton } from './ViewMenuButton'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -120,11 +122,13 @@ export const EditableMenu = ({ menu: { id, name, elements } }) => {
   return (
     <Layout>
       <HeaderWrapper>
+        <MenuDrawer />
         <TitleWrapper>
           <InputField value={menuName} setValue={setMenuName} />
         </TitleWrapper>
         {isSaving && <Spinner />}
         <ButtonsWrapper>
+          <ViewMenuButton menuId={id} />
           <DeleteMenuButton id={id} afterDelete={navigateToMenus} />
         </ButtonsWrapper>
       </HeaderWrapper>

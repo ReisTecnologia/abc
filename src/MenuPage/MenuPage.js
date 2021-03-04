@@ -5,9 +5,12 @@ import PropTypes from 'prop-types'
 import { mapMenu } from './mapMenu'
 import { LessonItem } from 'shared/LessonItem'
 import { Layout } from 'shared/Layout'
+import { HeaderWrapper } from 'shared/HeaderWrapper'
 import styled from 'styled-components'
 import { colors } from 'shared/colors'
 import { Link } from 'react-router-dom'
+import { MenuDrawer } from 'shared/MenuDrawer'
+import { Container } from 'shared/Container'
 
 const Wrapper = styled.div`
   display: flex;
@@ -25,16 +28,21 @@ export const MenuPage = ({ id }) => {
 
   return (
     <Layout backgroundColor={colors.primary}>
-      <Wrapper>
-        {menu.elements.map(({ initials, lessonId }) => (
-          <Link
-            key={lessonId}
-            to={`/viewLesson/${lessonId}?initials=${initials}&menuId=${id}`}
-          >
-            <LessonItem initials={initials} />
-          </Link>
-        ))}
-      </Wrapper>
+      <HeaderWrapper>
+        <MenuDrawer />
+      </HeaderWrapper>
+      <Container>
+        <Wrapper>
+          {menu.elements.map(({ initials, lessonId }) => (
+            <Link
+              key={lessonId}
+              to={`/viewLesson/${lessonId}?initials=${initials}&menuId=${id}`}
+            >
+              <LessonItem initials={initials} />
+            </Link>
+          ))}
+        </Wrapper>
+      </Container>
     </Layout>
   )
 }
