@@ -1,8 +1,14 @@
 import React from 'react'
 import { Button } from './Button'
 import { Spinner } from 'shared/Spinner'
-
+import styled from 'styled-components'
 import PropTypes from 'prop-types'
+
+const Wrapper = styled.div`
+  padding-left: 5px;
+  position: fixed;
+  right: 280px;
+`
 
 export const ReloadButton = ({ reload, loading }) => {
   const confirmAndReload = () => {
@@ -12,7 +18,9 @@ export const ReloadButton = ({ reload, loading }) => {
   return loading ? (
     <Spinner />
   ) : (
-    <Button onClick={confirmAndReload}>Recarregar</Button>
+    <Wrapper>
+      <Button onClick={confirmAndReload}>Recarregar</Button>
+    </Wrapper>
   )
 }
 

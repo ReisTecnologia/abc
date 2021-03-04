@@ -1,5 +1,5 @@
 import React from 'react'
-
+import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { gql, useMutation } from '@apollo/client'
 import { Spinner } from 'shared/Spinner'
@@ -11,6 +11,11 @@ const CLEANUP_LESSON_FILES_MUTATION = gql`
       success
     }
   }
+`
+const Wrapper = styled.div`
+  padding-left: 5px;
+  position: fixed;
+  right: 65px;
 `
 
 export const CleanupFilesButton = ({ id }) => {
@@ -26,7 +31,9 @@ export const CleanupFilesButton = ({ id }) => {
   return loading ? (
     <Spinner />
   ) : (
-    <Button onClick={confirmAndClean}>Limpar Arquivos</Button>
+    <Wrapper>
+      <Button onClick={confirmAndClean}>Limpar Arquivos</Button>
+    </Wrapper>
   )
 }
 

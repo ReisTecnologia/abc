@@ -10,18 +10,18 @@ const Wrapper = styled.div`
   top: 3px;
 `
 
-export const ViewMenuButton = ({ menuId }) => {
+export const ViewLessonButton = ({ lessonId }) => {
   const history = useHistory()
-  const navigateToMenu = () => {
-    history.push(`/viewMenu/${menuId}`)
+  const navigateToLesson = () => {
+    history.push(`/viewLesson/${lessonId}`)
   }
   return (
     <Wrapper>
-      <ViewButton onClick={navigateToMenu} />
+      <ViewButton onClick={navigateToLesson} />
     </Wrapper>
   )
 }
 
-ViewMenuButton.propTypes = {
-  menuId: PropTypes.string,
+ViewLessonButton.propTypes = {
+  lessonId: PropTypes.string,
 }

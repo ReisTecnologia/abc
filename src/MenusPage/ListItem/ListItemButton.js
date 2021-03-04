@@ -9,6 +9,7 @@ const Wrapper = styled.div`
   padding-left: 2rem;
   padding-right: 2rem;
   padding-top: 0.5rem;
+  color: ${colors.grayText};
   align-items: center;
   cursor: pointer;
   &:hover {

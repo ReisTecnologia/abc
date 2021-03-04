@@ -12,6 +12,7 @@ import { Spinner } from 'shared/Spinner'
 import { ReloadButton } from './ReloadButton'
 import { SAVE_LESSON_MUTATION } from './SAVE_LESSON_MUTATION'
 import { MenuDrawer } from 'shared/MenuDrawer'
+import { ViewLessonButton } from './ViewLessonButton'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
@@ -71,6 +72,7 @@ export const EditableLesson = ({
         </TitleWrapper>
         {isSaving && <Spinner />}
         <ButtonsWrapper>
+          <ViewLessonButton lessonId={id} />
           <CleanupFilesButton id={id} />
           <DeleteButton id={id} afterDelete={navigateToHome} />
           <ReloadButton reload={reloadLesson} loading={loadingLesson} />
