@@ -11,6 +11,7 @@ import { InputField } from 'shared/InputField'
 import { Spinner } from 'shared/Spinner'
 import { ReloadButton } from './ReloadButton'
 import { SAVE_LESSON_MUTATION } from './SAVE_LESSON_MUTATION'
+import { MenuDrawer } from 'shared/MenuDrawer'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
@@ -64,6 +65,7 @@ export const EditableLesson = ({
   return (
     <Layout>
       <HeaderWrapper>
+        <MenuDrawer />
         <TitleWrapper>
           <InputField value={lessonName} setValue={setLessonName} />
         </TitleWrapper>

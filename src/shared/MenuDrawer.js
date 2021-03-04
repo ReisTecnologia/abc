@@ -8,7 +8,9 @@ import { colors } from 'shared/colors'
 const ListItemWrapper = styled.li`
   background-color: white;
   :hover {
-    background-color: ${colors.light};
+    background-color: ${colors.primary};
+    cursor: pointer;
+    color: white;
   }
   list-style-type: none;
   padding-top: 12px;
