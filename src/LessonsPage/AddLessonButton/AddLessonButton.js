@@ -13,6 +13,7 @@ export const Button = styled.div`
   border: solid 1px ${colors.white};
   border-radius: 7px;
   padding: 0 0.4rem;
+  min-width: 120px;
 `
 export const AddLessonButton = ({ afterAdd }) => {
   const [addLesson, { loading }] = useMutation(ADD_LESSON_MUTATION, {
@@ -21,7 +22,7 @@ export const AddLessonButton = ({ afterAdd }) => {
   return loading ? (
     <Spinner />
   ) : (
-    <Button onClick={addLesson}>Adicionar uma nova aula</Button>
+    <Button onClick={addLesson}>Adicionar aula</Button>
   )
 }
 
