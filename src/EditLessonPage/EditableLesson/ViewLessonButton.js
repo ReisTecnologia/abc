@@ -5,9 +5,15 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
-  padding-left: 5px;
-  position: fixed;
-  top: 3px;
+  @media (min-width: 540px) {
+    padding-left: 5px;
+    position: fixed;
+    right: 10px;
+    top: 5px;
+  }
+  @media (max-width: 539px) {
+    float: right;
+  }
 `
 
 export const ViewLessonButton = ({ lessonId }) => {

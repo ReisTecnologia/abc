@@ -14,6 +14,7 @@ export const Button = styled.div`
   border-radius: 7px;
   padding: 0 0.4rem;
   min-width: 135px;
+  max-height: 22px;
 `
 
 export const AddMenuButton = ({ afterAdd }) => {

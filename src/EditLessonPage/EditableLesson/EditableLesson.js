@@ -21,9 +21,18 @@ export const TitleWrapper = styled.div`
 `
 
 export const ButtonsWrapper = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: row-reverse;
+  @media (min-width: 540px) {
+    flex: 1;
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  @media (max-width: 539px) {
+    flex: 1;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    margin-left: 0;
+  }
 `
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -71,8 +80,8 @@ export const EditableLesson = ({
           <InputField value={lessonName} setValue={setLessonName} />
         </TitleWrapper>
         {isSaving && <Spinner />}
+        <ViewLessonButton lessonId={id} />
         <ButtonsWrapper>
-          <ViewLessonButton lessonId={id} />
           <CleanupFilesButton id={id} />
           <DeleteButton id={id} afterDelete={navigateToHome} />
           <ReloadButton reload={reloadLesson} loading={loadingLesson} />

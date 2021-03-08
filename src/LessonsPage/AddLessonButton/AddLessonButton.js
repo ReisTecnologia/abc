@@ -13,6 +13,7 @@ export const Button = styled.div`
   border: solid 1px ${colors.white};
   border-radius: 7px;
   padding: 0 0.4rem;
+  max-height: 22px;
   min-width: 120px;
 `
 export const AddLessonButton = ({ afterAdd }) => {

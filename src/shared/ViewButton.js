@@ -10,7 +10,7 @@ export const ViewButton = ({ color, onClick }) => {
   return (
     <Wrapper onClick={onClick}>
       <svg
-        height="30"
+        height="25"
         width="35"
         x="0px"
         y="0"

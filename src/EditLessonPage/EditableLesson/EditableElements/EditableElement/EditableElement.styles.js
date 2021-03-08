@@ -8,29 +8,58 @@ export const ElementControlWrapper = styled.div`
 `
 
 export const ElementWrapper = styled.div`
-  margin-right: 20px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  flex: 1;
+  @media (min-width: 720px) {
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    flex: 1;
+  }
+  @media (max-width: 719px) {
+    margin: 20px;
+    flex: 1;
+  }
 `
 export const Title = styled.div`
-  display: inline-block;
-  position: relative;
-  left: 65px;
+  @media (min-width: 361px) {
+    display: inline-block;
+    position: relative;
+    left: 65px;
+  }
+  @media (max-width: 360px) {
+  }
 `
 
 export const TitleRow = styled.div`
-  position: relative;
-  text-align: center;
-  margin: 1rem 0 0 0;
-  font-size: 1.2rem;
-  color: ${colors.grayText};
-  border-bottom: solid 1px ${colors.grayText};
-  padding-bottom: 0.5rem;
+  @media (min-width: 361px) {
+    position: relative;
+    text-align: center;
+    margin: 1rem 0 0 0;
+    font-size: 1.2rem;
+    color: ${colors.grayText};
+    border-bottom: solid 1px ${colors.grayText};
+    padding-bottom: 0.5rem;
+  }
+  @media (max-width: 360px) {
+    position: relative;
+    text-align: center;
+    margin: 1rem 0 0 0;
+    font-size: 1.2rem;
+    color: ${colors.grayText};
+    border-bottom: solid 1px ${colors.grayText};
+    padding-bottom: 0.5rem;
+    display: flex;
+    flex-direction: column;
+  }
 `
 
 export const EditableElementRow = styled.div`
-  display: flex;
+  @media (min-width: 720px) {
+    display: flex;
+  }
+  @media (max-width: 719px) {
+    display: flex;
+    flex-direction: column;
+  }
 `
 
 export const EditableElementWrapper = styled.div`
