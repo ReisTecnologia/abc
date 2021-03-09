@@ -57,6 +57,14 @@ export default gql`
     elements: [MenuElement]
   }
 
+  type User {
+    id: ID!
+    name: String!
+    login: String!
+    password: String!
+    type: String!
+  }
+
   type AddLessonResponse {
     success: Boolean!
     lessons: [Lesson]
@@ -85,6 +93,16 @@ export default gql`
   type EditMenuResponse {
     success: Boolean!
     menu: Menu
+  }
+
+  type EditUserResponse {
+    success: Boolean!
+    user: User
+  }
+
+  type AddUserResponse {
+    success: Boolean!
+    users: [User]
   }
 
   type CleanupLessonFilesResponse {
@@ -130,6 +148,13 @@ export default gql`
     conclusionAudio: ConclusionAudioInput
   }
 
+  input AddUserInput {
+    name: String
+    login: String
+    password: String
+    type: String
+  }
+
   input ElementMenuInput {
     initials: String
     lessonId: String
@@ -145,20 +170,31 @@ export default gql`
     elements: [ElementMenuInput]
   }
 
+  input EditUserInput {
+    name: String
+    password: String
+    login: String
+    type: String
+  }
+
   type Query {
     lessons: [Lesson]
     lesson(id: String!): Lesson
     menu(id: String!): Menu
     menus: [Menu]
+    user(id: ID!): User
+    users: [User]
   }
 
   type Mutation {
     addLesson: AddLessonResponse
     addMenu: AddMenuResponse
+    addUser(input: AddUserInput!): AddUserResponse
     deleteLesson(id: ID!): DeleteLessonResponse
     deleteMenu(id: ID!): DeleteMenuResponse
     editMenu(id: ID!, input: EditMenuInput!): EditMenuResponse
     cleanupLessonFiles(id: ID!): CleanupLessonFilesResponse
     editLesson(id: ID!, input: EditLessonInput!): EditLessonResponse
+    editUser(id: ID!, input: EditUserInput!): EditUserResponse
   }
 `
