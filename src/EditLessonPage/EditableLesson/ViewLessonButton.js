@@ -5,14 +5,13 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
-  @media (min-width: 540px) {
+  @media (min-width: 600px) {
     padding-left: 5px;
     position: fixed;
     right: 10px;
     top: 5px;
   }
-  @media (max-width: 539px) {
-    float: right;
+  @media (max-width: 599px) {
   }
 `
 

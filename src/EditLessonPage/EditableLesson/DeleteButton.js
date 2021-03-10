@@ -14,12 +14,12 @@ const DELETE_LESSON = gql`
   }
 `
 const Wrapper = styled.div`
-  @media (min-width: 540px) {
+  @media (min-width: 600px) {
     padding-left: 5px;
     position: fixed;
     right: 207px;
   }
-  @media (max-width: 539px) {
+  @media (max-width: 599px) {
   }
 `
 
