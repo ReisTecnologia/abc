@@ -152,21 +152,20 @@ const resolvers = {
       return { success, menu }
     },
     editUser: async (parent, args) => {
-      let success = false
-      let user = false
-      await db
+      let success = await db
         .editUser(
           args.input.login,
+          args.input.previousLogin,
           args.input.name,
           args.input.password,
           args.input.type,
           args.id
         )
-        .then((updatedItem) => {
-          user = updatedItem
-          success = true
-        })
-      return { success, user }
+        .then(() => true)
+        .catch(() => false)
+      const user = await db.getUser(args.id)
+      const userLogin = await db.getUser(`login#${args.input.login}`)
+      return { success, user, userLogin }
     },
     addUser: async (parent, args) => {
       let success = false

@@ -39,6 +39,9 @@ const getUsers = async function () {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
     TableName: USER_TABLE_NAME,
+    ExpressionAttributeNames: { '#id': 'id' },
+    ExpressionAttributeValues: { ':login': 'login#' },
+    FilterExpression: 'NOT contains(#id, :login)',
   }
   return docClient
     .scan(params)
@@ -144,17 +147,32 @@ const addMenu = (id) => {
 const addUser = (id, name, login, password, type) => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
-    Item: {
-      login: login,
-      id: id,
-      name: name,
-      password: password,
-      type: type,
-    },
-    TableName: USER_TABLE_NAME,
-    ConditionExpression: 'attribute_not_exists(login)',
+    TransactItems: [
+      {
+        Put: {
+          Item: {
+            login: login,
+            id: id,
+            name: name,
+            password: password,
+            type: type,
+          },
+          TableName: USER_TABLE_NAME,
+          ConditionExpression: 'attribute_not_exists(id)',
+        },
+      },
+      {
+        Put: {
+          Item: {
+            id: `login#${login}`,
+          },
+          TableName: USER_TABLE_NAME,
+          ConditionExpression: 'attribute_not_exists(id)',
+        },
+      },
+    ],
   }
-  return docClient.put(params).promise()
+  return docClient.transactWrite(params).promise()
 }
 
 const editMenu = (id, name, elements) => {
@@ -209,28 +227,51 @@ const editLesson = (id, name, elements) => {
     .promise()
     .then(({ Attributes }) => Attributes)
 }
-const editUser = (login, name, password, type, id) => {
+const editUser = (login, previousLogin, name, password, type, id) => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   params = {
-    TableName: USER_TABLE_NAME,
-    Key: { id: id },
-    ExpressionAttributeNames: { '#id': 'id', '#name': 'name', '#type': 'type' },
-    ExpressionAttributeValues: {
-      ':newName': name,
-      ':login': login,
-      ':password': password,
-      ':newType': type,
-      ':id': id,
-    },
-    ReturnValues: 'ALL_NEW',
-    UpdateExpression:
-      'set #name = :newName, login = :login, password = :password, #type = :newType',
-    ConditionExpression: ':id = #id',
+    TransactItems: [
+      {
+        Update: {
+          TableName: USER_TABLE_NAME,
+          Key: { id: id },
+          ExpressionAttributeNames: {
+            '#id': 'id',
+            '#name': 'name',
+            '#type': 'type',
+          },
+          ExpressionAttributeValues: {
+            ':newName': name,
+            ':login': login,
+            ':password': password,
+            ':newType': type,
+            ':id': id,
+          },
+          ReturnValues: 'ALL_NEW',
+          UpdateExpression:
+            'set #name = :newName, login = :login, password = :password, #type = :newType',
+          ConditionExpression: ':id = #id',
+        },
+      },
+      {
+        Delete: {
+          Key: { id: `login#${previousLogin}` },
+          TableName: USER_TABLE_NAME,
+          ReturnItemCollectionMetrics: 'SIZE',
+        },
+      },
+      {
+        Put: {
+          Item: {
+            id: `login#${login}`,
+          },
+          TableName: USER_TABLE_NAME,
+          ConditionExpression: 'attribute_not_exists(id)',
+        },
+      },
+    ],
   }
-  return docClient
-    .update(params)
-    .promise()
-    .then(({ Attributes }) => Attributes)
+  return docClient.transactWrite(params).promise()
 }
 
 module.exports = {

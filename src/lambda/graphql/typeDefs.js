@@ -59,10 +59,10 @@ export default gql`
 
   type User {
     id: ID!
-    name: String!
-    login: String!
-    password: String!
-    type: String!
+    name: String
+    login: String
+    password: String
+    type: String
   }
 
   type AddLessonResponse {
@@ -98,6 +98,7 @@ export default gql`
   type EditUserResponse {
     success: Boolean!
     user: User
+    userLogin: User
   }
 
   type AddUserResponse {
@@ -175,6 +176,7 @@ export default gql`
     password: String
     login: String
     type: String
+    previousLogin: String
   }
 
   type Query {
