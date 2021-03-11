@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import { Spinner } from 'shared/Spinner'
 import { AudioWrapper } from './AudioWrapper'
 import { AudioNameWrapper } from './AudioNameWrapper'
 import { AudioButtonWrapper } from './AudioButtonWrapper'
@@ -20,36 +21,45 @@ export const Audio = ({
   deleteAudio,
   changeName,
 }) => {
+  const [loading, setLoading] = useState(false)
   return (
     <AudioWrapper>
       <DragAndDrop audioFilePrefix={audioFilePrefix} updateAudio={updateAudio}>
-        <AudioButtonWrapper>
-          <AudioButton
-            audioUrls={[
-              `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${url}`,
-            ]}
-            size={20}
-            color={colors.grayText}
-          />
-          <FileUploader
-            color={colors.grayText}
-            audioFilePrefix={audioFilePrefix}
-            updateAudio={updateAudio}
-          />
-        </AudioButtonWrapper>
-        <AudioFieldsWrapper>
-          <NameAndUrlWrapper>
-            <AudioNameWrapper>
-              <TextAndInput
-                value={name}
-                onChange={changeName}
-                color={colors.dimmedPrimary}
+        {loading ? (
+          <Spinner />
+        ) : (
+          <>
+            <AudioButtonWrapper>
+              <AudioButton
+                audioUrls={[
+                  `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${url}`,
+                ]}
+                size={20}
+                color={colors.grayText}
               />
-            </AudioNameWrapper>
-          </NameAndUrlWrapper>
-        </AudioFieldsWrapper>
+              <FileUploader
+                color={colors.grayText}
+                loading={loading}
+                setLoading={setLoading}
+                audioFilePrefix={audioFilePrefix}
+                updateAudio={updateAudio}
+              />
+            </AudioButtonWrapper>
+            <AudioFieldsWrapper>
+              <NameAndUrlWrapper>
+                <AudioNameWrapper>
+                  <TextAndInput
+                    value={name}
+                    onChange={changeName}
+                    color={colors.dimmedPrimary}
+                  />
+                </AudioNameWrapper>
+              </NameAndUrlWrapper>
+            </AudioFieldsWrapper>
+            <DeleteAudioButton deleteAudio={deleteAudio} />
+          </>
+        )}
       </DragAndDrop>
-      <DeleteAudioButton deleteAudio={deleteAudio} />
     </AudioWrapper>
   )
 }
