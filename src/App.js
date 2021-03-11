@@ -10,6 +10,7 @@ import { ViewLessonPage } from './ViewLessonPage/ViewLessonPage'
 import { EditLessonPage } from './EditLessonPage/EditLessonPage'
 import { MenuPage } from './MenuPage/MenuPage'
 import { EditMenuPage } from './EditMenuPage/EditMenuPage'
+import { LoginPage } from './Login Page/LoginPage'
 
 const cleanTypeName = new ApolloLink((operation, forward) => {
   if (operation.variables) {
@@ -64,6 +65,9 @@ const Wrapped = () => {
           </Route>
           <Route path="/editMenu">
             <EditMenuPage />
+          </Route>
+          <Route path="/login">
+            <LoginPage />
           </Route>
           <Route path="/">
             <MenuPage id="main" />
