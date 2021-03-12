@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { TextAndInput } from 'shared/TextAndInput'
 import { DeleteConclusionAudioButton } from './DeleteConclusionAudioButton'
@@ -10,6 +10,7 @@ import { OptionalTextWrapper } from './OptionalTextWrapper'
 import { ConclusionAudioButtonsWrapper } from './ConclusionAudioButtonsWrapper'
 import { colors } from 'shared/colors'
 import { DragAndDrop } from '../DragAndDrop'
+import { Spinner } from 'shared/Spinner'
 
 const buildUpdateAudio = ({ conclusionAudio, changeConclusionAudio }) => (
   payload
@@ -40,48 +41,55 @@ export const ConclusionAudio = ({
     const newConclusionAudio = {}
     changeConclusionAudio(newConclusionAudio)
   }
+  const [loading, setLoading] = useState(false)
 
   return (
     <ConclusionAudioWrapper>
       <OptionalTextWrapper>(Opcional)</OptionalTextWrapper>
-      <ConclusionAudioButtonsWrapper>
-        <DragAndDrop
-          audioFilePrefix={audioFilePrefix}
-          updateAudio={buildUpdateAudio({
-            conclusionAudio,
-            changeConclusionAudio,
-          })}
-        >
-          <AudioButton
-            audioUrls={[
-              `https://alfabetiza.s3-sa-east-1.amazonaws.com/${conclusionAudio.url}`,
-            ]}
-            size={20}
-            color={colors.grayText}
-          />
-          <FileUploader
-            color={colors.grayText}
+      {loading ? (
+        <Spinner />
+      ) : (
+        <ConclusionAudioButtonsWrapper>
+          <DragAndDrop
             audioFilePrefix={audioFilePrefix}
             updateAudio={buildUpdateAudio({
               conclusionAudio,
               changeConclusionAudio,
             })}
-          />
-          <ConclusionAudioNameWrapper>
-            <TextAndInput
-              value={conclusionAudio.name}
-              onChange={buildChangeName({
+          >
+            <AudioButton
+              audioUrls={[
+                `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${conclusionAudio.url}`,
+              ]}
+              size={20}
+              color={colors.grayText}
+            />
+            <FileUploader
+              color={colors.grayText}
+              audioFilePrefix={audioFilePrefix}
+              updateAudio={buildUpdateAudio({
                 conclusionAudio,
                 changeConclusionAudio,
               })}
-              color={colors.dimmedPrimary}
+              loading={loading}
+              setLoading={setLoading}
             />
-          </ConclusionAudioNameWrapper>
-          <DeleteConclusionAudioButton
-            deleteAudio={buildDeleteAudio({ changeConclusionAudio })}
-          />
-        </DragAndDrop>
-      </ConclusionAudioButtonsWrapper>
+            <ConclusionAudioNameWrapper>
+              <TextAndInput
+                value={conclusionAudio.name}
+                onChange={buildChangeName({
+                  conclusionAudio,
+                  changeConclusionAudio,
+                })}
+                color={colors.dimmedPrimary}
+              />
+            </ConclusionAudioNameWrapper>
+            <DeleteConclusionAudioButton
+              deleteAudio={buildDeleteAudio({ changeConclusionAudio })}
+            />
+          </DragAndDrop>
+        </ConclusionAudioButtonsWrapper>
+      )}
     </ConclusionAudioWrapper>
   )
 }

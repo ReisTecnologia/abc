@@ -8,6 +8,7 @@ AWS.config.update(config.awsConfig.aws_config)
 
 const TABLE_NAME = 'lessons'
 const MENU_TABLE_NAME = 'menus'
+const USER_TABLE_NAME = 'users'
 
 const getLessons = async function () {
   const docClient = new AWS.DynamoDB.DocumentClient()
@@ -34,6 +35,21 @@ const getMenus = async function () {
     .catch((e) => console.log('error', e))
 }
 
+const getUsers = async function () {
+  const docClient = new AWS.DynamoDB.DocumentClient()
+  const params = {
+    TableName: USER_TABLE_NAME,
+    ExpressionAttributeNames: { '#id': 'id' },
+    ExpressionAttributeValues: { ':login': 'login#' },
+    FilterExpression: 'NOT contains(#id, :login)',
+  }
+  return docClient
+    .scan(params)
+    .promise()
+    .then(({ Items }) => Items)
+    .catch((e) => console.log('error', e))
+}
+
 const getMenu = (id) => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
@@ -42,6 +58,21 @@ const getMenu = (id) => {
     },
     KeyConditionExpression: 'id = :id',
     TableName: MENU_TABLE_NAME,
+  }
+  return docClient
+    .query(params)
+    .promise()
+    .then(({ Items }) => Items[0])
+}
+const getUser = (id) => {
+  const docClient = new AWS.DynamoDB.DocumentClient()
+  const params = {
+    ExpressionAttributeValues: {
+      ':id': id,
+    },
+    KeyConditionExpression: 'id = :id',
+
+    TableName: USER_TABLE_NAME,
   }
   return docClient
     .query(params)
@@ -113,6 +144,36 @@ const addMenu = (id) => {
 
   return docClient.put(params).promise()
 }
+const addUser = (id, name, login, password, type) => {
+  const docClient = new AWS.DynamoDB.DocumentClient()
+  const params = {
+    TransactItems: [
+      {
+        Put: {
+          Item: {
+            login: login,
+            id: id,
+            name: name,
+            password: password,
+            type: type,
+          },
+          TableName: USER_TABLE_NAME,
+          ConditionExpression: 'attribute_not_exists(id)',
+        },
+      },
+      {
+        Put: {
+          Item: {
+            id: `login#${login}`,
+          },
+          TableName: USER_TABLE_NAME,
+          ConditionExpression: 'attribute_not_exists(id)',
+        },
+      },
+    ],
+  }
+  return docClient.transactWrite(params).promise()
+}
 
 const editMenu = (id, name, elements) => {
   const docClient = new AWS.DynamoDB.DocumentClient()
@@ -166,10 +227,60 @@ const editLesson = (id, name, elements) => {
     .promise()
     .then(({ Attributes }) => Attributes)
 }
+const editUser = (login, previousLogin, name, password, type, id) => {
+  const docClient = new AWS.DynamoDB.DocumentClient()
+  params = {
+    TransactItems: [
+      {
+        Update: {
+          TableName: USER_TABLE_NAME,
+          Key: { id: id },
+          ExpressionAttributeNames: {
+            '#id': 'id',
+            '#name': 'name',
+            '#type': 'type',
+          },
+          ExpressionAttributeValues: {
+            ':newName': name,
+            ':login': login,
+            ':password': password,
+            ':newType': type,
+            ':id': id,
+          },
+          ReturnValues: 'ALL_NEW',
+          UpdateExpression:
+            'set #name = :newName, login = :login, password = :password, #type = :newType',
+          ConditionExpression: ':id = #id',
+        },
+      },
+      {
+        Delete: {
+          Key: { id: `login#${previousLogin}` },
+          TableName: USER_TABLE_NAME,
+          ReturnItemCollectionMetrics: 'SIZE',
+        },
+      },
+      {
+        Put: {
+          Item: {
+            id: `login#${login}`,
+          },
+          TableName: USER_TABLE_NAME,
+          ConditionExpression: 'attribute_not_exists(id)',
+        },
+      },
+    ],
+  }
+  return docClient.transactWrite(params).promise()
+}
 
 module.exports = {
   getLessons,
   getLesson,
+  getUser,
+  getUsers,
+  editUser,
+  addUser,
   addLesson,
   getMenu,
   getMenus,

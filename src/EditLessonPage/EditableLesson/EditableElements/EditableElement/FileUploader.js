@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback } from 'react'
+import React, { useRef, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Spinner } from 'shared/Spinner'
@@ -60,9 +60,10 @@ export const FileUploader = ({
   videoFilePrefix,
   updateVideo,
   color,
+  loading,
+  setLoading,
 }) => {
   const inputFile = useRef(null)
-  const [loading, setLoading] = useState(false)
 
   const onUploadButtonClick = () => {
     inputFile.current.click()
@@ -123,6 +124,7 @@ export const FileUploader = ({
       updateVideo,
       audioFilePrefix,
       updateAudio,
+      setLoading,
     ]
   )
   return (
@@ -157,6 +159,8 @@ FileUploader.propTypes = {
   updateRightAnswerAudio: PropTypes.func,
   updateWrongAnswerAudio: PropTypes.func,
   color: PropTypes.string,
+  loading: PropTypes.bool,
+  setLoading: PropTypes.func,
   videoFilePrefix: PropTypes.string,
   updateVideo: PropTypes.func,
 }
