@@ -53,7 +53,7 @@ const Button = styled.div`
     background-color: ${colors.primary};
     border-radius: 7px;
     cursor: pointer;
-    min-width: 200px;
+    width: 100%;
     margin-top: 4px;
   }
 `

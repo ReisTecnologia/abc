@@ -8,6 +8,10 @@ import { ConclusionAudioNameWrapper } from './ConclusionAudioNameWrapper'
 import { ConclusionAudioWrapper } from './ConclusionAudioWrapper'
 import { OptionalTextWrapper } from './OptionalTextWrapper'
 import { ConclusionAudioButtonsWrapper } from './ConclusionAudioButtonsWrapper'
+import {
+  AudioButtonWrapper,
+  AudioButtonMobileWrapper,
+} from '../AudioButtonWrappers'
 import { colors } from 'shared/colors'
 import { DragAndDrop } from '../DragAndDrop'
 import { Spinner } from 'shared/Spinner'
@@ -43,6 +47,16 @@ export const ConclusionAudio = ({
   }
   const [loading, setLoading] = useState(false)
 
+  const AudioButtonBuilder = (size) => (
+    <AudioButton
+      audioUrls={[
+        `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${conclusionAudio.url}`,
+      ]}
+      size={size}
+      color={colors.grayText}
+    />
+  )
+
   return (
     <ConclusionAudioWrapper>
       <OptionalTextWrapper>(Opcional)</OptionalTextWrapper>
@@ -57,13 +71,10 @@ export const ConclusionAudio = ({
               changeConclusionAudio,
             })}
           >
-            <AudioButton
-              audioUrls={[
-                `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${conclusionAudio.url}`,
-              ]}
-              size={20}
-              color={colors.grayText}
-            />
+            <AudioButtonWrapper>{AudioButtonBuilder(20)}</AudioButtonWrapper>
+            <AudioButtonMobileWrapper>
+              {AudioButtonBuilder(17)}
+            </AudioButtonMobileWrapper>
             <FileUploader
               color={colors.grayText}
               audioFilePrefix={audioFilePrefix}

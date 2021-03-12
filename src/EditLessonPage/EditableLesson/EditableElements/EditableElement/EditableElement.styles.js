@@ -8,7 +8,7 @@ export const ElementControlWrapper = styled.div`
     width: 50%;
   }
   @media (max-width: 719px) {
-    margin: 20px;
+    margin: 20px 5px;
     flex: 1;
   }
 `
@@ -27,13 +27,13 @@ export const ElementWrapper = styled.div`
   }
 `
 export const Title = styled.div`
-  @media (min-width: 361px) {
+  /* @media (min-width: 361px) {
     display: inline-block;
     position: relative;
     left: 65px;
   }
   @media (max-width: 360px) {
-  }
+  } */
 `
 
 export const TitleRow = styled.div`
@@ -67,6 +67,20 @@ export const EditableElementRow = styled.div`
   @media (max-width: 719px) {
     display: flex;
     flex-direction: column;
+  }
+`
+export const ButtonsRowWrapper = styled.div`
+  @media (min-width: 361px) {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row-reverse;
+    padding: 15px 0;
+  }
+  @media (max-width: 360px) {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row-reverse;
+    padding: 15px 0;
   }
 `
 

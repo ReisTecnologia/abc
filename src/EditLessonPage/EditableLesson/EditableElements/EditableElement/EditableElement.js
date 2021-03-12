@@ -12,6 +12,7 @@ import {
   Title,
   EditableElementRow,
   EditableElementWrapper,
+  ButtonsRowWrapper,
 } from './EditableElement.styles.js'
 
 const typesAndNames = {
@@ -37,13 +38,6 @@ export const EditableElement = ({
     <EditableElementWrapper>
       <TitleRow>
         <Title>{typesAndNames[elementParams.type]} </Title>
-        <DeleteElementButton deleteElement={deleteElement} />
-        <MoveButtons
-          onUp={onUp}
-          onDown={onDown}
-          canMoveDown={canMoveDown}
-          canMoveUp={canMoveUp}
-        />
       </TitleRow>
       <EditableElementRow>
         <ElementControlWrapper>
@@ -55,6 +49,15 @@ export const EditableElement = ({
         </ElementControlWrapper>
         <ElementWrapper>{children}</ElementWrapper>
       </EditableElementRow>
+      <ButtonsRowWrapper>
+        <DeleteElementButton deleteElement={deleteElement} />
+        <MoveButtons
+          onUp={onUp}
+          onDown={onDown}
+          canMoveDown={canMoveDown}
+          canMoveUp={canMoveUp}
+        />
+      </ButtonsRowWrapper>
     </EditableElementWrapper>
   )
 }

@@ -7,6 +7,7 @@ const InputFieldWrapper = styled.div`
   cursor: ${({ onClick }) => (onClick ? 'pointer' : null)};
   padding-left: 10px;
   height: 1.5rem;
+  max-width: 70%;
 `
 
 const InputFieldInput = styled.input`
