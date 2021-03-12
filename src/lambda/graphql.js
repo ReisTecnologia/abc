@@ -21,7 +21,8 @@ const resolvers = {
       const menu = await db.getMenu(args.id)
       return menu
     },
-    menus: async () => {
+    menus: async (parend, args, context) => {
+      console.log('menus: context', context)
       const menus = db.getMenus()
       return menus
     },
@@ -194,4 +195,49 @@ const server = new ApolloServer({
   introspection: true,
   playground: true,
 })
-exports.handler = server.createHandler()
+
+const invokeHandler = (event, context, handler) => {
+  return new Promise((resolve, reject) => {
+    const callback = (error, body) => (error ? reject(error) : resolve(body))
+    handler(event, context, callback)
+  })
+}
+
+exports.handler = async (event, context) => {
+  const graphqlHandler = server.createHandler({
+    cors: {
+      exposedHeaders: 'x-access-token,x-refresh-token',
+      origin: '*',
+      credentials: true,
+    },
+  })
+
+  // grab the headers here and validate them
+  console.log('event.headers', event.headers)
+
+  let response
+  try {
+    // if you validate the jwt, you can inject the user in the context to grab it in the resolvers...
+    const loggedUser = {}
+    response = await invokeHandler(
+      event,
+      { loggedUser, ...context },
+      graphqlHandler
+    )
+  } catch (error) {
+    console.error(error)
+    throw new Error(error.message)
+  } finally {
+    //
+  }
+  // I'm not sure if you really need this, but this is a way to set this headers in the response
+  // if you don't need it, please let me know, because all this "invokeHandler part" may be discarded if that's the case
+  return {
+    ...response,
+    headers: {
+      ...response.headers,
+      'x-access-token': 'acesso',
+      'x-refresh-token': 'refresh',
+    },
+  }
+}
