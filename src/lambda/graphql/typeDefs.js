@@ -11,6 +11,11 @@ export default gql`
     urlWord: String
   }
 
+  type Tokens {
+    accessToken: String
+    refreshToken: String
+  }
+
   type Audio {
     name: String!
     url: String!
@@ -184,7 +189,7 @@ export default gql`
     lesson(id: String!): Lesson
     menu(id: String!): Menu
     menus: [Menu]
-    user(id: ID!): User
+    user(id: ID, login: String): User
     users: [User]
   }
 
@@ -198,5 +203,6 @@ export default gql`
     cleanupLessonFiles(id: ID!): CleanupLessonFilesResponse
     editLesson(id: ID!, input: EditLessonInput!): EditLessonResponse
     editUser(id: ID!, input: EditUserInput!): EditUserResponse
+    signIn(login: String, password: String!): Tokens
   }
 `

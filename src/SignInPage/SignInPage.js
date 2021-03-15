@@ -2,14 +2,14 @@ import React from 'react'
 import { HeaderWrapper } from 'shared/HeaderWrapper'
 import { Container } from 'shared/Container'
 import { Layout } from 'shared/Layout'
-import { LoginForm } from './LoginForm'
+import { SignInForm } from './SignInForm'
 
-export const LoginPage = () => {
+export const SignInPage = () => {
   return (
     <Layout>
       <HeaderWrapper></HeaderWrapper>
       <Container>
-        <LoginForm />
+        <SignInForm />
       </Container>
     </Layout>
   )

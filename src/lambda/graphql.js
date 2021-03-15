@@ -6,6 +6,7 @@ const AWS = require('aws-sdk')
 // const pbkdf2 = require('pbkdf2')
 import { getAllFilesFromLesson } from './graphql/getAllFilesFromLesson'
 import { detectOrphanFiles } from './graphql/detectOrphanFiles'
+import { setTokens } from './JWToken/SetTokens'
 
 const resolvers = {
   Query: {
@@ -21,12 +22,13 @@ const resolvers = {
       const menu = await db.getMenu(args.id)
       return menu
     },
-    menus: async () => {
+    menus: async (parend, args, context) => {
+      console.log('menus: context', context)
       const menus = db.getMenus()
       return menus
     },
     user: async (parent, args) => {
-      const user = await db.getUser(args.id)
+      const user = await db.getUser(args.login, args.id)
       return user
     },
     users: async () => {
@@ -35,6 +37,15 @@ const resolvers = {
     },
   },
   Mutation: {
+    signIn: async (parent, args, context) => {
+      const user = await db.getUser(args.login)
+      console.log('user', user)
+      console.log('context mutation', context)
+      if (!user) return null
+      // const passwordValid = await validatePassword(args.password, user.password)
+      // if (!passwordValid) return null
+      return setTokens(user)
+    },
     addLesson: async () => {
       const success = await db
         .addLesson(uuidv4())
@@ -194,4 +205,53 @@ const server = new ApolloServer({
   introspection: true,
   playground: true,
 })
-exports.handler = server.createHandler()
+const invokeHandler = (event, context, handler) => {
+  return new Promise((resolve, reject) => {
+    const callback = (error, body) => (error ? reject(error) : resolve(body))
+    handler(event, context, callback)
+  })
+}
+
+exports.handler = async (event, context) => {
+  const graphqlHandler = server.createHandler({
+    cors: {
+      exposedHeaders: 'x-access-token,x-refresh-token',
+      origin: '*',
+      credentials: true,
+    },
+  })
+
+  // grab the headers here and validate them
+  console.log('event.headers', event.headers)
+  console.log('context gql', context)
+  const refreshToken = event.headers['x-refresh-token']
+  const accessToken = event.headers['x-access-token']
+  console.log('refreshToken', refreshToken)
+  console.log('accessToken', accessToken)
+
+  let response
+  try {
+    // if you validate the jwt, you can inject the user in the context to grab it in the resolvers...
+    const loggedUser = {}
+    response = await invokeHandler(
+      event,
+      { loggedUser, ...context },
+      graphqlHandler
+    )
+  } catch (error) {
+    console.error(error)
+    throw new Error(error.message)
+  } finally {
+    //
+  }
+  // I'm not sure if you really need this, but this is a way to set this headers in the response
+  // if you don't need it, please let me know, because all this "invokeHandler part" may be discarded if that's the case
+  return {
+    ...response,
+    headers: {
+      ...response.headers,
+      'x-access-token': refreshToken,
+      'x-refresh-token': accessToken,
+    },
+  }
+}

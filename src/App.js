@@ -10,10 +10,21 @@ import { ViewLessonPage } from './ViewLessonPage/ViewLessonPage'
 import { EditLessonPage } from './EditLessonPage/EditLessonPage'
 import { MenuPage } from './MenuPage/MenuPage'
 import { EditMenuPage } from './EditMenuPage/EditMenuPage'
-import { LoginPage } from './Login Page/LoginPage'
-import { ViewMenuPage } from 'MenuPage/ViewMenuPage'
+import { SignInPage } from './SignInPage/SignInPage'
+import { ViewMenuPage } from './MenuPage/ViewMenuPage'
+import { getTokens } from './SignInPage/ManageTokens'
 
 const cleanTypeName = new ApolloLink((operation, forward) => {
+  const tokens = getTokens()
+  if (tokens && tokens.accessToken) {
+    operation.setContext(({ headers }) => ({
+      headers: {
+        ...headers,
+        'x-access-token': tokens.accessToken,
+        'x-refresh-token': tokens.refreshToken,
+      },
+    }))
+  }
   if (operation.variables) {
     const omitTypename = (key, value) =>
       key === '__typename' ? undefined : value
@@ -26,12 +37,25 @@ const cleanTypeName = new ApolloLink((operation, forward) => {
     return data
   })
 })
+// const authMiddleWare = new ApolloLink((operation, forward) => {
+//   const tokens = getTokens()
+//   if (tokens && tokens.accessToken) {
+//     operation.setContext(({ headers }) => ({
+//       headers: {
+//         ...headers,
+//         'x-access-token': tokens.accessToken,
+//         'x-refresh-token': tokens.refreshToken,
+//       },
+//     }))
+//   }
+//   return forward(operation)
+// })
 
 const httpLink = new HttpLink({ uri: '/.netlify/functions/graphql' })
 
 const client = new ApolloClient({
-  link: concat(cleanTypeName, httpLink),
   cache: new InMemoryCache(),
+  link: concat(cleanTypeName, httpLink),
 })
 
 const ApolloApp = (Wrapped) => (
@@ -67,8 +91,8 @@ const Wrapped = () => {
           <Route path="/editMenu">
             <EditMenuPage />
           </Route>
-          <Route path="/login">
-            <LoginPage />
+          <Route path="/signin">
+            <SignInPage />
           </Route>
           <Route path="/viewMenu">
             <ViewMenuPage />

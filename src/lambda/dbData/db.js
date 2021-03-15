@@ -64,18 +64,16 @@ const getMenu = (id) => {
     .promise()
     .then(({ Items }) => Items[0])
 }
-const getUser = (id) => {
+const getUser = (login, id) => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
-    ExpressionAttributeValues: {
-      ':id': id,
-    },
-    KeyConditionExpression: 'id = :id',
+    ExpressionAttributeValues: login ? { ':login': login } : { ':id': id },
+    FilterExpression: login ? 'login = :login' : 'id = :id',
 
     TableName: USER_TABLE_NAME,
   }
   return docClient
-    .query(params)
+    .scan(params)
     .promise()
     .then(({ Items }) => Items[0])
 }
