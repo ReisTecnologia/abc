@@ -5,6 +5,7 @@ import { DeleteWordButton } from './DeleteWordButton'
 import { TextInput } from './TextInput'
 import { WordFieldsWrapper } from './WordFieldsWrapper'
 import { WordWrapper } from './WordWrapper'
+import { Spinner } from 'shared/Spinner'
 import { StartsWithTheLetterInputField } from './StartsWithTheLetterInputField'
 import { AnswerButtonsWrapper } from './AnswerButtonsWrapper'
 import { WordAndAnswerWrapper } from './WordAndAnswerWrapper'
@@ -32,6 +33,9 @@ export const Word = ({
   changeWrongAnswerExplanation,
 }) => {
   const [showRadioButtons, setShowRadioButtons] = useState(false)
+  const [wordLoading, setWordLoading] = useState(false)
+  const [rightAnswerLoading, setRightAnswerLoading] = useState(false)
+  const [wrongAnswerLoading, setWrongAnswerLoading] = useState(false)
 
   const showButtons = () => setShowRadioButtons(true)
   const hideButtons = () => setShowRadioButtons(false)
@@ -50,96 +54,114 @@ export const Word = ({
     <WordWrapper>
       <WordFieldsWrapper>
         <WordAndAnswerWrapper ref={ref}>
-          <DragAndDrop
-            audioFilePrefix={audioFilePrefix}
-            updateWordAudio={updateAudio}
-          >
-            <AudioButton
-              audioUrls={[
-                `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${urlWord}`,
-              ]}
-              size={20}
-              color={colors.grayText}
-            />
-            <FileUploader
-              color={colors.grayText}
+          {wordLoading ? (
+            <Spinner />
+          ) : (
+            <DragAndDrop
               audioFilePrefix={audioFilePrefix}
               updateWordAudio={updateAudio}
-            />
-            <TextInput
-              value={word}
-              onChange={changeName}
-              color={colors.dimmedPrimary}
-              width={'20%'}
-            />
-            <AnswerButtonsWrapper onClick={toggleButtons}>
-              {showRadioButtons ? (
-                <StartsWithTheLetterInputField
-                  word={word}
-                  updateAudio={updateAudio}
-                  startsWithTheLetter={startsWithTheLetter}
-                />
-              ) : (
-                resposta
-              )}
-            </AnswerButtonsWrapper>
-          </DragAndDrop>
+            >
+              <AudioButton
+                audioUrls={[
+                  `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${urlWord}`,
+                ]}
+                size={20}
+                color={colors.grayText}
+              />
+              <FileUploader
+                color={colors.grayText}
+                audioFilePrefix={audioFilePrefix}
+                updateWordAudio={updateAudio}
+                loading={wordLoading}
+                setLoading={setWordLoading}
+              />
+              <TextInput
+                value={word}
+                onChange={changeName}
+                color={colors.dimmedPrimary}
+                width={'20%'}
+              />
+              <AnswerButtonsWrapper onClick={toggleButtons}>
+                {showRadioButtons ? (
+                  <StartsWithTheLetterInputField
+                    word={word}
+                    updateAudio={updateAudio}
+                    startsWithTheLetter={startsWithTheLetter}
+                  />
+                ) : (
+                  resposta
+                )}
+              </AnswerButtonsWrapper>
+            </DragAndDrop>
+          )}
         </WordAndAnswerWrapper>
         <WordRightAnswerWrapper>
-          <DragAndDrop
-            audioFilePrefix={audioFilePrefix}
-            updateRightAnswerAudio={updateAudio}
-          >
-            <AudioButton
-              audioUrls={[
-                `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${urlRightAnswerExplanation}`,
-              ]}
-              size={20}
-              color={colors.grayText}
-            />
-            <FileUploader
-              color={colors.grayText}
+          {rightAnswerLoading ? (
+            <Spinner />
+          ) : (
+            <DragAndDrop
               audioFilePrefix={audioFilePrefix}
               updateRightAnswerAudio={updateAudio}
-            />
-            <WordAnswerInfoWrapper>
-              Acertou?
-              <TextInput
-                value={rightAnswerExplanation}
-                onChange={changeRightAnswerExplanation}
+            >
+              <AudioButton
+                audioUrls={[
+                  `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${urlRightAnswerExplanation}`,
+                ]}
+                size={20}
                 color={colors.grayText}
-                width={'100%'}
               />
-            </WordAnswerInfoWrapper>
-          </DragAndDrop>
+              <FileUploader
+                color={colors.grayText}
+                audioFilePrefix={audioFilePrefix}
+                updateRightAnswerAudio={updateAudio}
+                loading={rightAnswerLoading}
+                setLoading={setRightAnswerLoading}
+              />
+              <WordAnswerInfoWrapper>
+                Acertou?
+                <TextInput
+                  value={rightAnswerExplanation}
+                  onChange={changeRightAnswerExplanation}
+                  color={colors.grayText}
+                  width={'100%'}
+                />
+              </WordAnswerInfoWrapper>
+            </DragAndDrop>
+          )}
         </WordRightAnswerWrapper>
         <WordWrongAnswerWrapper>
-          <DragAndDrop
-            audioFilePrefix={audioFilePrefix}
-            updateWrongAnswerAudio={updateAudio}
-          >
-            <AudioButton
-              audioUrls={[
-                `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${urlWrongAnswerExplanation}`,
-              ]}
-              size={20}
-              color={colors.grayText}
-            />
-            <FileUploader
-              color={colors.grayText}
+          {wrongAnswerLoading ? (
+            <Spinner />
+          ) : (
+            <DragAndDrop
               audioFilePrefix={audioFilePrefix}
               updateWrongAnswerAudio={updateAudio}
-            />
-            <WordAnswerInfoWrapper>
-              Errou?
-              <TextInput
-                value={wrongAnswerExplanation}
-                onChange={changeWrongAnswerExplanation}
+            >
+              <AudioButton
+                audioUrls={[
+                  `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${urlWrongAnswerExplanation}`,
+                ]}
+                size={20}
                 color={colors.grayText}
-                width={'100%'}
               />
-            </WordAnswerInfoWrapper>
-          </DragAndDrop>
+              <FileUploader
+                color={colors.grayText}
+                audioFilePrefix={audioFilePrefix}
+                updateWrongAnswerAudio={updateAudio}
+                loading={wrongAnswerLoading}
+                setLoading={setWrongAnswerLoading}
+              />
+              <WordAnswerInfoWrapper>
+                Errou?
+                <TextInput
+                  value={wrongAnswerExplanation}
+                  onChange={changeWrongAnswerExplanation}
+                  color={colors.grayText}
+                  width={'100%'}
+                />
+              </WordAnswerInfoWrapper>
+            </DragAndDrop>
+          )}
         </WordWrongAnswerWrapper>
       </WordFieldsWrapper>
       <DeleteWordButton deleteWord={deleteWord} />

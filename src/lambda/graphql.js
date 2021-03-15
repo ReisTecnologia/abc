@@ -3,6 +3,7 @@ import db from './dbData/db'
 import { v4 as uuidv4 } from 'uuid'
 import typeDefs from './graphql/typeDefs'
 const AWS = require('aws-sdk')
+// const pbkdf2 = require('pbkdf2')
 import { getAllFilesFromLesson } from './graphql/getAllFilesFromLesson'
 import { detectOrphanFiles } from './graphql/detectOrphanFiles'
 
@@ -23,6 +24,14 @@ const resolvers = {
     menus: async () => {
       const menus = db.getMenus()
       return menus
+    },
+    user: async (parent, args) => {
+      const user = await db.getUser(args.id)
+      return user
+    },
+    users: async () => {
+      const users = db.getUsers()
+      return users
     },
   },
   Mutation: {
@@ -141,6 +150,40 @@ const resolvers = {
           success = true
         })
       return { success, menu }
+    },
+    editUser: async (parent, args) => {
+      let success = await db
+        .editUser(
+          args.input.login,
+          args.input.previousLogin,
+          args.input.name,
+          args.input.password,
+          args.input.type,
+          args.id
+        )
+        .then(() => true)
+        .catch(() => false)
+      const user = await db.getUser(args.id)
+      const userLogin = await db.getUser(`login#${args.input.login}`)
+      return { success, user, userLogin }
+    },
+    addUser: async (parent, args) => {
+      let success = false
+      success = await db
+        .addUser(
+          uuidv4(),
+          args.input.name,
+          args.input.login,
+          // pbkdf2
+          //   .pbkdf2Sync(args.input.password, 'salt', 1, 32, 'sha512')
+          //   .toString(),
+          args.input.password,
+          args.input.type
+        )
+        .then(() => true)
+        .catch(() => false)
+      const users = await db.getUsers()
+      return { success, users }
     },
   },
 }
