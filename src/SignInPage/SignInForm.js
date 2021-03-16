@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import React, { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import { SIGNIN_MUTATION } from './SIGNIN_MUTATION'
-import { saveTokens, getTokens } from './ManageTokens'
+import { saveTokens } from './ManageTokens'
 
 const Form = styled.form`
   display: flex;
@@ -27,7 +27,9 @@ export const SignInForm = () => {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
 
-  const [signIn] = useMutation(SIGNIN_MUTATION)
+  const [signIn, { data }] = useMutation(SIGNIN_MUTATION, {
+    variables: { login: login, password: password },
+  })
 
   const handleLoginChange = (e) => {
     setLogin(e.target.value)
@@ -37,19 +39,18 @@ export const SignInForm = () => {
     setPassword(e.target.value)
   }
 
-  const submitSignIn = async (e) => {
+  const submitSignIn = (e) => {
     e.preventDefault()
-    const { data } = await signIn({
-      variables: { login: login, password: password },
-    })
+    signIn()
     if (data && data.signIn) {
       saveTokens(data.signIn)
-      console.log('getTokens', getTokens())
+      console.log('data', data)
+      console.log('data.signIn', data.signIn)
     }
   }
   return (
     <Wrapper>
-      <Form>
+      <Form onSubmit={submitSignIn}>
         <Label>Usuário:</Label>
         <input
           type="text"
@@ -64,7 +65,7 @@ export const SignInForm = () => {
           value={password}
           onChange={handlePasswordChange}
         />
-        <SubmitButton onClick={submitSignIn}>Entrar</SubmitButton>
+        <SubmitButton value="submit">Entrar</SubmitButton>
       </Form>
     </Wrapper>
   )

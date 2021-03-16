@@ -1,4 +1,5 @@
 const { ApolloServer } = require('apollo-server-lambda')
+const { AuthenticationError } = require('apollo-server-lambda')
 import db from './dbData/db'
 import { v4 as uuidv4 } from 'uuid'
 import typeDefs from './graphql/typeDefs'
@@ -7,6 +8,11 @@ const AWS = require('aws-sdk')
 import { getAllFilesFromLesson } from './graphql/getAllFilesFromLesson'
 import { detectOrphanFiles } from './graphql/detectOrphanFiles'
 import { setTokens } from './JWToken/SetTokens'
+import {
+  validateAccessToken,
+  validateRefreshToken,
+} from './JWToken/ValidateTokens'
+const isEmpty = require('lodash.isempty')
 
 const resolvers = {
   Query: {
@@ -22,7 +28,7 @@ const resolvers = {
       const menu = await db.getMenu(args.id)
       return menu
     },
-    menus: async (parend, args, context) => {
+    menus: async (parent, args, context) => {
       console.log('menus: context', context)
       const menus = db.getMenus()
       return menus
@@ -35,11 +41,18 @@ const resolvers = {
       const users = db.getUsers()
       return users
     },
+    signedInUser: async (parent, args, context) => {
+      console.log('context signed', context)
+      if (isEmpty(context.User))
+        throw new AuthenticationError('Must authenticate')
+      let login = null
+      const user = await db.getUser(login, context.User.id)
+      return user
+    },
   },
   Mutation: {
     signIn: async (parent, args, context) => {
       const user = await db.getUser(args.login)
-      console.log('user', user)
       console.log('context mutation', context)
       if (!user) return null
       // const passwordValid = await validatePassword(args.password, user.password)
@@ -204,6 +217,10 @@ const server = new ApolloServer({
   resolvers,
   introspection: true,
   playground: true,
+  context: ({ context }) => ({
+    User: context.user,
+    ...context,
+  }),
 })
 const invokeHandler = (event, context, handler) => {
   return new Promise((resolve, reject) => {
@@ -223,21 +240,27 @@ exports.handler = async (event, context) => {
 
   // grab the headers here and validate them
   console.log('event.headers', event.headers)
-  console.log('context gql', context)
   const refreshToken = event.headers['x-refresh-token']
   const accessToken = event.headers['x-access-token']
-  console.log('refreshToken', refreshToken)
-  console.log('accessToken', accessToken)
+
+  const decodedAccessToken = validateAccessToken(accessToken)
+
+  if (decodedAccessToken && decodedAccessToken.user) {
+    context.user = decodedAccessToken.user
+  }
+
+  const decodedRefreshToken = validateRefreshToken(refreshToken)
+  if (decodedRefreshToken && decodedRefreshToken.user) {
+    context.user = decodedRefreshToken.user
+    // let login = null
+    // const user = await db.getUser(login, decodedRefreshToken.user.id)
+    //  const userTokens = setTokens(user)
+  }
 
   let response
   try {
     // if you validate the jwt, you can inject the user in the context to grab it in the resolvers...
-    const loggedUser = {}
-    response = await invokeHandler(
-      event,
-      { loggedUser, ...context },
-      graphqlHandler
-    )
+    response = await invokeHandler(event, context, graphqlHandler)
   } catch (error) {
     console.error(error)
     throw new Error(error.message)
@@ -250,8 +273,8 @@ exports.handler = async (event, context) => {
     ...response,
     headers: {
       ...response.headers,
-      'x-access-token': refreshToken,
-      'x-refresh-token': accessToken,
+      'x-access-token': refreshToken ? refreshToken : null,
+      'x-refresh-token': accessToken ? accessToken : null,
     },
   }
 }

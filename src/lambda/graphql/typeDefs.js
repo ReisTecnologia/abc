@@ -191,6 +191,7 @@ export default gql`
     menus: [Menu]
     user(id: ID, login: String): User
     users: [User]
+    signedInUser: User
   }
 
   type Mutation {
