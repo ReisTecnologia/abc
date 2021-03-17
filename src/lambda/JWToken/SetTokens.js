@@ -5,6 +5,7 @@ export const setTokens = (user) => {
   const fifteenMins = 60 * 15 * 1000
   const accessUser = {
     id: user.id,
+    type: user.type,
   }
   const accessToken = sign({ user: accessUser }, 'secretAccessKey', {
     expiresIn: fifteenMins,
@@ -12,6 +13,7 @@ export const setTokens = (user) => {
   const refreshUser = {
     id: user.id,
     count: user.tokenCount,
+    type: user.type,
   }
   const refreshToken = sign({ user: refreshUser }, 'secretRefreshKey', {
     expiresIn: sevenDays,

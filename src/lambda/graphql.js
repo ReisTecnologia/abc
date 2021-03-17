@@ -7,11 +7,11 @@ const AWS = require('aws-sdk')
 // const pbkdf2 = require('pbkdf2')
 import { getAllFilesFromLesson } from './graphql/getAllFilesFromLesson'
 import { detectOrphanFiles } from './graphql/detectOrphanFiles'
-import { setTokens } from './JWToken/SetTokens'
+import { setTokens } from './JWToken/setTokens'
 import {
   validateAccessToken,
   validateRefreshToken,
-} from './JWToken/ValidateTokens'
+} from './JWToken/validateTokens'
 const isEmpty = require('lodash.isempty')
 
 const resolvers = {
@@ -43,10 +43,9 @@ const resolvers = {
     },
     signedInUser: async (parent, args, context) => {
       console.log('context signed', context)
-      if (isEmpty(context.User))
+      if (isEmpty(context.user))
         throw new AuthenticationError('Must authenticate')
-      let login = null
-      const user = await db.getUser(login, context.User.id)
+      const user = await db.getUser(null, context.user.id)
       return user
     },
   },
@@ -217,10 +216,7 @@ const server = new ApolloServer({
   resolvers,
   introspection: true,
   playground: true,
-  context: ({ context }) => ({
-    User: context.user,
-    ...context,
-  }),
+  context: ({ context }) => context,
 })
 const invokeHandler = (event, context, handler) => {
   return new Promise((resolve, reject) => {
@@ -239,23 +235,36 @@ exports.handler = async (event, context) => {
   })
 
   // grab the headers here and validate them
-  console.log('event.headers', event.headers)
+
   const refreshToken = event.headers['x-refresh-token']
   const accessToken = event.headers['x-access-token']
-
-  const decodedAccessToken = validateAccessToken(accessToken)
-
-  if (decodedAccessToken && decodedAccessToken.user) {
-    context.user = decodedAccessToken.user
+  let headerTokens = {}
+  const tokenAuthentication = async () => {
+    if (!accessToken && !refreshToken) {
+      return
+    } else if (accessToken) {
+      const decodedAccessToken = validateAccessToken(accessToken)
+      if (decodedAccessToken && decodedAccessToken.user) {
+        context.user = decodedAccessToken.user
+      }
+    } else if (refreshToken) {
+      const decodedRefreshToken = validateRefreshToken(refreshToken)
+      if (decodedRefreshToken && decodedRefreshToken.user) {
+        context.user = decodedRefreshToken.user
+        const user = await db.getUser(null, decodedRefreshToken.user.id)
+        const userTokens = setTokens(user)
+        headerTokens = {
+          'Access-Control-Expose-Headers': 'x-access-token,x-refresh-token',
+          'x-access-token': userTokens.accessToken,
+          'x-refresh-token': userTokens.refreshToken,
+        }
+        return headerTokens
+      }
+    }
   }
+  await tokenAuthentication()
 
-  const decodedRefreshToken = validateRefreshToken(refreshToken)
-  if (decodedRefreshToken && decodedRefreshToken.user) {
-    context.user = decodedRefreshToken.user
-    // let login = null
-    // const user = await db.getUser(login, decodedRefreshToken.user.id)
-    //  const userTokens = setTokens(user)
-  }
+  console.log('headertokens', headerTokens)
 
   let response
   try {
@@ -273,8 +282,12 @@ exports.handler = async (event, context) => {
     ...response,
     headers: {
       ...response.headers,
-      'x-access-token': refreshToken ? refreshToken : null,
-      'x-refresh-token': accessToken ? accessToken : null,
+      'x-access-token': headerTokens.accessToken
+        ? headerTokens.accessToken
+        : null,
+      'x-refresh-token': headerTokens.refreshToken
+        ? headerTokens.refreshToken
+        : null,
     },
   }
 }

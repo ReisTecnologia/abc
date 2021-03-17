@@ -1,6 +1,6 @@
 import React from 'react'
-import { ApolloClient, InMemoryCache } from '@apollo/client'
-import { ApolloLink, concat } from 'apollo-link'
+import { ApolloClient, InMemoryCache, from } from '@apollo/client'
+import { ApolloLink } from 'apollo-link'
 import { ApolloProvider } from '@apollo/client'
 import { HttpLink } from 'apollo-link-http'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
@@ -12,19 +12,9 @@ import { MenuPage } from './MenuPage/MenuPage'
 import { EditMenuPage } from './EditMenuPage/EditMenuPage'
 import { SignInPage } from './SignInPage/SignInPage'
 import { ViewMenuPage } from './MenuPage/ViewMenuPage'
-import { getTokens } from './SignInPage/ManageTokens'
+import { getTokens } from 'shared/ManageTokens'
 
 const cleanTypeName = new ApolloLink((operation, forward) => {
-  const tokens = getTokens()
-  if (tokens && tokens.accessToken) {
-    operation.setContext(({ headers }) => ({
-      headers: {
-        ...headers,
-        'x-access-token': tokens.accessToken,
-        'x-refresh-token': tokens.refreshToken,
-      },
-    }))
-  }
   if (operation.variables) {
     const omitTypename = (key, value) =>
       key === '__typename' ? undefined : value
@@ -37,25 +27,25 @@ const cleanTypeName = new ApolloLink((operation, forward) => {
     return data
   })
 })
-// const authMiddleWare = new ApolloLink((operation, forward) => {
-//   const tokens = getTokens()
-//   if (tokens && tokens.accessToken) {
-//     operation.setContext(({ headers }) => ({
-//       headers: {
-//         ...headers,
-//         'x-access-token': tokens.accessToken,
-//         'x-refresh-token': tokens.refreshToken,
-//       },
-//     }))
-//   }
-//   return forward(operation)
-// })
+const setTokensInHeader = new ApolloLink((operation, forward) => {
+  const tokens = getTokens()
+  if (tokens && tokens.accessToken) {
+    operation.setContext(({ headers }) => ({
+      headers: {
+        ...headers,
+        'x-access-token': tokens.accessToken,
+        'x-refresh-token': tokens.refreshToken,
+      },
+    }))
+  }
+  return forward(operation)
+})
 
 const httpLink = new HttpLink({ uri: '/.netlify/functions/graphql' })
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: concat(cleanTypeName, httpLink),
+  link: from([setTokensInHeader, cleanTypeName, httpLink]),
 })
 
 const ApolloApp = (Wrapped) => (

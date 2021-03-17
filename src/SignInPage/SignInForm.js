@@ -2,7 +2,9 @@ import styled from 'styled-components'
 import React, { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import { SIGNIN_MUTATION } from './SIGNIN_MUTATION'
-import { saveTokens } from './ManageTokens'
+import { saveTokens } from 'shared/ManageTokens'
+import { useHistory } from 'react-router-dom'
+import { Spinner } from 'shared/Spinner'
 
 const Form = styled.form`
   display: flex;
@@ -24,11 +26,24 @@ const SubmitButton = styled.button`
 `
 
 export const SignInForm = () => {
+  let history = useHistory()
+
+  const navigateToMenus = () => {
+    history.push('/menus')
+  }
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
 
-  const [signIn, { data }] = useMutation(SIGNIN_MUTATION, {
+  const afterComplete = (data) => {
+    if (data) {
+      saveTokens(data.signIn)
+      navigateToMenus()
+    }
+  }
+
+  const [signIn, { data, loading }] = useMutation(SIGNIN_MUTATION, {
     variables: { login: login, password: password },
+    onCompleted: afterComplete,
   })
 
   const handleLoginChange = (e) => {
@@ -42,31 +57,32 @@ export const SignInForm = () => {
   const submitSignIn = (e) => {
     e.preventDefault()
     signIn()
-    if (data && data.signIn) {
-      saveTokens(data.signIn)
-      console.log('data', data)
-      console.log('data.signIn', data.signIn)
-    }
+    afterComplete(data)
   }
+
   return (
     <Wrapper>
-      <Form onSubmit={submitSignIn}>
-        <Label>Usuário:</Label>
-        <input
-          type="text"
-          id="login"
-          value={login}
-          onChange={handleLoginChange}
-        />
-        <Label>Senha:</Label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-        <SubmitButton value="submit">Entrar</SubmitButton>
-      </Form>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <Form>
+          <Label>Usuário:</Label>
+          <input
+            type="text"
+            id="login"
+            value={login}
+            onChange={handleLoginChange}
+          />
+          <Label>Senha:</Label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+          <SubmitButton onClick={submitSignIn}>Entrar</SubmitButton>
+        </Form>
+      )}
     </Wrapper>
   )
 }

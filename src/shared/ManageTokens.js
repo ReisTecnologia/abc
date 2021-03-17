@@ -1,6 +1,4 @@
-// module for saving tokens to local storage
 const TOKEN_KEY = 'stampTokens'
-// tokens = { accessToken: "xyz", refreshToken: "abc" }
 export const saveTokens = (tokens) => {
   localStorage.setItem(TOKEN_KEY, JSON.stringify(tokens))
 }
