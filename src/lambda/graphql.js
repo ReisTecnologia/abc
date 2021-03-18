@@ -4,7 +4,7 @@ import db from './dbData/db'
 import { v4 as uuidv4 } from 'uuid'
 import typeDefs from './graphql/typeDefs'
 const AWS = require('aws-sdk')
-// const pbkdf2 = require('pbkdf2')
+import { verifyPassword, hashPassword } from './handlePassword'
 import { getAllFilesFromLesson } from './graphql/getAllFilesFromLesson'
 import { detectOrphanFiles } from './graphql/detectOrphanFiles'
 import { setTokens } from './JWToken/setTokens'
@@ -13,6 +13,13 @@ import {
   validateRefreshToken,
 } from './JWToken/validateTokens'
 const isEmpty = require('lodash.isempty')
+
+const userCheck = (context) => {
+  if (isEmpty(context.user)) throw new AuthenticationError('Must authenticate')
+  if (context.user.type !== 'admin')
+    throw new AuthenticationError('Admin role required')
+  else return null
+}
 
 const resolvers = {
   Query: {
@@ -42,7 +49,6 @@ const resolvers = {
       return users
     },
     signedInUser: async (parent, args, context) => {
-      console.log('context signed', context)
       if (isEmpty(context.user))
         throw new AuthenticationError('Must authenticate')
       const user = await db.getUser(null, context.user.id)
@@ -50,15 +56,16 @@ const resolvers = {
     },
   },
   Mutation: {
-    signIn: async (parent, args, context) => {
+    signIn: async (parent, args) => {
       const user = await db.getUser(args.login)
-      console.log('context mutation', context)
       if (!user) return null
-      // const passwordValid = await validatePassword(args.password, user.password)
-      // if (!passwordValid) return null
+      const passwordValid = verifyPassword(args.password, user.password)
+      if (!passwordValid)
+        throw new AuthenticationError('Invalid login or password')
       return setTokens(user)
     },
-    addLesson: async () => {
+    addLesson: async (parent, args, context) => {
+      userCheck(context)
       const success = await db
         .addLesson(uuidv4())
         .then(() => true)
@@ -66,7 +73,8 @@ const resolvers = {
       const lessons = await db.getLessons()
       return { success, lessons }
     },
-    addMenu: async () => {
+    addMenu: async (parent, args, context) => {
+      userCheck(context)
       const success = await db
         .addMenu(uuidv4())
         .then(() => true)
@@ -76,7 +84,8 @@ const resolvers = {
         })
       return { success }
     },
-    deleteLesson: async (parent, args) => {
+    deleteLesson: async (parent, args, context) => {
+      userCheck(context)
       let s3Success = false
       const getDeleteObjects = (listedObjects) => {
         return listedObjects.Contents.reduce(
@@ -118,7 +127,8 @@ const resolvers = {
       }
       return { dbSuccess, s3Success }
     },
-    deleteMenu: async (parent, args) => {
+    deleteMenu: async (parent, args, context) => {
+      userCheck(context)
       const success = await db
         .deleteMenu(args.id)
         .then(() => true)
@@ -152,7 +162,8 @@ const resolvers = {
       return { success: true }
     },
 
-    editLesson: async (parent, args) => {
+    editLesson: async (parent, args, context) => {
+      userCheck(context)
       let success = false
       let lesson = false
       await db
@@ -163,7 +174,8 @@ const resolvers = {
         })
       return { success, lesson }
     },
-    editMenu: async (parent, args) => {
+    editMenu: async (parent, args, context) => {
+      userCheck(context)
       let success = false
       let menu = false
       await db
@@ -174,20 +186,21 @@ const resolvers = {
         })
       return { success, menu }
     },
-    editUser: async (parent, args) => {
+    editUser: async (parent, args, context) => {
+      userCheck(context)
       let success = await db
         .editUser(
           args.input.login,
           args.input.previousLogin,
           args.input.name,
-          args.input.password,
+          hashPassword(args.input.password),
           args.input.type,
           args.id
         )
         .then(() => true)
         .catch(() => false)
-      const user = await db.getUser(args.id)
-      const userLogin = await db.getUser(`login#${args.input.login}`)
+      const user = await db.getUser(null, args.id)
+      const userLogin = await db.getUser(null, `login#${args.input.login}`)
       return { success, user, userLogin }
     },
     addUser: async (parent, args) => {
@@ -197,10 +210,7 @@ const resolvers = {
           uuidv4(),
           args.input.name,
           args.input.login,
-          // pbkdf2
-          //   .pbkdf2Sync(args.input.password, 'salt', 1, 32, 'sha512')
-          //   .toString(),
-          args.input.password,
+          hashPassword(args.input.password),
           args.input.type
         )
         .then(() => true)
@@ -263,8 +273,6 @@ exports.handler = async (event, context) => {
     }
   }
   await tokenAuthentication()
-
-  console.log('headertokens', headerTokens)
 
   let response
   try {
