@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { CurrentUserContext } from '../CurrentUserContextProvider'
 import { useLazyQuery } from '@apollo/client'
 import { AddLessonButton } from './AddLessonButton/AddLessonButton'
 import { ListItem } from './ListItem/ListItem'
@@ -12,7 +13,8 @@ import { MenuDrawer } from 'shared/MenuDrawer'
 import { useHistory } from 'react-router'
 import PropTypes from 'prop-types'
 
-export const LessonsPage = ({ userData, userDataLoading }) => {
+export const LessonsPage = () => {
+  const { userData, userDataLoading } = useContext(CurrentUserContext)
   const [loadedLesson, setLoadedLesson] = useState(false)
   const [loadLessonData, { data, refetch, loading }] = useLazyQuery(
     LESSONS_QUERY,
