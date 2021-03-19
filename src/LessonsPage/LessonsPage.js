@@ -1,5 +1,5 @@
-import React from 'react'
-import { useQuery } from '@apollo/client'
+import React, { useState } from 'react'
+import { useLazyQuery } from '@apollo/client'
 import { AddLessonButton } from './AddLessonButton/AddLessonButton'
 import { ListItem } from './ListItem/ListItem'
 import { Spinner } from 'shared/Spinner'
@@ -9,20 +9,39 @@ import { Layout } from 'shared/Layout'
 import { HeaderWrapper } from 'shared/HeaderWrapper'
 import { Container } from 'shared/Container'
 import { MenuDrawer } from 'shared/MenuDrawer'
-import { SIGNED_USER_QUERY } from 'shared/SIGNED_USER_QUERY'
+import { useHistory } from 'react-router'
+import PropTypes from 'prop-types'
 
-export const LessonsPage = () => {
-  const { data, refetch, loading } = useQuery(LESSONS_QUERY, {
-    notifyOnNetworkStatusChange: true,
-    fetchPolicy: 'cache-and-network',
-  })
-  const result = useQuery(SIGNED_USER_QUERY)
+export const LessonsPage = ({ userData, userDataLoading }) => {
+  const [loadedLesson, setLoadedLesson] = useState(false)
+  const [loadLessonData, { data, refetch, loading }] = useLazyQuery(
+    LESSONS_QUERY,
+    {
+      notifyOnNetworkStatusChange: true,
+      fetchPolicy: 'cache-and-network',
+    }
+  )
 
-  console.log('result.data', result.data)
+  let history = useHistory()
 
-  const isUserAuthenticated =
-    result.data && result.data.signedInUser.type === 'admin' ? true : false
+  const navigateToMenu = () => {
+    history.push('/menu')
+  }
+
   const lessons = data && data.lessons ? data.lessons : []
+  if (userDataLoading) return <Spinner />
+
+  if (
+    (!userDataLoading && userData === undefined) ||
+    userData.signedInUser.type !== 'admin'
+  ) {
+    alert('Você não tem permissões para acessar essa página!')
+    navigateToMenu()
+  }
+  if (!loadedLesson) {
+    loadLessonData()
+    setLoadedLesson(true)
+  }
 
   return (
     <Layout>
@@ -31,18 +50,19 @@ export const LessonsPage = () => {
         <Title>Aulas</Title>
         {loading && <Spinner />}
         <PageActions>
-          {isUserAuthenticated && <AddLessonButton afterAdd={refetch} />}
+          <AddLessonButton afterAdd={refetch} />
         </PageActions>
       </HeaderWrapper>
       <Container>
         {lessons.map((lesson) => (
-          <ListItem
-            key={lesson.id}
-            lesson={lesson}
-            allowNavigateToEdit={isUserAuthenticated}
-          />
+          <ListItem key={lesson.id} lesson={lesson} />
         ))}
       </Container>
     </Layout>
   )
+}
+
+LessonsPage.propTypes = {
+  userData: PropTypes.object,
+  userDataLoading: PropTypes.bool,
 }

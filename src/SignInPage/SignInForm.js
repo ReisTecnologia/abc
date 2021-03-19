@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import React, { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import { SIGNIN_MUTATION } from './SIGNIN_MUTATION'
-import { saveTokens } from 'shared/ManageTokens'
+import { saveTokens } from 'shared/AuthTokens/saveTokens'
 import { useHistory } from 'react-router-dom'
 import { Spinner } from 'shared/Spinner'
 

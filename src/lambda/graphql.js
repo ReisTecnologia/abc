@@ -8,10 +8,7 @@ import { verifyPassword, hashPassword } from './handlePassword'
 import { getAllFilesFromLesson } from './graphql/getAllFilesFromLesson'
 import { detectOrphanFiles } from './graphql/detectOrphanFiles'
 import { setTokens } from './JWToken/setTokens'
-import {
-  validateAccessToken,
-  validateRefreshToken,
-} from './JWToken/validateTokens'
+import { validateTokens } from './JWToken/validateTokens'
 const isEmpty = require('lodash.isempty')
 
 const userCheck = (context) => {
@@ -228,6 +225,7 @@ const server = new ApolloServer({
   playground: true,
   context: ({ context }) => context,
 })
+
 const invokeHandler = (event, context, handler) => {
   return new Promise((resolve, reject) => {
     const callback = (error, body) => (error ? reject(error) : resolve(body))
@@ -244,39 +242,15 @@ exports.handler = async (event, context) => {
     },
   })
 
-  // grab the headers here and validate them
-
-  const refreshToken = event.headers['x-refresh-token']
-  const accessToken = event.headers['x-access-token']
-  let headerTokens = {}
-  const tokenAuthentication = async () => {
-    if (!accessToken && !refreshToken) {
-      return
-    } else if (accessToken) {
-      const decodedAccessToken = validateAccessToken(accessToken)
-      if (decodedAccessToken && decodedAccessToken.user) {
-        context.user = decodedAccessToken.user
-      }
-    } else if (refreshToken) {
-      const decodedRefreshToken = validateRefreshToken(refreshToken)
-      if (decodedRefreshToken && decodedRefreshToken.user) {
-        context.user = decodedRefreshToken.user
-        const user = await db.getUser(null, decodedRefreshToken.user.id)
-        const userTokens = setTokens(user)
-        headerTokens = {
-          'Access-Control-Expose-Headers': 'x-access-token,x-refresh-token',
-          'x-access-token': userTokens.accessToken,
-          'x-refresh-token': userTokens.refreshToken,
-        }
-        return headerTokens
-      }
-    }
-  }
-  await tokenAuthentication()
+  const { headerTokens, user } = await validateTokens({
+    accessToken: event.headers['x-access-token'],
+    refreshToken: event.headers['x-refresh-token'],
+    db,
+  })
+  if (user) context.user = user
 
   let response
   try {
-    // if you validate the jwt, you can inject the user in the context to grab it in the resolvers...
     response = await invokeHandler(event, context, graphqlHandler)
   } catch (error) {
     console.error(error)
@@ -284,18 +258,11 @@ exports.handler = async (event, context) => {
   } finally {
     //
   }
-  // I'm not sure if you really need this, but this is a way to set this headers in the response
-  // if you don't need it, please let me know, because all this "invokeHandler part" may be discarded if that's the case
   return {
     ...response,
     headers: {
       ...response.headers,
-      'x-access-token': headerTokens.accessToken
-        ? headerTokens.accessToken
-        : null,
-      'x-refresh-token': headerTokens.refreshToken
-        ? headerTokens.refreshToken
-        : null,
+      ...headerTokens,
     },
   }
 }

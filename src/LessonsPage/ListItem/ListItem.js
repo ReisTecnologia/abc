@@ -14,13 +14,11 @@ const navigateToEditLesson = (history, lessonId) => (e) => {
   history.push(`/editLesson/${lessonId}`)
 }
 
-export const ListItem = ({ lesson, allowNavigateToEdit }) => {
+export const ListItem = ({ lesson }) => {
   const history = useHistory()
 
   return (
-    <Wrapper
-      onClick={allowNavigateToEdit && navigateToEditLesson(history, lesson.id)}
-    >
+    <Wrapper onClick={navigateToEditLesson(history, lesson.id)}>
       <LessonName>{lesson.name}</LessonName>
       &nbsp;&nbsp;
       <LessonButtons>
@@ -33,5 +31,4 @@ export const ListItem = ({ lesson, allowNavigateToEdit }) => {
 
 ListItem.propTypes = {
   lesson: PropTypes.string,
-  allowNavigateToEdit: PropTypes.bool,
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { ApolloClient, InMemoryCache, from } from '@apollo/client'
 import { ApolloLink } from 'apollo-link'
 import { ApolloProvider } from '@apollo/client'
@@ -12,7 +12,11 @@ import { MenuPage } from './MenuPage/MenuPage'
 import { EditMenuPage } from './EditMenuPage/EditMenuPage'
 import { SignInPage } from './SignInPage/SignInPage'
 import { ViewMenuPage } from './MenuPage/ViewMenuPage'
-import { getTokens } from 'shared/ManageTokens'
+import { getTokens } from 'shared/AuthTokens/getTokens'
+import {
+  CurrentUserContextProvider,
+  CurrentUserContext,
+} from './CurrentUserContextProvider'
 
 const cleanTypeName = new ApolloLink((operation, forward) => {
   if (operation.variables) {
@@ -27,7 +31,7 @@ const cleanTypeName = new ApolloLink((operation, forward) => {
     return data
   })
 })
-const setTokensInHeader = new ApolloLink((operation, forward) => {
+const addAuthTokensInHeader = new ApolloLink((operation, forward) => {
   const tokens = getTokens()
   if (tokens && tokens.accessToken) {
     operation.setContext(({ headers }) => ({
@@ -45,16 +49,19 @@ const httpLink = new HttpLink({ uri: '/.netlify/functions/graphql' })
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: from([setTokensInHeader, cleanTypeName, httpLink]),
+  link: from([addAuthTokensInHeader, cleanTypeName, httpLink]),
 })
 
 const ApolloApp = (Wrapped) => (
   <ApolloProvider client={client}>
-    <Wrapped />
+    <CurrentUserContextProvider>
+      <Wrapped />
+    </CurrentUserContextProvider>
   </ApolloProvider>
 )
 
 const Wrapped = () => {
+  const { userData, userDataLoading } = useContext(CurrentUserContext)
   return (
     <Router>
       <div>
@@ -70,7 +77,10 @@ const Wrapped = () => {
             <ViewLessonPage />
           </Route>
           <Route path="/lessons">
-            <LessonsPage />
+            <LessonsPage
+              userData={userData}
+              userDataLoading={userDataLoading}
+            />
           </Route>
           <Route path="/menus">
             <MenusPage />

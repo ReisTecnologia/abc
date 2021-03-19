@@ -1,19 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { HeaderWrapper } from 'shared/HeaderWrapper'
 import { Container } from 'shared/Container'
-import { useQuery } from '@apollo/client'
 import { Layout } from 'shared/Layout'
 import { SignInForm } from './SignInForm'
-import { deleteTokens } from 'shared/ManageTokens'
+import { deleteTokens } from 'shared/AuthTokens/deleteTokens'
 import { Spinner } from 'shared/Spinner'
-import { SIGNED_USER_QUERY } from 'shared/SIGNED_USER_QUERY'
+import { CurrentUserContext } from '../CurrentUserContextProvider'
 
 export const SignInPage = () => {
-  const { data, loading } = useQuery(SIGNED_USER_QUERY)
+  const { userData, userDataLoading } = useContext(CurrentUserContext)
 
-  if (loading) return <Spinner />
-  console.log(data)
-  if (data !== undefined && data.signedInUser)
+  if (userDataLoading) return <Spinner />
+
+  if (userData !== undefined && userData.signedInUser)
     return (
       <>
         <div>Você está logado!</div>
