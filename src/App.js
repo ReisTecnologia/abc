@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { ApolloClient, InMemoryCache, from } from '@apollo/client'
 import { ApolloLink } from 'apollo-link'
 import { ApolloProvider } from '@apollo/client'
@@ -13,10 +13,7 @@ import { EditMenuPage } from './EditMenuPage/EditMenuPage'
 import { SignInPage } from './SignInPage/SignInPage'
 import { ViewMenuPage } from './MenuPage/ViewMenuPage'
 import { getTokens } from 'shared/AuthTokens/getTokens'
-import {
-  CurrentUserContextProvider,
-  CurrentUserContext,
-} from './CurrentUserContextProvider'
+import { CurrentUserContextProvider } from './CurrentUserContextProvider'
 
 const cleanTypeName = new ApolloLink((operation, forward) => {
   if (operation.variables) {
@@ -61,7 +58,6 @@ const ApolloApp = (Wrapped) => (
 )
 
 const Wrapped = () => {
-  const { userData, userDataLoading } = useContext(CurrentUserContext)
   return (
     <Router>
       <div>
@@ -77,10 +73,7 @@ const Wrapped = () => {
             <ViewLessonPage />
           </Route>
           <Route path="/lessons">
-            <LessonsPage
-              userData={userData}
-              userDataLoading={userDataLoading}
-            />
+            <LessonsPage />
           </Route>
           <Route path="/menus">
             <MenusPage />

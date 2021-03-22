@@ -1,5 +1,7 @@
-import React from 'react'
-import { useQuery } from '@apollo/client'
+import React, { useContext, useEffect } from 'react'
+import { CurrentUserContext } from '../CurrentUserContextProvider'
+import { useLazyQuery } from '@apollo/client'
+import { useHistory } from 'react-router'
 import { AddMenuButton } from './AddMenuButton/AddMenuButton'
 import { ListItem } from './ListItem/ListItem'
 import { Spinner } from 'shared/Spinner'
@@ -11,12 +13,34 @@ import { Container } from 'shared/Container'
 import { MenuDrawer } from 'shared/MenuDrawer'
 
 export const MenusPage = () => {
-  const { data, refetch, loading } = useQuery(MENUS_QUERY, {
+  const { userData, userDataLoading } = useContext(CurrentUserContext)
+  const [loadMenus, { data, refetch, loading }] = useLazyQuery(MENUS_QUERY, {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: 'cache-and-network',
   })
-
   const menus = data && data.menus ? data.menus : []
+
+  let history = useHistory()
+
+  const navigateToMenu = () => {
+    history.push('/menu')
+  }
+
+  useEffect(() => {
+    if (!userDataLoading && userData) {
+      loadMenus()
+    }
+  }, [loadMenus, userData, userDataLoading])
+
+  if (userDataLoading) return <Spinner />
+
+  if (
+    (!userDataLoading && userData === undefined) ||
+    userData.signedInUser.type !== 'admin'
+  ) {
+    alert('Você não tem permissões para acessar essa página!')
+    navigateToMenu()
+  }
 
   return (
     <Layout>

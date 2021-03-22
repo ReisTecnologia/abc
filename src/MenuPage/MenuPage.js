@@ -11,6 +11,7 @@ import { colors } from 'shared/colors'
 import { Link } from 'react-router-dom'
 import { MenuDrawer } from 'shared/MenuDrawer'
 import { Container } from 'shared/Container'
+import { Spinner } from 'shared/Spinner'
 
 const Wrapper = styled.div`
   display: flex;
@@ -22,8 +23,8 @@ const Wrapper = styled.div`
 `
 
 export const MenuPage = ({ id }) => {
-  const { data } = useQuery(MENU_QUERY, { variables: { id } })
-  if (!data) return 'loading...'
+  const { data, loading } = useQuery(MENU_QUERY, { variables: { id } })
+  if (loading) return <Spinner />
   const menu = mapMenu(data.menu)
 
   return (

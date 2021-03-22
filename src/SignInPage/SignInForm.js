@@ -28,8 +28,8 @@ const SubmitButton = styled.button`
 export const SignInForm = () => {
   let history = useHistory()
 
-  const navigateToMenus = () => {
-    history.push('/menus')
+  const navigateToMenu = () => {
+    history.push('/menu')
   }
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
@@ -37,7 +37,7 @@ export const SignInForm = () => {
   const afterComplete = (data) => {
     if (data) {
       saveTokens(data.signIn)
-      navigateToMenus()
+      navigateToMenu()
     }
   }
 

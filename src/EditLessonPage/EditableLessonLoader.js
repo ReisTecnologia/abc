@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { useQuery } from '@apollo/client'
+import React, { useContext, useEffect } from 'react'
+import { useLazyQuery } from '@apollo/client'
 import { LESSON_QUERY } from 'shared/LESSON_QUERY'
 import { EditableLesson } from './EditableLesson/EditableLesson'
 import { useHistory, useParams } from 'react-router-dom'
@@ -9,17 +9,21 @@ import { CurrentUserContext } from '../CurrentUserContextProvider'
 
 export const EditableLessonLoader = () => {
   let { lesson } = useParams()
-  const {
-    data,
-    refetch: reloadLesson,
-    loading: loadingLesson,
-    error,
-  } = useQuery(LESSON_QUERY, {
+  const [
+    loadLesson,
+    { data, refetch: reloadLesson, loading: loadingLesson, error },
+  ] = useLazyQuery(LESSON_QUERY, {
     variables: { id: lesson },
     notifyOnNetworkStatusChange: true,
   })
 
   const { userData, userDataLoading } = useContext(CurrentUserContext)
+
+  useEffect(() => {
+    if (!userDataLoading && userData) {
+      loadLesson()
+    }
+  }, [loadLesson, userData, userDataLoading])
 
   let history = useHistory()
 

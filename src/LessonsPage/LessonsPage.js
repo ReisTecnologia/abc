@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { CurrentUserContext } from '../CurrentUserContextProvider'
 import { useLazyQuery } from '@apollo/client'
 import { AddLessonButton } from './AddLessonButton/AddLessonButton'
@@ -15,7 +15,6 @@ import PropTypes from 'prop-types'
 
 export const LessonsPage = () => {
   const { userData, userDataLoading } = useContext(CurrentUserContext)
-  const [loadedLesson, setLoadedLesson] = useState(false)
   const [loadLessonData, { data, refetch, loading }] = useLazyQuery(
     LESSONS_QUERY,
     {
@@ -23,14 +22,19 @@ export const LessonsPage = () => {
       fetchPolicy: 'cache-and-network',
     }
   )
-
+  const lessons = data && data.lessons ? data.lessons : []
   let history = useHistory()
 
   const navigateToMenu = () => {
     history.push('/menu')
   }
 
-  const lessons = data && data.lessons ? data.lessons : []
+  useEffect(() => {
+    if (!userDataLoading && userData) {
+      loadLessonData()
+    }
+  }, [loadLessonData, userData, userDataLoading])
+
   if (userDataLoading) return <Spinner />
 
   if (
@@ -40,11 +44,6 @@ export const LessonsPage = () => {
     alert('Você não tem permissões para acessar essa página!')
     navigateToMenu()
   }
-  if (!loadedLesson) {
-    loadLessonData()
-    setLoadedLesson(true)
-  }
-
   return (
     <Layout>
       <HeaderWrapper>
