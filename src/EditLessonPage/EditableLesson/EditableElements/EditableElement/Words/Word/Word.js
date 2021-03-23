@@ -20,6 +20,7 @@ import { FileUploader } from '../../FileUploader'
 import { AudioButton } from 'shared/AudioButton'
 import { DragAndDrop } from '../../DragAndDrop'
 import { colors } from 'shared/colors'
+import { FileDownloader } from '../../FileDownloader'
 
 export const Word = ({
   audioFilePrefix,
@@ -96,6 +97,7 @@ export const Word = ({
                 loading={wordLoading}
                 setLoading={setWordLoading}
               />
+              <FileDownloader color={colors.grayText} filename={urlWord} />
               <TextInput
                 value={word}
                 onChange={changeName}
@@ -132,6 +134,10 @@ export const Word = ({
                 loading={rightAnswerLoading}
                 setLoading={setRightAnswerLoading}
               />
+              <FileDownloader
+                color={colors.grayText}
+                filename={urlRightAnswerExplanation}
+              />
               <WordAnswerInfoWrapper>
                 Acertou?
                 <TextInput
@@ -159,6 +165,10 @@ export const Word = ({
                 updateWrongAnswerAudio={updateAudio}
                 loading={wrongAnswerLoading}
                 setLoading={setWrongAnswerLoading}
+              />
+              <FileDownloader
+                color={colors.grayText}
+                filename={urlWrongAnswerExplanation}
               />
               <WordAnswerInfoWrapper>
                 Errou?

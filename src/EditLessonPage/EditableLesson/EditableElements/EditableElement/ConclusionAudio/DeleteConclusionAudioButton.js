@@ -34,9 +34,7 @@ const DeleteConclusionAudioButtonBuilder = (size, deleteAudio) => (
 
 export const DeleteConclusionAudioButton = ({ deleteAudio }) => (
   <>
-    <Wrapper onClick={deleteAudio}>
-      {DeleteConclusionAudioButtonBuilder('25', deleteAudio)}
-    </Wrapper>
+    <Wrapper>{DeleteConclusionAudioButtonBuilder('25', deleteAudio)}</Wrapper>
     <MobileWrapper>
       {DeleteConclusionAudioButtonBuilder('22', deleteAudio)}
     </MobileWrapper>

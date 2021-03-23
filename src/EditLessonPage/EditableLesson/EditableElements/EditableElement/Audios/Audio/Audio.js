@@ -15,6 +15,7 @@ import { AudioButton } from 'shared/AudioButton'
 import { FileUploader } from '../../FileUploader'
 import { DragAndDrop } from '../../DragAndDrop'
 import { colors } from 'shared/colors'
+import { FileDownloader } from '../../FileDownloader'
 
 export const Audio = ({
   audioFilePrefix,
@@ -41,6 +42,7 @@ export const Audio = ({
         audioFilePrefix={audioFilePrefix}
         updateAudio={updateAudio}
       />
+      <FileDownloader color={colors.grayText} filename={url} />
     </>
   )
   return (

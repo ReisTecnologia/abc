@@ -15,6 +15,7 @@ import {
 import { colors } from 'shared/colors'
 import { DragAndDrop } from '../DragAndDrop'
 import { Spinner } from 'shared/Spinner'
+import { FileDownloader } from '../FileDownloader'
 
 const buildUpdateAudio = ({ conclusionAudio, changeConclusionAudio }) => (
   payload
@@ -84,6 +85,10 @@ export const ConclusionAudio = ({
               })}
               loading={loading}
               setLoading={setLoading}
+            />
+            <FileDownloader
+              color={colors.grayText}
+              filename={conclusionAudio.url}
             />
             <ConclusionAudioNameWrapper>
               <TextAndInput
