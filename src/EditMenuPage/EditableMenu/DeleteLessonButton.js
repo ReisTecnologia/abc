@@ -6,21 +6,40 @@ import { Icon } from '@iconify/react'
 import trashIcon from '@iconify-icons/ion/trash'
 
 const Wrapper = styled.div`
-  text-align: right;
-  margin-top: 8px;
-  margin-right: 8px;
+  @media (min-width: 376px) {
+    text-align: right;
+    margin-top: 8px;
+    margin-right: 8px;
+  }
+  @media (max-width: 375px) {
+    display: none;
+  }
 `
+const MobileWrapper = styled.div`
+  @media (min-width: 376px) {
+    display: none;
+  }
+  @media (max-width: 375px) {
+    text-align: right;
+    margin-top: 8px;
+    margin-right: 8px;
+  }
+`
+const DeleteButtonBuilder = (size, deleteLesson) => (
+  <Icon
+    icon={trashIcon}
+    onClick={deleteLesson}
+    color={colors.grayText}
+    height={size}
+    cursor="pointer"
+  />
+)
 
 export const DeleteLessonButton = ({ deleteLesson }) => (
-  <Wrapper>
-    <Icon
-      icon={trashIcon}
-      onClick={deleteLesson}
-      color={colors.grayText}
-      height="30"
-      cursor="pointer"
-    />
-  </Wrapper>
+  <>
+    <Wrapper>{DeleteButtonBuilder('30', deleteLesson)}</Wrapper>
+    <MobileWrapper>{DeleteButtonBuilder('25', deleteLesson)}</MobileWrapper>
+  </>
 )
 
 DeleteLessonButton.propTypes = {

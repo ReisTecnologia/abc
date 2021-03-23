@@ -10,10 +10,24 @@ import { Words } from './Words/Words'
 import { ConclusionAudio } from './ConclusionAudio/ConclusionAudio'
 
 const Wrapper = styled.div`
-  padding: 2rem 2rem;
-  color: #555;
-  text-align: left;
-  width: 100%;
+  @media (min-width: 601px) {
+    padding: 2rem 2rem;
+    color: #555;
+    text-align: left;
+    width: 100%;
+  }
+  @media (max-width: 600px) {
+    padding: 1rem 1rem;
+    color: #555;
+    text-align: left;
+    width: 100%;
+  }
+  @media (max-width: 375px) {
+    padding: 0.5rem 0.5rem;
+    color: #555;
+    text-align: left;
+    width: 100%;
+  }
 `
 
 const ElementWrapper = styled.div`

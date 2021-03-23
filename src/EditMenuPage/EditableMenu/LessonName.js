@@ -6,7 +6,7 @@ import { useOnClickOutside } from 'shared/useOnClickOutside'
 
 export const Wrapper = styled.div`
   cursor: pointer;
-  width: 25%;
+  width: 75%;
 `
 
 export const LessonName = ({ lessonId, onSelect, lessons, defaultSelect }) => {

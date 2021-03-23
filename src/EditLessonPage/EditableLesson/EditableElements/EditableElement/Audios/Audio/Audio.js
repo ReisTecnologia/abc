@@ -3,7 +3,10 @@ import PropTypes from 'prop-types'
 import { Spinner } from 'shared/Spinner'
 import { AudioWrapper } from './AudioWrapper'
 import { AudioNameWrapper } from './AudioNameWrapper'
-import { AudioButtonWrapper } from './AudioButtonWrapper'
+import {
+  AudioButtonWrapper,
+  AudioButtonMobileWrapper,
+} from './AudioButtonWrapper'
 import { AudioFieldsWrapper } from './AudioFieldsWrapper'
 import { NameAndUrlWrapper } from './NameAndUrlWrapper'
 import { DeleteAudioButton } from './DeleteAudioButton'
@@ -22,6 +25,24 @@ export const Audio = ({
   changeName,
 }) => {
   const [loading, setLoading] = useState(false)
+  const AudioButtonsBuilder = (size) => (
+    <>
+      <AudioButton
+        audioUrls={[
+          `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${url}`,
+        ]}
+        size={size}
+        color={colors.grayText}
+      />
+      <FileUploader
+        color={colors.grayText}
+        loading={loading}
+        setLoading={setLoading}
+        audioFilePrefix={audioFilePrefix}
+        updateAudio={updateAudio}
+      />
+    </>
+  )
   return (
     <AudioWrapper>
       <DragAndDrop audioFilePrefix={audioFilePrefix} updateAudio={updateAudio}>
@@ -29,22 +50,10 @@ export const Audio = ({
           <Spinner />
         ) : (
           <>
-            <AudioButtonWrapper>
-              <AudioButton
-                audioUrls={[
-                  `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${url}`,
-                ]}
-                size={20}
-                color={colors.grayText}
-              />
-              <FileUploader
-                color={colors.grayText}
-                loading={loading}
-                setLoading={setLoading}
-                audioFilePrefix={audioFilePrefix}
-                updateAudio={updateAudio}
-              />
-            </AudioButtonWrapper>
+            <AudioButtonWrapper>{AudioButtonsBuilder(20)}</AudioButtonWrapper>
+            <AudioButtonMobileWrapper>
+              {AudioButtonsBuilder(17)}
+            </AudioButtonMobileWrapper>
             <AudioFieldsWrapper>
               <NameAndUrlWrapper>
                 <AudioNameWrapper>

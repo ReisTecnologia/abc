@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { UpDownWrapper } from './UpDownWrapper'
+import { UpDownWrapperMobile } from './UpDownWrapperMobile'
 import { Icon } from '@iconify/react'
 import arrowUpSquareFill from '@iconify-icons/bi/arrow-up-square-fill'
 import arrowDownSquareFill from '@iconify-icons/bi/arrow-down-square-fill'
@@ -12,25 +13,30 @@ export const IIcon = styled(Icon)`
 `
 
 export const MoveButtons = ({ canMoveDown, canMoveUp, onUp, onDown }) => {
-  return (
-    <UpDownWrapper>
+  const UpDownButtonsBuilder = (size) => (
+    <>
       <IIcon
         icon={arrowUpSquareFill}
         onClick={canMoveUp ? onUp : null}
         color={canMoveUp ? colors.grayText : colors.light}
-        height="30"
+        height={size}
         cursor={() => (!canMoveUp ? null : 'pointer')}
       />
-
       <IIcon
         icon={arrowDownSquareFill}
         onClick={canMoveDown ? onDown : null}
         color={canMoveDown ? colors.grayText : colors.light}
-        height="30"
+        height={size}
         cursor={() => (!canMoveDown ? null : 'pointer')}
         style={{ marginLeft: 20, marginRight: 10 }}
       />
-    </UpDownWrapper>
+    </>
+  )
+  return (
+    <>
+      <UpDownWrapper>{UpDownButtonsBuilder('30')}</UpDownWrapper>
+      <UpDownWrapperMobile>{UpDownButtonsBuilder('25')}</UpDownWrapperMobile>
+    </>
   )
 }
 

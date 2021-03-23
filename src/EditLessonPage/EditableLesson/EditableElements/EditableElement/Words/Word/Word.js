@@ -12,6 +12,10 @@ import { WordAndAnswerWrapper } from './WordAndAnswerWrapper'
 import { WordAnswerInfoWrapper } from './WordAnswerInfoWrapper'
 import { WordWrongAnswerWrapper } from './WordWrongAnswerWrapper'
 import { WordRightAnswerWrapper } from './WordRightAnswerWrapper'
+import {
+  AudioButtonWrapper,
+  AudioButtonMobileWrapper,
+} from '../../AudioButtonWrappers'
 import { FileUploader } from '../../FileUploader'
 import { AudioButton } from 'shared/AudioButton'
 import { DragAndDrop } from '../../DragAndDrop'
@@ -46,6 +50,29 @@ export const Word = ({
     setShowRadioButtons(false)
   }, [setShowRadioButtons])
 
+  const AudioButtonField = (url) => (
+    <>
+      <AudioButtonWrapper>
+        <AudioButton
+          audioUrls={[
+            `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${url}`,
+          ]}
+          size={20}
+          color={colors.grayText}
+        />
+      </AudioButtonWrapper>
+      <AudioButtonMobileWrapper>
+        <AudioButton
+          audioUrls={[
+            `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${url}`,
+          ]}
+          size={17}
+          color={colors.grayText}
+        />
+      </AudioButtonMobileWrapper>
+    </>
+  )
+
   const ref = useOnClickOutside(hideOnClickOutside)
 
   const resposta = startsWithTheLetter ? 'Certo' : 'Errado'
@@ -61,13 +88,7 @@ export const Word = ({
               audioFilePrefix={audioFilePrefix}
               updateWordAudio={updateAudio}
             >
-              <AudioButton
-                audioUrls={[
-                  `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${urlWord}`,
-                ]}
-                size={20}
-                color={colors.grayText}
-              />
+              {AudioButtonField(urlWord)}
               <FileUploader
                 color={colors.grayText}
                 audioFilePrefix={audioFilePrefix}
@@ -103,13 +124,7 @@ export const Word = ({
               audioFilePrefix={audioFilePrefix}
               updateRightAnswerAudio={updateAudio}
             >
-              <AudioButton
-                audioUrls={[
-                  `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${urlRightAnswerExplanation}`,
-                ]}
-                size={20}
-                color={colors.grayText}
-              />
+              {AudioButtonField(urlRightAnswerExplanation)}
               <FileUploader
                 color={colors.grayText}
                 audioFilePrefix={audioFilePrefix}
@@ -137,13 +152,7 @@ export const Word = ({
               audioFilePrefix={audioFilePrefix}
               updateWrongAnswerAudio={updateAudio}
             >
-              <AudioButton
-                audioUrls={[
-                  `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${urlWrongAnswerExplanation}`,
-                ]}
-                size={20}
-                color={colors.grayText}
-              />
+              {AudioButtonField(urlWrongAnswerExplanation)}
               <FileUploader
                 color={colors.grayText}
                 audioFilePrefix={audioFilePrefix}

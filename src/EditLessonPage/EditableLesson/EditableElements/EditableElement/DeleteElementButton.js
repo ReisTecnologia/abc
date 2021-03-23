@@ -6,12 +6,16 @@ import { Icon } from '@iconify/react'
 import trashIcon from '@iconify-icons/ion/trash'
 
 const Wrapper = styled.div`
-  cursor: pointer;
-  float: right;
-  /* position: absolute; */
-  padding: 0 0.5rem;
-  /* right: 0; */
-  /* top: 2px; */
+  @media (min-width: 361px) {
+    cursor: pointer;
+    float: right;
+    padding: 0 0.5rem;
+  }
+  @media (max-width: 360px) {
+    cursor: pointer;
+    align-self: flex-end;
+    padding: 0 0.5rem;
+  }
 `
 
 export const DeleteElementButton = ({ deleteElement }) => {

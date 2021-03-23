@@ -7,10 +7,20 @@ import { AddButton } from '../EditableElement/AddButton.js'
 import { XButton } from './XButton.js'
 
 const Wrapper = styled.div`
-  display: flex;
-  justify-content: space-around;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  @media (min-width: 720px) {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 719px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
 `
 
 const TitleWrapper = styled.div`
@@ -28,12 +38,24 @@ const ClosedWrapper = styled.div`
 `
 
 const Button = styled.div`
-  padding: 3px 20px;
-  text-align: center;
-  color: ${colors.white};
-  background-color: ${colors.primary};
-  border-radius: 7px;
-  cursor: pointer;
+  @media (min-width: 720px) {
+    padding: 3px 15px;
+    text-align: center;
+    color: ${colors.white};
+    background-color: ${colors.primary};
+    border-radius: 7px;
+    cursor: pointer;
+  }
+  @media (max-width: 719px) {
+    padding: 3px 15px;
+    text-align: center;
+    color: ${colors.white};
+    background-color: ${colors.primary};
+    border-radius: 7px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 4px;
+  }
 `
 
 export const AddElementButtons = ({ addElement }) => {

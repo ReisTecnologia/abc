@@ -14,9 +14,13 @@ const DELETE_LESSON = gql`
   }
 `
 const Wrapper = styled.div`
-  padding-left: 5px;
-  position: fixed;
-  right: 207px;
+  @media (min-width: 600px) {
+    padding-left: 5px;
+    position: fixed;
+    right: 207px;
+  }
+  @media (max-width: 599px) {
+  }
 `
 
 export const DeleteButton = ({ id, afterDelete }) => {

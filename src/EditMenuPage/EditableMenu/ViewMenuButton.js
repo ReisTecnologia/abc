@@ -7,7 +7,7 @@ import styled from 'styled-components'
 const Wrapper = styled.div`
   padding-left: 5px;
   position: fixed;
-  top: 3px;
+  top: 5px;
 `
 
 export const ViewMenuButton = ({ menuId }) => {

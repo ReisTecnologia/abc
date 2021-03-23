@@ -9,10 +9,10 @@ const Wrapper = styled.div`
   border: solid 1px #999;
   color: #655;
   border-radius: 5px;
-  min-width: 6vh;
-  min-height: 6vh;
-  width: 6vh;
-  height: 6vh;
+  min-width: 3rem;
+  min-height: 3rem;
+  width: 3rem;
+  height: 3rem;
   font-size: 3rem;
   text-align: center;
   font-family: Karla;

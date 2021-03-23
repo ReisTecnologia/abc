@@ -13,17 +13,29 @@ import { ReloadButton } from './ReloadButton'
 import { SAVE_LESSON_MUTATION } from './SAVE_LESSON_MUTATION'
 import { MenuDrawer } from 'shared/MenuDrawer'
 import { ViewLessonButton } from './ViewLessonButton'
+import { CollapsedButtonsDrawer } from './CollapsedButtonsDrawer'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
 export const TitleWrapper = styled.div`
   flex: 1;
 `
-
+export const CollapsedButtonsWrapper = styled.div`
+  @media (min-width: 600px) {
+    display: none;
+  }
+  @media (max-width: 599px) {
+  }
+`
 export const ButtonsWrapper = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: row-reverse;
+  @media (min-width: 600px) {
+    flex: 1;
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  @media (max-width: 599px) {
+    display: none;
+  }
 `
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -77,6 +89,14 @@ export const EditableLesson = ({
           <DeleteButton id={id} afterDelete={navigateToHome} />
           <ReloadButton reload={reloadLesson} loading={loadingLesson} />
         </ButtonsWrapper>
+        <CollapsedButtonsWrapper>
+          <CollapsedButtonsDrawer
+            id={id}
+            afterDelete={navigateToHome}
+            reload={reloadLesson}
+            loading={loadingLesson}
+          />
+        </CollapsedButtonsWrapper>
       </HeaderWrapper>
       <Container>
         <EditableElements

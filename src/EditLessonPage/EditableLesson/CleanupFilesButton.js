@@ -13,9 +13,14 @@ const CLEANUP_LESSON_FILES_MUTATION = gql`
   }
 `
 const Wrapper = styled.div`
-  padding-left: 5px;
-  position: fixed;
-  right: 65px;
+  @media (min-width: 600px) {
+    padding-left: 5px;
+    position: fixed;
+    right: 65px;
+  }
+  @media (max-width: 599px) {
+    min-width: 142px;
+  }
 `
 
 export const CleanupFilesButton = ({ id }) => {

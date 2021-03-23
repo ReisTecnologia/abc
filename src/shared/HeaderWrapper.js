@@ -6,8 +6,9 @@ export const HeaderWrapper = styled.div`
   width: 100%;
   background: var(--primary-color);
   color: #fff;
-  position: fixed;
+  position: sticky;
   top: 0;
   height: 2rem;
   z-index: 2;
+  overflow-x: hidden;
 `

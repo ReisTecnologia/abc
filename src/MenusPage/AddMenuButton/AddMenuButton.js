@@ -13,7 +13,10 @@ export const Button = styled.div`
   border: solid 1px ${colors.white};
   border-radius: 7px;
   padding: 0 0.4rem;
+  min-width: 135px;
+  max-height: 22px;
 `
+
 export const AddMenuButton = ({ afterAdd }) => {
   const [addMenu, { loading }] = useMutation(ADD_MENU_MUTATION, {
     onCompleted: afterAdd,
@@ -21,7 +24,7 @@ export const AddMenuButton = ({ afterAdd }) => {
   return loading ? (
     <Spinner />
   ) : (
-    <Button onClick={addMenu}>Adicionar um novo menu</Button>
+    <Button onClick={addMenu}>Adicionar menu</Button>
   )
 }
 
