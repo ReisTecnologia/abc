@@ -251,22 +251,26 @@ const editUser = (login, previousLogin, name, password, type, id) => {
           ConditionExpression: ':id = #id',
         },
       },
-      {
-        Delete: {
-          Key: { id: `login#${previousLogin}` },
-          TableName: USER_TABLE_NAME,
-          ReturnItemCollectionMetrics: 'SIZE',
-        },
-      },
-      {
-        Put: {
-          Item: {
-            id: `login#${login}`,
-          },
-          TableName: USER_TABLE_NAME,
-          ConditionExpression: 'attribute_not_exists(id)',
-        },
-      },
+      login !== previousLogin
+        ? {
+            Delete: {
+              Key: { id: `login#${previousLogin}` },
+              TableName: USER_TABLE_NAME,
+              ReturnItemCollectionMetrics: 'SIZE',
+            },
+          }
+        : null,
+      login !== previousLogin
+        ? {
+            Put: {
+              Item: {
+                id: `login#${login}`,
+              },
+              TableName: USER_TABLE_NAME,
+              ConditionExpression: 'attribute_not_exists(id)',
+            },
+          }
+        : null,
     ],
   }
   return docClient.transactWrite(params).promise()

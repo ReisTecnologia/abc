@@ -6,6 +6,7 @@ import { HttpLink } from 'apollo-link-http'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { LessonsPage } from './LessonsPage/LessonsPage'
 import { MenusPage } from './MenusPage/MenusPage'
+import { UsersPage } from './UsersPage/UsersPage'
 import { ViewLessonPage } from './ViewLessonPage/ViewLessonPage'
 import { EditLessonPage } from './EditLessonPage/EditLessonPage'
 import { MenuPage } from './MenuPage/MenuPage'
@@ -14,6 +15,7 @@ import { SignInPage } from './SignInPage/SignInPage'
 import { ViewMenuPage } from './MenuPage/ViewMenuPage'
 import { getTokens } from 'shared/AuthTokens/getTokens'
 import { CurrentUserContextProvider } from './CurrentUserContextProvider'
+import { EditUserPage } from 'EditUserPage/EditUserPage'
 
 const cleanTypeName = new ApolloLink((operation, forward) => {
   if (operation.variables) {
@@ -77,6 +79,12 @@ const Wrapped = () => {
           </Route>
           <Route path="/menus">
             <MenusPage />
+          </Route>
+          <Route path="/users">
+            <UsersPage />
+          </Route>
+          <Route path="/editUser">
+            <EditUserPage />
           </Route>
           <Route path="/editLesson">
             <EditLessonPage />
