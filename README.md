@@ -98,6 +98,32 @@ and see it on
 http://localhost:3000/
 ```
 
+## AWS DynamoDB tables
+
+This project makes use of 3 (three) different tables on DynamoDB:
+
+A table for lessons that should be named `lessons` having a primary key `id`.
+
+A table for users that should be named `users` having a primary key `id`.
+
+A table for menus that should be named `menus` having a primary key `id`.
+
+## Creating the first user
+
+Since to be able to run the mutations / access create user pages you need to already be authenticated it's needed to create the first user on the DynamoDB table `users`, following this format:
+
+```
+{
+  "id": "yourID",
+  "login": "yourLogin",
+  "name": "yourName",
+  "password": "yourPassword",
+  "type": "admin"
+}
+```
+
+The user type needs to be "admin" in order to be able to access all pages and run all mutations.
+
 ## configure remote db and bucket environment variables on Netlify
 
 This project is setup using Netlify, meaning the enviroment variables used to grant the app access to the Dynamodb and S3 Bucket are configured on the Netlify. On the deploy settings you have to setup the appropriate value for your AWS Access Key ID and AWS Secret Key.

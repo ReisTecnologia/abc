@@ -1,42 +1,26 @@
 import React, { useState } from 'react'
 import { SAVE_USER_MUTATION } from './SAVE_USER_MUTATION'
-import styled from 'styled-components'
+import { SAVE_PASSWORD_MUTATION } from './SAVE_PASSWORD_MUTATION'
 import { Spinner } from 'shared/Spinner'
 import { useMutation } from '@apollo/client'
 import { HeaderWrapper } from 'shared/HeaderWrapper'
 import { Container } from 'shared/Container'
 import { Layout } from 'shared/Layout'
 import { MenuDrawer } from 'shared/MenuDrawer'
+import { UserInfoForm } from './UserInfoForm'
 import PropTypes from 'prop-types'
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 25%;
-  align-items: center;
-`
-const Wrapper = styled.div`
-  margin-top: 35px;
-  display: flex;
-  justify-content: center;
-`
-const Label = styled.label`
-  margin-bottom: 15px;
-  margin-top: 15px;
-`
-const SubmitButton = styled.button`
-  margin-top: 15px;
-`
+import { Wrapper, FormsWrapper } from './EditableUser.styles.js'
+import { PasswordChangeForm } from './PasswordChangeForm'
 
 export const EditableUser = ({ user }) => {
-  console.log('user', user)
   const [userInfo, setUserInfo] = useState({
     login: user.login,
     name: user.name,
     previousLogin: user.login,
-    password: user.password,
     type: user.type,
   })
+  const [userPassword, setUserPassword] = useState({ password: user.password })
+  const [confirmPassword, setConfirmPassword] = useState(null)
   const afterComplete = () => {
     setUserInfo({ ...userInfo, previousLogin: user.login })
   }
@@ -48,27 +32,15 @@ export const EditableUser = ({ user }) => {
     onCompleted: afterComplete,
   })
 
-  console.log('userInfo', userInfo)
-  const handleLoginChange = (e) => {
-    setUserInfo({ ...userInfo, login: e.target.value })
-  }
-
-  const handlePasswordChange = (e) => {
-    setUserInfo({ ...userInfo, password: e.target.value })
-  }
-
-  const handleNameChange = (e) => {
-    setUserInfo({ ...userInfo, name: e.target.value })
-  }
-
-  const handleTypeChange = (e) => {
-    setUserInfo({ ...userInfo, type: e.target.value })
-  }
-
-  const submitSaveUser = (e) => {
-    e.preventDefault()
-    saveUser()
-  }
+  const [savePassword, { loading: savePasswordLoading }] = useMutation(
+    SAVE_PASSWORD_MUTATION,
+    {
+      variables: {
+        id: user.id,
+        input: userPassword,
+      },
+    }
+  )
 
   return (
     <Layout>
@@ -77,38 +49,23 @@ export const EditableUser = ({ user }) => {
       </HeaderWrapper>
       <Container>
         <Wrapper>
-          {loading ? (
+          {loading || savePasswordLoading ? (
             <Spinner />
           ) : (
-            <Form>
-              <Label>Usuário:</Label>
-              <input
-                type="text"
-                id="login"
-                value={userInfo.login}
-                onChange={handleLoginChange}
+            <FormsWrapper>
+              <UserInfoForm
+                userInfo={userInfo}
+                setUserInfo={setUserInfo}
+                saveUser={saveUser}
               />
-              <Label>Senha:</Label>
-              <input
-                type="password"
-                id="password"
-                value={userInfo.password}
-                onChange={handlePasswordChange}
+              <PasswordChangeForm
+                userPassword={userPassword}
+                setUserPassword={setUserPassword}
+                confirmPassword={confirmPassword}
+                setConfirmPassword={setConfirmPassword}
+                savePassword={savePassword}
               />
-              <Label>Nome:</Label>
-              <input
-                type="text"
-                id="name"
-                value={userInfo.name}
-                onChange={handleNameChange}
-              />
-              <Label>Tipo de usuário:</Label>
-              <select onChange={handleTypeChange} value={userInfo.type}>
-                <option value={'admin'}>{'Admin'}</option>
-                <option value={'student'}>{'Student'}</option>
-              </select>
-              <SubmitButton onClick={submitSaveUser}>Salvar</SubmitButton>
-            </Form>
+            </FormsWrapper>
           )}
         </Wrapper>
       </Container>

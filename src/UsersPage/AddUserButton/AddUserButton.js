@@ -20,6 +20,14 @@ export const Button = styled.div`
 export const AddUserButton = ({ afterAdd }) => {
   const [addMenu, { loading }] = useMutation(ADD_USER_MUTATION, {
     onCompleted: afterAdd,
+    variables: {
+      input: {
+        name: 'novo usuário',
+        type: 'student',
+        login: 'user',
+        password: '123',
+      },
+    },
   })
   return loading ? (
     <Spinner />
