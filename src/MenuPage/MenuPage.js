@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useQuery } from '@apollo/client'
 import { MENU_QUERY } from './MENU_QUERY'
 import PropTypes from 'prop-types'
@@ -12,6 +12,8 @@ import { Link } from 'react-router-dom'
 import { MenuDrawer } from 'shared/MenuDrawer'
 import { Container } from 'shared/Container'
 import { Spinner } from 'shared/Spinner'
+import { CurrentUserContext } from '../CurrentUserContextProvider'
+import { SignInOrOutButton } from './SignInOrOutButton'
 
 const Wrapper = styled.div`
   display: flex;
@@ -23,15 +25,25 @@ const Wrapper = styled.div`
 `
 
 export const MenuPage = ({ id }) => {
+  const { userData } = useContext(CurrentUserContext)
+
   const { data, loading } = useQuery(MENU_QUERY, { variables: { id } })
-  if (loading) return <Spinner />
+  if (loading)
+    return (
+      <Layout backgroundColor={colors.primary}>
+        <Spinner />
+      </Layout>
+    )
   const menu = mapMenu(data.menu)
+
+  const showMenuButton =
+    userData && userData.signedInUser.type === 'admin' ? true : false
+
+  const showLogoutButton = userData && userData.signedInUser.type
 
   return (
     <Layout backgroundColor={colors.primary}>
-      <HeaderWrapper>
-        <MenuDrawer />
-      </HeaderWrapper>
+      <HeaderWrapper>{showMenuButton && <MenuDrawer />}</HeaderWrapper>
       <Container>
         <Wrapper>
           {menu.elements.map(({ initials, lessonId }) => (
@@ -43,6 +55,7 @@ export const MenuPage = ({ id }) => {
             </Link>
           ))}
         </Wrapper>
+        <SignInOrOutButton showLogoutButton={showLogoutButton} />
       </Container>
     </Layout>
   )
