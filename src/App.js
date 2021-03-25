@@ -13,6 +13,7 @@ import { MenuPage } from './MenuPage/MenuPage'
 import { EditMenuPage } from './EditMenuPage/EditMenuPage'
 import { SignInPage } from './SignInPage/SignInPage'
 import { ViewMenuPage } from './MenuPage/ViewMenuPage'
+import { ViewUserPage } from './ViewUserPage/ViewUserPage'
 import { getTokens } from 'shared/AuthTokens/getTokens'
 import { CurrentUserContextProvider } from './CurrentUserContextProvider'
 import { EditUserPage } from 'EditUserPage/EditUserPage'
@@ -97,6 +98,9 @@ const Wrapped = () => {
           </Route>
           <Route path="/viewMenu">
             <ViewMenuPage />
+          </Route>
+          <Route path="/viewUser">
+            <ViewUserPage />
           </Route>
           <Route path="/">
             <MenuPage id="main" />

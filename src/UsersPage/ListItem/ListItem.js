@@ -4,10 +4,10 @@ import { useHistory } from 'react-router-dom'
 import { ListItemButton } from './ListItemButton'
 import { Wrapper, UserName, UserButtons } from './ListItem.styles'
 
-// const navigateToViewMenu = (history, menuId) => (e) => {
-//   e.stopPropagation()
-//   history.push(`/viewMenu/${menuId}`)
-// }
+const navigateToViewUser = (history, userId) => (e) => {
+  e.stopPropagation()
+  history.push(`/viewUser/${userId}`)
+}
 
 const navigateToEditUser = (history, userId) => (e) => {
   e.stopPropagation()
@@ -22,7 +22,7 @@ export const ListItem = ({ user }) => {
       <UserName>{user.name}</UserName>
       &nbsp;&nbsp;
       <UserButtons>
-        <ListItemButton />
+        <ListItemButton onClick={navigateToViewUser(history, user.id)} />
       </UserButtons>
       <br />
     </Wrapper>
