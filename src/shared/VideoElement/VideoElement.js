@@ -15,7 +15,7 @@ export const VideoElement = ({ videos, actual, onComplete }) => {
   const [hasError, setHasError] = useState(false)
   const { complete, doComplete } = useCompleteState({ actual, onComplete })
   const { play, playing } = useMedia({
-    mediaRef: videoElement,
+    media: videoElement.current,
     onComplete: doComplete,
   })
   useEffect(() => {
@@ -28,7 +28,12 @@ export const VideoElement = ({ videos, actual, onComplete }) => {
     )
 
     // setErrorCode(videoElement.current.error.code)
-  }, [setHasError])
+  }, [hasError])
+
+  useEffect(() => {
+    videoElement.current.load()
+    if (videos[0] && videos[0].url) setHasError(false)
+  }, [videos])
 
   const color = hasError
     ? colors.wrong
