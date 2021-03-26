@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom'
 import { MenuDrawer } from 'shared/MenuDrawer'
 import PropTypes from 'prop-types'
 
-export const Lesson = ({ initials, menuId }) => {
+export const Lesson = ({ initials, menuId, image }) => {
   const { userData } = useContext(CurrentUserContext)
   const showMenuButton =
     userData && userData.signedInUser.type === 'admin' ? true : false
@@ -25,7 +25,11 @@ export const Lesson = ({ initials, menuId }) => {
       <HeaderWrapper>
         {showMenuButton && <MenuDrawer />}
         <Link to={`/viewMenu/${menuId}`}>
-          <LessonItem initials={initials} />
+          {data.lesson.image ? (
+            <LessonItem imageUrl={image} />
+          ) : (
+            <LessonItem initials={initials} />
+          )}
         </Link>
       </HeaderWrapper>
       <Container>
@@ -38,4 +42,5 @@ export const Lesson = ({ initials, menuId }) => {
 Lesson.propTypes = {
   menuId: PropTypes.string,
   initials: PropTypes.string,
+  image: PropTypes.string,
 }

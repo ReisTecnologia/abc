@@ -164,7 +164,12 @@ const resolvers = {
       let success = false
       let lesson = false
       await db
-        .editLesson(args.id, args.input.name, args.input.elements)
+        .editLesson(
+          args.id,
+          args.input.name,
+          args.input.elements,
+          args.input.image
+        )
         .then((updatedItem) => {
           lesson = updatedItem
           success = true

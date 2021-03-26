@@ -8,11 +8,12 @@ export const ViewLessonPage = () => {
   const search = useLocation().search
   const initials = new URLSearchParams(search).get('initials')
   const menuId = new URLSearchParams(search).get('menuId')
+  const image = new URLSearchParams(search).get('image')
 
   return (
     <Switch>
       <Route path={`${path}/:lesson`}>
-        <Lesson menuId={menuId} initials={initials} />
+        <Lesson menuId={menuId} initials={initials} image={image} />
       </Route>
     </Switch>
   )

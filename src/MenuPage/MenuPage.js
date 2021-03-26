@@ -46,12 +46,16 @@ export const MenuPage = ({ id }) => {
       <HeaderWrapper>{showMenuButton && <MenuDrawer />}</HeaderWrapper>
       <Container>
         <Wrapper>
-          {menu.elements.map(({ initials, lessonId }) => (
+          {menu.elements.map(({ initials, lessonId, image }) => (
             <Link
               key={lessonId}
-              to={`/viewLesson/${lessonId}?initials=${initials}&menuId=${id}`}
+              to={`/viewLesson/${lessonId}?initials=${initials}&menuId=${id}&image=${image}`}
             >
-              <LessonItem initials={initials} />
+              {image !== 'null' ? (
+                <LessonItem imageUrl={image} />
+              ) : (
+                <LessonItem initials={initials} />
+              )}
             </Link>
           ))}
         </Wrapper>

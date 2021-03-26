@@ -81,6 +81,8 @@ export const DragAndDrop = ({
   updateRightAnswerAudio,
   updateWrongAnswerAudio,
   videoFilePrefix,
+  imageFilePrefix,
+  setImageUrl,
   updateVideo,
   children,
 }) => {
@@ -101,7 +103,9 @@ export const DragAndDrop = ({
       const file = files[0]
       const filename = audioFilePrefix
         ? `${audioFilePrefix}${uuidv4()}.m4a`
-        : `${videoFilePrefix}${uuidv4()}.mp4`
+        : videoFilePrefix
+        ? `${videoFilePrefix}${uuidv4()}.mp4`
+        : `${imageFilePrefix}${uuidv4()}.jpg`
       var reader = new FileReader()
       const onComplete = () => {
         if (updateAudio)
@@ -124,6 +128,7 @@ export const DragAndDrop = ({
           updateWrongAnswerAudio({
             urlWrongAnswerExplanation: filename,
           })
+        else if (setImageUrl) setImageUrl(filename)
       }
 
       reader.addEventListener(
@@ -146,6 +151,8 @@ export const DragAndDrop = ({
       updateWordAudio,
       updateRightAnswerAudio,
       updateWrongAnswerAudio,
+      imageFilePrefix,
+      setImageUrl,
     ]
   )
 
@@ -221,4 +228,6 @@ DragAndDrop.propTypes = {
   updateWrongAnswerAudio: PropTypes.func,
   videoFilePrefix: PropTypes.string,
   updateVideo: PropTypes.func,
+  imageFilePrefix: PropTypes.string,
+  setImageUrl: PropTypes.func,
 }

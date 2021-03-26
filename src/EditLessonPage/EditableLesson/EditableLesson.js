@@ -14,6 +14,7 @@ import { SAVE_LESSON_MUTATION } from './SAVE_LESSON_MUTATION'
 import { MenuDrawer } from 'shared/MenuDrawer'
 import { ViewLessonButton } from './ViewLessonButton'
 import { CollapsedButtonsDrawer } from './CollapsedButtonsDrawer'
+import { LessonImage } from './LessonImage'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
@@ -43,13 +44,14 @@ let timeoutId = null
 export const EditableLesson = ({
   reloadLesson,
   loadingLesson,
-  lesson: { id, name, elements },
+  lesson: { id, name, elements, image },
 }) => {
   const isFirstRun = useRef(true)
   const [mutate, { loading: isSaving }] = useMutation(SAVE_LESSON_MUTATION)
 
   const [innerElements, setInnerElements] = useState(elements)
   const [lessonName, setLessonName] = useState(name)
+  const [imageUrl, setImageUrl] = useState(image)
 
   useEffect(() => {
     if (!isFirstRun.current) {
@@ -60,7 +62,11 @@ export const EditableLesson = ({
         const payload = {
           variables: {
             id: id,
-            input: { name: lessonName, elements: innerElements },
+            input: {
+              name: lessonName,
+              elements: innerElements,
+              image: imageUrl,
+            },
           },
         }
         mutate(payload)
@@ -68,7 +74,7 @@ export const EditableLesson = ({
     } else {
       isFirstRun.current = false
     }
-  }, [mutate, id, lessonName, innerElements])
+  }, [mutate, id, lessonName, innerElements, imageUrl])
 
   let history = useHistory()
   const navigateToHome = () => {
@@ -105,6 +111,7 @@ export const EditableLesson = ({
           lessonId={id}
           setInnerElements={setInnerElements}
         />
+        <LessonImage id={id} imageUrl={imageUrl} setImageUrl={setImageUrl} />
       </Container>
     </Layout>
   )
@@ -115,6 +122,7 @@ EditableLesson.propTypes = {
     id: PropTypes.string,
     name: PropTypes.string,
     elements: PropTypes.arrayOf(PropTypes.any),
+    image: PropTypes.string,
   }),
   loadingLesson: PropTypes.bool,
   reloadLesson: PropTypes.func,

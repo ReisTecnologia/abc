@@ -44,12 +44,14 @@ const changeInitials = ({ innerElements, elementIndex, setInnerElements }) => (
   setInnerElements(newInnerElements)
 }
 const changeLesson = ({ innerElements, elementIndex, setInnerElements }) => (
-  lessonId
+  lessonId,
+  imageUrl
 ) => {
   const newInnerElements = [...innerElements]
   newInnerElements[elementIndex] = {
     lessonId: lessonId,
     initials: '?',
+    image: imageUrl,
   }
   setInnerElements(newInnerElements)
 }
@@ -68,11 +70,17 @@ export const EditableMenu = ({ menu: { id, name, elements } }) => {
   const isFirstRun = useRef(true)
   const [innerElements, setInnerElements] = useState(elements)
   const [menuName, setMenuName] = useState(name)
+  const [showImgLesson, setShowImgLesson] = useState(true)
   const [mutate, { loading: isSaving }] = useMutation(SAVE_MENU_MUTATION)
   const { data } = useQuery(LESSONS_QUERY, {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: 'cache-and-network',
   })
+
+  const showImage = () => setShowImgLesson(true)
+  const hideImage = () => setShowImgLesson(false)
+
+  const toggleImage = () => (showImgLesson ? hideImage() : showImage())
 
   const moveUp = ({ elementIndex }) => () => {
     const reorderedElements = [...innerElements]
@@ -90,8 +98,11 @@ export const EditableMenu = ({ menu: { id, name, elements } }) => {
 
   const lessons = data && data.lessons ? data.lessons : []
 
-  const addLesson = (lessonId) =>
-    setInnerElements([...innerElements, { lessonId: lessonId, initials: '?' }])
+  const addLesson = (lessonId, imageUrl) =>
+    setInnerElements([
+      ...innerElements,
+      { lessonId: lessonId, initials: '?', image: imageUrl },
+    ])
 
   useEffect(() => {
     if (!isFirstRun.current) {
@@ -133,9 +144,13 @@ export const EditableMenu = ({ menu: { id, name, elements } }) => {
         </ButtonsWrapper>
       </HeaderWrapper>
       <Container>
-        {innerElements.map(({ initials, lessonId }, elementIndex) => (
+        {innerElements.map(({ initials, lessonId, image }, elementIndex) => (
           <ElementsWrapper key={elementIndex}>
-            <LessonItem initials={initials} />
+            {showImgLesson && image !== 'null' ? (
+              <LessonItem imageUrl={image} onClick={toggleImage} />
+            ) : (
+              <LessonItem initials={initials} onClick={toggleImage} />
+            )}
             <ElementsInfoWrapper>
               <LessonNameWrapper>
                 <LessonName
