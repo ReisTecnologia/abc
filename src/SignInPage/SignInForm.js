@@ -38,6 +38,7 @@ export const SignInForm = () => {
     if (data) {
       saveTokens(data.signIn)
       navigateToMenu()
+      history.go(0)
     }
   }
 
