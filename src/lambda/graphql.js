@@ -54,7 +54,7 @@ const resolvers = {
   Mutation: {
     signIn: async (parent, args) => {
       const user = await db.getUser(args.login)
-      if (!user) return null
+      if (!user) throw new AuthenticationError('Invalid login or password')
       const passwordValid = verifyPassword(args.password, user.password)
       if (!passwordValid)
         throw new AuthenticationError('Invalid login or password')
