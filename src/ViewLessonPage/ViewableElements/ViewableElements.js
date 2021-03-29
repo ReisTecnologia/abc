@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import { Element } from '../../shared/Element/Element'
-import ErrorBoundary from '../../shared/ErrorBoundary'
+import { Element } from 'shared/Element/Element'
+import ErrorBoundary from 'shared/ErrorBoundary'
 import { ElementWrapper } from './ElementWrapper'
 
 export const ViewableElements = ({ elements }) => {
