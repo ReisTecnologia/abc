@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useMemo } from 'react'
 import { useMutation } from '@apollo/client'
 import PropTypes from 'prop-types'
 import { Layout } from 'shared/Layout'
@@ -69,18 +69,13 @@ const deleteLesson = ({
 export const EditableMenu = ({ menu: { id, name, elements } }) => {
   const isFirstRun = useRef(true)
   const [innerElements, setInnerElements] = useState(elements)
+  const [isImageUpdated, setImageUpdated] = useState(false)
   const [menuName, setMenuName] = useState(name)
-  const [showImgLesson, setShowImgLesson] = useState(true)
   const [mutate, { loading: isSaving }] = useMutation(SAVE_MENU_MUTATION)
   const { data } = useQuery(LESSONS_QUERY, {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: 'cache-and-network',
   })
-
-  const showImage = () => setShowImgLesson(true)
-  const hideImage = () => setShowImgLesson(false)
-
-  const toggleImage = () => (showImgLesson ? hideImage() : showImage())
 
   const moveUp = ({ elementIndex }) => () => {
     const reorderedElements = [...innerElements]
@@ -96,7 +91,29 @@ export const EditableMenu = ({ menu: { id, name, elements } }) => {
     setInnerElements(reorderedElements)
   }
 
-  const lessons = data && data.lessons ? data.lessons : []
+  const lessons = useMemo(() => (data && data.lessons ? data.lessons : []), [
+    data,
+  ])
+  useEffect(() => {
+    if (lessons[0] !== undefined && !isImageUpdated) {
+      const filteredLessons = (lessonId) =>
+        lessons.filter((lesson) => lesson.id === lessonId)
+
+      const newInnerElements = [...innerElements]
+      innerElements.forEach((menu, elementIndex) => {
+        let lesson = filteredLessons(menu.lessonId)
+        if (lesson[0] !== undefined) {
+          newInnerElements[elementIndex] = {
+            lessonId: menu.lessonId,
+            initials: menu.initials,
+            image: lesson[0].image,
+          }
+        }
+      })
+      setImageUpdated(true)
+      setInnerElements(newInnerElements)
+    }
+  }, [innerElements, lessons, isImageUpdated])
 
   const addLesson = (lessonId, imageUrl) =>
     setInnerElements([
@@ -146,10 +163,10 @@ export const EditableMenu = ({ menu: { id, name, elements } }) => {
       <Container>
         {innerElements.map(({ initials, lessonId, image }, elementIndex) => (
           <ElementsWrapper key={elementIndex}>
-            {showImgLesson && image !== 'null' ? (
-              <LessonItem imageUrl={image} onClick={toggleImage} />
+            {image && image !== 'null' ? (
+              <LessonItem imageUrl={image} />
             ) : (
-              <LessonItem initials={initials} onClick={toggleImage} />
+              <LessonItem initials={initials} />
             )}
             <ElementsInfoWrapper>
               <LessonNameWrapper>

@@ -51,7 +51,7 @@ export const MenuPage = ({ id }) => {
               key={lessonId}
               to={`/viewLesson/${lessonId}?initials=${initials}&menuId=${id}&image=${image}`}
             >
-              {image !== 'null' ? (
+              {image && image !== 'null' ? (
                 <LessonItem imageUrl={image} />
               ) : (
                 <LessonItem initials={initials} />
