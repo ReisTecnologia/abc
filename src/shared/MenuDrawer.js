@@ -69,6 +69,10 @@ export const MenuDrawer = () => {
     history.push('/lessons')
     setDrawer(!drawer)
   }
+  const navigateToUsers = () => {
+    history.push('/users')
+    setDrawer(!drawer)
+  }
 
   return (
     <div>
@@ -76,6 +80,7 @@ export const MenuDrawer = () => {
         <ListWrapper>
           <ListItemWrapper onClick={navigateToMenus}>Menus</ListItemWrapper>
           <ListItemWrapper onClick={navigateToLessons}>Aulas</ListItemWrapper>
+          <ListItemWrapper onClick={navigateToUsers}>Usuários</ListItemWrapper>
         </ListWrapper>
         <LogoutButtonWrapper>
           <LogoutButton />

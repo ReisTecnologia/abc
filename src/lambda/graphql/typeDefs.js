@@ -117,6 +117,10 @@ export default gql`
     success: Boolean!
   }
 
+  type EditUserPasswordResponse {
+    success: Boolean!
+  }
+
   input WordLessonInput {
     startsWithTheLetter: Boolean!
     word: String!
@@ -180,9 +184,12 @@ export default gql`
     elements: [ElementMenuInput]
   }
 
+  input EditUserPasswordInput {
+    password: String!
+  }
+
   input EditUserInput {
     name: String
-    password: String
     login: String
     type: String
     previousLogin: String
@@ -208,6 +215,10 @@ export default gql`
     cleanupLessonFiles(id: ID!): CleanupLessonFilesResponse
     editLesson(id: ID!, input: EditLessonInput!): EditLessonResponse
     editUser(id: ID!, input: EditUserInput!): EditUserResponse
+    editUserPassword(
+      id: ID!
+      input: EditUserPasswordInput!
+    ): EditUserPasswordResponse
     signIn(login: String, password: String!): Tokens
   }
 `

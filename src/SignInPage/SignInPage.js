@@ -3,7 +3,6 @@ import { HeaderWrapper } from 'shared/HeaderWrapper'
 import { Container } from 'shared/Container'
 import { Layout } from 'shared/Layout'
 import { SignInForm } from './SignInForm'
-import { deleteTokens } from 'shared/AuthTokens/deleteTokens'
 import { Spinner } from 'shared/Spinner'
 import { CurrentUserContext } from '../CurrentUserContextProvider'
 
@@ -14,10 +13,12 @@ export const SignInPage = () => {
 
   if (userData !== undefined && userData.signedInUser)
     return (
-      <>
-        <div>Você está logado!</div>
-        <button onClick={deleteTokens}>Sign Out</button>
-      </>
+      <Layout>
+        <HeaderWrapper></HeaderWrapper>
+        <Container>
+          <div>Você está logado!</div>
+        </Container>
+      </Layout>
     )
   return (
     <Layout>

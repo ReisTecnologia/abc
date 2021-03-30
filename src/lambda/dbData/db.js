@@ -223,7 +223,7 @@ const editLesson = (id, name, elements, image) => {
     .promise()
     .then(({ Attributes }) => Attributes)
 }
-const editUser = (login, previousLogin, name, password, type, id) => {
+const editUser = (login, previousLogin, name, type, id) => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   params = {
     TransactItems: [
@@ -239,35 +239,58 @@ const editUser = (login, previousLogin, name, password, type, id) => {
           ExpressionAttributeValues: {
             ':newName': name,
             ':login': login,
-            ':password': password,
             ':newType': type,
             ':id': id,
           },
           ReturnValues: 'ALL_NEW',
           UpdateExpression:
-            'set #name = :newName, login = :login, password = :password, #type = :newType',
+            'set #name = :newName, login = :login,  #type = :newType',
           ConditionExpression: ':id = #id',
         },
       },
-      {
-        Delete: {
-          Key: { id: `login#${previousLogin}` },
-          TableName: USER_TABLE_NAME,
-          ReturnItemCollectionMetrics: 'SIZE',
-        },
-      },
-      {
-        Put: {
-          Item: {
-            id: `login#${login}`,
-          },
-          TableName: USER_TABLE_NAME,
-          ConditionExpression: 'attribute_not_exists(id)',
-        },
-      },
+      login !== previousLogin
+        ? {
+            Delete: {
+              Key: { id: `login#${previousLogin}` },
+              TableName: USER_TABLE_NAME,
+              ReturnItemCollectionMetrics: 'SIZE',
+            },
+          }
+        : null,
+      login !== previousLogin
+        ? {
+            Put: {
+              Item: {
+                id: `login#${login}`,
+              },
+              TableName: USER_TABLE_NAME,
+              ConditionExpression: 'attribute_not_exists(id)',
+            },
+          }
+        : null,
     ],
   }
   return docClient.transactWrite(params).promise()
+}
+const editUserPassword = (id, password) => {
+  const docClient = new AWS.DynamoDB.DocumentClient()
+  const params = {
+    TableName: USER_TABLE_NAME,
+    Key: { id: id },
+    ExpressionAttributeNames: { '#id': 'id' },
+    ExpressionAttributeValues: {
+      ':password': password,
+      ':id': id,
+    },
+    ReturnValues: 'ALL_NEW',
+    UpdateExpression: 'set password = :password',
+
+    ConditionExpression: ':id = #id',
+  }
+  return docClient
+    .update(params)
+    .promise()
+    .then(({ Attributes }) => Attributes)
 }
 
 module.exports = {
@@ -276,6 +299,7 @@ module.exports = {
   getUser,
   getUsers,
   editUser,
+  editUserPassword,
   addUser,
   addLesson,
   getMenu,

@@ -32,8 +32,7 @@ const resolvers = {
       const menu = await db.getMenu(args.id)
       return menu
     },
-    menus: async (parent, args, context) => {
-      console.log('menus: context', context)
+    menus: async () => {
       const menus = db.getMenus()
       return menus
     },
@@ -55,7 +54,7 @@ const resolvers = {
   Mutation: {
     signIn: async (parent, args) => {
       const user = await db.getUser(args.login)
-      if (!user) return null
+      if (!user) throw new AuthenticationError('Invalid login or password')
       const passwordValid = verifyPassword(args.password, user.password)
       if (!passwordValid)
         throw new AuthenticationError('Invalid login or password')
@@ -195,7 +194,6 @@ const resolvers = {
           args.input.login,
           args.input.previousLogin,
           args.input.name,
-          hashPassword(args.input.password),
           args.input.type,
           args.id
         )
@@ -204,6 +202,14 @@ const resolvers = {
       const user = await db.getUser(null, args.id)
       const userLogin = await db.getUser(null, `login#${args.input.login}`)
       return { success, user, userLogin }
+    },
+    editUserPassword: async (parent, args, context) => {
+      userCheck(context)
+      let success = await db
+        .editUserPassword(args.id, hashPassword(args.input.password))
+        .then(() => true)
+        .catch(() => false)
+      return { success }
     },
     addUser: async (parent, args) => {
       let success = false
