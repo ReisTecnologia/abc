@@ -29,6 +29,9 @@ export const AudioButton = ({
   audioElement.current.onerror = () => {
     setErrorCode(audioElement.current.error.code)
   }
+  useEffect(() => {
+    if (!audioElement.current.error) setErrorCode(null)
+  }, [errorCode, audioUrls])
 
   useEffect(() => {
     if (audioUrls[actualItem] === undefined) {

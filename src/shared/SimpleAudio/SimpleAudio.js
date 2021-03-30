@@ -12,11 +12,11 @@ export const SimpleAudio = ({ urlAudio, startPlaying, onComplete }) => {
   })
 
   useEffect(() => {
-    if (startPlaying) {
+    if (startPlaying && urlAudio) {
       console.log('play')
       play()
     }
-  }, [startPlaying, onComplete, play])
+  }, [startPlaying, onComplete, play, urlAudio])
 
   return <Wrapper />
 }
