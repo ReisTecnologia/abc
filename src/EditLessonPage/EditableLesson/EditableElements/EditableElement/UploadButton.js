@@ -61,7 +61,9 @@ export const UploadButton = ({ color, onClick }) => {
   return (
     <>
       <Wrapper onClick={onClick}>{UploadButtonBuilder('20', color)}</Wrapper>
-      <MobileWrapper>{UploadButtonBuilder('17', color)}</MobileWrapper>
+      <MobileWrapper onClick={onClick}>
+        {UploadButtonBuilder('17', color)}
+      </MobileWrapper>
     </>
   )
 }
