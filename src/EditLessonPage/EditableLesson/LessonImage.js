@@ -68,12 +68,12 @@ export const LessonImage = ({ id, imageUrl, setImageUrl }) => {
 
   return (
     <>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <Wrapper>
-          <Title>Ícone para menus</Title>
-          <ContentWrapper>
+      <Wrapper>
+        <Title>Ícone para menus</Title>
+        <ContentWrapper>
+          {loading ? (
+            <Spinner />
+          ) : (
             <DragAndDrop imageFilePrefix={`${id}___`} setImageUrl={setImageUrl}>
               <ImageWrapper>
                 <Img
@@ -90,9 +90,9 @@ export const LessonImage = ({ id, imageUrl, setImageUrl }) => {
               />
               <DeleteLessonImageButton setImageUrl={setImageUrl} />
             </DragAndDrop>
-          </ContentWrapper>
-        </Wrapper>
-      )}
+          )}
+        </ContentWrapper>
+      </Wrapper>
     </>
   )
 }
