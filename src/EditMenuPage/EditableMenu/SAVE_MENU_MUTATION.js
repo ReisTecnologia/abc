@@ -10,6 +10,7 @@ export const SAVE_MENU_MUTATION = gql`
         elements {
           initials
           lessonId
+          image
         }
       }
     }

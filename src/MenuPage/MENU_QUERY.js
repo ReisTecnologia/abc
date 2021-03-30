@@ -8,6 +8,7 @@ export const MENU_QUERY = gql`
       elements {
         initials
         lessonId
+        image
       }
     }
   }

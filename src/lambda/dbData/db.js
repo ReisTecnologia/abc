@@ -122,6 +122,7 @@ const addLesson = (id) => {
       id: id,
       name: 'Nova Aula',
       elements: [],
+      image: '',
     },
     TableName: TABLE_NAME,
   }
@@ -199,24 +200,21 @@ const editMenu = (id, name, elements) => {
     .then(({ Attributes }) => Attributes)
 }
 
-const editLesson = (id, name, elements) => {
+const editLesson = (id, name, elements, image) => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
     TableName: TABLE_NAME,
     Key: { id: id },
     ExpressionAttributeNames: { '#name': name ? 'name' : null, '#id': 'id' },
     ExpressionAttributeValues: {
-      ':newName': name ? name : null,
+      ':newName': name,
       ':id': id,
-      ':elements': elements ? elements : null,
+      ':elements': elements,
+      ':image': image,
     },
     ReturnValues: 'ALL_NEW',
     UpdateExpression:
-      name && elements
-        ? 'set #name = :newName, elements = :elements'
-        : name
-        ? 'set #name = :newName'
-        : 'set elements = :elements',
+      'set #name = :newName, elements = :elements, image = :image',
     ConditionExpression: ':id = #id',
   }
 

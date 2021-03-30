@@ -9,6 +9,7 @@ export const SAVE_LESSON_MUTATION = gql`
         elements {
           type
         }
+        image
       }
     }
   }

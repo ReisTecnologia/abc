@@ -49,11 +49,13 @@ export default gql`
     id: ID!
     name: String!
     elements: [Element]
+    image: String
   }
 
   type MenuElement {
     lessonId: String!
     initials: String!
+    image: String
   }
 
   type Menu {
@@ -164,11 +166,13 @@ export default gql`
   input ElementMenuInput {
     initials: String
     lessonId: String
+    image: String
   }
 
   input EditLessonInput {
     name: String
     elements: [ElementLessonInput]
+    image: String
   }
 
   input EditMenuInput {

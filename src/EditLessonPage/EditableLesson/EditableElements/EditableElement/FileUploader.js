@@ -58,6 +58,8 @@ export const FileUploader = ({
   updateWrongAnswerAudio,
   updateAudio,
   videoFilePrefix,
+  imageFilePrefix,
+  setImageUrl,
   updateVideo,
   color,
   loading,
@@ -80,7 +82,10 @@ export const FileUploader = ({
       const file = files[0]
       const filename = audioFilePrefix
         ? `${audioFilePrefix}${uuidv4()}.m4a`
-        : `${videoFilePrefix}${uuidv4()}.mp4`
+        : videoFilePrefix
+        ? `${videoFilePrefix}${uuidv4()}.mp4`
+        : `${imageFilePrefix}${uuidv4()}.jpg`
+
       var reader = new FileReader()
       const onComplete = () => {
         if (updateAudio)
@@ -103,6 +108,7 @@ export const FileUploader = ({
           updateWrongAnswerAudio({
             urlWrongAnswerExplanation: filename,
           })
+        else if (setImageUrl) setImageUrl(filename)
       }
       reader.addEventListener(
         'loadend',
@@ -123,8 +129,10 @@ export const FileUploader = ({
       videoFilePrefix,
       updateVideo,
       audioFilePrefix,
+      imageFilePrefix,
       updateAudio,
       setLoading,
+      setImageUrl,
     ]
   )
   return (
@@ -163,4 +171,6 @@ FileUploader.propTypes = {
   setLoading: PropTypes.func,
   videoFilePrefix: PropTypes.string,
   updateVideo: PropTypes.func,
+  imageFilePrefix: PropTypes.string,
+  setImageUrl: PropTypes.func,
 }
