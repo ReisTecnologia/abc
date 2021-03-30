@@ -123,6 +123,7 @@ const addLesson = (id) => {
       name: 'Nova Aula',
       elements: [],
       image: '',
+      initials: '?',
     },
     TableName: TABLE_NAME,
   }

@@ -44,7 +44,7 @@ export const LessonItem = ({ initials, imageUrl, onClick }) => {
         <ImageWrapper onClick={onClick}>
           <Img
             src={`https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${imageUrl}`}
-            alt="Imagem da aula"
+            alt="Icone"
           />
         </ImageWrapper>
       ) : (

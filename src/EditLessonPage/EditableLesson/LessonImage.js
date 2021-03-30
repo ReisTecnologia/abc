@@ -3,6 +3,7 @@ import { FileUploader } from './EditableElements/EditableElement/FileUploader'
 import { colors } from 'shared/colors'
 import { Spinner } from 'shared/Spinner'
 import styled from 'styled-components'
+import { DeleteLessonImageButton } from './DeleteLessonImageButton'
 import { DragAndDrop } from './EditableElements/EditableElement/DragAndDrop'
 import PropTypes from 'prop-types'
 
@@ -77,7 +78,7 @@ export const LessonImage = ({ id, imageUrl, setImageUrl }) => {
               <ImageWrapper>
                 <Img
                   src={`https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${imageUrl}`}
-                  alt="Imagem da aula"
+                  alt="Icone"
                 />
               </ImageWrapper>
               <FileUploader
@@ -87,6 +88,7 @@ export const LessonImage = ({ id, imageUrl, setImageUrl }) => {
                 loading={loading}
                 setLoading={setLoading}
               />
+              <DeleteLessonImageButton setImageUrl={setImageUrl} />
             </DragAndDrop>
           </ContentWrapper>
         </Wrapper>

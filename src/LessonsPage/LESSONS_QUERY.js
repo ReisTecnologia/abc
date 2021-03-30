@@ -5,6 +5,8 @@ export const LESSONS_QUERY = gql`
     lessons {
       id
       name
+      image
+      initials
     }
   }
 `

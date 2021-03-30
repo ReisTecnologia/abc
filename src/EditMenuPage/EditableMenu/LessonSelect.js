@@ -3,17 +3,15 @@ import PropTypes from 'prop-types'
 
 export const LessonSelect = ({ onSelect, lessons, defaultSelect }) => {
   const handleChange = (e) => {
-    let splitTargetValue = e.target.value.split(',')
-
-    onSelect(splitTargetValue[0], splitTargetValue[1])
+    onSelect(e.target.value)
   }
 
   return (
     <>
       <select onChange={handleChange} value={defaultSelect}>
         <option value={null}>{null}</option>
-        {lessons.map(({ id, name, image }) => (
-          <option value={`${id},${image}`} key={id}>
+        {lessons.map(({ id, name }) => (
+          <option value={id} key={id}>
             {name}
           </option>
         ))}

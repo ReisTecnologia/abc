@@ -3,6 +3,7 @@ import { LessonSelect } from './LessonSelect'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { useOnClickOutside } from 'shared/useOnClickOutside'
+import { filterLessonsById } from 'shared/filterLessonsById'
 
 export const Wrapper = styled.div`
   cursor: pointer;
@@ -12,9 +13,8 @@ export const Wrapper = styled.div`
 export const LessonName = ({ lessonId, onSelect, lessons, defaultSelect }) => {
   const [showSelect, setShowSelect] = useState(false)
   const toggleSelect = () => setShowSelect(true)
-  const filterLessonById = (id) => lessons.filter((lesson) => lesson.id === id)
-  const LessonName =
-    lessons.length > 0 ? filterLessonById(lessonId)[0].name : '...'
+
+  const LessonName = filterLessonsById(lessonId, lessons)[0].name
 
   const hideSelect = useCallback(() => {
     setShowSelect(false)

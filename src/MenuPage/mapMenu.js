@@ -1,7 +1,5 @@
 export const mapMenu = (menu) => ({
-  elements: menu.elements.map(({ initials, lessonId, image }) => ({
-    initials,
+  elements: menu.elements.map(({ lessonId }) => ({
     lessonId,
-    image,
   })),
 })
