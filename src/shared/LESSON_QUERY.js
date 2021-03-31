@@ -6,6 +6,7 @@ export const LESSON_QUERY = gql`
       id
       name
       image
+      initials
       elements {
         type
         letter

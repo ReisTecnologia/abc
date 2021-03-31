@@ -6,6 +6,7 @@ export const LESSONS_QUERY = gql`
       id
       name
       image
+      initials
     }
   }
 `

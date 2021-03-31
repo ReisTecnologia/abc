@@ -227,6 +227,20 @@ const resolvers = {
       return { success, users }
     },
   },
+  MenuElement: {
+    lesson: async (parent) => {
+      const lesson = await db.getLesson(parent.lessonId)
+      return lesson
+        ? lesson
+        : {
+            id: 'deleted',
+            name: 'deleted',
+            elements: [],
+            initials: '',
+            image: '',
+          }
+    },
+  },
 }
 
 const server = new ApolloServer({

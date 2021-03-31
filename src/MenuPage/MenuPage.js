@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client'
 import { MENU_QUERY } from './MENU_QUERY'
 import PropTypes from 'prop-types'
 import { mapMenu } from './mapMenu'
+import { filterLessonsById } from 'shared/filterLessonsById'
 import { LessonItem } from 'shared/LessonItem'
 import { Layout } from 'shared/Layout'
 import { HeaderWrapper } from 'shared/HeaderWrapper'
@@ -40,7 +41,11 @@ export const MenuPage = ({ id }) => {
         <Spinner />
       </Layout>
     )
+
   const menu = mapMenu(data.menu)
+
+  const lessons =
+    data && data.menu ? data.menu.elements.map(({ lesson }) => lesson) : []
 
   const showMenuButton =
     userData && userData.signedInUser.type === 'admin' ? true : false
@@ -61,16 +66,12 @@ export const MenuPage = ({ id }) => {
       )}
       <Container>
         <Wrapper>
-          {menu.elements.map(({ initials, lessonId, image }) => (
-            <Link
-              key={lessonId}
-              to={`/viewLesson/${lessonId}?initials=${initials}&menuId=${id}&image=${image}`}
-            >
-              {image && image !== 'null' ? (
-                <LessonItem imageUrl={image} />
-              ) : (
-                <LessonItem initials={initials} />
-              )}
+          {menu.elements.map(({ lessonId }) => (
+            <Link key={lessonId} to={`/viewLesson/${lessonId}?menuId=${id}`}>
+              <LessonItem
+                initials={filterLessonsById(lessonId, lessons)[0].initials}
+                image={filterLessonsById(lessonId, lessons)[0].image}
+              />
             </Link>
           ))}
         </Wrapper>

@@ -35,14 +35,15 @@ const Img = styled.img`
   border-radius: 5px;
 `
 
-export const LessonItem = ({ initials, imageUrl, onClick }) => {
+export const LessonItem = ({ initials, image, onClick }) => {
+  const imageUrl = image && image !== '' ? image : null
   return (
     <>
       {imageUrl ? (
         <ImageWrapper onClick={onClick}>
           <Img
             src={`https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${imageUrl}`}
-            alt="Imagem da aula"
+            alt="Icone"
           />
         </ImageWrapper>
       ) : (
@@ -54,6 +55,6 @@ export const LessonItem = ({ initials, imageUrl, onClick }) => {
 
 LessonItem.propTypes = {
   initials: PropTypes.string,
-  imageUrl: PropTypes.string,
+  image: PropTypes.string,
   onClick: PropTypes.func,
 }

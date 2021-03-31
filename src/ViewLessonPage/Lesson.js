@@ -20,13 +20,14 @@ export const UserButtonWrapper = styled.div`
   right: 1rem;
 `
 
-export const Lesson = ({ initials, menuId, image }) => {
+export const Lesson = ({ menuId }) => {
   const { userData } = useContext(CurrentUserContext)
   const showMenuButton =
     userData && userData.signedInUser.type === 'admin' ? true : false
 
   const { lesson } = useParams()
   const { data } = useQuery(LESSON_QUERY, { variables: { id: lesson } })
+  console.log('data', data)
 
   const userInitial =
     userData && userData.signedInUser.name.substr(0, 1).toUpperCase()
@@ -39,11 +40,10 @@ export const Lesson = ({ initials, menuId, image }) => {
           <UserDrawer initial={userInitial} />
         </UserButtonWrapper>
         <Link to={`/viewMenu/${menuId}`}>
-          {data.lesson.image ? (
-            <LessonItem imageUrl={image} />
-          ) : (
-            <LessonItem initials={initials} />
-          )}
+          <LessonItem
+            initials={data.lesson.initials}
+            image={data.lesson.image}
+          />
         </Link>
       </HeaderWrapper>
       <Container>

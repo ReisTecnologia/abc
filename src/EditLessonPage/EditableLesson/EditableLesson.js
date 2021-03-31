@@ -56,7 +56,7 @@ let timeoutId = null
 export const EditableLesson = ({
   reloadLesson,
   loadingLesson,
-  lesson: { id, name, elements, image },
+  lesson: { id, name, elements, image, initials },
   userInitial,
 }) => {
   const isFirstRun = useRef(true)
@@ -65,6 +65,7 @@ export const EditableLesson = ({
   const [innerElements, setInnerElements] = useState(elements)
   const [lessonName, setLessonName] = useState(name)
   const [imageUrl, setImageUrl] = useState(image)
+  const [lessonInitial, setLessonInitial] = useState(initials)
 
   useEffect(() => {
     if (!isFirstRun.current) {
@@ -121,13 +122,19 @@ export const EditableLesson = ({
         </CollapsedButtonsWrapper>
       </HeaderWrapper>
       <Container>
+        <LessonImage
+          id={id}
+          imageUrl={imageUrl}
+          setImageUrl={setImageUrl}
+          initials={lessonInitial}
+          setInitials={setLessonInitial}
+        />
         <EditableElements
           reloadLesson={reloadLesson}
           innerElements={innerElements}
           lessonId={id}
           setInnerElements={setInnerElements}
         />
-        <LessonImage id={id} imageUrl={imageUrl} setImageUrl={setImageUrl} />
       </Container>
     </Layout>
   )
@@ -139,6 +146,7 @@ EditableLesson.propTypes = {
     name: PropTypes.string,
     elements: PropTypes.arrayOf(PropTypes.any),
     image: PropTypes.string,
+    initials: PropTypes.string,
   }),
   loadingLesson: PropTypes.bool,
   reloadLesson: PropTypes.func,

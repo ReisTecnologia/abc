@@ -49,13 +49,13 @@ export default gql`
     id: ID!
     name: String!
     elements: [Element]
+    initials: String!
     image: String
   }
 
   type MenuElement {
     lessonId: String!
-    initials: String!
-    image: String
+    lesson: Lesson!
   }
 
   type Menu {
