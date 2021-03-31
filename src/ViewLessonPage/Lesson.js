@@ -12,24 +12,24 @@ import { Link } from 'react-router-dom'
 import { MenuDrawer } from 'shared/MenuDrawer'
 import PropTypes from 'prop-types'
 
-export const Lesson = ({ initials, menuId, image }) => {
+export const Lesson = ({ menuId }) => {
   const { userData } = useContext(CurrentUserContext)
   const showMenuButton =
     userData && userData.signedInUser.type === 'admin' ? true : false
 
   const { lesson } = useParams()
   const { data } = useQuery(LESSON_QUERY, { variables: { id: lesson } })
+  console.log('data', data)
 
   return data ? (
     <Layout>
       <HeaderWrapper>
         {showMenuButton && <MenuDrawer />}
         <Link to={`/viewMenu/${menuId}`}>
-          {data.lesson.image ? (
-            <LessonItem imageUrl={image} />
-          ) : (
-            <LessonItem initials={initials} />
-          )}
+          <LessonItem
+            initials={data.lesson.initials}
+            image={data.lesson.image}
+          />
         </Link>
       </HeaderWrapper>
       <Container>

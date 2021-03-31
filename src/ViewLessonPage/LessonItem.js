@@ -37,7 +37,8 @@ const Img = styled.img`
   border-radius: 5px;
 `
 
-export const LessonItem = ({ initials, imageUrl, onClick }) => {
+export const LessonItem = ({ initials, image, onClick }) => {
+  const imageUrl = image && image !== '' ? image : null
   return (
     <>
       {imageUrl ? (
@@ -56,6 +57,6 @@ export const LessonItem = ({ initials, imageUrl, onClick }) => {
 
 LessonItem.propTypes = {
   initials: PropTypes.string,
-  imageUrl: PropTypes.string,
+  image: PropTypes.string,
   onClick: PropTypes.func,
 }

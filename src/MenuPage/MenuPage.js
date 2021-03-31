@@ -52,15 +52,11 @@ export const MenuPage = ({ id }) => {
       <Container>
         <Wrapper>
           {menu.elements.map(({ lessonId }) => (
-            <Link
-              key={lessonId}
-              to={`/viewLesson/${lessonId}?initials=${
-                filterLessonsById(lessonId, lessons)[0].initials
-              }&menuId=${id}&image=${
-                filterLessonsById(lessonId, lessons)[0].image
-              }`}
-            >
-              <LessonItem lesson={filterLessonsById(lessonId, lessons)[0]} />
+            <Link key={lessonId} to={`/viewLesson/${lessonId}?menuId=${id}`}>
+              <LessonItem
+                initials={filterLessonsById(lessonId, lessons)[0].initials}
+                image={filterLessonsById(lessonId, lessons)[0].image}
+              />
             </Link>
           ))}
         </Wrapper>

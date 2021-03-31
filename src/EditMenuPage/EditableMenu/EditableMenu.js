@@ -120,7 +120,10 @@ export const EditableMenu = ({ menu: { id, name, elements }, lessons }) => {
       <Container>
         {innerElements.map(({ lessonId }, elementIndex) => (
           <ElementsWrapper key={elementIndex}>
-            <LessonItem lesson={filterLessonsById(lessonId, lessons)[0]} />
+            <LessonItem
+              initials={filterLessonsById(lessonId, lessons)[0].initials}
+              image={filterLessonsById(lessonId, lessons)[0].image}
+            />
             <ElementsInfoWrapper>
               <LessonNameWrapper>
                 <LessonName

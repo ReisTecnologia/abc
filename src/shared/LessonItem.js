@@ -35,8 +35,8 @@ const Img = styled.img`
   border-radius: 5px;
 `
 
-export const LessonItem = ({ lesson, onClick }) => {
-  const imageUrl = lesson.image && lesson.image !== '' ? lesson.image : null
+export const LessonItem = ({ initials, image, onClick }) => {
+  const imageUrl = image && image !== '' ? image : null
   return (
     <>
       {imageUrl ? (
@@ -47,13 +47,14 @@ export const LessonItem = ({ lesson, onClick }) => {
           />
         </ImageWrapper>
       ) : (
-        <Wrapper onClick={onClick}>{lesson.initials}</Wrapper>
+        <Wrapper onClick={onClick}>{initials}</Wrapper>
       )}
     </>
   )
 }
 
 LessonItem.propTypes = {
-  lesson: PropTypes.object,
+  initials: PropTypes.string,
+  image: PropTypes.string,
   onClick: PropTypes.func,
 }

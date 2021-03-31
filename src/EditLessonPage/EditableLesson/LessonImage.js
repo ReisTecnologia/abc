@@ -6,6 +6,8 @@ import styled from 'styled-components'
 import { DeleteLessonImageButton } from './DeleteLessonImageButton'
 import { DragAndDrop } from './EditableElements/EditableElement/DragAndDrop'
 import PropTypes from 'prop-types'
+import { LessonItem } from 'shared/LessonItem'
+import { TextAndInput } from 'shared/TextAndInput'
 
 const ImageWrapper = styled.div`
   background-color: ${colors.white};
@@ -20,11 +22,14 @@ const ImageWrapper = styled.div`
 `
 const Wrapper = styled.div`
   display: flex;
-  background-color: #eee;
+  background-color: ${colors.dimmedPrimary};
   flex-direction: column;
 `
 const Img = styled.img`
   border-radius: 5px;
+`
+const InitialWrapper = styled.div`
+  padding-right: 5px;
 `
 const Title = styled.div`
   @media (min-width: 361px) {
@@ -32,8 +37,8 @@ const Title = styled.div`
     text-align: center;
     margin: 1rem 0 0 0;
     font-size: 1.2rem;
-    color: ${colors.grayText};
-    border-bottom: solid 1px ${colors.grayText};
+    color: ${colors.white};
+    border-bottom: solid 1px ${colors.white};
     padding-bottom: 0.5rem;
   }
   @media (max-width: 360px) {
@@ -41,8 +46,8 @@ const Title = styled.div`
     text-align: center;
     margin: 1rem 0 0 0;
     font-size: 1.2rem;
-    color: ${colors.grayText};
-    border-bottom: solid 1px ${colors.grayText};
+    color: ${colors.white};
+    border-bottom: solid 1px ${colors.white};
     padding-bottom: 0.5rem;
     display: flex;
     flex-direction: column;
@@ -62,14 +67,26 @@ const ContentWrapper = styled.div`
     display: flex;
   }
 `
+const TextInputWrapper = styled.div`
+  display: flex;
+  align-self: center;
+  justify-content: space-between;
+  color: ${colors.white};
+`
 
-export const LessonImage = ({ id, imageUrl, setImageUrl }) => {
+export const LessonImage = ({
+  id,
+  imageUrl,
+  setImageUrl,
+  initials,
+  setInitials,
+}) => {
   const [loading, setLoading] = useState(false)
 
   return (
     <>
       <Wrapper>
-        <Title>Ícone para menus</Title>
+        <Title>Ícone</Title>
         <ContentWrapper>
           {loading ? (
             <Spinner />
@@ -83,12 +100,17 @@ export const LessonImage = ({ id, imageUrl, setImageUrl }) => {
               </ImageWrapper>
               <FileUploader
                 imageFilePrefix={`${id}___`}
-                color={colors.grayText}
+                color={colors.white}
                 setImageUrl={setImageUrl}
                 loading={loading}
                 setLoading={setLoading}
               />
               <DeleteLessonImageButton setImageUrl={setImageUrl} />
+              <LessonItem initials={initials} />
+              <TextInputWrapper>
+                <InitialWrapper>{'Inicial:'}</InitialWrapper>
+                <TextAndInput value={initials} onChange={setInitials} />
+              </TextInputWrapper>
             </DragAndDrop>
           )}
         </ContentWrapper>
@@ -101,4 +123,6 @@ LessonImage.propTypes = {
   id: PropTypes.string,
   imageUrl: PropTypes.string,
   setImageUrl: PropTypes.func,
+  initials: PropTypes.string,
+  setInitials: PropTypes.func,
 }

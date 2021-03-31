@@ -39,7 +39,7 @@ const DeleteLessonImageButtonBuilder = (size, deleteImageUrl) => (
   <Icon
     icon={trashIcon}
     onClick={deleteImageUrl}
-    color={colors.grayText}
+    color={colors.white}
     height={size}
     cursor="pointer"
   />
