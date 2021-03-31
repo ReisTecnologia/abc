@@ -15,6 +15,7 @@ import { MenuDrawer } from 'shared/MenuDrawer'
 import { ViewLessonButton } from './ViewLessonButton'
 import { CollapsedButtonsDrawer } from './CollapsedButtonsDrawer'
 import { LessonImage } from './LessonImage'
+import { UserDrawer } from 'shared/UserDrawer/UserDrawer'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
@@ -22,22 +23,33 @@ export const TitleWrapper = styled.div`
   flex: 1;
 `
 export const CollapsedButtonsWrapper = styled.div`
-  @media (min-width: 600px) {
+  @media (min-width: 720px) {
     display: none;
   }
-  @media (max-width: 599px) {
+  @media (max-width: 719px) {
+    padding-left: 5px;
+    position: fixed;
+    right: 40px;
+    top: 3.5px;
   }
 `
 export const ButtonsWrapper = styled.div`
-  @media (min-width: 600px) {
+  @media (min-width: 720px) {
     flex: 1;
     display: flex;
     flex-direction: row-reverse;
   }
-  @media (max-width: 599px) {
+  @media (max-width: 719px) {
     display: none;
   }
 `
+
+export const UserButtonWrapper = styled.div`
+  position: absolute;
+  top: 0.4rem;
+  right: 1rem;
+`
+
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
 
@@ -45,6 +57,7 @@ export const EditableLesson = ({
   reloadLesson,
   loadingLesson,
   lesson: { id, name, elements, image },
+  userInitial,
 }) => {
   const isFirstRun = useRef(true)
   const [mutate, { loading: isSaving }] = useMutation(SAVE_LESSON_MUTATION)
@@ -77,8 +90,8 @@ export const EditableLesson = ({
   }, [mutate, id, lessonName, innerElements, imageUrl])
 
   let history = useHistory()
-  const navigateToHome = () => {
-    history.push('/')
+  const navigateToLessons = () => {
+    history.push('/lessons')
   }
 
   return (
@@ -89,16 +102,19 @@ export const EditableLesson = ({
           <InputField value={lessonName} setValue={setLessonName} />
         </TitleWrapper>
         {isSaving && <Spinner />}
+        <UserButtonWrapper>
+          <UserDrawer initial={userInitial} />
+        </UserButtonWrapper>
         <ButtonsWrapper>
           <ViewLessonButton lessonId={id} />
           <CleanupFilesButton id={id} />
-          <DeleteButton id={id} afterDelete={navigateToHome} />
+          <DeleteButton id={id} afterDelete={navigateToLessons} />
           <ReloadButton reload={reloadLesson} loading={loadingLesson} />
         </ButtonsWrapper>
         <CollapsedButtonsWrapper>
           <CollapsedButtonsDrawer
             id={id}
-            afterDelete={navigateToHome}
+            afterDelete={navigateToLessons}
             reload={reloadLesson}
             loading={loadingLesson}
           />
@@ -126,4 +142,5 @@ EditableLesson.propTypes = {
   }),
   loadingLesson: PropTypes.bool,
   reloadLesson: PropTypes.func,
+  userInitial: PropTypes.string,
 }

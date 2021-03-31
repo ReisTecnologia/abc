@@ -43,9 +43,11 @@ export const EditableUserLoader = () => {
     alert('Você não tem permissões para acessar essa página!')
   }
 
+  const userInitial = userData.signedInUser.name.substr(0, 1).toUpperCase()
+
   return loadingUser ? (
     <Spinner />
   ) : data && data.user ? (
-    <EditableUser user={data.user} />
+    <EditableUser user={data.user} userInitial={userInitial} />
   ) : null
 }

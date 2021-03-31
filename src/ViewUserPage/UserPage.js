@@ -3,9 +3,15 @@ import { HeaderWrapper } from 'shared/HeaderWrapper'
 import { Container } from 'shared/Container'
 import { Layout } from 'shared/Layout'
 import { MenuDrawer } from 'shared/MenuDrawer'
+import { UserDrawer } from 'shared/UserDrawer/UserDrawer'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
+export const UserButtonWrapper = styled.div`
+  position: absolute;
+  top: 0.4rem;
+  right: 1rem;
+`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -33,12 +39,15 @@ const userInfoFields = (label, userInfo) => (
   </InfoWrapper>
 )
 
-export const UserPage = ({ user }) => {
+export const UserPage = ({ user, userInitial }) => {
   return (
     <Layout>
       <HeaderWrapper>
         <MenuDrawer />
         <Title>Usuário</Title>
+        <UserButtonWrapper>
+          <UserDrawer initial={userInitial} />
+        </UserButtonWrapper>
       </HeaderWrapper>
       <Container>
         <Wrapper>
@@ -56,4 +65,5 @@ export const UserPage = ({ user }) => {
 
 UserPage.propTypes = {
   user: PropTypes.object,
+  userInitial: PropTypes.string,
 }

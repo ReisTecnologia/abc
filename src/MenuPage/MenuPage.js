@@ -13,6 +13,7 @@ import { MenuDrawer } from 'shared/MenuDrawer'
 import { Container } from 'shared/Container'
 import { Spinner } from 'shared/Spinner'
 import { CurrentUserContext } from '../CurrentUserContextProvider'
+import { UserDrawer } from 'shared/UserDrawer/UserDrawer'
 import { SignInOrOutButton } from './SignInOrOutButton'
 
 const Wrapper = styled.div`
@@ -22,6 +23,11 @@ const Wrapper = styled.div`
   align-content: space-around;
   background-color: ${colors.primary};
   height: 100%;
+`
+export const UserButtonWrapper = styled.div`
+  position: absolute;
+  top: 0.4rem;
+  right: 1rem;
 `
 
 export const MenuPage = ({ id }) => {
@@ -40,10 +46,19 @@ export const MenuPage = ({ id }) => {
     userData && userData.signedInUser.type === 'admin' ? true : false
 
   const showLogoutButton = userData && userData.signedInUser.type
+  const userInitial =
+    userData && userData.signedInUser.name.substr(0, 1).toUpperCase()
 
   return (
     <Layout backgroundColor={colors.primary}>
-      <HeaderWrapper>{showMenuButton && <MenuDrawer />}</HeaderWrapper>
+      {userData && (
+        <HeaderWrapper>
+          {showMenuButton && <MenuDrawer />}
+          <UserButtonWrapper>
+            <UserDrawer initial={userInitial} />
+          </UserButtonWrapper>
+        </HeaderWrapper>
+      )}
       <Container>
         <Wrapper>
           {menu.elements.map(({ initials, lessonId, image }) => (

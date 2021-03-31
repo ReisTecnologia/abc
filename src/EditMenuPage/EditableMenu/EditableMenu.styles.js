@@ -12,6 +12,11 @@ export const InicialWrapper = styled.div`
 export const TitleWrapper = styled.div`
   flex: 1;
 `
+export const UserButtonWrapper = styled.div`
+  position: absolute;
+  top: 0.4rem;
+  right: 1rem;
+`
 export const ElementsInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;

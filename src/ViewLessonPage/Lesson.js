@@ -11,6 +11,14 @@ import { LessonItem } from './LessonItem'
 import { Link } from 'react-router-dom'
 import { MenuDrawer } from 'shared/MenuDrawer'
 import PropTypes from 'prop-types'
+import { UserDrawer } from 'shared/UserDrawer/UserDrawer'
+import styled from 'styled-components'
+
+export const UserButtonWrapper = styled.div`
+  position: absolute;
+  top: 0.4rem;
+  right: 1rem;
+`
 
 export const Lesson = ({ initials, menuId, image }) => {
   const { userData } = useContext(CurrentUserContext)
@@ -20,10 +28,16 @@ export const Lesson = ({ initials, menuId, image }) => {
   const { lesson } = useParams()
   const { data } = useQuery(LESSON_QUERY, { variables: { id: lesson } })
 
+  const userInitial =
+    userData && userData.signedInUser.name.substr(0, 1).toUpperCase()
+
   return data ? (
     <Layout>
       <HeaderWrapper>
         {showMenuButton && <MenuDrawer />}
+        <UserButtonWrapper>
+          <UserDrawer initial={userInitial} />
+        </UserButtonWrapper>
         <Link to={`/viewMenu/${menuId}`}>
           {data.lesson.image ? (
             <LessonItem imageUrl={image} />

@@ -13,7 +13,7 @@ export const Button = styled.div`
   border: solid 1px ${colors.white};
   border-radius: 7px;
   padding: 0 0.4rem;
-  min-width: 135px;
+  min-width: 145px;
   max-height: 22px;
 `
 

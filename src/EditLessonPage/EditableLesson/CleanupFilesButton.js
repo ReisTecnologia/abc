@@ -13,12 +13,12 @@ const CLEANUP_LESSON_FILES_MUTATION = gql`
   }
 `
 const Wrapper = styled.div`
-  @media (min-width: 600px) {
+  @media (min-width: 720px) {
     padding-left: 5px;
     position: fixed;
-    right: 65px;
+    right: 105px;
   }
-  @media (max-width: 599px) {
+  @media (max-width: 719px) {
     min-width: 142px;
   }
 `

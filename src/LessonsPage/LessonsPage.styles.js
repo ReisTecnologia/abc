@@ -12,6 +12,11 @@ export const Title = styled.div`
     font-size: 1.3rem;
   }
 `
+export const UserButtonWrapper = styled.div`
+  position: absolute;
+  top: 0.4rem;
+  right: 1rem;
+`
 
 export const PageActions = styled.div`
   @media (min-width: 361px) {
@@ -23,6 +28,7 @@ export const PageActions = styled.div`
   @media (max-width: 360px) {
     flex: 1;
     display: flex;
+    margin-right: 1.5rem;
     flex-direction: row-reverse;
   }
 `

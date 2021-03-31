@@ -7,6 +7,7 @@ import { DeleteButton } from './DeleteButton'
 import { CleanupFilesButton } from './CleanupFilesButton'
 import { ReloadButton } from './ReloadButton'
 import { ViewLessonButton } from './ViewLessonButton'
+import { LogoutButton } from 'shared/LogoutButton'
 import PropTypes from 'prop-types'
 
 const ListItemWrapper = styled.li`
@@ -23,7 +24,37 @@ const ListItemWrapper = styled.li`
 `
 const ListWrapper = styled.ul`
   margin: 0;
-  width: 25vh;
+  width: 20vw;
+  min-width: 150px;
+  max-width: 300px;
+`
+const LogoutButtonWrapper = styled.div`
+  @media (min-width: 600px) {
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 20vw;
+    min-width: 150px;
+    max-width: 300px;
+    :hover {
+      background-color: ${colors.primary};
+      cursor: pointer;
+      color: white;
+    }
+  }
+  @media (max-width: 599px) {
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 20vw;
+    min-width: 150px;
+    max-width: 300px;
+    :hover {
+      background-color: ${colors.primary};
+      cursor: pointer;
+      color: white;
+    }
+  }
 `
 
 export const CollapsedButtonsDrawer = ({
@@ -55,6 +86,9 @@ export const CollapsedButtonsDrawer = ({
             <ReloadButton reload={reload} loading={loading} />
           </ListItemWrapper>
         </ListWrapper>
+        <LogoutButtonWrapper>
+          <LogoutButton />
+        </LogoutButtonWrapper>
       </Drawer>
       <CollapsedButtons onClick={toggleDrawer} />
     </div>

@@ -5,12 +5,13 @@ import { AddLessonButton } from './AddLessonButton/AddLessonButton'
 import { ListItem } from './ListItem/ListItem'
 import { Spinner } from 'shared/Spinner'
 import { LESSONS_QUERY } from './LESSONS_QUERY'
-import { Title, PageActions } from './LessonsPage.styles.js'
+import { Title, PageActions, UserButtonWrapper } from './LessonsPage.styles.js'
 import { Layout } from 'shared/Layout'
 import { HeaderWrapper } from 'shared/HeaderWrapper'
 import { Container } from 'shared/Container'
 import { MenuDrawer } from 'shared/MenuDrawer'
 import { useHistory } from 'react-router'
+import { UserDrawer } from 'shared/UserDrawer/UserDrawer'
 import PropTypes from 'prop-types'
 
 export const LessonsPage = () => {
@@ -44,6 +45,8 @@ export const LessonsPage = () => {
     alert('Você não tem permissões para acessar essa página!')
     navigateToMenu()
   }
+  const userInitial = userData.signedInUser.name.substr(0, 1).toUpperCase()
+
   return (
     <Layout>
       <HeaderWrapper>
@@ -51,6 +54,9 @@ export const LessonsPage = () => {
         <Title>Aulas</Title>
         {loading && <Spinner />}
         <PageActions>
+          <UserButtonWrapper>
+            <UserDrawer initial={userInitial} />
+          </UserButtonWrapper>
           <AddLessonButton afterAdd={refetch} />
         </PageActions>
       </HeaderWrapper>
