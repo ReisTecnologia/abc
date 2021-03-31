@@ -8,6 +8,7 @@ const Wrapper = styled.div`
   padding-left: 5px;
   position: fixed;
   top: 5px;
+  right: 55px;
 `
 
 export const ViewMenuButton = ({ menuId }) => {

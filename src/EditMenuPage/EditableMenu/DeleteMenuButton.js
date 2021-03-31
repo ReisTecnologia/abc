@@ -13,7 +13,7 @@ export const Button = styled.div`
   cursor: pointer;
   margin-left: 0.5rem;
   position: fixed;
-  right: 65px;
+  right: 105px;
 `
 
 const DELETE_MENU = gql`

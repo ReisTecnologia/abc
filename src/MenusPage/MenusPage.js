@@ -6,11 +6,12 @@ import { AddMenuButton } from './AddMenuButton/AddMenuButton'
 import { ListItem } from './ListItem/ListItem'
 import { Spinner } from 'shared/Spinner'
 import { MENUS_QUERY } from './MENUS_QUERY'
-import { Title, PageActions } from './MenusPage.styles.js'
+import { Title, PageActions, UserButtonWrapper } from './MenusPage.styles.js'
 import { Layout } from 'shared/Layout'
 import { HeaderWrapper } from 'shared/HeaderWrapper'
 import { Container } from 'shared/Container'
 import { MenuDrawer } from 'shared/MenuDrawer'
+import { UserDrawer } from 'shared/UserDrawer/UserDrawer'
 
 export const MenusPage = () => {
   const { userData, userDataLoading } = useContext(CurrentUserContext)
@@ -41,6 +42,7 @@ export const MenusPage = () => {
     alert('Você não tem permissões para acessar essa página!')
     navigateToMenu()
   }
+  const userInitial = userData.signedInUser.name.substr(0, 1).toUpperCase()
 
   return (
     <Layout>
@@ -49,6 +51,9 @@ export const MenusPage = () => {
         <Title>Menus</Title>
         {loading && <Spinner />}
         <PageActions>
+          <UserButtonWrapper>
+            <UserDrawer initial={userInitial} />
+          </UserButtonWrapper>
           <AddMenuButton afterAdd={refetch} />
         </PageActions>
       </HeaderWrapper>

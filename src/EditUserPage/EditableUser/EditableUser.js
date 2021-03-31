@@ -9,10 +9,15 @@ import { Layout } from 'shared/Layout'
 import { MenuDrawer } from 'shared/MenuDrawer'
 import { UserInfoForm } from './UserInfoForm'
 import PropTypes from 'prop-types'
-import { Wrapper, FormsWrapper } from './EditableUser.styles.js'
+import {
+  Wrapper,
+  FormsWrapper,
+  UserButtonWrapper,
+} from './EditableUser.styles.js'
+import { UserDrawer } from 'shared/UserDrawer/UserDrawer'
 import { PasswordChangeForm } from './PasswordChangeForm'
 
-export const EditableUser = ({ user }) => {
+export const EditableUser = ({ user, userInitial }) => {
   const [userInfo, setUserInfo] = useState({
     login: user.login,
     name: user.name,
@@ -46,6 +51,9 @@ export const EditableUser = ({ user }) => {
     <Layout>
       <HeaderWrapper>
         <MenuDrawer />
+        <UserButtonWrapper>
+          <UserDrawer initial={userInitial} />
+        </UserButtonWrapper>
       </HeaderWrapper>
       <Container>
         <Wrapper>
@@ -76,4 +84,5 @@ export const EditableUser = ({ user }) => {
 EditableUser.propTypes = {
   user: PropTypes.object,
   afterComplete: PropTypes.func,
+  userInitial: PropTypes.string,
 }

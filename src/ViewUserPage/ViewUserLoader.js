@@ -45,9 +45,11 @@ export const ViewUserLoader = () => {
     alert('Você não tem permissões para acessar essa página!')
   }
 
+  const userInitial = userData.signedInUser.name.substr(0, 1).toUpperCase()
+
   return userLoading ? (
     <Spinner />
   ) : data && data.user ? (
-    <UserPage user={data.user} />
+    <UserPage user={data.user} userInitial={userInitial} />
   ) : null
 }

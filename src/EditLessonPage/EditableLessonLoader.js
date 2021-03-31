@@ -44,6 +44,7 @@ export const EditableLessonLoader = () => {
     navigateToMenu()
     alert('Você não tem permissões para acessar essa página!')
   }
+  const userInitial = userData.signedInUser.name.substr(0, 1).toUpperCase()
 
   return loadingLesson ? (
     <Spinner />
@@ -51,6 +52,7 @@ export const EditableLessonLoader = () => {
     <EditableLesson
       reloadLesson={reloadLesson}
       lesson={mapLesson(data.lesson)}
+      userInitial={userInitial}
     />
   ) : null
 }
