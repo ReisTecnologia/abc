@@ -1,39 +1,45 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 
 import { VideoElementWrapper } from './VideoElementWrapper'
 import { PlayWrapper } from './PlayWrapper'
 import { VideoComponent } from './VideoComponent'
-import { useMedia } from '../useMedia'
-import { Card } from '../Card'
-import { useCompleteState } from '../useCompleteState'
-import { Icon } from '../Icon'
-import { colors } from '../colors'
+import { useMedia } from 'shared/useMedia'
+import { Card } from 'shared/Card'
+import { useCompleteState } from 'shared/useCompleteState'
+import { Icon } from 'shared/Icon'
+import { colors } from 'shared/colors'
 
 export const VideoElement = ({ videos, actual, onComplete }) => {
-  const videoElement = useRef(null)
+  const [video, setVideo] = useState(null)
+  const videoElement = useCallback((node) => {
+    if (node) setVideo(node)
+  }, [])
+
   const [hasError, setHasError] = useState(false)
   const { complete, doComplete } = useCompleteState({ actual, onComplete })
   const { play, playing } = useMedia({
-    media: videoElement.current,
+    media: video,
     onComplete: doComplete,
   })
   useEffect(() => {
-    videoElement.current.addEventListener(
-      'error',
-      function () {
-        setHasError(true)
-      },
-      true
-    )
+    if (video) {
+      video.addEventListener(
+        'error',
+        function () {
+          setHasError(true)
+        },
+        true
+      )
+    }
 
     // setErrorCode(videoElement.current.error.code)
-  }, [hasError])
+  }, [hasError, video])
 
   useEffect(() => {
-    videoElement.current.load()
+    if (video) video.load()
     if (videos[0] && videos[0].url) setHasError(false)
-  }, [videos])
+  }, [videos, video])
 
   const color = hasError
     ? colors.wrong
