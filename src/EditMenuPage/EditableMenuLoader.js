@@ -52,12 +52,13 @@ export const EditableMenuLoader = () => {
     alert('Você não tem permissões para acessar essa página!')
   }
 
+  const userInitial = userData.signedInUser.name.substr(0, 1).toUpperCase()
   const menuLoaded = data && data.menu
   const lessonsLoaded = lessonsData && lessonsData.lessons
 
   return loadingMenu || loadingLessons ? (
     <Spinner />
   ) : menuLoaded && lessonsLoaded ? (
-    <EditableMenu menu={data.menu} lessons={lessonsData.lessons} />
+    <EditableMenu menu={data.menu} lessons={lessonsData.lessons} userInitial={userInitial} />
   ) : null
 }

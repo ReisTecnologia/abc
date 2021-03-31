@@ -10,7 +10,7 @@ const SignInOrOutButtonWrapper = styled.div`
   position: fixed;
   text-align: center;
   bottom: 20px;
-  left: calc(50% - 80px);
+  left: calc(50% - 40px);
   min-width: 80px;
   border: solid 1px ${colors.white};
   border-radius: 7px;

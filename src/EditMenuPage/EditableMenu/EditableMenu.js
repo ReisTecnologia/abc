@@ -21,12 +21,14 @@ import {
   LabelWrapper,
   AddSelectWrapper,
   ElementsInfoWrapper,
+  UserButtonWrapper,
 } from './EditableMenu.styles'
 import { DeleteMenuButton } from './DeleteMenuButton'
 import { useHistory } from 'react-router-dom'
 import { LessonName } from './LessonName'
 import { MoveButtons } from './MoveButtons/MoveButtons'
 import { MenuDrawer } from 'shared/MenuDrawer'
+import { UserDrawer } from 'shared/UserDrawer/UserDrawer'
 import { ViewMenuButton } from './ViewMenuButton'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
@@ -52,7 +54,8 @@ const deleteLesson = ({
   setInnerElements(newinnerElements)
 }
 
-export const EditableMenu = ({ menu: { id, name, elements }, lessons }) => {
+
+export const EditableMenu = ({ menu: { id, name, elements }, userInitial, lessons }) => {
   const isFirstRun = useRef(true)
   const mapElements = (elements) =>
     elements.map(({ lessonId }) => ({ lessonId }))
@@ -112,6 +115,9 @@ export const EditableMenu = ({ menu: { id, name, elements }, lessons }) => {
           <InputField value={menuName} setValue={setMenuName} />
         </TitleWrapper>
         {isSaving && <Spinner />}
+        <UserButtonWrapper>
+          <UserDrawer initial={userInitial} />
+        </UserButtonWrapper>
         <ButtonsWrapper>
           <ViewMenuButton menuId={id} />
           <DeleteMenuButton id={id} afterDelete={navigateToMenus} />
@@ -175,4 +181,5 @@ EditableMenu.propTypes = {
   loadingMenu: PropTypes.bool,
   reloadMenu: PropTypes.func,
   lessons: PropTypes.object,
+  userInitial: PropTypes.string,
 }
