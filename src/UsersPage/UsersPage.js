@@ -1,24 +1,16 @@
 import React from 'react'
-import { useQuery } from '@apollo/client'
 import { AddUserButton } from './AddUserButton/AddUserButton'
 import { ListItem } from './ListItem/ListItem'
-import { USERS_QUERY } from './USERS_QUERY'
 import { Layout } from 'shared/Layout'
 import { Container } from 'shared/Container'
 import { Header } from 'shared/Header/Header'
+import PropTypes from 'prop-types'
 
-export const UsersPage = () => {
-  const { data, refetch, loading } = useQuery(USERS_QUERY, {
-    notifyOnNetworkStatusChange: true,
-    fetchPolicy: 'cache-and-network',
-  })
-  const users = data && data.users ? data.users : []
-
+export const UsersPage = ({ users, refetch }) => {
   return (
     <Layout>
       <Header
         title="Usuários"
-        loading={loading}
         pageActions={<AddUserButton afterAdd={refetch} />}
       />
       <Container>
@@ -28,4 +20,9 @@ export const UsersPage = () => {
       </Container>
     </Layout>
   )
+}
+
+UsersPage.propTypes = {
+  users: PropTypes.object,
+  refetch: PropTypes.func,
 }
