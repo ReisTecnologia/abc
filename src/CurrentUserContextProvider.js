@@ -12,8 +12,15 @@ export const CurrentUserContextProvider = ({ children }) => {
       fetchPolicy: 'cache-first',
     }
   )
+
+  const user = userData
+    ? {
+        ...userData,
+        initial: userData.signedInUser.name.substr(0, 1).toUpperCase(),
+      }
+    : userData
   return (
-    <CurrentUserContext.Provider value={{ userDataLoading, userData }}>
+    <CurrentUserContext.Provider value={{ userDataLoading, user }}>
       {children}
     </CurrentUserContext.Provider>
   )

@@ -32,7 +32,7 @@ export const UserButtonWrapper = styled.div`
 `
 
 export const MenuPage = ({ id }) => {
-  const { userData } = useContext(CurrentUserContext)
+  const { user } = useContext(CurrentUserContext)
 
   const { data, loading } = useQuery(MENU_QUERY, { variables: { id } })
   if (loading)
@@ -48,19 +48,17 @@ export const MenuPage = ({ id }) => {
     data && data.menu ? data.menu.elements.map(({ lesson }) => lesson) : []
 
   const showMenuButton =
-    userData && userData.signedInUser.type === 'admin' ? true : false
+    user && user.signedInUser.type === 'admin' ? true : false
 
-  const showLogoutButton = userData && userData.signedInUser.type
-  const userInitial =
-    userData && userData.signedInUser.name.substr(0, 1).toUpperCase()
+  const showLogoutButton = user && user.signedInUser.type
 
   return (
     <Layout backgroundColor={colors.primary}>
-      {userData && (
+      {user && (
         <HeaderWrapper>
           {showMenuButton && <MenuDrawer />}
           <UserButtonWrapper>
-            <UserDrawer initial={userInitial} />
+            <UserDrawer initial={user.initial} />
           </UserButtonWrapper>
         </HeaderWrapper>
       )}
