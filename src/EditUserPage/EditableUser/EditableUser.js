@@ -3,21 +3,15 @@ import { SAVE_USER_MUTATION } from './SAVE_USER_MUTATION'
 import { SAVE_PASSWORD_MUTATION } from './SAVE_PASSWORD_MUTATION'
 import { Spinner } from 'shared/Spinner'
 import { useMutation } from '@apollo/client'
-import { HeaderWrapper } from 'shared/HeaderWrapper'
 import { Container } from 'shared/Container'
 import { Layout } from 'shared/Layout'
-import { MenuDrawer } from 'shared/MenuDrawer'
 import { UserInfoForm } from './UserInfoForm'
 import PropTypes from 'prop-types'
-import {
-  Wrapper,
-  FormsWrapper,
-  UserButtonWrapper,
-} from './EditableUser.styles.js'
-import { UserDrawer } from 'shared/UserDrawer/UserDrawer'
+import { Wrapper, FormsWrapper } from './EditableUser.styles.js'
 import { PasswordChangeForm } from './PasswordChangeForm'
+import { Header } from 'shared/Header/Header'
 
-export const EditableUser = ({ user, userInitial }) => {
+export const EditableUser = ({ user }) => {
   const [userInfo, setUserInfo] = useState({
     login: user.login,
     name: user.name,
@@ -49,12 +43,7 @@ export const EditableUser = ({ user, userInitial }) => {
 
   return (
     <Layout>
-      <HeaderWrapper>
-        <MenuDrawer />
-        <UserButtonWrapper>
-          <UserDrawer initial={userInitial} />
-        </UserButtonWrapper>
-      </HeaderWrapper>
+      <Header />
       <Container>
         <Wrapper>
           {loading || savePasswordLoading ? (

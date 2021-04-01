@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
-import { MENU_QUERY } from './MENU_QUERY'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import { LessonItem } from 'shared/LessonItem'
 import { Layout } from 'shared/Layout'
 import styled from 'styled-components'
@@ -28,7 +27,10 @@ export const MenuPage = ({ menu }) => {
       <Container>
         <Wrapper>
           {menu.elements.map(({ lesson }) => (
-            <Link key={lesson.id} to={`/viewLesson/${lesson.id}?menuId=${menu.id}`}>
+            <Link
+              key={lesson.id}
+              to={`/viewLesson/${lesson.id}?menuId=${menu.id}`}
+            >
               <LessonItem initials={lesson.initials} image={lesson.image} />
             </Link>
           ))}
@@ -39,6 +41,6 @@ export const MenuPage = ({ menu }) => {
   )
 }
 
-// MenuPage.propTypes = {
-//   id: PropTypes.string.isRequired,
-// }
+MenuPage.propTypes = {
+  menu: PropTypes.object.isRequired,
+}

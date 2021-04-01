@@ -1,17 +1,10 @@
 import React from 'react'
-import { HeaderWrapper } from 'shared/HeaderWrapper'
 import { Container } from 'shared/Container'
 import { Layout } from 'shared/Layout'
-import { MenuDrawer } from 'shared/MenuDrawer'
-import { UserDrawer } from 'shared/UserDrawer/UserDrawer'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { Header } from 'shared/Header/Header'
 
-export const UserButtonWrapper = styled.div`
-  position: absolute;
-  top: 0.4rem;
-  right: 1rem;
-`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -27,11 +20,6 @@ const Label = styled.label`
 `
 const UserWrapper = styled.div``
 
-export const Title = styled.div`
-  margin-left: 2rem;
-  font-size: 1.3rem;
-`
-
 const userInfoFields = (label, userInfo) => (
   <InfoWrapper>
     <Label>{label}</Label>
@@ -39,16 +27,10 @@ const userInfoFields = (label, userInfo) => (
   </InfoWrapper>
 )
 
-export const UserPage = ({ user, userInitial }) => {
+export const UserPage = ({ user }) => {
   return (
     <Layout>
-      <HeaderWrapper>
-        <MenuDrawer />
-        <Title>Usuário</Title>
-        <UserButtonWrapper>
-          <UserDrawer initial={userInitial} />
-        </UserButtonWrapper>
-      </HeaderWrapper>
+      <Header title="Usuário" />
       <Container>
         <Wrapper>
           <UserWrapper>

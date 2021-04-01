@@ -2,9 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useMutation } from '@apollo/client'
 import PropTypes from 'prop-types'
 import { Layout } from 'shared/Layout'
-import { Spinner } from 'shared/Spinner'
 import { InputField } from 'shared/InputField'
-import { HeaderWrapper } from 'shared/HeaderWrapper'
 import { LessonItem } from 'shared/LessonItem'
 import { SAVE_MENU_MUTATION } from './SAVE_MENU_MUTATION'
 import { Container } from 'shared/Container'
@@ -13,22 +11,18 @@ import { filterLessonsById } from 'shared/filterLessonsById'
 import { DeleteLessonButton } from './DeleteLessonButton'
 import {
   InicialWrapper,
-  TitleWrapper,
   LessonNameWrapper,
-  ButtonsWrapper,
   InitialWrapper,
   ElementsWrapper,
   LabelWrapper,
   AddSelectWrapper,
   ElementsInfoWrapper,
-  UserButtonWrapper,
 } from './EditableMenu.styles'
 import { DeleteMenuButton } from './DeleteMenuButton'
 import { useHistory } from 'react-router-dom'
 import { LessonName } from './LessonName'
+import { Header } from 'shared/Header/Header'
 import { MoveButtons } from './MoveButtons/MoveButtons'
-import { MenuDrawer } from 'shared/MenuDrawer'
-import { UserDrawer } from 'shared/UserDrawer/UserDrawer'
 import { ViewMenuButton } from './ViewMenuButton'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
@@ -54,8 +48,7 @@ const deleteLesson = ({
   setInnerElements(newinnerElements)
 }
 
-
-export const EditableMenu = ({ menu: { id, name, elements }, userInitial, lessons }) => {
+export const EditableMenu = ({ menu: { id, name, elements }, lessons }) => {
   const isFirstRun = useRef(true)
   const mapElements = (elements) =>
     elements.map(({ lessonId }) => ({ lessonId }))
@@ -109,20 +102,16 @@ export const EditableMenu = ({ menu: { id, name, elements }, userInitial, lesson
   }
   return (
     <Layout>
-      <HeaderWrapper>
-        <MenuDrawer />
-        <TitleWrapper>
-          <InputField value={menuName} setValue={setMenuName} />
-        </TitleWrapper>
-        {isSaving && <Spinner />}
-        <UserButtonWrapper>
-          <UserDrawer initial={userInitial} />
-        </UserButtonWrapper>
-        <ButtonsWrapper>
-          <ViewMenuButton menuId={id} />
-          <DeleteMenuButton id={id} afterDelete={navigateToMenus} />
-        </ButtonsWrapper>
-      </HeaderWrapper>
+      <Header
+        title={<InputField value={menuName} setValue={setMenuName} />}
+        loading={isSaving}
+        pageActions={
+          <>
+            <ViewMenuButton menuId={id} />
+            <DeleteMenuButton id={id} afterDelete={navigateToMenus} />
+          </>
+        }
+      />
       <Container>
         {innerElements.map(({ lessonId }, elementIndex) => (
           <ElementsWrapper key={elementIndex}>

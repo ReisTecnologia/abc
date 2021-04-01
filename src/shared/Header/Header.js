@@ -7,8 +7,7 @@ import { CurrentUserContext } from 'shared/CurrentUserContextProvider'
 import { Spinner } from 'shared/Spinner'
 import { UserButtonWrapper, PageActions, Title } from './Header.styles.js'
 
-
-export const Header = ({ title, loading, pageActions }) => {
+export const Header = ({ title, loading, pageActions, lessonIcon }) => {
   const { user } = useContext(CurrentUserContext)
   const showMenuButton =
     user && user.signedInUser.type === 'admin' ? true : false
@@ -16,6 +15,7 @@ export const Header = ({ title, loading, pageActions }) => {
     <HeaderWrapper>
       {showMenuButton && <MenuDrawer />}
       {title && <Title>{title}</Title>}
+      {lessonIcon}
       {loading && <Spinner />}
       {pageActions && <PageActions>{pageActions}</PageActions>}
       <UserButtonWrapper>
@@ -27,4 +27,7 @@ export const Header = ({ title, loading, pageActions }) => {
 
 Header.propTypes = {
   title: PropTypes.any,
+  loading: PropTypes.bool,
+  pageActions: PropTypes.element,
+  lessonIcon: PropTypes.element,
 }

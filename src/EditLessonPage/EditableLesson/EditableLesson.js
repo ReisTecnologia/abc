@@ -3,26 +3,20 @@ import { useMutation } from '@apollo/client'
 import { useHistory } from 'react-router-dom'
 import { Layout } from 'shared/Layout'
 import { Container } from 'shared/Container'
-import { HeaderWrapper } from 'shared/HeaderWrapper'
 import { EditableElements } from './EditableElements/EditableElements'
 import { DeleteButton } from './DeleteButton'
 import { CleanupFilesButton } from './CleanupFilesButton'
 import { InputField } from 'shared/InputField'
-import { Spinner } from 'shared/Spinner'
 import { ReloadButton } from './ReloadButton'
 import { SAVE_LESSON_MUTATION } from './SAVE_LESSON_MUTATION'
-import { MenuDrawer } from 'shared/MenuDrawer'
 import { ViewLessonButton } from './ViewLessonButton'
 import { CollapsedButtonsDrawer } from './CollapsedButtonsDrawer'
 import { LessonImage } from './LessonImage'
-import { UserDrawer } from 'shared/UserDrawer/UserDrawer'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import { Header } from 'shared/Header/Header'
 
-export const TitleWrapper = styled.div`
-  flex: 1;
-`
-export const CollapsedButtonsWrapper = styled.div`
+const CollapsedButtonsWrapper = styled.div`
   @media (min-width: 720px) {
     display: none;
   }
@@ -33,7 +27,7 @@ export const CollapsedButtonsWrapper = styled.div`
     top: 3.5px;
   }
 `
-export const ButtonsWrapper = styled.div`
+const ButtonsWrapper = styled.div`
   @media (min-width: 720px) {
     flex: 1;
     display: flex;
@@ -44,12 +38,6 @@ export const ButtonsWrapper = styled.div`
   }
 `
 
-export const UserButtonWrapper = styled.div`
-  position: absolute;
-  top: 0.4rem;
-  right: 1rem;
-`
-
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
 
@@ -57,7 +45,6 @@ export const EditableLesson = ({
   reloadLesson,
   loadingLesson,
   lesson: { id, name, elements, image, initials },
-  userInitial,
 }) => {
   const isFirstRun = useRef(true)
   const [mutate, { loading: isSaving }] = useMutation(SAVE_LESSON_MUTATION)
@@ -97,30 +84,28 @@ export const EditableLesson = ({
 
   return (
     <Layout>
-      <HeaderWrapper>
-        <MenuDrawer />
-        <TitleWrapper>
-          <InputField value={lessonName} setValue={setLessonName} />
-        </TitleWrapper>
-        {isSaving && <Spinner />}
-        <UserButtonWrapper>
-          <UserDrawer initial={userInitial} />
-        </UserButtonWrapper>
-        <ButtonsWrapper>
-          <ViewLessonButton lessonId={id} />
-          <CleanupFilesButton id={id} />
-          <DeleteButton id={id} afterDelete={navigateToLessons} />
-          <ReloadButton reload={reloadLesson} loading={loadingLesson} />
-        </ButtonsWrapper>
-        <CollapsedButtonsWrapper>
-          <CollapsedButtonsDrawer
-            id={id}
-            afterDelete={navigateToLessons}
-            reload={reloadLesson}
-            loading={loadingLesson}
-          />
-        </CollapsedButtonsWrapper>
-      </HeaderWrapper>
+      <Header
+        title={<InputField value={lessonName} setValue={setLessonName} />}
+        loading={isSaving}
+        pageActions={
+          <>
+            <ButtonsWrapper>
+              <ViewLessonButton lessonId={id} />
+              <CleanupFilesButton id={id} />
+              <DeleteButton id={id} afterDelete={navigateToLessons} />
+              <ReloadButton reload={reloadLesson} loading={loadingLesson} />
+            </ButtonsWrapper>
+            <CollapsedButtonsWrapper>
+              <CollapsedButtonsDrawer
+                id={id}
+                afterDelete={navigateToLessons}
+                reload={reloadLesson}
+                loading={loadingLesson}
+              />
+            </CollapsedButtonsWrapper>
+          </>
+        }
+      />
       <Container>
         <LessonImage
           id={id}

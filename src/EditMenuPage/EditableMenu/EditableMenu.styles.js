@@ -11,6 +11,7 @@ export const InicialWrapper = styled.div`
 
 export const TitleWrapper = styled.div`
   flex: 1;
+  font-size: 1.2rem;
 `
 export const UserButtonWrapper = styled.div`
   position: absolute;
