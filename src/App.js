@@ -16,6 +16,7 @@ import { ViewUserPage } from './ViewUserPage/ViewUserPage'
 import { getTokens } from 'shared/AuthTokens/getTokens'
 import { CurrentUserContextProvider } from 'shared/CurrentUserContextProvider'
 import { EditUserPage } from 'EditUserPage/EditUserPage'
+import { AccessGateway } from 'shared/AccessGateway'
 import { ViewLessonPage } from 'ViewLessonPage/ViewLessonPage'
 
 const cleanTypeName = new ApolloLink((operation, forward) => {
@@ -76,22 +77,34 @@ const Wrapped = () => {
             <ViewLessonPage />
           </Route>
           <Route path="/lessons">
-            <LessonsPageLoader />
+            <AccessGateway role="admin">
+              <LessonsPageLoader />
+            </AccessGateway>
           </Route>
           <Route path="/menus">
-            <MenusPageLoader />
+            <AccessGateway role="admin">
+              <MenusPageLoader />
+            </AccessGateway>
           </Route>
           <Route path="/users">
-            <UsersPageLoader />
+            <AccessGateway role="admin">
+              <UsersPageLoader />
+            </AccessGateway>
           </Route>
           <Route path="/editUser">
-            <EditUserPage />
+            <AccessGateway role="admin">
+              <EditUserPage />
+            </AccessGateway>
           </Route>
           <Route path="/editLesson">
-            <EditLessonPage />
+            <AccessGateway role="admin">
+              <EditLessonPage />
+            </AccessGateway>
           </Route>
           <Route path="/editMenu">
-            <EditMenuPage />
+            <AccessGateway role="admin">
+              <EditMenuPage />
+            </AccessGateway>
           </Route>
           <Route path="/signin">
             <SignInPage />
@@ -100,7 +113,9 @@ const Wrapped = () => {
             <ViewMenuPage />
           </Route>
           <Route path="/viewUser">
-            <ViewUserPage />
+            <AccessGateway role="admin">
+              <ViewUserPage />
+            </AccessGateway>
           </Route>
           <Route path="/">
             <ViewMenuLoader />
