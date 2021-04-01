@@ -4,10 +4,9 @@ import { ApolloLink } from 'apollo-link'
 import { ApolloProvider } from '@apollo/client'
 import { HttpLink } from 'apollo-link-http'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { LessonsPage } from './LessonsPage/LessonsPage'
-import { MenusPage } from './MenusPage/MenusPage'
-import { UsersPage } from './UsersPage/UsersPage'
-import { ViewLessonPage } from './ViewLessonPage/ViewLessonPage'
+import { LessonsPageLoader } from './LessonsPage/LessonsPageLoader'
+import { MenusPageLoader } from './MenusPage/MenusPageLoader'
+import { UsersPageLoader } from './UsersPage/UsersPageLoader'
 import { EditLessonPage } from './EditLessonPage/EditLessonPage'
 import { EditMenuPage } from './EditMenuPage/EditMenuPage'
 import { SignInPage } from './SignInPage/SignInPage'
@@ -17,6 +16,7 @@ import { ViewUserPage } from './ViewUserPage/ViewUserPage'
 import { getTokens } from 'shared/AuthTokens/getTokens'
 import { CurrentUserContextProvider } from 'shared/CurrentUserContextProvider'
 import { EditUserPage } from 'EditUserPage/EditUserPage'
+import { ViewLessonPage } from 'ViewLessonPage/ViewLessonPage'
 
 const cleanTypeName = new ApolloLink((operation, forward) => {
   if (operation.variables) {
@@ -76,13 +76,13 @@ const Wrapped = () => {
             <ViewLessonPage />
           </Route>
           <Route path="/lessons">
-            <LessonsPage />
+            <LessonsPageLoader />
           </Route>
           <Route path="/menus">
-            <MenusPage />
+            <MenusPageLoader />
           </Route>
           <Route path="/users">
-            <UsersPage />
+            <UsersPageLoader />
           </Route>
           <Route path="/editUser">
             <EditUserPage />

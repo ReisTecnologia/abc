@@ -1,7 +1,6 @@
 import React from 'react'
-import { Lesson } from './Lesson'
-
 import { useLocation, useRouteMatch, Switch, Route } from 'react-router-dom'
+import { ViewLessonLoader } from './ViewLessonLoader'
 
 export const ViewLessonPage = () => {
   let { path } = useRouteMatch()
@@ -10,8 +9,8 @@ export const ViewLessonPage = () => {
 
   return (
     <Switch>
-      <Route path={`${path}/:lesson`}>
-        <Lesson menuId={menuId} />
+      <Route path={`${path}/:lessonId`}>
+        <ViewLessonLoader menuId={menuId} />
       </Route>
     </Switch>
   )
