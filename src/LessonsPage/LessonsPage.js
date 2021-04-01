@@ -11,7 +11,6 @@ export const LessonsPage = ({ lessons, refetch }) => {
     <Layout>
       <Header
         title="Aulas"
-        loading={loading}
         pageActions={<AddLessonButton afterAdd={refetch} />}
       />
       <Container>
