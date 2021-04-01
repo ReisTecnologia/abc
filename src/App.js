@@ -9,13 +9,13 @@ import { MenusPage } from './MenusPage/MenusPage'
 import { UsersPage } from './UsersPage/UsersPage'
 import { ViewLessonPage } from './ViewLessonPage/ViewLessonPage'
 import { EditLessonPage } from './EditLessonPage/EditLessonPage'
-import { MenuPage } from './MenuPage/MenuPage'
 import { EditMenuPage } from './EditMenuPage/EditMenuPage'
 import { SignInPage } from './SignInPage/SignInPage'
 import { ViewMenuPage } from './MenuPage/ViewMenuPage'
+import { ViewMenuLoader } from './MenuPage/ViewMenuLoader'
 import { ViewUserPage } from './ViewUserPage/ViewUserPage'
 import { getTokens } from 'shared/AuthTokens/getTokens'
-import { CurrentUserContextProvider } from './CurrentUserContextProvider'
+import { CurrentUserContextProvider } from 'shared/CurrentUserContextProvider'
 import { EditUserPage } from 'EditUserPage/EditUserPage'
 
 const cleanTypeName = new ApolloLink((operation, forward) => {
@@ -103,7 +103,7 @@ const Wrapped = () => {
             <ViewUserPage />
           </Route>
           <Route path="/">
-            <MenuPage id="main" />
+            <ViewMenuLoader />
           </Route>
         </Switch>
       </div>

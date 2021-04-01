@@ -4,7 +4,7 @@ import { USER_QUERY } from './USER_QUERY'
 import { EditableUser } from './EditableUser/EditableUser'
 import { useHistory, useParams } from 'react-router-dom'
 import { Spinner } from 'shared/Spinner'
-import { CurrentUserContext } from '../CurrentUserContextProvider'
+import { CurrentUserContext } from 'shared/CurrentUserContextProvider'
 
 export const EditableUserLoader = () => {
   let { user } = useParams()

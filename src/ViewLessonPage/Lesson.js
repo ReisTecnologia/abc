@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { CurrentUserContext } from '../CurrentUserContextProvider'
+import { CurrentUserContext } from 'shared/CurrentUserContextProvider'
 import { useQuery } from '@apollo/client'
 import { useParams } from 'react-router-dom'
 import { Layout } from 'shared/Layout'

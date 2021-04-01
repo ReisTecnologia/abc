@@ -19,6 +19,7 @@ export const CurrentUserContextProvider = ({ children }) => {
         initial: userData.signedInUser.name.substr(0, 1).toUpperCase(),
       }
     : userData
+
   return (
     <CurrentUserContext.Provider value={{ userDataLoading, user }}>
       {children}

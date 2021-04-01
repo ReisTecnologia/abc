@@ -5,7 +5,7 @@ import { LESSONS_QUERY } from './LESSONS_QUERY'
 import { EditableMenu } from './EditableMenu/EditableMenu'
 import { useHistory, useParams } from 'react-router-dom'
 import { Spinner } from 'shared/Spinner'
-import { CurrentUserContext } from '../CurrentUserContextProvider'
+import { CurrentUserContext } from 'shared/CurrentUserContextProvider'
 
 export const EditableMenuLoader = () => {
   let { menu } = useParams()

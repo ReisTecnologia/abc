@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { CurrentUserContext } from '../CurrentUserContextProvider'
+import { CurrentUserContext } from 'shared/CurrentUserContextProvider'
 import { useLazyQuery } from '@apollo/client'
 import { useHistory } from 'react-router'
 import { AddMenuButton } from './AddMenuButton/AddMenuButton'

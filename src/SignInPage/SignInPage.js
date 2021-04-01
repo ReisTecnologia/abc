@@ -4,7 +4,7 @@ import { Container } from 'shared/Container'
 import { Layout } from 'shared/Layout'
 import { SignInForm } from './SignInForm'
 import { Spinner } from 'shared/Spinner'
-import { CurrentUserContext } from '../CurrentUserContextProvider'
+import { CurrentUserContext } from 'shared/CurrentUserContextProvider'
 
 export const SignInPage = () => {
   const { userData, userDataLoading } = useContext(CurrentUserContext)

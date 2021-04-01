@@ -4,11 +4,16 @@ import { MENU_QUERY } from './MENU_QUERY'
 import { MenuPage } from './MenuPage'
 import { useParams } from 'react-router-dom'
 import { Spinner } from 'shared/Spinner'
+import { Layout } from 'shared/Layout'
+import { colors } from 'shared/colors'
+
+const DEFAULT_MENU_ID = 'main'
 
 export const ViewMenuLoader = () => {
-  let { menu } = useParams()
+  let { menuId } = useParams()
+
   const { data, loading: loadingMenu, error } = useQuery(MENU_QUERY, {
-    variables: { id: menu },
+    variables: { id: menuId || DEFAULT_MENU_ID },
     notifyOnNetworkStatusChange: true,
   })
 
@@ -17,8 +22,10 @@ export const ViewMenuLoader = () => {
   }
 
   return loadingMenu ? (
-    <Spinner />
+    <Layout backgroundColor={colors.primary}>
+      <Spinner />
+    </Layout>
   ) : data && data.menu ? (
-    <MenuPage id={data.menu.id} />
+    <MenuPage menu={data.menu} />
   ) : null
 }

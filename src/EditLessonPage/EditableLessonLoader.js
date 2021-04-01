@@ -5,7 +5,7 @@ import { EditableLesson } from './EditableLesson/EditableLesson'
 import { useHistory, useParams } from 'react-router-dom'
 import { Spinner } from 'shared/Spinner'
 import { mapLesson } from 'shared/mapLesson'
-import { CurrentUserContext } from '../CurrentUserContextProvider'
+import { CurrentUserContext } from 'shared/CurrentUserContextProvider'
 
 export const EditableLessonLoader = () => {
   let { lesson } = useParams()

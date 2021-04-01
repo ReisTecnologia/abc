@@ -4,7 +4,7 @@ import { USER_QUERY } from './USER_QUERY'
 import { UserPage } from './UserPage'
 import { useParams, useHistory } from 'react-router-dom'
 import { Spinner } from 'shared/Spinner'
-import { CurrentUserContext } from '../CurrentUserContextProvider'
+import { CurrentUserContext } from 'shared/CurrentUserContextProvider'
 
 export const ViewUserLoader = () => {
   let { user } = useParams()
