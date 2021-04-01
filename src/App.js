@@ -17,6 +17,7 @@ import { ViewUserPage } from './ViewUserPage/ViewUserPage'
 import { getTokens } from 'shared/AuthTokens/getTokens'
 import { CurrentUserContextProvider } from 'shared/CurrentUserContextProvider'
 import { EditUserPage } from 'EditUserPage/EditUserPage'
+import { AccessGateway } from 'shared/AccessGateway'
 
 const cleanTypeName = new ApolloLink((operation, forward) => {
   if (operation.variables) {
@@ -73,25 +74,39 @@ const Wrapped = () => {
         </nav> */}
         <Switch>
           <Route path="/viewLesson">
-            <ViewLessonPage />
+            <AccessGateway role="admin">
+              <ViewLessonPage />
+            </AccessGateway>
           </Route>
           <Route path="/lessons">
-            <LessonsPage />
+            <AccessGateway role="admin">
+              <LessonsPage />
+            </AccessGateway>
           </Route>
           <Route path="/menus">
-            <MenusPage />
+            <AccessGateway role="admin">
+              <MenusPage />
+            </AccessGateway>
           </Route>
           <Route path="/users">
-            <UsersPage />
+            <AccessGateway role="admin">
+              <UsersPage />
+            </AccessGateway>
           </Route>
           <Route path="/editUser">
-            <EditUserPage />
+            <AccessGateway role="admin">
+              <EditUserPage />
+            </AccessGateway>
           </Route>
           <Route path="/editLesson">
-            <EditLessonPage />
+            <AccessGateway role="admin">
+              <EditLessonPage />
+            </AccessGateway>
           </Route>
           <Route path="/editMenu">
-            <EditMenuPage />
+            <AccessGateway role="admin">
+              <EditMenuPage />
+            </AccessGateway>
           </Route>
           <Route path="/signin">
             <SignInPage />
@@ -100,7 +115,9 @@ const Wrapped = () => {
             <ViewMenuPage />
           </Route>
           <Route path="/viewUser">
-            <ViewUserPage />
+            <AccessGateway role="admin">
+              <ViewUserPage />
+            </AccessGateway>
           </Route>
           <Route path="/">
             <ViewMenuLoader />
