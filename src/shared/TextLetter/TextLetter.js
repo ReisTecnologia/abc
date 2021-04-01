@@ -39,10 +39,13 @@ const splitIntoParagraphWordArrays = (text) => {
 
 const calculateNumCorrectLetters = (paragraphWordLetters, correctLetters) => {
   const arrayOfAllLetters = paragraphWordLetters.flat(3)
+  const normalizedCorrectLetters = correctLetters
+    .map((letters) => letters.toLowerCase())
+    .map((letters) => removeAccents(letters))
   return arrayOfAllLetters
     .map((letters) => letters.toLowerCase())
     .map((letters) => removeAccents(letters))
-    .filter((letters) => correctLetters.includes(letters)).length
+    .filter((letters) => normalizedCorrectLetters.includes(letters)).length
 }
 
 export const TextLetter = ({

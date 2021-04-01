@@ -16,8 +16,8 @@ const mappers = {
     return { type, audios, description, words, conclusionAudio }
   },
   ClickLetterInTheTextTask: (el) => {
-    const { type, audios, correctLetters, text } = el
-    return { type, audios, correctLetters, text }
+    const { type, audios, description, correctLetters, text } = el
+    return { type, audios, description, correctLetters, text }
   },
 }
 

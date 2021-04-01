@@ -27,5 +27,6 @@ export const emptyElementTemplates = {
     audios: [],
     correctLetters: [],
     text: '',
+    description: '',
   },
 }

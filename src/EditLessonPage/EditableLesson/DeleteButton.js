@@ -33,7 +33,9 @@ export const DeleteButton = ({ id, afterDelete }) => {
     response && mutate()
   }
   return loading ? (
-    <Spinner />
+    <Wrapper>
+      <Spinner />
+    </Wrapper>
   ) : (
     <Wrapper>
       <Button onClick={confirmAndDelete}> Apagar </Button>
