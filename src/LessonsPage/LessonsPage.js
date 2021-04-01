@@ -9,29 +9,20 @@ import React from 'react'
 // import { useHistory } from 'react-router'
 
 import { AddLessonButton } from './AddLessonButton/AddLessonButton'
-import { useQuery } from '@apollo/client'
 import { ListItem } from './ListItem/ListItem'
-import { LESSONS_QUERY } from './LESSONS_QUERY'
 import { Layout } from 'shared/Layout'
 import { Container } from 'shared/Container'
 import { Header } from 'shared/Header/Header'
 
 import PropTypes from 'prop-types'
-import { AccessGateway } from './AccessGateway' // move to shared
+import { AccessGateway } from 'shared/AccessGateway'
 
-export const LessonsPage = () => {
-  const { data, refetch, loading } = useQuery(LESSONS_QUERY, {
-    notifyOnNetworkStatusChange: true,
-    fetchPolicy: 'cache-and-network',
-  })
-  const lessons = data && data.lessons ? data.lessons : []
-
+export const LessonsPage = ({ lessons, refetch }) => {
   return (
     <AccessGateway role="admin">
       <Layout>
         <Header
           title="Aulas"
-          loading={loading}
           pageActions={<AddLessonButton afterAdd={refetch} />}
         />
         <Container>
@@ -45,6 +36,6 @@ export const LessonsPage = () => {
 }
 
 LessonsPage.propTypes = {
-  userData: PropTypes.object,
-  userDataLoading: PropTypes.bool,
+  lessons: PropTypes.object,
+  refetch: PropTypes.func,
 }
