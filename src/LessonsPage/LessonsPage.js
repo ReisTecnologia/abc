@@ -1,19 +1,12 @@
 import React from 'react'
 import { AddLessonButton } from './AddLessonButton/AddLessonButton'
-import { useQuery } from '@apollo/client'
 import { ListItem } from './ListItem/ListItem'
-import { LESSONS_QUERY } from './LESSONS_QUERY'
 import { Layout } from 'shared/Layout'
 import { Container } from 'shared/Container'
 import { Header } from 'shared/Header/Header'
+import PropTypes from 'prop-types'
 
-export const LessonsPage = () => {
-  const { data, refetch, loading } = useQuery(LESSONS_QUERY, {
-    notifyOnNetworkStatusChange: true,
-    fetchPolicy: 'cache-and-network',
-  })
-  const lessons = data && data.lessons ? data.lessons : []
-
+export const LessonsPage = ({ lessons, refetch }) => {
   return (
     <Layout>
       <Header
@@ -28,4 +21,8 @@ export const LessonsPage = () => {
       </Container>
     </Layout>
   )
+}
+LessonsPage.propTypes = {
+  lessons: PropTypes.object,
+  refetch: PropTypes.func,
 }
