@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { ListItemButton } from './ListItemButton'
 import { Wrapper, LessonName, LessonButtons } from './ListItem.styles'
-import { LessonItem } from 'shared/LessonItem'
 
 const navigateToViewLesson = (history, lessonId) => (e) => {
   e.stopPropagation()
@@ -20,7 +19,6 @@ export const ListItem = ({ lesson }) => {
 
   return (
     <Wrapper onClick={navigateToEditLesson(history, lesson.id)}>
-      <LessonItem image={lesson.image} initials={lesson.initials} />
       <LessonName>{lesson.name}</LessonName>
       &nbsp;&nbsp;
       <LessonButtons>
