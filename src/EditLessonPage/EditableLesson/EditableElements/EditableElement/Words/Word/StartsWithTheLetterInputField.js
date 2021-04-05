@@ -30,8 +30,8 @@ export const StartsWithTheLetterInputField = ({
         <RadioWrapper
           type="radio"
           name={`answer:${word}`}
-          onClick={setStartsWithTheLetterTrue}
-          checked={startsWithTheLetter}
+          onChange={setStartsWithTheLetterTrue}
+          defaultChecked={startsWithTheLetter}
         />
         Certo
       </LabelWrapper>
@@ -39,8 +39,8 @@ export const StartsWithTheLetterInputField = ({
         <RadioWrapper
           type="radio"
           name={`answer:${word}`}
-          onClick={setStartsWithTheLetterFalse}
-          checked={!startsWithTheLetter}
+          onChange={setStartsWithTheLetterFalse}
+          defaultChecked={!startsWithTheLetter}
         />
         Errado
       </LabelWrapper>

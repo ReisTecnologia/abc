@@ -22,6 +22,6 @@ export const LessonsPage = ({ lessons, refetch }) => {
   )
 }
 LessonsPage.propTypes = {
-  lessons: PropTypes.object,
+  lessons: PropTypes.array,
   refetch: PropTypes.func,
 }

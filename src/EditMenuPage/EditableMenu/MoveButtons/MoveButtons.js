@@ -13,6 +13,9 @@ export const IIcon = styled(Icon)`
 `
 
 export const MoveButtons = ({ canMoveDown, canMoveUp, onUp, onDown }) => {
+  const cursorDisplayUpArrow = !canMoveUp ? null : 'pointer'
+  const cursorDisplayDownArrow = !canMoveDown ? null : 'pointer'
+
   const UpDownButtonsBuilder = (size) => (
     <>
       <IIcon
@@ -20,14 +23,14 @@ export const MoveButtons = ({ canMoveDown, canMoveUp, onUp, onDown }) => {
         onClick={canMoveUp ? onUp : null}
         color={canMoveUp ? colors.grayText : colors.light}
         height={size}
-        cursor={() => (!canMoveUp ? null : 'pointer')}
+        cursor={cursorDisplayUpArrow}
       />
       <IIcon
         icon={arrowDownSquareFill}
         onClick={canMoveDown ? onDown : null}
         color={canMoveDown ? colors.grayText : colors.light}
         height={size}
-        cursor={() => (!canMoveDown ? null : 'pointer')}
+        cursor={cursorDisplayDownArrow}
         style={{ marginLeft: 20, marginRight: 10 }}
       />
     </>

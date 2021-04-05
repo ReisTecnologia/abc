@@ -34,5 +34,5 @@ Icon.propTypes = {
   shape: PropTypes.oneOf(['Play', 'Speaker', 'ThumbsDown', 'ThumbsUp']),
   onClick: PropTypes.func,
   color: PropTypes.string,
-  size: PropTypes.string,
+  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 }

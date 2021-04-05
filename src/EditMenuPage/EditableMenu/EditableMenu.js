@@ -169,6 +169,6 @@ EditableMenu.propTypes = {
   }),
   loadingMenu: PropTypes.bool,
   reloadMenu: PropTypes.func,
-  lessons: PropTypes.object,
+  lessons: PropTypes.array,
   userInitial: PropTypes.string,
 }

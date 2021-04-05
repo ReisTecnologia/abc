@@ -41,5 +41,5 @@ export const DeleteVideoButton = ({ deleteVideo }) => (
 )
 
 DeleteVideoButton.propTypes = {
-  deleteVideo: PropTypes.string,
+  deleteVideo: PropTypes.func,
 }

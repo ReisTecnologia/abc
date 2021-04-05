@@ -23,6 +23,6 @@ export const MenusPage = ({ menus, refetch }) => {
 }
 
 MenusPage.propTypes = {
-  menus: PropTypes.object,
+  menus: PropTypes.array,
   refetch: PropTypes.func,
 }
