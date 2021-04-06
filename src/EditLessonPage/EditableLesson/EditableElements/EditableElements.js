@@ -43,7 +43,11 @@ export const EditableElements = ({
     }
 
     const deleteElement = () => {
-      if (window.confirm('Deletar elemento?')) {
+      if (
+        window.confirm(
+          'Tem certeza que deseja excluir esse elemento dessa aula?'
+        )
+      ) {
         const newInnerElements = [...innerElements]
         newInnerElements.splice(index, 1)
         setInnerElements(newInnerElements)
