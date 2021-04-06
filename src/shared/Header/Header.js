@@ -7,17 +7,26 @@ import { CurrentUserContext } from 'shared/CurrentUserContextProvider'
 import { Spinner } from 'shared/Spinner'
 import { UserButtonWrapper, PageActions, Title } from './Header.styles.js'
 
-export const Header = ({ title, loading, pageActions, lessonIcon }) => {
+export const Header = ({
+  title,
+  loading,
+  pageActions,
+  lessonIcon,
+  adminPageActions,
+}) => {
   const { user } = useContext(CurrentUserContext)
-  const showMenuButton =
+  const showAdminOnlyButtons =
     user && user.signedInUser.type === 'admin' ? true : false
   return user ? (
     <HeaderWrapper>
-      {showMenuButton && <MenuDrawer />}
+      {showAdminOnlyButtons && <MenuDrawer />}
       {title && <Title>{title}</Title>}
       {lessonIcon}
       {loading && <Spinner />}
       {pageActions && <PageActions>{pageActions}</PageActions>}
+      {adminPageActions && showAdminOnlyButtons ? (
+        <PageActions>{adminPageActions}</PageActions>
+      ) : null}
       <UserButtonWrapper>
         <UserDrawer initial={user.initial} />
       </UserButtonWrapper>
@@ -30,4 +39,5 @@ Header.propTypes = {
   loading: PropTypes.bool,
   pageActions: PropTypes.element,
   lessonIcon: PropTypes.element,
+  adminPageActions: PropTypes.element,
 }
