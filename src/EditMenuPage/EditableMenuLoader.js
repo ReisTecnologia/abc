@@ -8,20 +8,30 @@ import { Spinner } from 'shared/Spinner'
 
 export const EditableMenuLoader = () => {
   let { menu } = useParams()
-  const { data, loading: loadingMenu, error } = useQuery(MENU_QUERY, {
-    variables: { id: menu },
-    notifyOnNetworkStatusChange: true,
-  })
-  const { data: lessonsData, loading: loadingLessons } = useQuery(
-    LESSONS_QUERY,
+  const { data, loading: loadingMenu, error: menuQueryError } = useQuery(
+    MENU_QUERY,
     {
+      variables: { id: menu },
       notifyOnNetworkStatusChange: true,
-      fetchPolicy: 'cache-and-network',
     }
   )
+  const {
+    data: lessonsData,
+    loading: loadingLessons,
+    error: lessonsQueryError,
+  } = useQuery(LESSONS_QUERY, {
+    notifyOnNetworkStatusChange: true,
+    fetchPolicy: 'cache-and-network',
+  })
+  const error = menuQueryError
+    ? menuQueryError
+    : lessonsQueryError
+    ? lessonsQueryError
+    : null
 
   if (error) {
     console.error(error)
+    return <span>Erro ao carregar {menuQueryError ? 'menu' : 'aulas'}</span>
   }
   const menuLoaded = data && data.menu
   const lessonsLoaded = lessonsData && lessonsData.lessons
