@@ -11,6 +11,9 @@ import { TextAndInput } from 'shared/TextAndInput'
 
 const ImageWrapper = styled.div`
   background-color: ${colors.white};
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 10px;
   border: solid 1px #999;
   color: #655;
@@ -27,6 +30,7 @@ const Wrapper = styled.div`
 `
 const Img = styled.img`
   border-radius: 5px;
+  margin: 0;
 `
 const InitialWrapper = styled.div`
   padding-right: 5px;

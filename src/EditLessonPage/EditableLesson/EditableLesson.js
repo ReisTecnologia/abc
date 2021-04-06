@@ -53,6 +53,8 @@ export const EditableLesson = ({
   const [lessonName, setLessonName] = useState(name)
   const [imageUrl, setImageUrl] = useState(image)
   const [lessonInitial, setLessonInitial] = useState(initials)
+  const displayImage =
+    imageUrl && imageUrl !== '' ? imageUrl : 'img_default.svg'
 
   useEffect(() => {
     if (!isFirstRun.current) {
@@ -109,7 +111,7 @@ export const EditableLesson = ({
       <Container>
         <LessonImage
           id={id}
-          imageUrl={imageUrl}
+          imageUrl={displayImage}
           setImageUrl={setImageUrl}
           initials={lessonInitial}
           setInitials={setLessonInitial}
