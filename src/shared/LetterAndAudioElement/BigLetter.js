@@ -14,7 +14,7 @@ export const BigLetter = ({ children }) => {
     const bbox = textRef.current.getBBox()
     const width = bbox.width
     setWidth(width)
-  }, [setWidth])
+  }, [setWidth, children])
   const color = '#366'
   return (
     <Wrapper>
