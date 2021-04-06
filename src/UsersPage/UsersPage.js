@@ -23,6 +23,6 @@ export const UsersPage = ({ users, refetch }) => {
 }
 
 UsersPage.propTypes = {
-  users: PropTypes.object,
+  users: PropTypes.array,
   refetch: PropTypes.func,
 }

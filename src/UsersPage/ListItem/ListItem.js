@@ -30,5 +30,5 @@ export const ListItem = ({ user }) => {
 }
 
 ListItem.propTypes = {
-  user: PropTypes.string,
+  user: PropTypes.object,
 }

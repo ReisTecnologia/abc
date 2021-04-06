@@ -25,7 +25,6 @@ export const mapLesson = (lesson) => {
   return {
     ...lesson,
     elements: lesson.elements.map((element) => {
-      console.log('>>>', element.type)
       return mappers[element.type](element)
     }),
   }

@@ -30,5 +30,5 @@ export const ListItem = ({ lesson }) => {
 }
 
 ListItem.propTypes = {
-  lesson: PropTypes.string,
+  lesson: PropTypes.object,
 }

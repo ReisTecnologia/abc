@@ -37,7 +37,7 @@ export const PasswordChangeForm = ({
 }
 
 PasswordChangeForm.propTypes = {
-  userPassword: PropTypes.string,
+  userPassword: PropTypes.object,
   setUserPassword: PropTypes.func,
   savePassword: PropTypes.func,
   confirmPassword: PropTypes.string,

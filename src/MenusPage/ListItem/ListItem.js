@@ -30,5 +30,5 @@ export const ListItem = ({ menu }) => {
 }
 
 ListItem.propTypes = {
-  menu: PropTypes.string,
+  menu: PropTypes.object,
 }

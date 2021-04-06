@@ -221,7 +221,7 @@ export const DragAndDrop = ({
 
 DragAndDrop.propTypes = {
   audioFilePrefix: PropTypes.string,
-  children: PropTypes.array,
+  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   updateAudio: PropTypes.func,
   updateWordAudio: PropTypes.func,
   updateRightAnswerAudio: PropTypes.func,
