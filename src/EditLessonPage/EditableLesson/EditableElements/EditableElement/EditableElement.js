@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { ElementParams } from './ElementParams'
 import { DeleteElementButton } from './DeleteElementButton'
 import { MoveButtons } from './MoveButtons/MoveButtons'
+import { ToggleDetailsButton } from './ToggleDetailsButton'
 
 import {
   ElementControlWrapper,
@@ -12,7 +13,6 @@ import {
   Title,
   EditableElementRow,
   EditableElementWrapper,
-  ButtonsRowWrapper,
 } from './EditableElement.styles.js'
 
 const typesAndNames = {
@@ -34,10 +34,25 @@ export const EditableElement = ({
   updateElementParams,
   deleteElement,
 }) => {
+  const [showElementParams, setShowElementParams] = useState(true)
+  const toggleElementParams = () => {
+    setShowElementParams(!showElementParams)
+  }
   return (
     <EditableElementWrapper>
-      <TitleRow>
+      <TitleRow onClick={toggleElementParams}>
+        <ToggleDetailsButton
+          showElementParams={showElementParams}
+          setShowElementParams={setShowElementParams}
+        />
+        <MoveButtons
+          onUp={onUp}
+          onDown={onDown}
+          canMoveDown={canMoveDown}
+          canMoveUp={canMoveUp}
+        />
         <Title>{typesAndNames[elementParams.type]} </Title>
+        <DeleteElementButton deleteElement={deleteElement} />
       </TitleRow>
       <EditableElementRow>
         <ElementControlWrapper>
@@ -45,19 +60,12 @@ export const EditableElement = ({
             lessonId={lessonId}
             updateElementParams={updateElementParams}
             elementParams={elementParams}
+            showElementParams={showElementParams}
+            setShowElementParams={setShowElementParams}
           />
         </ElementControlWrapper>
         <ElementWrapper>{children}</ElementWrapper>
       </EditableElementRow>
-      <ButtonsRowWrapper>
-        <DeleteElementButton deleteElement={deleteElement} />
-        <MoveButtons
-          onUp={onUp}
-          onDown={onDown}
-          canMoveDown={canMoveDown}
-          canMoveUp={canMoveUp}
-        />
-      </ButtonsRowWrapper>
     </EditableElementWrapper>
   )
 }

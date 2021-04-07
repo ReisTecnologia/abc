@@ -30,6 +30,18 @@ const Wrapper = styled.div`
   }
 `
 
+const HiddenElementWrapper = styled.div`
+  font-size: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+`
+const HiddenElementText = styled.div`
+  position: relative;
+  bottom: 20px;
+`
+
 const ElementWrapper = styled.div`
   padding: 10px 0px;
 `
@@ -43,7 +55,12 @@ export const ElementParams = ({
   lessonId,
   elementParams,
   updateElementParams,
+  showElementParams,
+  setShowElementParams,
 }) => {
+  const toggleElementParams = () => {
+    setShowElementParams(!showElementParams)
+  }
   const changeAudios = useCallback(
     (newAudios) => {
       updateElementParams({
@@ -142,89 +159,97 @@ export const ElementParams = ({
 
   return (
     <Wrapper>
-      <ElementTitleWrapper>Descrição:</ElementTitleWrapper>
-      <TextAndInput
-        value={description}
-        onChange={changeDescription}
-        color={colors.dimmedPrimary}
-      />
-      <br />
-
-      {showText && (
-        <ElementWrapper>
-          <ElementTitleWrapper>Texto:</ElementTitleWrapper>
+      {!showElementParams ? (
+        <HiddenElementWrapper onClick={toggleElementParams}>
+          <HiddenElementText>...</HiddenElementText>
+        </HiddenElementWrapper>
+      ) : (
+        <>
+          <ElementTitleWrapper>Descrição:</ElementTitleWrapper>
           <TextAndInput
-            value={text}
-            onChange={changeText}
+            value={description}
+            onChange={changeDescription}
             color={colors.dimmedPrimary}
           />
-        </ElementWrapper>
-      )}
+          <br />
 
-      {showLetter && (
-        <ElementWrapper>
-          <ElementTitleWrapper>{letterTitle()}</ElementTitleWrapper>
-          <TextAndInput
-            value={letter}
-            onChange={changeLetter}
-            color={colors.dimmedPrimary}
-          />
-        </ElementWrapper>
-      )}
+          {showText && (
+            <ElementWrapper>
+              <ElementTitleWrapper>Texto:</ElementTitleWrapper>
+              <TextAndInput
+                value={text}
+                onChange={changeText}
+                color={colors.dimmedPrimary}
+              />
+            </ElementWrapper>
+          )}
 
-      {showCorrectLetters && (
-        <ElementWrapper>
-          <ElementTitleWrapper>Letras corretas:</ElementTitleWrapper>
-          <TextAndInput
-            value={correctLettersString}
-            onChange={changeCorrectLetters}
-            color={colors.dimmedPrimary}
-          />
-        </ElementWrapper>
-      )}
-      {showAudios && (
-        <ElementWrapper>
-          <ElementTitleWrapper>Áudios:</ElementTitleWrapper>
-          <Audios
-            audioFilePrefix={`${lessonId}___`}
-            audios={audios}
-            changeAudios={changeAudios}
-          />
-          <br />
-        </ElementWrapper>
-      )}
-      {showVideos && (
-        <ElementWrapper>
-          <ElementTitleWrapper>Vídeos:</ElementTitleWrapper>
-          <Videos
-            videoFilePrefix={`${lessonId}___`}
-            videos={videos}
-            changeVideos={changeVideos}
-          />
-          <br />
-        </ElementWrapper>
-      )}
-      {showWords && (
-        <ElementWrapper>
-          <ElementTitleWrapper>Palavras:</ElementTitleWrapper>
-          <Words
-            audioFilePrefix={`${lessonId}___`}
-            words={words}
-            changeWords={changeWords}
-          />
-          <br />
-        </ElementWrapper>
-      )}
-      {showConclusionAudio && (
-        <ElementWrapper>
-          <ElementTitleWrapper>Áudio de conclusão:</ElementTitleWrapper>
-          <ConclusionAudio
-            audioFilePrefix={`${lessonId}___`}
-            conclusionAudio={conclusionAudio}
-            changeConclusionAudio={changeConclusionAudio}
-          />
-          <br />
-        </ElementWrapper>
+          {showLetter && (
+            <ElementWrapper>
+              <ElementTitleWrapper>{letterTitle()}</ElementTitleWrapper>
+              <TextAndInput
+                value={letter}
+                onChange={changeLetter}
+                color={colors.dimmedPrimary}
+              />
+            </ElementWrapper>
+          )}
+
+          {showCorrectLetters && (
+            <ElementWrapper>
+              <ElementTitleWrapper>Letras corretas:</ElementTitleWrapper>
+              <TextAndInput
+                value={correctLettersString}
+                onChange={changeCorrectLetters}
+                color={colors.dimmedPrimary}
+              />
+            </ElementWrapper>
+          )}
+          {showAudios && (
+            <ElementWrapper>
+              <ElementTitleWrapper>Áudios:</ElementTitleWrapper>
+              <Audios
+                audioFilePrefix={`${lessonId}___`}
+                audios={audios}
+                changeAudios={changeAudios}
+              />
+              <br />
+            </ElementWrapper>
+          )}
+          {showVideos && (
+            <ElementWrapper>
+              <ElementTitleWrapper>Vídeos:</ElementTitleWrapper>
+              <Videos
+                videoFilePrefix={`${lessonId}___`}
+                videos={videos}
+                changeVideos={changeVideos}
+              />
+              <br />
+            </ElementWrapper>
+          )}
+          {showWords && (
+            <ElementWrapper>
+              <ElementTitleWrapper>Palavras:</ElementTitleWrapper>
+              <Words
+                audioFilePrefix={`${lessonId}___`}
+                words={words}
+                changeWords={changeWords}
+              />
+              <br />
+            </ElementWrapper>
+          )}
+          {showConclusionAudio && (
+            <ElementWrapper>
+              <ElementTitleWrapper>Áudio de conclusão:</ElementTitleWrapper>
+              <ConclusionAudio
+                audioFilePrefix={`${lessonId}___`}
+                conclusionAudio={conclusionAudio}
+                changeConclusionAudio={changeConclusionAudio}
+              />
+              <br />
+            </ElementWrapper>
+          )}
+        </>
       )}
     </Wrapper>
   )
@@ -267,4 +292,6 @@ ElementParams.propTypes = {
     }),
   }),
   updateElementParams: PropTypes.func,
+  showElementParams: PropTypes.bool,
+  setShowElementParams: PropTypes.func,
 }
