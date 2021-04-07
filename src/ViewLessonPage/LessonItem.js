@@ -35,6 +35,10 @@ const ImageWrapper = styled.div`
 `
 const Img = styled.img`
   border-radius: 5px;
+  width: 3rem;
+  height: 3rem;
+  object-fit: cover;
+  margin: 0;
 `
 
 export const LessonItem = ({ initials, image, onClick }) => {

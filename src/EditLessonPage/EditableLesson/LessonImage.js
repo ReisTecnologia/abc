@@ -9,28 +9,10 @@ import PropTypes from 'prop-types'
 import { LessonItem } from 'shared/LessonItem'
 import { TextAndInput } from 'shared/TextAndInput'
 
-const ImageWrapper = styled.div`
-  background-color: ${colors.white};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-  border: solid 1px #999;
-  color: #655;
-  border-radius: 5px;
-  min-width: 3rem;
-  min-height: 3rem;
-  width: 3rem;
-  height: 3rem;
-`
 const Wrapper = styled.div`
   display: flex;
   background-color: ${colors.dimmedPrimary};
   flex-direction: column;
-`
-const Img = styled.img`
-  border-radius: 5px;
-  margin: 0;
 `
 const InitialWrapper = styled.div`
   padding-right: 5px;
@@ -96,12 +78,7 @@ export const LessonImage = ({
             <Spinner />
           ) : (
             <DragAndDrop imageFilePrefix={`${id}___`} setImageUrl={setImageUrl}>
-              <ImageWrapper>
-                <Img
-                  src={`https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${imageUrl}`}
-                  alt="Icone"
-                />
-              </ImageWrapper>
+              <LessonItem image={imageUrl} />
               <FileUploader
                 imageFilePrefix={`${id}___`}
                 color={colors.white}
