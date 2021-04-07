@@ -7,6 +7,7 @@ import triangleRight from '@iconify-icons/entypo/triangle-right'
 
 const Button = styled.div`
   float: left;
+  margin-left: 2rem;
   :hover {
     cursor: pointer;
   }
@@ -24,7 +25,6 @@ export const ToggleDetailsButton = ({
   const toggleElementParams = () => {
     setShowElementParams(!showElementParams)
   }
-  console.log('showElementParams', showElementParams)
   const buttonDisplay = showElementParams ? (
     <IIcon icon={triangleDown} />
   ) : (

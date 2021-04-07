@@ -35,9 +35,12 @@ export const EditableElement = ({
   deleteElement,
 }) => {
   const [showElementParams, setShowElementParams] = useState(true)
+  const toggleElementParams = () => {
+    setShowElementParams(!showElementParams)
+  }
   return (
     <EditableElementWrapper>
-      <TitleRow>
+      <TitleRow onClick={toggleElementParams}>
         <ToggleDetailsButton
           showElementParams={showElementParams}
           setShowElementParams={setShowElementParams}
