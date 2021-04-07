@@ -13,13 +13,24 @@ export const Wrapper = styled.div`
 export const LessonName = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 2rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  min-width: 120px;
+  @media (max-width: 500px) {
+    min-width: 90px;
+  }
+`
+export const LessonElements = styled.div`
+  display: flex;
   flex: 1;
+  align-items: center;
 `
 
 export const LessonButtons = styled.div`
-  flex: 1;
-  display: flex;
+  float: right;
   margin-right: 2rem;
   flex-direction: row-reverse;
+  @media (max-width: 500px) {
+    margin: 0;
+  }
 `
