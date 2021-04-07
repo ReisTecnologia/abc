@@ -19,8 +19,6 @@ const Wrapper = styled.div`
     position: fixed;
     right: 247px;
   }
-  @media (max-width: 719px) {
-  }
 `
 
 export const DeleteButton = ({ id, afterDelete }) => {

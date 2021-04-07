@@ -11,8 +11,6 @@ const Wrapper = styled.div`
     right: 55px;
     top: 5px;
   }
-  @media (max-width: 719px) {
-  }
 `
 
 export const ViewLessonButton = ({ lessonId }) => {

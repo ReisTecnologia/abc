@@ -2,39 +2,29 @@ import styled from 'styled-components'
 import { colors } from 'shared/colors'
 
 export const ElementControlWrapper = styled.div`
+  flex: 1;
   @media (min-width: 720px) {
     display: flex;
-    flex: 1;
     width: 50%;
   }
   @media (max-width: 719px) {
     margin: 20px 5px;
-    flex: 1;
   }
 `
 
 export const ElementWrapper = styled.div`
+  flex: 1;
   @media (min-width: 720px) {
     margin-right: 20px;
     margin-top: 20px;
     margin-bottom: 20px;
     min-width: calc(50% - 20px);
-    flex: 1;
   }
   @media (max-width: 719px) {
     margin: 20px;
-    flex: 1;
   }
 `
-export const Title = styled.div`
-  /* @media (min-width: 361px) {
-    display: inline-block;
-    position: relative;
-    left: 65px;
-  }
-  @media (max-width: 360px) {
-  } */
-`
+export const Title = styled.div``
 
 export const TitleRow = styled.div`
   @media (min-width: 361px) {

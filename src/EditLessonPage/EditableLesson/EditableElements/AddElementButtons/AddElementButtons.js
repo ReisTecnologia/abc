@@ -7,19 +7,13 @@ import { AddButton } from '../EditableElement/AddButton.js'
 import { XButton } from './XButton.js'
 
 const Wrapper = styled.div`
-  @media (min-width: 720px) {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-  }
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
   @media (max-width: 719px) {
-    display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
   }
 `
 

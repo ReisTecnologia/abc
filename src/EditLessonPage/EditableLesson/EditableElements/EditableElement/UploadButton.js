@@ -3,21 +3,17 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
 export const Wrapper = styled.div`
-  @media (min-width: 376px) {
-    padding-left: 5px;
-    cursor: pointer;
-  }
+  padding-left: 5px;
+  cursor: pointer;
   @media (max-width: 375px) {
     display: none;
   }
 `
 const MobileWrapper = styled.div`
+  padding-left: 5px;
+  cursor: pointer;
   @media (min-width: 376px) {
     display: none;
-  }
-  @media (max-width: 375px) {
-    padding-left: 5px;
-    cursor: pointer;
   }
 `
 const UploadButtonBuilder = (size, color) => (

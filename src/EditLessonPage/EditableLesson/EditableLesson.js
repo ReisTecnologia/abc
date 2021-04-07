@@ -17,22 +17,18 @@ import PropTypes from 'prop-types'
 import { Header } from 'shared/Header/Header'
 
 const CollapsedButtonsWrapper = styled.div`
+  padding-left: 5px;
+  position: fixed;
+  right: 40px;
+  top: 3.5px;
   @media (min-width: 720px) {
     display: none;
   }
-  @media (max-width: 719px) {
-    padding-left: 5px;
-    position: fixed;
-    right: 40px;
-    top: 3.5px;
-  }
 `
 const ButtonsWrapper = styled.div`
-  @media (min-width: 720px) {
-    flex: 1;
-    display: flex;
-    flex-direction: row-reverse;
-  }
+  flex: 1;
+  display: flex;
+  flex-direction: row-reverse;
   @media (max-width: 719px) {
     display: none;
   }

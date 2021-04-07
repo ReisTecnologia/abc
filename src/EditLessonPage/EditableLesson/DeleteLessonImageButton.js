@@ -6,32 +6,28 @@ import { Icon } from '@iconify/react'
 import trashIcon from '@iconify-icons/ion/trash'
 
 const Wrapper = styled.div`
-  @media (min-width: 376px) {
-    text-align: right;
-    display: flex;
-    align-items: center;
-    padding-left: 7px;
-    padding-right: 10px;
-    padding-bottom: 4px;
-    cursor: pointer;
-  }
+  text-align: right;
+  display: flex;
+  align-items: center;
+  padding-left: 7px;
+  padding-right: 10px;
+  padding-bottom: 4px;
+  cursor: pointer;
   @media (max-width: 375px) {
     display: none;
   }
 `
 
 const MobileWrapper = styled.div`
+  text-align: right;
+  display: flex;
+  align-items: center;
+  padding-left: 7px;
+  padding-right: 10px;
+  padding-bottom: 3px;
+  cursor: pointer;
   @media (min-width: 376px) {
     display: none;
-  }
-  @media (max-width: 375px) {
-    text-align: right;
-    display: flex;
-    align-items: center;
-    padding-left: 7px;
-    padding-right: 10px;
-    padding-bottom: 3px;
-    cursor: pointer;
   }
 `
 
