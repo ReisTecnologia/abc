@@ -27,7 +27,7 @@ export const ListItem = ({ lesson }) => {
     <Wrapper onClick={navigateToEditLesson(history, lesson.id)}>
       <LessonItem initials={lesson.initials} image={lesson.image} />
       <LessonName>{lesson.name}</LessonName>
-      <LessonElements>Elementos: {lesson.elements.length}</LessonElements>
+      <LessonElements>{lesson.elements.length} elementos</LessonElements>
       &nbsp;&nbsp;
       <LessonButtons>
         <ListItemButton onClick={navigateToViewLesson(history, lesson.id)} />

@@ -1,3 +1,4 @@
+import { colors } from 'shared/colors'
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
@@ -24,6 +25,7 @@ export const LessonElements = styled.div`
   display: flex;
   flex: 1;
   align-items: center;
+  color: ${colors.grayText};
 `
 
 export const LessonButtons = styled.div`

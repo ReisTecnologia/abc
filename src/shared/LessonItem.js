@@ -22,7 +22,7 @@ const Wrapper = styled.div`
 `
 const ImageWrapper = styled.div`
   background-color: ${colors.white};
-  margin: 10px;
+  margin: 10px 10px 10px 0px;
   border: solid 1px #999;
   color: #655;
   border-radius: 5px;
