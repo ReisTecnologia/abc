@@ -90,7 +90,7 @@ export const AddElementButtons = ({ addElement }) => {
     </>
   ) : (
     <ClosedWrapper>
-      <AddButton onClick={showButtons} color={colors.grayText} />
+      <AddButton onClick={showButtons} color={colors.light} />
     </ClosedWrapper>
   )
 }

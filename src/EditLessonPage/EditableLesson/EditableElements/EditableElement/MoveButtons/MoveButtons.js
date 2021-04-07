@@ -2,13 +2,18 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { UpDownWrapper } from './UpDownWrapper'
 import { Icon } from '@iconify/react'
-import arrowUpSquareFill from '@iconify-icons/bi/arrow-up-square-fill'
-import arrowDownSquareFill from '@iconify-icons/bi/arrow-down-square-fill'
+import triangleDown from '@iconify-icons/akar-icons/triangle-down'
+import triangleUp from '@iconify-icons/akar-icons/triangle-up'
 import { colors } from 'shared/colors'
 import styled from 'styled-components'
 
-export const IIcon = styled(Icon)`
+const IIconUp = styled(Icon)`
   cursor: ${({ onClick }) => (onClick ? 'pointer' : null)};
+  margin: 2px 0 0 15px;
+`
+const IIconDown = styled(Icon)`
+  cursor: ${({ onClick }) => (onClick ? 'pointer' : null)};
+  margin: 0 15px 2px 0;
 `
 
 export const MoveButtons = ({ canMoveDown, canMoveUp, onUp, onDown }) => {
@@ -16,21 +21,20 @@ export const MoveButtons = ({ canMoveDown, canMoveUp, onUp, onDown }) => {
   const cursorDisplayDownArrow = !canMoveDown ? null : 'pointer'
   return (
     <UpDownWrapper>
-      <IIcon
-        icon={arrowUpSquareFill}
+      <IIconUp
+        icon={triangleUp}
         onClick={canMoveUp ? onUp : null}
         color={canMoveUp ? colors.grayText : colors.light}
         height="30"
         cursor={cursorDisplayUpArrow}
       />
 
-      <IIcon
-        icon={arrowDownSquareFill}
+      <IIconDown
+        icon={triangleDown}
         onClick={canMoveDown ? onDown : null}
         color={canMoveDown ? colors.grayText : colors.light}
         height="30"
         cursor={cursorDisplayDownArrow}
-        style={{ marginLeft: 20, marginRight: 10 }}
       />
     </UpDownWrapper>
   )

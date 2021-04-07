@@ -22,14 +22,16 @@ export const EditableElements = ({
   const elementList = innerElements.map((elementParams, index) => {
     const canMoveUp = index !== 0
     const canMoveDown = index !== innerElements.length - 1
-    const moveUp = () => {
+    const moveUp = (e) => {
+      e.stopPropagation()
       const reorderedElements = [...innerElements]
       reorderedElements[index - 1] = innerElements[index]
       reorderedElements[index] = innerElements[index - 1]
       setInnerElements(reorderedElements)
     }
 
-    const moveDown = () => {
+    const moveDown = (e) => {
+      e.stopPropagation()
       const reorderedElements = [...innerElements]
       reorderedElements[index + 1] = innerElements[index]
       reorderedElements[index] = innerElements[index + 1]
@@ -43,7 +45,11 @@ export const EditableElements = ({
     }
 
     const deleteElement = () => {
-      if (window.confirm('Deletar elemento?')) {
+      if (
+        window.confirm(
+          'Tem certeza que deseja excluir esse elemento dessa aula?'
+        )
+      ) {
         const newInnerElements = [...innerElements]
         newInnerElements.splice(index, 1)
         setInnerElements(newInnerElements)

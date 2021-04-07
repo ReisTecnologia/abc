@@ -24,29 +24,17 @@ export const ElementWrapper = styled.div`
     margin: 20px;
   }
 `
-export const Title = styled.div``
+export const Title = styled.div`
+  padding-top: 5px;
+  float: left;
+`
 
 export const TitleRow = styled.div`
-  @media (min-width: 361px) {
-    position: relative;
-    text-align: center;
-    margin: 1rem 0 0 0;
-    font-size: 1.2rem;
-    color: ${colors.grayText};
-    border-bottom: solid 1px ${colors.grayText};
-    padding-bottom: 0.5rem;
-  }
-  @media (max-width: 360px) {
-    position: relative;
-    text-align: center;
-    margin: 1rem 0 0 0;
-    font-size: 1.2rem;
-    color: ${colors.grayText};
-    border-bottom: solid 1px ${colors.grayText};
-    padding-bottom: 0.5rem;
-    display: flex;
-    flex-direction: column;
-  }
+  margin: 1rem 0 0 0;
+  font-size: 1.2rem;
+  color: ${colors.grayText};
+  border-bottom: solid 1px ${colors.grayText};
+  padding-bottom: 0.5rem;
 `
 
 export const EditableElementRow = styled.div`

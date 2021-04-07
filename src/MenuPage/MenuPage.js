@@ -17,6 +17,24 @@ const Wrapper = styled.div`
   align-content: space-around;
   background-color: ${colors.primary};
   height: 100%;
+  @media (min-width: 721px) {
+    justify-content: center;
+  }
+`
+const IconWrapper = styled.div`
+  @media (min-width: 362px) {
+    margin: 1rem 0.5rem;
+    flex: 1;
+  }
+  @media (max-width: 361px) {
+    margin: 1rem 0.5rem;
+    flex: 1;
+  }
+`
+const LessonNameWrapper = styled.div`
+  color: white;
+  text-align: center;
+  font-size: 13px;
 `
 
 export const MenuPage = ({ menu }) => {
@@ -27,12 +45,17 @@ export const MenuPage = ({ menu }) => {
       <Container>
         <Wrapper>
           {menu.elements.map(({ lesson }) => (
-            <Link
-              key={lesson.id}
-              to={`/viewLesson/${lesson.id}?menuId=${menu.id}`}
-            >
-              <LessonItem initials={lesson.initials} image={lesson.image} />
-            </Link>
+            <>
+              <Link
+                key={lesson.id}
+                to={`/viewLesson/${lesson.id}?menuId=${menu.id}`}
+              >
+                <IconWrapper>
+                  <LessonItem initials={lesson.initials} image={lesson.image} />
+                  <LessonNameWrapper>{lesson.name}</LessonNameWrapper>
+                </IconWrapper>
+              </Link>
+            </>
           ))}
         </Wrapper>
         <SignInOrOutButton showLogoutButton={!!user} />
