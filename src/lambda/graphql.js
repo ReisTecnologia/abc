@@ -248,6 +248,10 @@ const server = new ApolloServer({
   resolvers,
   introspection: true,
   playground: true,
+  formatError: (err) => {
+    console.error(err)
+    return err
+  },
   context: ({ context }) => context,
 })
 
