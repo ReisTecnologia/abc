@@ -11,25 +11,18 @@ import { Header } from 'shared/Header/Header'
 import { SignInOrOutButton } from './SignInOrOutButton'
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, max-content));
+  justify-content: center;
   background-color: ${colors.primary};
   height: 100%;
-  @media (min-width: 721px) {
-    justify-content: center;
-  }
 `
 const IconWrapper = styled.div`
-  @media (min-width: 362px) {
-    margin: 1rem 0.5rem;
-    flex: 1;
-  }
-  @media (max-width: 361px) {
-    margin: 1rem 0.5rem;
-    flex: 1;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+  justify-content: center;
 `
 const LessonNameWrapper = styled.div`
   color: white;
