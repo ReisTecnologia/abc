@@ -13,8 +13,7 @@ const Wrapper = styled.div`
   color: ${colors.grayText};
   cursor: pointer;
   &:hover {
-    background-color: ${colors.primary};
-    color: white;
+    color: ${colors.primary};
   }
   @media (max-width: 500px) {
     padding-right: 1rem;
