@@ -10,8 +10,6 @@ const Wrapper = styled.div`
     position: fixed;
     right: 320px;
   }
-  @media (max-width: 719px) {
-  }
 `
 
 export const ReloadButton = ({ reload, loading }) => {

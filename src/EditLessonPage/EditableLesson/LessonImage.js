@@ -18,39 +18,28 @@ const InitialWrapper = styled.div`
   padding-right: 5px;
 `
 const Title = styled.div`
-  @media (min-width: 361px) {
-    position: relative;
-    text-align: center;
-    margin: 1rem 0 0 0;
-    font-size: 1.2rem;
-    color: ${colors.white};
-    border-bottom: solid 1px ${colors.white};
-    padding-bottom: 0.5rem;
-  }
+  position: relative;
+  text-align: center;
+  margin: 1rem 0 0 0;
+  font-size: 1.2rem;
+  color: ${colors.white};
+  border-bottom: solid 1px ${colors.white};
+  padding-bottom: 0.5rem;
   @media (max-width: 360px) {
-    position: relative;
-    text-align: center;
-    margin: 1rem 0 0 0;
-    font-size: 1.2rem;
-    color: ${colors.white};
-    border-bottom: solid 1px ${colors.white};
-    padding-bottom: 0.5rem;
     display: flex;
     flex-direction: column;
   }
 `
 const ContentWrapper = styled.div`
+  display: flex;
   @media (min-width: 601px) {
     padding: 2rem;
-    display: flex;
   }
   @media (max-width: 600px) {
     padding: 1rem;
-    display: flex;
   }
   @media (max-width: 375px) {
     padding: 0.5rem;
-    display: flex;
   }
 `
 const TextInputWrapper = styled.div`

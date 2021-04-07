@@ -6,20 +6,16 @@ import { Icon } from '@iconify/react'
 import trashIcon from '@iconify-icons/ion/trash'
 
 const Wrapper = styled.div`
-  @media (min-width: 376px) {
-    text-align: right;
-  }
+  text-align: right;
   @media (max-width: 376px) {
     display: none;
   }
 `
 
 const MobileWrapper = styled.div`
+  text-align: right;
   @media (min-width: 376px) {
     display: none;
-  }
-  @media (max-width: 376px) {
-    text-align: right;
   }
 `
 const DeleteConclusionAudioButtonBuilder = (size, deleteAudio) => (

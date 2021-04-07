@@ -3,23 +3,12 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
 const Wrapper = styled.div`
-  @media (min-width: 600px) {
-    border-radius: 50%;
-    border: solid white 1px;
-    min-width: 22px;
-    text-align: center;
-    :hover {
-      cursor: pointer;
-    }
-  }
-  @media (max-width: 599px) {
-    border-radius: 50%;
-    border: solid white 1px;
-    min-width: 22px;
-    text-align: center;
-    :hover {
-      cursor: pointer;
-    }
+  border-radius: 50%;
+  border: solid white 1px;
+  min-width: 22px;
+  text-align: center;
+  :hover {
+    cursor: pointer;
   }
 `
 const Button = styled.div``
