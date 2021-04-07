@@ -4,11 +4,11 @@ import { ListItem } from './ListItem/ListItem'
 import { Layout } from 'shared/Layout'
 import { Header } from 'shared/Header/Header'
 import { Container } from 'shared/Container'
-import { alphabeticalArray } from 'shared/alphabeticalArray'
+import { sortByName } from 'shared/sortByName'
 import PropTypes from 'prop-types'
 
 export const MenusPage = ({ menus, refetch }) => {
-  const alphabeticalMenus = alphabeticalArray(menus)
+  const alphabeticalMenus = sortByName(menus)
   return (
     <Layout>
       <Header

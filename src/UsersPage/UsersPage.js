@@ -5,10 +5,10 @@ import { Layout } from 'shared/Layout'
 import { Container } from 'shared/Container'
 import { Header } from 'shared/Header/Header'
 import PropTypes from 'prop-types'
-import { alphabeticalArray } from 'shared/alphabeticalArray'
+import { sortByName } from 'shared/sortByName'
 
 export const UsersPage = ({ users, refetch }) => {
-  const alphabeticalUsers = alphabeticalArray(users)
+  const alphabeticalUsers = sortByName(users)
 
   return (
     <Layout>
