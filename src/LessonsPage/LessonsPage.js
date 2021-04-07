@@ -4,9 +4,11 @@ import { ListItem } from './ListItem/ListItem'
 import { Layout } from 'shared/Layout'
 import { Container } from 'shared/Container'
 import { Header } from 'shared/Header/Header'
+import { alphabeticalArray } from 'shared/alphabeticalArray'
 import PropTypes from 'prop-types'
 
 export const LessonsPage = ({ lessons, refetch }) => {
+  const alphabetialLessons = alphabeticalArray(lessons)
   return (
     <Layout>
       <Header
@@ -14,7 +16,7 @@ export const LessonsPage = ({ lessons, refetch }) => {
         pageActions={<AddLessonButton afterAdd={refetch} />}
       />
       <Container>
-        {lessons.map((lesson) => (
+        {alphabetialLessons.map((lesson) => (
           <ListItem key={lesson.id} lesson={lesson} />
         ))}
       </Container>

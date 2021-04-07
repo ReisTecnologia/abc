@@ -22,7 +22,7 @@ export const AddUserButton = ({ afterAdd }) => {
     onCompleted: afterAdd,
     variables: {
       input: {
-        name: 'novo usuário',
+        name: '_Novo usuário',
         type: 'student',
         login: 'user',
         password: '123',

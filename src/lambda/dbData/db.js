@@ -120,7 +120,7 @@ const addLesson = (id) => {
   const params = {
     Item: {
       id: id,
-      name: 'Nova Aula',
+      name: '_Nova Aula',
       elements: [],
       image: '',
       initials: '?',
@@ -136,7 +136,7 @@ const addMenu = (id) => {
   const params = {
     Item: {
       id: id,
-      name: 'Novo Menu',
+      name: '_Novo Menu',
       elements: [],
     },
     TableName: MENU_TABLE_NAME,

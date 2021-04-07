@@ -4,9 +4,11 @@ import { ListItem } from './ListItem/ListItem'
 import { Layout } from 'shared/Layout'
 import { Header } from 'shared/Header/Header'
 import { Container } from 'shared/Container'
+import { alphabeticalArray } from 'shared/alphabeticalArray'
 import PropTypes from 'prop-types'
 
 export const MenusPage = ({ menus, refetch }) => {
+  const alphabeticalMenus = alphabeticalArray(menus)
   return (
     <Layout>
       <Header
@@ -14,7 +16,7 @@ export const MenusPage = ({ menus, refetch }) => {
         pageActions={<AddMenuButton afterAdd={refetch} />}
       />
       <Container>
-        {menus.map((menu) => (
+        {alphabeticalMenus.map((menu) => (
           <ListItem key={menu.id} menu={menu} />
         ))}
       </Container>
