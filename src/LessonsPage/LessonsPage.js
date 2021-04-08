@@ -8,7 +8,6 @@ import { sortByName } from 'shared/sortByName'
 import PropTypes from 'prop-types'
 
 export const LessonsPage = ({ lessons, refetch }) => {
-  const alphabeticalLessons = sortByName(lessons)
   return (
     <Layout>
       <Header
@@ -16,7 +15,7 @@ export const LessonsPage = ({ lessons, refetch }) => {
         pageActions={<AddLessonButton afterAdd={refetch} />}
       />
       <Container>
-        {alphabeticalLessons.map((lesson) => (
+        {sortByName(lessons).map((lesson) => (
           <ListItem key={lesson.id} lesson={lesson} />
         ))}
       </Container>

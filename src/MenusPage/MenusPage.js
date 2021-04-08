@@ -8,7 +8,6 @@ import { sortByName } from 'shared/sortByName'
 import PropTypes from 'prop-types'
 
 export const MenusPage = ({ menus, refetch }) => {
-  const alphabeticalMenus = sortByName(menus)
   return (
     <Layout>
       <Header
@@ -16,7 +15,7 @@ export const MenusPage = ({ menus, refetch }) => {
         pageActions={<AddMenuButton afterAdd={refetch} />}
       />
       <Container>
-        {alphabeticalMenus.map((menu) => (
+        {sortByName(menus).map((menu) => (
           <ListItem key={menu.id} menu={menu} />
         ))}
       </Container>

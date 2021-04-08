@@ -8,8 +8,6 @@ import PropTypes from 'prop-types'
 import { sortByName } from 'shared/sortByName'
 
 export const UsersPage = ({ users, refetch }) => {
-  const alphabeticalUsers = sortByName(users)
-
   return (
     <Layout>
       <Header
@@ -17,7 +15,7 @@ export const UsersPage = ({ users, refetch }) => {
         pageActions={<AddUserButton afterAdd={refetch} />}
       />
       <Container>
-        {alphabeticalUsers.map((user) => (
+        {sortByName(users).map((user) => (
           <ListItem key={user.id} user={user} />
         ))}
       </Container>
