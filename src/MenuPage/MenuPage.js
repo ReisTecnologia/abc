@@ -34,7 +34,7 @@ export const MenuPage = ({ menu }) => {
   const { user } = useContext(CurrentUserContext)
   return (
     <Layout backgroundColor={colors.primary}>
-      <Header />
+      {user && <Header />}
       <Container>
         <Wrapper>
           {menu.elements.map(({ lesson }) => (

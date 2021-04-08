@@ -14,10 +14,12 @@ export const Header = ({
   lessonIcon,
   adminPageActions,
 }) => {
-  const { user } = useContext(CurrentUserContext)
+  const { user, userLoading } = useContext(CurrentUserContext)
   const showAdminOnlyButtons =
     user && user.signedInUser.type === 'admin' ? true : false
-  return user ? (
+  return userLoading ? (
+    <Spinner />
+  ) : (
     <HeaderWrapper>
       {showAdminOnlyButtons && <MenuDrawer />}
       {title && <Title>{title}</Title>}
@@ -27,11 +29,13 @@ export const Header = ({
       {adminPageActions && showAdminOnlyButtons ? (
         <PageActions>{adminPageActions}</PageActions>
       ) : null}
-      <UserButtonWrapper>
-        <UserDrawer initial={user.initial} />
-      </UserButtonWrapper>
+      {user && (
+        <UserButtonWrapper>
+          <UserDrawer initial={user.initial} />
+        </UserButtonWrapper>
+      )}
     </HeaderWrapper>
-  ) : null
+  )
 }
 
 Header.propTypes = {
