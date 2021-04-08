@@ -11,4 +11,5 @@ export const HeaderWrapper = styled.div`
   height: 2rem;
   z-index: 2;
   overflow-x: hidden;
+  overflow-y: hidden;
 `

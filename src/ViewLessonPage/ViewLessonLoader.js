@@ -10,6 +10,7 @@ export const ViewLessonLoader = ({ menuId }) => {
   let { lessonId } = useParams()
   const { data, loading, error } = useQuery(LESSON_QUERY, {
     variables: { id: lessonId },
+    fetchPolicy: 'cache-and-network',
   })
 
   if (error) {
