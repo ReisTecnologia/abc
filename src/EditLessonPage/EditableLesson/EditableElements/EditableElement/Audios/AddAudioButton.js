@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { AddButton } from '../AddButton.js'
 import { colors } from 'shared/colors'
 
-export const AudioButtonWrapper = styled.div`
+const AudioButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   position: relative;

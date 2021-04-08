@@ -8,7 +8,7 @@ import arrowDownSquareFill from '@iconify-icons/bi/arrow-down-square-fill'
 import { colors } from 'shared/colors'
 import styled from 'styled-components'
 
-export const IIcon = styled(Icon)`
+const IIcon = styled(Icon)`
   cursor: ${({ onClick }) => (onClick ? 'pointer' : null)};
 `
 

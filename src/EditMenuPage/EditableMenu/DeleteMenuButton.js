@@ -5,7 +5,7 @@ import { Spinner } from 'shared/Spinner'
 import styled from 'styled-components'
 import { colors } from 'shared/colors'
 
-export const Button = styled.div`
+const Button = styled.div`
   border: solid 1px ${colors.white};
   color: ${colors.white};
   padding: 0 0.4rem;

@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { Spinner } from 'shared/Spinner'
 import { v4 as uuidv4 } from 'uuid'
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
   height: 50px;
   align-items: center;

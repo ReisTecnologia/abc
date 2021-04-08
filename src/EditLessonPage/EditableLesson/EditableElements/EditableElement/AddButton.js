@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   cursor: pointer;
   padding: 3px 50px 0 50px;
 `

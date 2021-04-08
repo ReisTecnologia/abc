@@ -4,19 +4,14 @@ import PropTypes from 'prop-types'
 import { useOnClickOutside } from 'shared/useOnClickOutside'
 import TextareaAutosize from 'react-textarea-autosize'
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;
 `
-export const TextWrapper = styled.div`
+const TextWrapper = styled.div`
   flex: 1;
   cursor: pointer;
-`
-
-export const InputWrapper = styled.textarea`
-  flex: 1;
-  display: flex;
 `
 
 export const TextAndInput = ({ value, onChange, color }) => {

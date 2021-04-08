@@ -40,7 +40,7 @@ const ElementWrapper = styled.div`
   padding: 10px 0px;
 `
 
-export const ElementTitleWrapper = styled.div`
+const ElementTitleWrapper = styled.div`
   font-size: 1.2rem;
   margin-bottom: 0.2rem;
 `

@@ -6,7 +6,7 @@ import { Spinner } from 'shared/Spinner'
 import styled from 'styled-components'
 import { colors } from 'shared/colors'
 
-export const Button = styled.div`
+const Button = styled.div`
   background-color: ${colors.primary};
   color: ${colors.white};
   cursor: pointer;
