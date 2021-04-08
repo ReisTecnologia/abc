@@ -4,6 +4,7 @@ import { ListItem } from './ListItem/ListItem'
 import { Layout } from 'shared/Layout'
 import { Container } from 'shared/Container'
 import { Header } from 'shared/Header/Header'
+import { sortByName } from 'shared/sortByName'
 import PropTypes from 'prop-types'
 
 export const LessonsPage = ({ lessons, refetch }) => {
@@ -14,7 +15,7 @@ export const LessonsPage = ({ lessons, refetch }) => {
         pageActions={<AddLessonButton afterAdd={refetch} />}
       />
       <Container>
-        {lessons.map((lesson) => (
+        {sortByName(lessons).map((lesson) => (
           <ListItem key={lesson.id} lesson={lesson} />
         ))}
       </Container>

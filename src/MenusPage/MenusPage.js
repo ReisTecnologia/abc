@@ -4,6 +4,7 @@ import { ListItem } from './ListItem/ListItem'
 import { Layout } from 'shared/Layout'
 import { Header } from 'shared/Header/Header'
 import { Container } from 'shared/Container'
+import { sortByName } from 'shared/sortByName'
 import PropTypes from 'prop-types'
 
 export const MenusPage = ({ menus, refetch }) => {
@@ -14,7 +15,7 @@ export const MenusPage = ({ menus, refetch }) => {
         pageActions={<AddMenuButton afterAdd={refetch} />}
       />
       <Container>
-        {menus.map((menu) => (
+        {sortByName(menus).map((menu) => (
           <ListItem key={menu.id} menu={menu} />
         ))}
       </Container>

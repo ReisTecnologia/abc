@@ -5,6 +5,7 @@ import { Layout } from 'shared/Layout'
 import { Container } from 'shared/Container'
 import { Header } from 'shared/Header/Header'
 import PropTypes from 'prop-types'
+import { sortByName } from 'shared/sortByName'
 
 export const UsersPage = ({ users, refetch }) => {
   return (
@@ -14,7 +15,7 @@ export const UsersPage = ({ users, refetch }) => {
         pageActions={<AddUserButton afterAdd={refetch} />}
       />
       <Container>
-        {users.map((user) => (
+        {sortByName(users).map((user) => (
           <ListItem key={user.id} user={user} />
         ))}
       </Container>
