@@ -28,8 +28,8 @@ export const UserInfoForm = ({ setUserInfo, userInfo, saveUser }) => {
       <input type="text" value={userInfo.name} onChange={handleNameChange} />
       <Label>Tipo de usuário:</Label>
       <select onChange={handleTypeChange} value={userInfo.type}>
-        <option value={'admin'}>{'Admin'}</option>
-        <option value={'student'}>{'Student'}</option>
+        <option value={'admin'}>{'Administrador '}</option>
+        <option value={'student'}>{'Estudante '}</option>
       </select>
       <SubmitButton onClick={submitSaveUser}>Salvar</SubmitButton>
     </Form>
