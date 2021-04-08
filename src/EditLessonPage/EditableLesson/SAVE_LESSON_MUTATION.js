@@ -10,6 +10,7 @@ export const SAVE_LESSON_MUTATION = gql`
           type
         }
         image
+        initials
       }
     }
   }
