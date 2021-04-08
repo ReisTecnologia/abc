@@ -177,6 +177,7 @@ export default gql`
     name: String
     elements: [ElementLessonInput]
     image: String
+    initials: String
   }
 
   input EditMenuInput {

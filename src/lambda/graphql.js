@@ -167,7 +167,8 @@ const resolvers = {
           args.id,
           args.input.name,
           args.input.elements,
-          args.input.image
+          args.input.image,
+          args.input.initials
         )
         .then((updatedItem) => {
           lesson = updatedItem

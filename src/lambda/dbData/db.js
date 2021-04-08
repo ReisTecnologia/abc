@@ -201,7 +201,7 @@ const editMenu = (id, name, elements) => {
     .then(({ Attributes }) => Attributes)
 }
 
-const editLesson = (id, name, elements, image) => {
+const editLesson = (id, name, elements, image, initials) => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
     TableName: TABLE_NAME,
@@ -212,10 +212,11 @@ const editLesson = (id, name, elements, image) => {
       ':id': id,
       ':elements': elements,
       ':image': image,
+      ':initials': initials,
     },
     ReturnValues: 'ALL_NEW',
     UpdateExpression:
-      'set #name = :newName, elements = :elements, image = :image',
+      'set #name = :newName, elements = :elements, image = :image, initials = :initials',
     ConditionExpression: ':id = #id',
   }
 

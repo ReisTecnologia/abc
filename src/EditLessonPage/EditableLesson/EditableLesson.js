@@ -65,6 +65,7 @@ export const EditableLesson = ({
               name: lessonName,
               elements: innerElements,
               image: imageUrl,
+              initials: lessonInitial,
             },
           },
         }
@@ -73,7 +74,7 @@ export const EditableLesson = ({
     } else {
       isFirstRun.current = false
     }
-  }, [mutate, id, lessonName, innerElements, imageUrl])
+  }, [mutate, id, lessonName, innerElements, imageUrl, lessonInitial])
 
   let history = useHistory()
   const navigateToLessons = () => {
