@@ -25,20 +25,20 @@ export const EditableUser = ({ user }) => {
   const afterComplete = () => {
     setUserInfo({ ...userInfo, previousLogin: user.login })
   }
-  const onSaveUserError = () => {
-    toast.error('Erro ao salvar usuário', {
-      position: 'top-center',
-      hideProgressBar: true,
-      transition: Slide,
-    })
-  }
   const [saveUser, { loading }] = useMutation(SAVE_USER_MUTATION, {
     variables: {
       id: user.id,
       input: userInfo,
     },
     onCompleted: afterComplete,
-    onError: onSaveUserError,
+    onError: (error) => {
+      console.error(error)
+      toast.error('Erro ao salvar usuário', {
+        position: 'top-center',
+        hideProgressBar: true,
+        transition: Slide,
+      })
+    },
   })
 
   const [savePassword, { loading: savePasswordLoading }] = useMutation(
