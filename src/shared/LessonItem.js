@@ -5,7 +5,7 @@ import { colors } from 'shared/colors'
 
 const Wrapper = styled.div`
   background-color: ${colors.white};
-  margin: 10px;
+  margin: 0.5rem 0.5rem 0.5rem 0px;
   border: solid 1px #999;
   color: #655;
   border-radius: 5px;
@@ -22,7 +22,7 @@ const Wrapper = styled.div`
 `
 const ImageWrapper = styled.div`
   background-color: ${colors.white};
-  margin: 10px 10px 10px 0px;
+  margin: 0.5rem 0.5rem 0.5rem 0px;
   border: solid 1px #999;
   color: #655;
   border-radius: 5px;
