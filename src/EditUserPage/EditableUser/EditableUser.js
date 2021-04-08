@@ -10,6 +10,8 @@ import PropTypes from 'prop-types'
 import { Wrapper, FormsWrapper } from './EditableUser.styles.js'
 import { PasswordChangeForm } from './PasswordChangeForm'
 import { Header } from 'shared/Header/Header'
+import { ToastContainer, toast, Slide } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export const EditableUser = ({ user }) => {
   const [userInfo, setUserInfo] = useState({
@@ -29,6 +31,14 @@ export const EditableUser = ({ user }) => {
       input: userInfo,
     },
     onCompleted: afterComplete,
+    onError: (error) => {
+      console.error(error)
+      toast.error('Erro ao salvar usuário', {
+        position: 'top-center',
+        hideProgressBar: true,
+        transition: Slide,
+      })
+    },
   })
 
   const [savePassword, { loading: savePasswordLoading }] = useMutation(
@@ -62,6 +72,7 @@ export const EditableUser = ({ user }) => {
                 setConfirmPassword={setConfirmPassword}
                 savePassword={savePassword}
               />
+              <ToastContainer />
             </FormsWrapper>
           )}
         </Wrapper>

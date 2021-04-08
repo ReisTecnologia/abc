@@ -198,7 +198,11 @@ const resolvers = {
           args.id
         )
         .then(() => true)
-        .catch(() => false)
+        .catch((error) => {
+          console.log(error)
+          return false
+        })
+      if (!success) throw Error('Erro ao salvar usuário')
       const user = await db.getUser(null, args.id)
       const userLogin = await db.getUser(null, `login#${args.input.login}`)
       return { success, user, userLogin }
@@ -209,6 +213,7 @@ const resolvers = {
         .editUserPassword(args.id, hashPassword(args.input.password))
         .then(() => true)
         .catch(() => false)
+      if (!success) throw Error('Erro ao salvar senha')
       return { success }
     },
     addUser: async (parent, args) => {
