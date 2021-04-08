@@ -5,6 +5,8 @@ import { SIGNIN_MUTATION } from './SIGNIN_MUTATION'
 import { saveTokens } from 'shared/AuthTokens/saveTokens'
 import { useHistory } from 'react-router-dom'
 import { Spinner } from 'shared/Spinner'
+import { ToastContainer, toast, Slide } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const Form = styled.form`
   display: flex;
@@ -45,6 +47,13 @@ export const SignInForm = () => {
   const [signIn, { data, loading }] = useMutation(SIGNIN_MUTATION, {
     variables: { login: login, password: password },
     onCompleted: afterComplete,
+    onError: () => {
+      toast.error('Usuário ou senha incorreta.', {
+        position: 'top-center',
+        hideProgressBar: true,
+        transition: Slide,
+      })
+    },
   })
 
   const handleLoginChange = (e) => {
@@ -82,6 +91,7 @@ export const SignInForm = () => {
             onChange={handlePasswordChange}
           />
           <SubmitButton onClick={submitSignIn}>Entrar</SubmitButton>
+          <ToastContainer />
         </Form>
       )}
     </Wrapper>
