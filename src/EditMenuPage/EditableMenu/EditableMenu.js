@@ -17,6 +17,7 @@ import {
   LabelWrapper,
   AddSelectWrapper,
   ElementsInfoWrapper,
+  IconWrapper,
 } from './EditableMenu.styles'
 import { DeleteMenuButton } from './DeleteMenuButton'
 import { useHistory } from 'react-router-dom'
@@ -115,10 +116,12 @@ export const EditableMenu = ({ menu: { id, name, elements }, lessons }) => {
       <Container>
         {innerElements.map(({ lessonId }, elementIndex) => (
           <ElementsWrapper key={elementIndex}>
-            <LessonItem
-              initials={filterLessonsById(lessonId, lessons)[0].initials}
-              image={filterLessonsById(lessonId, lessons)[0].image}
-            />
+            <IconWrapper>
+              <LessonItem
+                initials={filterLessonsById(lessonId, lessons)[0].initials}
+                image={filterLessonsById(lessonId, lessons)[0].image}
+              />
+            </IconWrapper>
             <ElementsInfoWrapper>
               <LessonNameWrapper>
                 <LessonName

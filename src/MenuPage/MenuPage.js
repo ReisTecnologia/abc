@@ -18,6 +18,9 @@ const Wrapper = styled.div`
   height: 100%;
 `
 const IconWrapper = styled.div`
+  margin-left: 0.5rem;
+`
+const IconAndNameWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -43,10 +46,15 @@ export const MenuPage = ({ menu }) => {
                 key={lesson.id}
                 to={`/viewLesson/${lesson.id}?menuId=${menu.id}`}
               >
-                <IconWrapper>
-                  <LessonItem initials={lesson.initials} image={lesson.image} />
+                <IconAndNameWrapper>
+                  <IconWrapper>
+                    <LessonItem
+                      initials={lesson.initials}
+                      image={lesson.image}
+                    />
+                  </IconWrapper>
                   <LessonNameWrapper>{lesson.name}</LessonNameWrapper>
-                </IconWrapper>
+                </IconAndNameWrapper>
               </Link>
             </>
           ))}

@@ -49,3 +49,7 @@ export const ButtonsWrapper = styled.div`
 `
 
 export const LessonNameWrapper = styled.div``
+
+export const IconWrapper = styled.div`
+  margin-left: 1rem;
+`
