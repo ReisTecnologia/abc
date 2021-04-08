@@ -4,12 +4,12 @@ import styled from 'styled-components'
 import { Spinner } from 'shared/Spinner'
 import { v4 as uuidv4 } from 'uuid'
 
-export const OuterWrapper = styled.div`
+const OuterWrapper = styled.div`
   display: inline-flex;
   width: 100%;
   position: relative;
 `
-export const DragOverBorderEffectWrapper = styled.div`
+const DragOverBorderEffectWrapper = styled.div`
   display: ${({ show }) => (show ? 'block' : 'none')};
   border: dashed grey 2px;
   background-color: rgba(255, 255, 255, 0.5);
@@ -21,7 +21,7 @@ export const DragOverBorderEffectWrapper = styled.div`
   z-index: 9999;
 `
 
-export const DragOverTextWrapper = styled.div`
+const DragOverTextWrapper = styled.div`
   position: absolute;
   text-align: center;
   /* top: 10%; */
@@ -29,16 +29,8 @@ export const DragOverTextWrapper = styled.div`
   left: 0;
   right: 0;
 `
-export const DragOverText = styled.div`
+const DragOverText = styled.div`
   font-size: 30px;
-`
-
-export const Wrapper = styled.div`
-  display: flex;
-  height: 50px;
-  align-items: center;
-  justify-content: center;
-  background-color: ${({ highlighted }) => (highlighted ? '#ffe9' : null)};
 `
 
 const buildGetUploadTokenAndPostToAws = ({

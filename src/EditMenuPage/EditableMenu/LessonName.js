@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { useOnClickOutside } from 'shared/useOnClickOutside'
 import { filterLessonsById } from 'shared/filterLessonsById'
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   cursor: pointer;
   width: 75%;
 `

@@ -5,12 +5,12 @@ import { Spinner } from 'shared/Spinner'
 import { UploadButton } from './UploadButton'
 import { v4 as uuidv4 } from 'uuid'
 
-export const SpinnerWrapper = styled.div`
+const SpinnerWrapper = styled.div`
   display: inline-flex;
   position: relative;
 `
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
   align-items: center;
   padding-left: 7px;

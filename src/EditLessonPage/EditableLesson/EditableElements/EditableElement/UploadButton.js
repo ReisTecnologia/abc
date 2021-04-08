@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   padding-left: 5px;
   cursor: pointer;
   @media (max-width: 375px) {
