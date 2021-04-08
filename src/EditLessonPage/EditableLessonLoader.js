@@ -17,6 +17,7 @@ export const EditableLessonLoader = () => {
   } = useQuery(LESSON_QUERY, {
     variables: { id: lesson },
     notifyOnNetworkStatusChange: true,
+    fetchPolicy: 'cache-and-network',
   })
 
   if (error) {
