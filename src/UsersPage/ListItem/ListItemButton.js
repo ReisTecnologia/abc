@@ -13,8 +13,7 @@ const Wrapper = styled.div`
   align-items: center;
   cursor: pointer;
   &:hover {
-    background-color: ${colors.primary};
-    color: white;
+    color: ${colors.primary};
   }
 `
 

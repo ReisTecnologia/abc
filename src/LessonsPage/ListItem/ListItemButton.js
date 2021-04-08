@@ -8,13 +8,16 @@ const Wrapper = styled.div`
   display: flex;
   padding-left: 2rem;
   padding-right: 2rem;
-  padding-top: 0.5rem;
+  padding-top: 1.25rem;
   align-items: center;
   color: ${colors.grayText};
   cursor: pointer;
   &:hover {
-    background-color: ${colors.primary};
-    color: white;
+    color: ${colors.primary};
+  }
+  @media (max-width: 500px) {
+    padding-right: 1rem;
+    padding-left: 1rem;
   }
 `
 

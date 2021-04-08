@@ -7,7 +7,7 @@ import triangleRight from '@iconify-icons/entypo/triangle-right'
 
 const Button = styled.div`
   float: left;
-  margin-left: 2rem;
+  margin-left: 1.7rem;
   :hover {
     cursor: pointer;
   }
