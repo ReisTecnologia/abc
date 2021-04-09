@@ -33,8 +33,8 @@ const ImageWrapper = styled.div`
 `
 const Img = styled.img`
   border-radius: 5px;
-  width: 3rem;
-  height: 3rem;
+  width: 2.9rem;
+  height: 2.9rem;
   object-fit: cover;
   margin: 0;
 `
