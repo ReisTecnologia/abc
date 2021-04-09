@@ -5,6 +5,12 @@ export const MENUS_QUERY = gql`
     menus {
       id
       name
+      elements {
+        lesson {
+          image
+          initials
+        }
+      }
     }
   }
 `

@@ -15,6 +15,12 @@ export const MenuName = styled.div`
   align-items: center;
   margin-left: 2rem;
   flex: 1;
+  @media (max-width: 720px) {
+    margin-left: 1.5rem;
+  }
+  @media (max-width: 600px) {
+    margin-left: 1rem;
+  }
 `
 
 export const MenuButtons = styled.div`
@@ -22,4 +28,13 @@ export const MenuButtons = styled.div`
   display: flex;
   margin-right: 2rem;
   flex-direction: row-reverse;
+  @media (max-width: 720px) {
+    margin-right: 1.5rem;
+  }
+  @media (max-width: 600px) {
+    margin-right: 1rem;
+  }
+  @media (max-width: 400px) {
+    margin-right: 0;
+  }
 `

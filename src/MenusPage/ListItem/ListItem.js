@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { ListItemButton } from './ListItemButton'
 import { Wrapper, MenuName, MenuButtons } from './ListItem.styles'
-
+import { ListImages } from './ListImages'
 const navigateToViewMenu = (history, menuId) => (e) => {
   e.stopPropagation()
   history.push(`/viewMenu/${menuId}`)
@@ -20,6 +20,7 @@ export const ListItem = ({ menu }) => {
   return (
     <Wrapper onClick={navigateToEditMenu(history, menu.id)}>
       <MenuName>{menu.name}</MenuName>
+      <ListImages lessons={menu.elements} />
       &nbsp;&nbsp;
       <MenuButtons>
         <ListItemButton onClick={navigateToViewMenu(history, menu.id)} />
