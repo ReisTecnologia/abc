@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   flex: 1;
-  @media (max-width: 500px) {
+  @media (max-width: 540px) {
     justify-content: center;
   }
 `
@@ -27,7 +27,7 @@ export const ListImages = ({ lessons }) => {
     remainingLessonsNumber && remainingLessonsNumber !== 0 ? true : false
 
   const windowWidthMedium = window.matchMedia('(max-width: 720px)')
-  const windowWidthSmall = window.matchMedia('(max-width: 500px)')
+  const windowWidthSmall = window.matchMedia('(max-width: 540px)')
   const windowWidthMobile = window.matchMedia('(max-width: 360px)')
 
   useEffect(() => {
