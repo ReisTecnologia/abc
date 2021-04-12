@@ -49,7 +49,12 @@ const deleteLesson = ({
   setInnerElements(newinnerElements)
 }
 
-export const EditableMenu = ({ menu: { id, name, elements }, lessons }) => {
+export const EditableMenu = ({
+  menu: { id, name, backgroundImage, elements },
+  lessons,
+}) => {
+  console.log('editMenuPage', backgroundImage)
+
   const isFirstRun = useRef(true)
   const mapElements = (elements) =>
     elements.map(({ lessonId }) => ({ lessonId }))
@@ -101,8 +106,10 @@ export const EditableMenu = ({ menu: { id, name, elements }, lessons }) => {
   const navigateToMenus = () => {
     history.push('/menus')
   }
+  const backgroundImgUrl = `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/img_default.svg`
+
   return (
-    <Layout>
+    <Layout backgroundImage={backgroundImgUrl}>
       <Header
         title={<InputField value={menuName} setValue={setMenuName} />}
         loading={isSaving}
@@ -168,6 +175,7 @@ EditableMenu.propTypes = {
   menu: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string,
+    backgroundImage: PropTypes.string,
     elements: PropTypes.arrayOf(PropTypes.any),
   }),
   loadingMenu: PropTypes.bool,

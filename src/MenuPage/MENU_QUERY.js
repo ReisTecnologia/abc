@@ -5,6 +5,7 @@ export const MENU_QUERY = gql`
     menu(id: $id) {
       id
       name
+      backgroundImage
       elements {
         lessonId
         lesson {

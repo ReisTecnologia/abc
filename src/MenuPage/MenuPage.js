@@ -35,8 +35,9 @@ const LessonNameWrapper = styled.div`
 
 export const MenuPage = ({ menu }) => {
   const { user } = useContext(CurrentUserContext)
+  const backgroundImgUrl = `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/img_default.svg`
   return (
-    <Layout backgroundColor={colors.primary}>
+    <Layout backgroundColor={colors.primary} backgroundImage={backgroundImgUrl}>
       {user && <Header />}
       <Container>
         <Wrapper>

@@ -181,7 +181,12 @@ const resolvers = {
       let success = false
       let menu = false
       await db
-        .editMenu(args.id, args.input.name, args.input.elements)
+        .editMenu(
+          args.id,
+          args.input.name,
+          args.input.backgroundImage,
+          args.input.elements
+        )
         .then((updatedItem) => {
           menu = updatedItem
           success = true
