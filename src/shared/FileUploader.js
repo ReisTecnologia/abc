@@ -2,7 +2,7 @@ import React, { useRef, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Spinner } from 'shared/Spinner'
-import { UploadButton } from './UploadButton'
+import { UploadButton } from '../EditLessonPage/EditableLesson/EditableElements/EditableElement/UploadButton'
 import { v4 as uuidv4 } from 'uuid'
 
 const SpinnerWrapper = styled.div`
@@ -60,6 +60,7 @@ export const FileUploader = ({
   videoFilePrefix,
   imageFilePrefix,
   setImageUrl,
+  setMenuImage,
   updateVideo,
   color,
   loading,
@@ -109,6 +110,7 @@ export const FileUploader = ({
             urlWrongAnswerExplanation: filename,
           })
         else if (setImageUrl) setImageUrl(filename)
+        else if (setMenuImage) setMenuImage(filename)
       }
       reader.addEventListener(
         'loadend',
@@ -133,6 +135,7 @@ export const FileUploader = ({
       updateAudio,
       setLoading,
       setImageUrl,
+      setMenuImage,
     ]
   )
   return (
@@ -166,6 +169,7 @@ FileUploader.propTypes = {
   updateWordAudio: PropTypes.func,
   updateRightAnswerAudio: PropTypes.func,
   updateWrongAnswerAudio: PropTypes.func,
+  setMenuImage: PropTypes.func,
   color: PropTypes.string,
   loading: PropTypes.bool,
   setLoading: PropTypes.func,

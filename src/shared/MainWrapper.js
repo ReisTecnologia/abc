@@ -7,5 +7,5 @@ export const MainWrapper = styled.div`
   flex-direction: column;
   background-color: ${({ backgroundColor }) => backgroundColor};
   background-image: ${({ backgroundImage }) => `url(${backgroundImage})`};
-  background-repeat: space repeat;
+  background-repeat: repeat;
 `

@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom'
 
 const SignInOrOutButtonWrapper = styled.div`
   color: ${colors.white};
+  background-color: ${colors.primary};
   position: fixed;
   text-align: center;
   bottom: 20px;

@@ -3,20 +3,17 @@ import { FileUploader } from 'shared/FileUploader'
 import { colors } from 'shared/colors'
 import { Spinner } from 'shared/Spinner'
 import styled from 'styled-components'
-import { DeleteLessonImageButton } from './DeleteLessonImageButton'
+import { DeleteMenuImageButton } from './DeleteMenuImageButton'
 import { DragAndDrop } from 'shared/DragAndDrop'
 import PropTypes from 'prop-types'
-import { LessonItem } from 'shared/LessonItem'
-import { TextAndInput } from 'shared/TextAndInput'
+import { MenuImageContainer } from './MenuImageContainer'
 
 const Wrapper = styled.div`
   display: flex;
   background-color: ${colors.dimmedPrimary};
   flex-direction: column;
 `
-const InitialWrapper = styled.div`
-  padding-right: 5px;
-`
+
 const Title = styled.div`
   position: relative;
   text-align: center;
@@ -32,6 +29,9 @@ const Title = styled.div`
 `
 const ContentWrapper = styled.div`
   display: flex;
+  justify-content: center;
+  background-color: ${colors.white};
+
   @media (min-width: 601px) {
     padding: 2rem;
   }
@@ -42,45 +42,31 @@ const ContentWrapper = styled.div`
     padding: 0.5rem;
   }
 `
-const TextInputWrapper = styled.div`
-  display: flex;
-  align-self: center;
-  justify-content: space-between;
-  color: ${colors.white};
-`
 
-export const LessonImage = ({
-  id,
-  imageUrl,
-  setImageUrl,
-  initials,
-  setInitials,
-}) => {
+export const MenuBackground = ({ id, menuImage, setMenuImage }) => {
   const [loading, setLoading] = useState(false)
 
   return (
     <>
       <Wrapper>
-        <Title>Ícone</Title>
+        <Title>Imagem de fundo</Title>
         <ContentWrapper>
           {loading ? (
             <Spinner />
           ) : (
-            <DragAndDrop imageFilePrefix={`${id}___`} setImageUrl={setImageUrl}>
-              <LessonItem image={imageUrl} />
+            <DragAndDrop
+              imageFilePrefix={`${id}___`}
+              setMenuImage={setMenuImage}
+            >
+              <MenuImageContainer image={menuImage} />
               <FileUploader
                 imageFilePrefix={`${id}___`}
-                color={colors.white}
-                setImageUrl={setImageUrl}
+                color={colors.grayText}
+                setMenuImage={setMenuImage}
                 loading={loading}
                 setLoading={setLoading}
               />
-              <DeleteLessonImageButton setImageUrl={setImageUrl} />
-              <LessonItem initials={initials} />
-              <TextInputWrapper>
-                <InitialWrapper>{'Inicial:'}</InitialWrapper>
-                <TextAndInput value={initials} onChange={setInitials} />
-              </TextInputWrapper>
+              <DeleteMenuImageButton setMenuImage={setMenuImage} />
             </DragAndDrop>
           )}
         </ContentWrapper>
@@ -89,10 +75,8 @@ export const LessonImage = ({
   )
 }
 
-LessonImage.propTypes = {
+MenuBackground.propTypes = {
   id: PropTypes.string,
-  imageUrl: PropTypes.string,
-  setImageUrl: PropTypes.func,
-  initials: PropTypes.string,
-  setInitials: PropTypes.func,
+  menuImage: PropTypes.string,
+  setMenuImage: PropTypes.func,
 }

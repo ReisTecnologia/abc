@@ -176,7 +176,7 @@ const addUser = (id, name, login, password, type) => {
   return docClient.transactWrite(params).promise()
 }
 
-const editMenu = (id, name, image, elements) => {
+const editMenu = (id, name, backgroundImage, elements) => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
     TableName: MENU_TABLE_NAME,
@@ -186,11 +186,11 @@ const editMenu = (id, name, image, elements) => {
       ':newName': name,
       ':id': id,
       ':elements': elements,
-      ':image': image,
+      ':backgroundImage': backgroundImage,
     },
     ReturnValues: 'ALL_NEW',
     UpdateExpression:
-      'set #name = :newName, elements = :elements, image = :image',
+      'set #name = :newName, elements = :elements, backgroundImage = :backgroundImage',
     ConditionExpression: ':id = #id',
   }
   return docClient

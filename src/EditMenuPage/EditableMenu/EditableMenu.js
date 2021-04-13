@@ -25,6 +25,7 @@ import { LessonName } from './LessonName'
 import { Header } from 'shared/Header/Header'
 import { MoveButtons } from './MoveButtons/MoveButtons'
 import { ViewMenuButton } from './ViewMenuButton'
+import { MenuBackground } from './MenuBackground'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -53,8 +54,6 @@ export const EditableMenu = ({
   menu: { id, name, backgroundImage, elements },
   lessons,
 }) => {
-  console.log('editMenuPage', backgroundImage)
-
   const isFirstRun = useRef(true)
   const mapElements = (elements) =>
     elements.map(({ lessonId }) => ({ lessonId }))
@@ -62,6 +61,7 @@ export const EditableMenu = ({
   const mappedElements = mapElements(elements)
   const [innerElements, setInnerElements] = useState(mappedElements)
   const [menuName, setMenuName] = useState(name)
+  const [menuImage, setMenuImage] = useState(backgroundImage)
   const [mutate, { loading: isSaving }] = useMutation(SAVE_MENU_MUTATION)
   const moveUp = ({ elementIndex }) => () => {
     const reorderedElements = [...innerElements]
@@ -92,6 +92,7 @@ export const EditableMenu = ({
             input: {
               name: menuName,
               elements: innerElements,
+              backgroundImage: menuImage,
             },
           },
         }
@@ -100,16 +101,15 @@ export const EditableMenu = ({
     } else {
       isFirstRun.current = false
     }
-  }, [mutate, id, menuName, innerElements])
+  }, [mutate, id, menuName, innerElements, menuImage])
 
   let history = useHistory()
   const navigateToMenus = () => {
     history.push('/menus')
   }
-  const backgroundImgUrl = `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/img_default.svg`
 
   return (
-    <Layout backgroundImage={backgroundImgUrl}>
+    <Layout>
       <Header
         title={<InputField value={menuName} setValue={setMenuName} />}
         loading={isSaving}
@@ -121,6 +121,11 @@ export const EditableMenu = ({
         }
       />
       <Container>
+        <MenuBackground
+          id={id}
+          menuImage={menuImage}
+          setMenuImage={setMenuImage}
+        />
         {innerElements.map(({ lessonId }, elementIndex) => (
           <ElementsWrapper key={elementIndex}>
             <IconWrapper>
