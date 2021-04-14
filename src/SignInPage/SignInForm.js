@@ -6,7 +6,9 @@ import { saveTokens } from 'shared/AuthTokens/saveTokens'
 import { useHistory } from 'react-router-dom'
 import { Spinner } from 'shared/Spinner'
 import { ToastContainer, toast, Slide } from 'react-toastify'
+import PropTypes from 'prop-types'
 import 'react-toastify/dist/ReactToastify.css'
+import { colors } from 'shared/colors'
 
 const Form = styled.form`
   display: flex;
@@ -26,8 +28,17 @@ const Label = styled.label`
 const SubmitButton = styled.button`
   margin-top: 15px;
 `
+const ForgotPasswordText = styled.div`
+  margin-top: 15px;
 
-export const SignInForm = () => {
+  :hover {
+    cursor: pointer;
+    text-decoration: underline;
+    color: ${colors.primary};
+  }
+`
+
+export const SignInForm = ({ setShowSigninForm }) => {
   let history = useHistory()
 
   const navigateToMenu = () => {
@@ -43,6 +54,8 @@ export const SignInForm = () => {
       history.go(0)
     }
   }
+
+  const hideSigninForm = () => setShowSigninForm(false)
 
   const [signIn, { data, loading }] = useMutation(SIGNIN_MUTATION, {
     variables: { login: login, password: password },
@@ -91,9 +104,16 @@ export const SignInForm = () => {
             onChange={handlePasswordChange}
           />
           <SubmitButton onClick={submitSignIn}>Entrar</SubmitButton>
+          <ForgotPasswordText onClick={hideSigninForm}>
+            Esqueceu sua senha?
+          </ForgotPasswordText>
           <ToastContainer />
         </Form>
       )}
     </Wrapper>
   )
+}
+
+SignInForm.propTypes = {
+  setShowSigninForm: PropTypes.func,
 }
