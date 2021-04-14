@@ -70,6 +70,7 @@ export default gql`
     login: String
     password: String
     type: String
+    email: String
   }
 
   type AddLessonResponse {
@@ -106,6 +107,7 @@ export default gql`
     success: Boolean!
     user: User
     userLogin: User
+    userEmail: User
   }
 
   type AddUserResponse {
@@ -165,6 +167,7 @@ export default gql`
     login: String
     password: String
     type: String
+    email: String
   }
 
   input ElementMenuInput {
@@ -194,6 +197,8 @@ export default gql`
     login: String
     type: String
     previousLogin: String
+    email: String
+    previousEmail: String
   }
 
   type Query {
@@ -201,7 +206,7 @@ export default gql`
     lesson(id: String!): Lesson
     menu(id: String!): Menu
     menus: [Menu]
-    user(id: ID, login: String): User
+    user(id: ID, login: String, email: String): User
     users: [User]
     signedInUser: User
   }

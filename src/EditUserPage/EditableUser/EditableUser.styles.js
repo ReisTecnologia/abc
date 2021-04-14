@@ -1,11 +1,16 @@
+import { colors } from 'shared/colors'
 import styled from 'styled-components'
 
 export const Form = styled.form`
   display: flex;
+  border: solid 1px ${colors.primary};
+  border-radius: 5px;
+  margin-left: 1rem;
+  margin-right: 1rem;
   flex-direction: column;
   align-items: center;
   @media (min-width: 650px) {
-    width: 25%;
+    width: 35%;
   }
 
   @media (max-width: 649px) {
@@ -28,12 +33,13 @@ export const Label = styled.label`
 `
 export const SubmitButton = styled.button`
   margin-top: 15px;
+  margin-bottom: 15px;
 `
 export const FormsWrapper = styled.div`
   display: flex;
   width: 100%;
   @media (min-width: 650px) {
-    justify-content: space-around;
+    justify-content: center;
   }
 
   @media (max-width: 649px) {

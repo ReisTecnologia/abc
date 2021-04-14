@@ -24,8 +24,9 @@ export const AddUserButton = ({ afterAdd }) => {
       input: {
         name: '_Novo usuário',
         type: 'student',
-        login: 'user',
+        login: 'usuario',
         password: '123',
+        email: 'exemplo@email.com',
       },
     },
   })

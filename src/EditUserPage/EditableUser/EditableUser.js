@@ -13,17 +13,35 @@ import { Header } from 'shared/Header/Header'
 import { ToastContainer, toast, Slide } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
+const toastConfig = {
+  position: 'top-center',
+  hideProgressBar: true,
+  transition: Slide,
+}
+
+const successfulToast = (message) => {
+  toast.success(message, toastConfig)
+}
+const errorToast = (message) => {
+  toast.error(message, toastConfig)
+}
+
 export const EditableUser = ({ user }) => {
   const [userInfo, setUserInfo] = useState({
     login: user.login,
     name: user.name,
     previousLogin: user.login,
     type: user.type,
+    email: user.email,
+    previousEmail: user.email,
   })
+  console.log('userInfo', userInfo)
   const [userPassword, setUserPassword] = useState({ password: user.password })
   const [confirmPassword, setConfirmPassword] = useState(null)
   const afterComplete = () => {
     setUserInfo({ ...userInfo, previousLogin: user.login })
+    setUserInfo({ ...userInfo, previousEmail: user.email })
+    successfulToast('Usuário salvo com sucesso')
   }
   const [saveUser, { loading }] = useMutation(SAVE_USER_MUTATION, {
     variables: {
@@ -33,11 +51,7 @@ export const EditableUser = ({ user }) => {
     onCompleted: afterComplete,
     onError: (error) => {
       console.error(error)
-      toast.error('Erro ao salvar usuário', {
-        position: 'top-center',
-        hideProgressBar: true,
-        transition: Slide,
-      })
+      errorToast('Erro ao salvar usuário')
     },
   })
 
@@ -47,6 +61,13 @@ export const EditableUser = ({ user }) => {
       variables: {
         id: user.id,
         input: userPassword,
+      },
+      onCompleted: () => {
+        successfulToast('Senha salva com sucesso')
+      },
+      onError: (error) => {
+        console.error(error)
+        errorToast('Erro ao salvar senha')
       },
     }
   )

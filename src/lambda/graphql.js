@@ -196,6 +196,8 @@ const resolvers = {
           args.input.previousLogin,
           args.input.name,
           args.input.type,
+          args.input.email,
+          args.input.previousEmail,
           args.id
         )
         .then(() => true)
@@ -206,7 +208,8 @@ const resolvers = {
       if (!success) throw Error('Erro ao salvar usuário')
       const user = await db.getUser(null, args.id)
       const userLogin = await db.getUser(null, `login#${args.input.login}`)
-      return { success, user, userLogin }
+      const userEmail = await db.getUser(null, `email#${args.input.email}`)
+      return { success, user, userLogin, userEmail }
     },
     editUserPassword: async (parent, args, context) => {
       userCheck(context)
@@ -225,7 +228,8 @@ const resolvers = {
           args.input.name,
           args.input.login,
           hashPassword(args.input.password),
-          args.input.type
+          args.input.type,
+          args.input.email
         )
         .then(() => true)
         .catch(() => false)
