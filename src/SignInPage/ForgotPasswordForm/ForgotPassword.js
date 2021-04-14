@@ -5,7 +5,6 @@ import { ToastContainer, toast, Slide } from 'react-toastify'
 import { USER_QUERY } from './USER_QUERY'
 import 'react-toastify/dist/ReactToastify.css'
 import { useLazyQuery } from '@apollo/client'
-// import { Link } from 'react-router-dom'
 
 const Form = styled.div`
   display: flex;
@@ -28,11 +27,12 @@ const SubmitButton = styled.button`
 
 export const ForgotPassword = () => {
   const [value, setValue] = useState('')
-  const [login, setLogin] = useState('')
+  const [login, setLogin] = useState(null)
+  const [email, setEmail] = useState(null)
   const [checkUser, { called, data, loading: userLoading }] = useLazyQuery(
     USER_QUERY,
     {
-      variables: { login: login },
+      variables: login ? { login: login } : { email: email },
       notifyOnNetworkStatusChange: true,
       onError: () => {
         toast.error('Usuário não existe!', {
@@ -51,8 +51,13 @@ export const ForgotPassword = () => {
 
   const submitUser = (e) => {
     e.preventDefault()
-    setLogin(value)
-    checkUser()
+    if (value.includes('@')) {
+      setEmail(value)
+      checkUser()
+    } else {
+      setLogin(value)
+      checkUser()
+    }
   }
 
   return (
@@ -61,7 +66,7 @@ export const ForgotPassword = () => {
         <Spinner />
       ) : !called || !data ? (
         <Form>
-          <Label>Confirme seu usuário:</Label>
+          <Label>Ensira seu usuário ou email:</Label>
           <input
             type="text"
             id="login"
@@ -72,7 +77,11 @@ export const ForgotPassword = () => {
           <ToastContainer />
         </Form>
       ) : (
-        <div>Clique aqui para trocar de senha </div>
+        <div>
+          Enviamos para o seu email um link para troca de senha. Por favor
+          clique neste link para trocar a sua senha. Não esqueça de verificar a
+          caixa de spam.
+        </div>
       )}
     </Wrapper>
   )
