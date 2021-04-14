@@ -38,6 +38,7 @@ const resolvers = {
     },
     user: async (parent, args) => {
       const user = await db.getUser(args.login, args.id)
+      if (!user) throw new AuthenticationError('Invalid user')
       return user
     },
     users: async () => {
