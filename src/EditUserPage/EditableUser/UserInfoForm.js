@@ -1,6 +1,7 @@
 import React from 'react'
 import { Form, Label, SubmitButton } from './EditableUser.styles.js'
 import PropTypes from 'prop-types'
+import { toast, Slide } from 'react-toastify'
 
 export const UserInfoForm = ({ setUserInfo, userInfo, saveUser }) => {
   const handleLoginChange = (e) => {
@@ -21,6 +22,12 @@ export const UserInfoForm = ({ setUserInfo, userInfo, saveUser }) => {
 
   const submitSaveUser = (e) => {
     e.preventDefault()
+    if (userInfo.login.includes('@'))
+      return toast.error('Carácter invalido no campo de login: "@"', {
+        position: 'top-center',
+        hideProgressBar: true,
+        transition: Slide,
+      })
     saveUser()
   }
 
