@@ -1,6 +1,14 @@
 import React from 'react'
 import { Form, Label, SubmitButton } from './EditableUser.styles.js'
 import PropTypes from 'prop-types'
+import { toast, Slide } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
+const toastConfig = {
+  position: 'top-center',
+  hideProgressBar: true,
+  transition: Slide,
+}
 
 export const PasswordChangeForm = ({
   userPassword,
@@ -20,7 +28,7 @@ export const PasswordChangeForm = ({
   const submitSavePassword = (e) => {
     e.preventDefault()
     if (confirmPassword !== userPassword.password)
-      return alert('As senhas não são iguais!')
+      return toast.error('As senhas precisam ser iguais!', toastConfig)
 
     savePassword()
   }

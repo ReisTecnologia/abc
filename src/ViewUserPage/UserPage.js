@@ -38,6 +38,7 @@ export const UserPage = ({ user }) => {
             {userInfoFields('Nome:', user.name)}
             {userInfoFields('Tipo:', user.type)}
             {userInfoFields('Login:', user.login)}
+            {userInfoFields('Email:', user.email)}
           </UserWrapper>
         </Wrapper>
       </Container>

@@ -26,6 +26,6 @@ export const RemainingLessons = ({ lessonNumber, showRemainingLessons }) => {
 }
 
 RemainingLessons.propTypes = {
-  lessonNumber: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
+  lessonNumber: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   showRemainingLessons: PropTypes.bool,
 }

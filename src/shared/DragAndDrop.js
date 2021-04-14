@@ -197,10 +197,19 @@ export const DragAndDrop = ({
   )
 
   useEffect(() => {
+    const currentRef = ref.current
+
     ref.current.addEventListener('dragenter', handleDragEnter)
     ref.current.addEventListener('dragleave', handleDragLeave)
     ref.current.addEventListener('dragover', handleDrag)
     ref.current.addEventListener('drop', handleDrop)
+
+    return () => {
+      currentRef.removeEventListener('dragenter', handleDragEnter)
+      currentRef.removeEventListener('dragleave', handleDragLeave)
+      currentRef.removeEventListener('dragover', handleDrag)
+      currentRef.removeEventListener('drop', handleDrop)
+    }
   }, [handleDrop, handleDragLeave, handleDragEnter, handleDrag])
   return (
     <OuterWrapper ref={ref}>

@@ -10,6 +10,7 @@ export const SAVE_USER_MUTATION = gql`
         login
         password
         type
+        email
       }
     }
   }

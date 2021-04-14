@@ -40,8 +40,8 @@ const getUsers = async function () {
   const params = {
     TableName: USER_TABLE_NAME,
     ExpressionAttributeNames: { '#id': 'id' },
-    ExpressionAttributeValues: { ':login': 'login#' },
-    FilterExpression: 'NOT contains(#id, :login)',
+    ExpressionAttributeValues: { ':login': 'login#', ':email': 'email#' },
+    FilterExpression: 'NOT contains(#id, :login) AND NOT contains(#id, :email)',
   }
   return docClient
     .scan(params)
@@ -145,7 +145,7 @@ const addMenu = (id) => {
 
   return docClient.put(params).promise()
 }
-const addUser = (id, name, login, password, type) => {
+const addUser = (id, name, login, password, type, email) => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
     TransactItems: [
@@ -157,6 +157,7 @@ const addUser = (id, name, login, password, type) => {
             name: name,
             password: password,
             type: type,
+            email: email,
           },
           TableName: USER_TABLE_NAME,
           ConditionExpression: 'attribute_not_exists(id)',
@@ -166,6 +167,13 @@ const addUser = (id, name, login, password, type) => {
         Put: {
           Item: {
             id: `login#${login}`,
+          },
+          TableName: USER_TABLE_NAME,
+          ConditionExpression: 'attribute_not_exists(id)',
+        },
+        Put: {
+          Item: {
+            id: `email#${email}`,
           },
           TableName: USER_TABLE_NAME,
           ConditionExpression: 'attribute_not_exists(id)',
@@ -223,7 +231,15 @@ const editLesson = (id, name, elements, image, initials) => {
     .promise()
     .then(({ Attributes }) => Attributes)
 }
-const editUser = (login, previousLogin, name, type, id) => {
+const editUser = (
+  login,
+  previousLogin,
+  name,
+  type,
+  email,
+  previousEmail,
+  id
+) => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   params = {
     TransactItems: [
@@ -241,10 +257,11 @@ const editUser = (login, previousLogin, name, type, id) => {
             ':login': login,
             ':newType': type,
             ':id': id,
+            ':email': email,
           },
           ReturnValues: 'ALL_NEW',
           UpdateExpression:
-            'set #name = :newName, login = :login,  #type = :newType',
+            'set #name = :newName, login = :login,  #type = :newType, email = :email',
           ConditionExpression: ':id = #id',
         },
       },
@@ -262,6 +279,26 @@ const editUser = (login, previousLogin, name, type, id) => {
             Put: {
               Item: {
                 id: `login#${login}`,
+              },
+              TableName: USER_TABLE_NAME,
+              ConditionExpression: 'attribute_not_exists(id)',
+            },
+          }
+        : null,
+      email !== previousEmail
+        ? {
+            Delete: {
+              Key: { id: `email#${previousEmail}` },
+              TableName: USER_TABLE_NAME,
+              ReturnItemCollectionMetrics: 'SIZE',
+            },
+          }
+        : null,
+      email !== previousEmail
+        ? {
+            Put: {
+              Item: {
+                id: `email#${email}`,
               },
               TableName: USER_TABLE_NAME,
               ConditionExpression: 'attribute_not_exists(id)',
