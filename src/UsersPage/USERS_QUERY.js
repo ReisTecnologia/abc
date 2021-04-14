@@ -8,6 +8,7 @@ export const USERS_QUERY = gql`
       id
       password
       type
+      email
     }
   }
 `
