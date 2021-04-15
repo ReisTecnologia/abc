@@ -35,11 +35,10 @@ export const ForgotPassword = () => {
     {
       variables: {
         input: login ? { login: login } : { email: email },
-        // onCompleted: afterComplete,
       },
       notifyOnNetworkStatusChange: true,
       onError: () => {
-        toast.error('Usuário não existe!', {
+        toast.error('Usuário ou email invalido!', {
           position: 'top-center',
           hideProgressBar: true,
           transition: Slide,
@@ -55,11 +54,6 @@ export const ForgotPassword = () => {
 
   const submitUser = (e) => {
     e.preventDefault()
-    toast.error('Usuário não existe!', {
-      position: 'top-center',
-      hideProgressBar: true,
-      transition: Slide,
-    })
     if (value.includes('@')) {
       setEmail(value)
     } else {
@@ -84,7 +78,6 @@ export const ForgotPassword = () => {
             onChange={handleLoginChange}
           />
           <SubmitButton onClick={submitUser}>Confirmar</SubmitButton>
-          <ToastContainer />
         </Form>
       ) : (
         <div>
@@ -93,6 +86,7 @@ export const ForgotPassword = () => {
           caixa de spam.
         </div>
       )}
+      <ToastContainer />
     </Wrapper>
   )
 }
