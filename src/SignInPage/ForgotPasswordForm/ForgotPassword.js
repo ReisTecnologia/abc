@@ -1,10 +1,10 @@
 import styled from 'styled-components'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Spinner } from 'shared/Spinner'
 import { ToastContainer, toast, Slide } from 'react-toastify'
-import { USER_QUERY } from './USER_QUERY'
 import 'react-toastify/dist/ReactToastify.css'
-import { useLazyQuery } from '@apollo/client'
+import { useMutation } from '@apollo/client'
+import { ADD_HASH_USER_MUTATION } from './ADD_HASH_USER_MUTATION'
 
 const Form = styled.div`
   display: flex;
@@ -29,10 +29,14 @@ export const ForgotPassword = () => {
   const [value, setValue] = useState('')
   const [login, setLogin] = useState(null)
   const [email, setEmail] = useState(null)
-  const [checkUser, { called, data, loading: userLoading }] = useLazyQuery(
-    USER_QUERY,
+
+  const [addHashUser, { data, loading: userLoading }] = useMutation(
+    ADD_HASH_USER_MUTATION,
     {
-      variables: login ? { login: login } : { email: email },
+      variables: {
+        input: login ? { login: login } : { email: email },
+        // onCompleted: afterComplete,
+      },
       notifyOnNetworkStatusChange: true,
       onError: () => {
         toast.error('Usuário não existe!', {
@@ -51,20 +55,26 @@ export const ForgotPassword = () => {
 
   const submitUser = (e) => {
     e.preventDefault()
+    toast.error('Usuário não existe!', {
+      position: 'top-center',
+      hideProgressBar: true,
+      transition: Slide,
+    })
     if (value.includes('@')) {
       setEmail(value)
-      checkUser()
     } else {
       setLogin(value)
-      checkUser()
     }
   }
+  useEffect(() => {
+    if (email || login) addHashUser()
+  }, [login, email, addHashUser])
 
   return (
     <Wrapper>
       {userLoading ? (
         <Spinner />
-      ) : !called || !data ? (
+      ) : !data ? (
         <Form>
           <Label>Ensira seu usuário ou email:</Label>
           <input
