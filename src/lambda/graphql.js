@@ -253,6 +253,40 @@ const resolvers = {
         .addHashUser(uuidv4())
         .then(() => true)
         .catch(() => false)
+      const sendPassRecoveryEMail = async () => {
+        const ses = new AWS.SES({
+          accessKeyId: process.env.MY_AWS_BUCKET_ACCESS_KEY_ID,
+          secretAccessKey: process.env.MY_AWS_BUCKET_SECRET_ACCESS_KEY,
+          region: 'sa-east-1',
+        })
+        const sender = process.env.MY_AWS_EMAIL_SENDER
+        const recipient = user.email
+        const params = {
+          Source: sender,
+          Destination: {
+            ToAddresses: [recipient],
+          },
+          ReplyToAddresses: [recipient],
+          Message: {
+            Body: {
+              Html: {
+                Charset: 'UTF-8',
+                Data: 'Mensagem do email, troca de senha, link, etc',
+              },
+            },
+            Subject: {
+              Charset: 'UTF-8',
+              Data: 'Troca de senha',
+            },
+          },
+        }
+        if (success)
+          ses.sendEmail(params, function (err, data) {
+            if (err) console.log(err.message)
+            console.log('Email sent! Message ID: ', data)
+          })
+      }
+      sendPassRecoveryEMail().catch(console.error)
       return { success }
     },
   },
