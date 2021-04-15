@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { TextAndInput } from 'shared/TextAndInput'
 import { DeleteConclusionAudioButton } from './DeleteConclusionAudioButton'
 import { AudioButton } from 'shared/AudioButton'
-import { FileUploader } from '../FileUploader'
+import { FileUploader } from 'shared/FileUploader'
 import { ConclusionAudioNameWrapper } from './ConclusionAudioNameWrapper'
 import { ConclusionAudioWrapper } from './ConclusionAudioWrapper'
 import { OptionalTextWrapper } from './OptionalTextWrapper'
@@ -13,7 +13,7 @@ import {
   AudioButtonMobileWrapper,
 } from '../AudioButtonWrappers'
 import { colors } from 'shared/colors'
-import { DragAndDrop } from '../DragAndDrop'
+import { DragAndDrop } from 'shared/DragAndDrop'
 import { Spinner } from 'shared/Spinner'
 import { FileDownloader } from '../FileDownloader'
 

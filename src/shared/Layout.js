@@ -4,11 +4,18 @@ import { GlobalStyle } from './GlobalStyle'
 import { MainWrapper } from './MainWrapper'
 // import { Footer } from './Footer'
 
-export const Layout = ({ children, backgroundColor = '#f3fffc' }) => {
+export const Layout = ({
+  children,
+  backgroundColor = '#f3fffc',
+  backgroundImage,
+}) => {
   return (
     <>
       <GlobalStyle />
-      <MainWrapper backgroundColor={backgroundColor}>
+      <MainWrapper
+        backgroundColor={backgroundColor}
+        backgroundImage={backgroundImage}
+      >
         <main>{children}</main>
       </MainWrapper>
     </>
@@ -18,4 +25,5 @@ export const Layout = ({ children, backgroundColor = '#f3fffc' }) => {
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
   backgroundColor: PropTypes.string,
+  backgroundImage: PropTypes.string,
 }

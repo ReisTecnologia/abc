@@ -7,6 +7,7 @@ export const SAVE_MENU_MUTATION = gql`
       menu {
         name
         id
+        backgroundImage
         elements {
           lessonId
         }

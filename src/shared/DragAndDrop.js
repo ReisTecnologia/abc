@@ -75,6 +75,7 @@ export const DragAndDrop = ({
   videoFilePrefix,
   imageFilePrefix,
   setImageUrl,
+  setMenuImage,
   updateVideo,
   children,
 }) => {
@@ -121,6 +122,7 @@ export const DragAndDrop = ({
             urlWrongAnswerExplanation: filename,
           })
         else if (setImageUrl) setImageUrl(filename)
+        else if (setMenuImage) setMenuImage(filename)
       }
 
       reader.addEventListener(
@@ -145,6 +147,7 @@ export const DragAndDrop = ({
       updateWrongAnswerAudio,
       imageFilePrefix,
       setImageUrl,
+      setMenuImage,
     ]
   )
 
@@ -224,6 +227,7 @@ DragAndDrop.propTypes = {
   audioFilePrefix: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   updateAudio: PropTypes.func,
+  setMenuImage: PropTypes.func,
   updateWordAudio: PropTypes.func,
   updateRightAnswerAudio: PropTypes.func,
   updateWrongAnswerAudio: PropTypes.func,

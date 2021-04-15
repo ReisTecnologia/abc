@@ -16,9 +16,9 @@ import {
   AudioButtonWrapper,
   AudioButtonMobileWrapper,
 } from '../../AudioButtonWrappers'
-import { FileUploader } from '../../FileUploader'
+import { FileUploader } from 'shared/FileUploader'
 import { AudioButton } from 'shared/AudioButton'
-import { DragAndDrop } from '../../DragAndDrop'
+import { DragAndDrop } from 'shared/DragAndDrop'
 import { colors } from 'shared/colors'
 import { FileDownloader } from '../../FileDownloader'
 

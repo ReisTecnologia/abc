@@ -14,7 +14,6 @@ const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(90px, max-content));
   justify-content: center;
-  background-color: ${colors.primary};
   height: 100%;
   margin-left: 20%;
   margin-right: 20%;
@@ -30,7 +29,8 @@ const IconAndNameWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  background-color: ${colors.primary};
   justify-content: center;
 `
 const LessonNameWrapper = styled.div`
@@ -41,8 +41,9 @@ const LessonNameWrapper = styled.div`
 
 export const MenuPage = ({ menu }) => {
   const { user } = useContext(CurrentUserContext)
+  const backgroundImgUrl = `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${menu.backgroundImage}`
   return (
-    <Layout backgroundColor={colors.primary}>
+    <Layout backgroundColor={colors.primary} backgroundImage={backgroundImgUrl}>
       {user && <Header />}
       <Container>
         <Wrapper>
