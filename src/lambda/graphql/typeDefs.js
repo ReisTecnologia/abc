@@ -61,6 +61,7 @@ export default gql`
   type Menu {
     id: ID!
     name: String!
+    backgroundImage: String
     elements: [MenuElement]
   }
 
@@ -193,6 +194,7 @@ export default gql`
 
   input EditMenuInput {
     name: String
+    backgroundImage: String
     elements: [ElementMenuInput]
   }
 

@@ -25,6 +25,7 @@ import { LessonName } from './LessonName'
 import { Header } from 'shared/Header/Header'
 import { MoveButtons } from './MoveButtons/MoveButtons'
 import { ViewMenuButton } from './ViewMenuButton'
+import { MenuBackground } from './MenuBackground'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -49,7 +50,10 @@ const deleteLesson = ({
   setInnerElements(newinnerElements)
 }
 
-export const EditableMenu = ({ menu: { id, name, elements }, lessons }) => {
+export const EditableMenu = ({
+  menu: { id, name, backgroundImage, elements },
+  lessons,
+}) => {
   const isFirstRun = useRef(true)
   const mapElements = (elements) =>
     elements.map(({ lessonId }) => ({ lessonId }))
@@ -57,6 +61,7 @@ export const EditableMenu = ({ menu: { id, name, elements }, lessons }) => {
   const mappedElements = mapElements(elements)
   const [innerElements, setInnerElements] = useState(mappedElements)
   const [menuName, setMenuName] = useState(name)
+  const [menuImage, setMenuImage] = useState(backgroundImage)
   const [mutate, { loading: isSaving }] = useMutation(SAVE_MENU_MUTATION)
   const moveUp = ({ elementIndex }) => () => {
     const reorderedElements = [...innerElements]
@@ -87,6 +92,7 @@ export const EditableMenu = ({ menu: { id, name, elements }, lessons }) => {
             input: {
               name: menuName,
               elements: innerElements,
+              backgroundImage: menuImage,
             },
           },
         }
@@ -95,12 +101,13 @@ export const EditableMenu = ({ menu: { id, name, elements }, lessons }) => {
     } else {
       isFirstRun.current = false
     }
-  }, [mutate, id, menuName, innerElements])
+  }, [mutate, id, menuName, innerElements, menuImage])
 
   let history = useHistory()
   const navigateToMenus = () => {
     history.push('/menus')
   }
+
   return (
     <Layout>
       <Header
@@ -114,6 +121,11 @@ export const EditableMenu = ({ menu: { id, name, elements }, lessons }) => {
         }
       />
       <Container>
+        <MenuBackground
+          id={id}
+          menuImage={menuImage}
+          setMenuImage={setMenuImage}
+        />
         {innerElements.map(({ lessonId }, elementIndex) => (
           <ElementsWrapper key={elementIndex}>
             <IconWrapper>
@@ -168,6 +180,7 @@ EditableMenu.propTypes = {
   menu: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string,
+    backgroundImage: PropTypes.string,
     elements: PropTypes.arrayOf(PropTypes.any),
   }),
   loadingMenu: PropTypes.bool,

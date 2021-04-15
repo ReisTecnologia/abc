@@ -145,6 +145,7 @@ const addMenu = (id) => {
     Item: {
       id: id,
       name: '_Novo Menu',
+      backgroundImage: '',
       elements: [],
     },
     TableName: MENU_TABLE_NAME,
@@ -207,24 +208,21 @@ const addHashUser = (id) => {
   return docClient.put(params).promise()
 }
 
-const editMenu = (id, name, elements) => {
+const editMenu = (id, name, backgroundImage, elements) => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
     TableName: MENU_TABLE_NAME,
     Key: { id: id },
     ExpressionAttributeNames: { '#name': name ? 'name' : null, '#id': 'id' },
     ExpressionAttributeValues: {
-      ':newName': name ? name : null,
+      ':newName': name,
       ':id': id,
-      ':elements': elements ? elements : null,
+      ':elements': elements,
+      ':backgroundImage': backgroundImage,
     },
     ReturnValues: 'ALL_NEW',
     UpdateExpression:
-      name && elements
-        ? 'set #name = :newName, elements = :elements'
-        : name
-        ? 'set #name = :newName'
-        : 'set elements = :elements',
+      'set #name = :newName, elements = :elements, backgroundImage = :backgroundImage',
     ConditionExpression: ':id = #id',
   }
   return docClient
