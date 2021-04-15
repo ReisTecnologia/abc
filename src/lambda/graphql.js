@@ -37,7 +37,7 @@ const resolvers = {
       return menus
     },
     user: async (parent, args) => {
-      const user = await db.getUser(args.login, args.id)
+      const user = await db.getUser(args.login, args.id, args.email)
       if (!user) throw new AuthenticationError('Invalid user')
       return user
     },
@@ -236,6 +236,19 @@ const resolvers = {
         .catch(() => false)
       const users = await db.getUsers()
       return { success, users }
+    },
+    addHashUser: async (parent, args) => {
+      let user
+      let success = false
+      if (args.input.login) user = await db.getUser(args.input.login)
+      if (args.input.email)
+        user = await db.getUser(null, null, args.input.email)
+      if (!user) throw new AuthenticationError('Invalid user or email')
+      success = await db
+        .addHashUser(uuidv4())
+        .then(() => true)
+        .catch(() => false)
+      return { success }
     },
   },
   MenuElement: {

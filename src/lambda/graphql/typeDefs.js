@@ -115,6 +115,10 @@ export default gql`
     users: [User]
   }
 
+  type AddHashUserResponse {
+    success: Boolean!
+  }
+
   type CleanupLessonFilesResponse {
     success: Boolean!
   }
@@ -169,6 +173,10 @@ export default gql`
     type: String
     email: String
   }
+  input AddHashUserInput {
+    login: String
+    email: String
+  }
 
   input ElementMenuInput {
     initials: String
@@ -215,6 +223,7 @@ export default gql`
     addLesson: AddLessonResponse
     addMenu: AddMenuResponse
     addUser(input: AddUserInput!): AddUserResponse
+    addHashUser(input: AddHashUserInput!): AddHashUserResponse
     deleteLesson(id: ID!): DeleteLessonResponse
     deleteMenu(id: ID!): DeleteMenuResponse
     editMenu(id: ID!, input: EditMenuInput!): EditMenuResponse

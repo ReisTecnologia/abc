@@ -64,11 +64,19 @@ const getMenu = (id) => {
     .promise()
     .then(({ Items }) => Items[0])
 }
-const getUser = (login, id) => {
+const getUser = (login, id, email) => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
-    ExpressionAttributeValues: login ? { ':login': login } : { ':id': id },
-    FilterExpression: login ? 'login = :login' : 'id = :id',
+    ExpressionAttributeValues: login
+      ? { ':login': login }
+      : id
+      ? { ':id': id }
+      : { ':email': email },
+    FilterExpression: login
+      ? 'login = :login'
+      : id
+      ? 'id = :id'
+      : 'email = :email',
 
     TableName: USER_TABLE_NAME,
   }
@@ -181,6 +189,22 @@ const addUser = (id, name, login, password, type, email) => {
     ],
   }
   return docClient.transactWrite(params).promise()
+}
+
+const addHashUser = (id) => {
+  const docClient = new AWS.DynamoDB.DocumentClient()
+  const SECONDS_IN_A_MINUTE = 60
+  const currentTime = Math.round(Date.now() / 1000)
+  const expirationTime = currentTime + 20 * SECONDS_IN_A_MINUTE
+  const params = {
+    Item: {
+      id: id,
+      expdate: expirationTime,
+    },
+    TableName: USER_TABLE_NAME,
+  }
+
+  return docClient.put(params).promise()
 }
 
 const editMenu = (id, name, elements) => {
@@ -340,6 +364,7 @@ module.exports = {
   editUser,
   editUserPassword,
   addUser,
+  addHashUser,
   addLesson,
   getMenu,
   getMenus,
