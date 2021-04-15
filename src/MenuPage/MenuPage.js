@@ -16,6 +16,12 @@ const Wrapper = styled.div`
   justify-content: center;
   background-color: ${colors.primary};
   height: 100%;
+  margin-left: 20%;
+  margin-right: 20%;
+  @media (max-width: 720px) {
+    margin-right: 0;
+    margin-left: 0;
+  }
 `
 const IconWrapper = styled.div`
   margin-left: 0.5rem;
