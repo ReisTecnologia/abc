@@ -20,9 +20,14 @@ const Wrapper = styled.div`
 const Label = styled.label`
   margin-bottom: 15px;
   margin-top: 15px;
+  min-width: 210px;
 `
 const SubmitButton = styled.button`
   margin-top: 15px;
+`
+const ConfirmationText = styled.div`
+  width: 75%;
+  text-align: center;
 `
 
 export const ForgotPassword = () => {
@@ -80,11 +85,11 @@ export const ForgotPassword = () => {
           <SubmitButton onClick={submitUser}>Confirmar</SubmitButton>
         </Form>
       ) : (
-        <div>
+        <ConfirmationText>
           Enviamos para o seu email um link para troca de senha. Por favor
           clique neste link para trocar a sua senha. Não esqueça de verificar a
           caixa de spam.
-        </div>
+        </ConfirmationText>
       )}
       <ToastContainer />
     </Wrapper>
