@@ -245,12 +245,14 @@ const resolvers = {
     addHashUser: async (parent, args) => {
       let user
       let success = false
+      let emailSent = false
       if (args.input.login) user = await db.getUser(args.input.login)
       if (args.input.email)
         user = await db.getUser(null, null, args.input.email)
       if (!user) throw new AuthenticationError('Invalid user or email')
+      const hashUserId = uuidv4()
       success = await db
-        .addHashUser(uuidv4())
+        .addHashUser(hashUserId)
         .then(() => true)
         .catch(() => false)
       const sendPassRecoveryEMail = async () => {
@@ -271,7 +273,16 @@ const resolvers = {
             Body: {
               Html: {
                 Charset: 'UTF-8',
-                Data: 'Mensagem do email, troca de senha, link, etc',
+                Data: `Olá ${user.name},
+                <br/>
+                <br/>
+                Recebemos uma solicitação para redefinir a sua senha. Para continuar clique no link abaixo:
+                <br/>
+                <br/>
+                Link: ${hashUserId}
+                <br/>
+                <br/>
+                <b>Não solicitou esta alteração?</b>`,
               },
             },
             Subject: {
@@ -283,11 +294,13 @@ const resolvers = {
         if (success)
           ses.sendEmail(params, function (err, data) {
             if (err) console.log(err.message)
-            console.log('Email sent! Message ID: ', data)
+            console.log('Email sent! Data: ', data)
           })
       }
-      sendPassRecoveryEMail().catch(console.error)
-      return { success }
+      await sendPassRecoveryEMail()
+        .then(() => (emailSent = true))
+        .catch(console.error)
+      return { success, emailSent }
     },
   },
   MenuElement: {

@@ -118,6 +118,7 @@ export default gql`
 
   type AddHashUserResponse {
     success: Boolean!
+    emailSent: Boolean!
   }
 
   type CleanupLessonFilesResponse {
