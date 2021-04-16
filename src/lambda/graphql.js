@@ -39,6 +39,8 @@ const resolvers = {
     user: async (parent, args) => {
       const user = await db.getUser(args.login, args.id, args.email)
       if (!user) throw new AuthenticationError('Invalid user')
+      if (user.expdate && user.expdate < Date.now() / 1000)
+        throw new Error('Link expired')
       return user
     },
     users: async () => {
@@ -218,13 +220,24 @@ const resolvers = {
       return { success, user, userLogin, userEmail }
     },
     editUserPassword: async (parent, args, context) => {
-      userCheck(context)
-      let success = await db
-        .editUserPassword(args.id, hashPassword(args.input.password))
-        .then(() => true)
-        .catch(() => false)
-      if (!success) throw Error('Erro ao salvar senha')
-      return { success }
+      if (args.hashUserId) {
+        let user = await db.getUser(null, args.hashUserId)
+        if (user) {
+          let success = await db
+            .editUserPassword(args.id, hashPassword(args.input.password))
+            .then(() => true)
+            .catch(() => false)
+          return { success }
+        }
+      } else {
+        userCheck(context)
+        let success = await db
+          .editUserPassword(args.id, hashPassword(args.input.password))
+          .then(() => true)
+          .catch(() => false)
+        if (!success) throw Error('Erro ao salvar senha')
+        return { success }
+      }
     },
     addUser: async (parent, args) => {
       let success = false
@@ -252,7 +265,7 @@ const resolvers = {
       if (!user) throw new AuthenticationError('Invalid user or email')
       const hashUserId = uuidv4()
       success = await db
-        .addHashUser(hashUserId)
+        .addHashUser(hashUserId, user.id, user.email, user.login)
         .then(() => true)
         .catch(() => false)
       const sendPassRecoveryEMail = async () => {
@@ -279,7 +292,7 @@ const resolvers = {
                 Recebemos uma solicitação para redefinir a sua senha. Para continuar clique no link abaixo:
                 <br/>
                 <br/>
-                Link: ${hashUserId}
+                Link: <a href=\"http://localhost:8888/recoverPassword/${hashUserId}\"> Clique aqui para redefinir sua senha </a>
                 <br/>
                 <br/>
                 <b>Não solicitou esta alteração?</b>`,

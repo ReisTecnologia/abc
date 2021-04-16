@@ -192,7 +192,7 @@ const addUser = (id, name, login, password, type, email) => {
   return docClient.transactWrite(params).promise()
 }
 
-const addHashUser = (id) => {
+const addHashUser = (id, accountId, accountEmail, accountLogin) => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const SECONDS_IN_A_MINUTE = 60
   const currentTime = Math.round(Date.now() / 1000)
@@ -200,6 +200,9 @@ const addHashUser = (id) => {
   const params = {
     Item: {
       id: id,
+      name: accountId,
+      email: `hash#${accountEmail}`,
+      login: `hash#${accountLogin}`,
       expdate: expirationTime,
     },
     TableName: USER_TABLE_NAME,

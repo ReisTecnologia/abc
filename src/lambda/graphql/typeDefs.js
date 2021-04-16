@@ -72,6 +72,7 @@ export default gql`
     password: String
     type: String
     email: String
+    expdate: Int
   }
 
   type AddLessonResponse {
@@ -235,6 +236,7 @@ export default gql`
     editUser(id: ID!, input: EditUserInput!): EditUserResponse
     editUserPassword(
       id: ID!
+      hashUserId: ID
       input: EditUserPasswordInput!
     ): EditUserPasswordResponse
     signIn(login: String, password: String!): Tokens
