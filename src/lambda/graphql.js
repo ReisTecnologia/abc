@@ -303,12 +303,12 @@ const resolvers = {
                 <br/>
                 <br/>
                 <br/>
-                <b>Não solicitou esta alteração?</b>`,
+                <b>Se você não requisitou essa alteração, ignore esse email.</b>`,
               },
             },
             Subject: {
               Charset: 'UTF-8',
-              Data: 'Troca de senha',
+              Data: 'Redefinição de senha',
             },
           },
         }
