@@ -270,8 +270,8 @@ const resolvers = {
         .catch(() => false)
       const sendPassRecoveryEMail = async () => {
         const ses = new AWS.SES({
-          accessKeyId: process.env.MY_AWS_BUCKET_ACCESS_KEY_ID,
-          secretAccessKey: process.env.MY_AWS_BUCKET_SECRET_ACCESS_KEY,
+          accessKeyId: process.env.MY_AWS_SES_ACCESS_KEY_ID,
+          secretAccessKey: process.env.MY_AWS_SES_SECRET_ACCESS_KEY,
           region: 'sa-east-1',
         })
         const sender = process.env.MY_AWS_EMAIL_SENDER
@@ -289,10 +289,18 @@ const resolvers = {
                 Data: `Olá ${user.name},
                 <br/>
                 <br/>
+                <br/>
+                <br/>
                 Recebemos uma solicitação para redefinir a sua senha. Para continuar clique no link abaixo:
                 <br/>
                 <br/>
+                <br/>
+                <br/>
                 Link: <a href=\"http://localhost:8888/recoverPassword/${hashUserId}\"> Clique aqui para redefinir sua senha </a>
+                <br/>
+                <br/> 
+                <br/>
+                <br/>
                 <br/>
                 <br/>
                 <b>Não solicitou esta alteração?</b>`,
