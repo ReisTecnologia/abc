@@ -9,13 +9,16 @@ import { EditLessonButton } from './EditLessonButton'
 import PropTypes from 'prop-types'
 import { colors } from 'shared/colors'
 
-export const Lesson = ({ menuId, lesson }) => {
+export const Lesson = ({ menuId, lesson, backgroundImage }) => {
   let history = useHistory()
   const navigateToEditLesson = () => {
     history.push(`/editLesson/${lesson.id}`)
   }
+  const backgroundImgUrl = menuId
+    ? `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${backgroundImage}`
+    : null
   return (
-    <Layout>
+    <Layout backgroundImage={backgroundImgUrl}>
       <Header
         lessonIcon={
           <Link to={`/viewMenu/${menuId}`}>
@@ -39,4 +42,5 @@ export const Lesson = ({ menuId, lesson }) => {
 Lesson.propTypes = {
   menuId: PropTypes.string,
   lesson: PropTypes.object,
+  backgroundImage: PropTypes.string,
 }
