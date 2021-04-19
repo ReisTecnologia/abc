@@ -141,25 +141,25 @@ The variables are:
 MY_AWS_DB_ACCESS_KEY_ID
 ```
 
-with the value being your AWS Access Key ID with permissions to access your Dynamodb.
+with the value being your AWS Access Key ID with permissions to access your Dynamodb. On IAM console: `AmazonDynamoDBFullAccess`.
 
 ```
  MY_AWS_DB_SECRET_ACCESS_KEY
 ```
 
-with the value being your AWS Secret Key with permissions to access your Dynamodb.
+with the value being your AWS Secret Key with permissions to access your Dynamodb. On IAM console: `AmazonDynamoDBFullAccess`.
 
 ```
 MY_AWS_BUCKET_ACCESS_KEY_ID
 ```
 
-with the value being your AWS Access Key ID with permissions to access your S3 Bucket.
+with the value being your AWS Access Key ID with permissions to access your S3 Bucket. On IAM console: `AmazonS3FullAccess`.
 
 ```
 MY_AWS_BUCKET_SECRET_ACCESS_KEY
 ```
 
-with the value being your AWS Secret Key with permissions to access your S3 Bucket.
+with the value being your AWS Secret Key with permissions to access your S3 Bucket. On IAM console: `AmazonS3FullAccess`.
 
 ```
 MY_AWS_BUCKET_NAME
@@ -177,13 +177,13 @@ with the value being your AWS S3 Bucket name.
 MY_AWS_SES_ACCESS_KEY_ID
 ```
 
-with the value being your AWS Access Key ID with permissions to access your SES.
+with the value being your AWS Access Key ID with permissions to access your SES. On IAM console: `AmazonSESFullAccess`.
 
 ```
 MY_AWS_SES_SECRET_ACCESS_KEY
 ```
 
-with the value being your AWS Secret Key with permissions to access your SES.
+with the value being your AWS Secret Key with permissions to access your SES. On IAM console: `AmazonSESFullAccess`.
 
 ```
 MY_AWS_EMAIL_SENDER
