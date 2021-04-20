@@ -2,42 +2,18 @@ import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { LessonItem } from 'shared/LessonItem'
 import { Layout } from 'shared/Layout'
-import styled from 'styled-components'
+import {
+  Wrapper,
+  IconWrapper,
+  IconAndNameWrapper,
+  LessonNameWrapper,
+} from './MenuPage.styles'
 import { colors } from 'shared/colors'
 import { Link } from 'react-router-dom'
 import { Container } from 'shared/Container'
 import { CurrentUserContext } from 'shared/CurrentUserContextProvider'
 import { Header } from 'shared/Header/Header'
 import { SignInOrOutButton } from './SignInOrOutButton'
-
-const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(90px, max-content));
-  justify-content: center;
-  height: 100%;
-  margin-left: 20%;
-  margin-right: 20%;
-  @media (max-width: 720px) {
-    margin-right: 0;
-    margin-left: 0;
-  }
-`
-const IconWrapper = styled.div`
-  margin-left: 0.5rem;
-`
-const IconAndNameWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-bottom: 1rem;
-  background-color: ${colors.primary};
-  justify-content: center;
-`
-const LessonNameWrapper = styled.div`
-  color: white;
-  text-align: center;
-  font-size: 13px;
-`
 
 export const MenuPage = ({ menu }) => {
   const { user } = useContext(CurrentUserContext)

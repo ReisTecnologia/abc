@@ -30,6 +30,7 @@ const SubmitButton = styled.button`
 `
 const ForgotPasswordText = styled.div`
   margin-top: 15px;
+  min-width: 160px;
 
   :hover {
     cursor: pointer;

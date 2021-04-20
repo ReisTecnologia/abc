@@ -72,6 +72,7 @@ export default gql`
     password: String
     type: String
     email: String
+    expdate: Int
   }
 
   type AddLessonResponse {
@@ -114,6 +115,11 @@ export default gql`
   type AddUserResponse {
     success: Boolean!
     users: [User]
+  }
+
+  type AddHashUserResponse {
+    success: Boolean!
+    emailSent: Boolean!
   }
 
   type CleanupLessonFilesResponse {
@@ -170,6 +176,10 @@ export default gql`
     type: String
     email: String
   }
+  input AddHashUserInput {
+    login: String
+    email: String
+  }
 
   input ElementMenuInput {
     initials: String
@@ -217,6 +227,7 @@ export default gql`
     addLesson: AddLessonResponse
     addMenu: AddMenuResponse
     addUser(input: AddUserInput!): AddUserResponse
+    addHashUser(input: AddHashUserInput!): AddHashUserResponse
     deleteLesson(id: ID!): DeleteLessonResponse
     deleteMenu(id: ID!): DeleteMenuResponse
     editMenu(id: ID!, input: EditMenuInput!): EditMenuResponse
@@ -225,6 +236,7 @@ export default gql`
     editUser(id: ID!, input: EditUserInput!): EditUserResponse
     editUserPassword(
       id: ID!
+      hashUserId: ID
       input: EditUserPasswordInput!
     ): EditUserPasswordResponse
     signIn(login: String, password: String!): Tokens

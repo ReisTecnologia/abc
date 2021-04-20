@@ -2,23 +2,8 @@ import React from 'react'
 import { Container } from 'shared/Container'
 import { Layout } from 'shared/Layout'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import { Wrapper, InfoWrapper, Label, UserWrapper } from './UserPage.styles'
 import { Header } from 'shared/Header/Header'
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-bottom: solid 1px #ccc;
-`
-const InfoWrapper = styled.div`
-  padding-top: 10px;
-  padding-bottom: 10px;
-`
-const Label = styled.label`
-  padding-right: 5px;
-`
-const UserWrapper = styled.div``
 
 const userInfoFields = (label, userInfo) => (
   <InfoWrapper>

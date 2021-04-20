@@ -1,10 +1,10 @@
 import styled from 'styled-components'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Spinner } from 'shared/Spinner'
 import { ToastContainer, toast, Slide } from 'react-toastify'
-import { USER_QUERY } from './USER_QUERY'
 import 'react-toastify/dist/ReactToastify.css'
-import { useLazyQuery } from '@apollo/client'
+import { useMutation } from '@apollo/client'
+import { ADD_HASH_USER_MUTATION } from './ADD_HASH_USER_MUTATION'
 
 const Form = styled.div`
   display: flex;
@@ -20,22 +20,30 @@ const Wrapper = styled.div`
 const Label = styled.label`
   margin-bottom: 15px;
   margin-top: 15px;
+  min-width: 210px;
 `
 const SubmitButton = styled.button`
   margin-top: 15px;
+`
+const ConfirmationText = styled.div`
+  width: 75%;
+  text-align: center;
 `
 
 export const ForgotPassword = () => {
   const [value, setValue] = useState('')
   const [login, setLogin] = useState(null)
   const [email, setEmail] = useState(null)
-  const [checkUser, { called, data, loading: userLoading }] = useLazyQuery(
-    USER_QUERY,
+
+  const [addHashUser, { data, loading: userLoading }] = useMutation(
+    ADD_HASH_USER_MUTATION,
     {
-      variables: login ? { login: login } : { email: email },
+      variables: {
+        input: login ? { login: login } : { email: email },
+      },
       notifyOnNetworkStatusChange: true,
       onError: () => {
-        toast.error('Usuário não existe!', {
+        toast.error('Usuário ou email invalido!', {
           position: 'top-center',
           hideProgressBar: true,
           transition: Slide,
@@ -53,18 +61,19 @@ export const ForgotPassword = () => {
     e.preventDefault()
     if (value.includes('@')) {
       setEmail(value)
-      checkUser()
     } else {
       setLogin(value)
-      checkUser()
     }
   }
+  useEffect(() => {
+    if (email || login) addHashUser()
+  }, [login, email, addHashUser])
 
   return (
     <Wrapper>
       {userLoading ? (
         <Spinner />
-      ) : !called || !data ? (
+      ) : !data ? (
         <Form>
           <Label>Ensira seu usuário ou email:</Label>
           <input
@@ -74,15 +83,15 @@ export const ForgotPassword = () => {
             onChange={handleLoginChange}
           />
           <SubmitButton onClick={submitUser}>Confirmar</SubmitButton>
-          <ToastContainer />
         </Form>
       ) : (
-        <div>
+        <ConfirmationText>
           Enviamos para o seu email um link para troca de senha. Por favor
           clique neste link para trocar a sua senha. Não esqueça de verificar a
           caixa de spam.
-        </div>
+        </ConfirmationText>
       )}
+      <ToastContainer />
     </Wrapper>
   )
 }
