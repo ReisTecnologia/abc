@@ -4,11 +4,11 @@ import PropTypes from 'prop-types'
 import { VideoElementWrapper } from './VideoElementWrapper'
 import { PlayWrapper } from './PlayWrapper'
 import { VideoComponent } from './VideoComponent'
-import { useMedia } from 'shared/useMedia'
-import { Card } from 'shared/Card'
-import { useCompleteState } from 'shared/useCompleteState'
-import { Icon } from 'shared/Icon'
-import { colors } from 'shared/colors'
+import { useMedia } from '_shared/useMedia'
+import { Card } from '_shared/Card'
+import { useCompleteState } from '_shared/useCompleteState'
+import { Icon } from '_shared/Icon'
+import { colors } from '_shared/colors'
 
 export const VideoElement = ({ videos, actual, onComplete }) => {
   const [video, setVideo] = useState(null)

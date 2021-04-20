@@ -5,7 +5,7 @@ import { UpDownWrapperMobile } from './UpDownWrapperMobile'
 import { Icon } from '@iconify/react'
 import arrowUpSquareFill from '@iconify-icons/bi/arrow-up-square-fill'
 import arrowDownSquareFill from '@iconify-icons/bi/arrow-down-square-fill'
-import { colors } from 'shared/colors'
+import { colors } from '_shared/colors'
 import styled from 'styled-components'
 
 const IIcon = styled(Icon)`

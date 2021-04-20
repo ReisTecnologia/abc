@@ -6,11 +6,11 @@ import { UploadButtonWrapper } from './UploadButtonWrapper'
 import { VideoFieldsWrapper } from './VideoFieldsWrapper'
 import { VideoNameAndUrlWrapper } from './VideoNameAndUrlWrapper'
 import { DeleteVideoButton } from './DeleteVideoButton'
-import { TextAndInput } from 'shared/TextAndInput'
-import { FileUploader } from 'shared/FileUploader'
-import { DragAndDrop } from 'shared/DragAndDrop'
-import { colors } from 'shared/colors'
-import { Spinner } from 'shared/Spinner'
+import { TextAndInput } from '_shared/TextAndInput'
+import { FileUploader } from '_shared/FileUploader'
+import { DragAndDrop } from '_shared/DragAndDrop'
+import { colors } from '_shared/colors'
+import { Spinner } from '_shared/Spinner'
 
 export const Video = ({
   videoFilePrefix,

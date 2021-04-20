@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { useOnClickOutside } from 'shared/useOnClickOutside'
+import { useOnClickOutside } from '_shared/useOnClickOutside'
 
 const InputFieldWrapper = styled.div`
   cursor: ${({ onClick }) => (onClick ? 'pointer' : null)};

@@ -1,11 +1,11 @@
 import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import { useOnClickOutside } from 'shared/useOnClickOutside'
+import { useOnClickOutside } from '_shared/useOnClickOutside'
 import { DeleteWordButton } from './DeleteWordButton'
 import { TextInput } from './TextInput'
 import { WordFieldsWrapper } from './WordFieldsWrapper'
 import { WordWrapper } from './WordWrapper'
-import { Spinner } from 'shared/Spinner'
+import { Spinner } from '_shared/Spinner'
 import { StartsWithTheLetterInputField } from './StartsWithTheLetterInputField'
 import { AnswerButtonsWrapper } from './AnswerButtonsWrapper'
 import { WordAndAnswerWrapper } from './WordAndAnswerWrapper'
@@ -16,10 +16,10 @@ import {
   AudioButtonWrapper,
   AudioButtonMobileWrapper,
 } from '../../AudioButtonWrappers'
-import { FileUploader } from 'shared/FileUploader'
-import { AudioButton } from 'shared/AudioButton'
-import { DragAndDrop } from 'shared/DragAndDrop'
-import { colors } from 'shared/colors'
+import { FileUploader } from '_shared/FileUploader'
+import { AudioButton } from '_shared/AudioButton'
+import { DragAndDrop } from '_shared/DragAndDrop'
+import { colors } from '_shared/colors'
 import { FileDownloader } from '../../FileDownloader'
 
 export const Word = ({

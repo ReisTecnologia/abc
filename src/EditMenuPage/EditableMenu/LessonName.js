@@ -2,8 +2,8 @@ import React, { useState, useCallback } from 'react'
 import { LessonSelect } from './LessonSelect'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { useOnClickOutside } from 'shared/useOnClickOutside'
-import { filterLessonsById } from 'shared/filterLessonsById'
+import { useOnClickOutside } from '_shared/useOnClickOutside'
+import { filterLessonsById } from '_shared/filterLessonsById'
 
 const Wrapper = styled.div`
   cursor: pointer;

@@ -1,11 +1,11 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
-import { LESSON_QUERY } from 'shared/LESSON_QUERY'
+import { LESSON_QUERY } from '_shared/LESSON_QUERY'
 import { EditableLesson } from './EditableLesson/EditableLesson'
 import { useParams } from 'react-router-dom'
-import { Spinner } from 'shared/Spinner'
-import { mapLesson } from 'shared/mapLesson'
-import { AccessGateway } from 'shared/AccessGateway'
+import { Spinner } from '_shared/Spinner'
+import { mapLesson } from '_shared/mapLesson'
+import { AccessGateway } from '_shared/AccessGateway'
 
 export const EditableLessonLoader = () => {
   let { lesson } = useParams()

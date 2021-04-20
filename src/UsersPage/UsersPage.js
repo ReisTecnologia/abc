@@ -1,11 +1,11 @@
 import React from 'react'
 import { AddUserButton } from './AddUserButton/AddUserButton'
 import { ListItem } from './ListItem/ListItem'
-import { Layout } from 'shared/Layout'
-import { Container } from 'shared/Container'
-import { Header } from 'shared/Header/Header'
+import { Layout } from '_shared/Layout'
+import { Container } from '_shared/Container'
+import { Header } from '_shared/Header/Header'
 import PropTypes from 'prop-types'
-import { sortByName } from 'shared/sortByName'
+import { sortByName } from '_shared/sortByName'
 
 export const UsersPage = ({ users, refetch }) => {
   return (

@@ -1,10 +1,10 @@
 import React from 'react'
 import { AddLessonButton } from './AddLessonButton/AddLessonButton'
 import { ListItem } from './ListItem/ListItem'
-import { Layout } from 'shared/Layout'
-import { Container } from 'shared/Container'
-import { Header } from 'shared/Header/Header'
-import { sortByName } from 'shared/sortByName'
+import { Layout } from '_shared/Layout'
+import { Container } from '_shared/Container'
+import { Header } from '_shared/Header/Header'
+import { sortByName } from '_shared/sortByName'
 import PropTypes from 'prop-types'
 
 export const LessonsPage = ({ lessons, refetch }) => {

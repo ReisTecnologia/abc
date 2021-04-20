@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { RemainingLessons } from './RemainingLessons'
-import { LessonItem } from 'shared/LessonItem'
+import { LessonItem } from '_shared/LessonItem'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 

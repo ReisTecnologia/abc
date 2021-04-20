@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client'
 import { USER_QUERY } from './USER_QUERY'
 import { UserPage } from './UserPage'
 import { useParams } from 'react-router-dom'
-import { Spinner } from 'shared/Spinner'
+import { Spinner } from '_shared/Spinner'
 
 export const ViewUserLoader = () => {
   let { user } = useParams()

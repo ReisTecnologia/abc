@@ -1,4 +1,4 @@
-import { deleteTokens } from 'shared/AuthTokens/deleteTokens'
+import { deleteTokens } from '_shared/AuthTokens/deleteTokens'
 import React from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'

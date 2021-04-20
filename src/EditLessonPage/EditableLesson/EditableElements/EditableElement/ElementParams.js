@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { colors } from 'shared/colors'
+import { colors } from '_shared/colors'
 
-import { TextAndInput } from 'shared/TextAndInput'
+import { TextAndInput } from '_shared/TextAndInput'
 import { Audios } from './Audios/Audios'
 import { Videos } from './Videos/Videos'
 import { Words } from './Words/Words'

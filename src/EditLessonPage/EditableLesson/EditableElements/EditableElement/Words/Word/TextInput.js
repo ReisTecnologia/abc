@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { useOnClickOutside } from 'shared/useOnClickOutside'
+import { useOnClickOutside } from '_shared/useOnClickOutside'
 import TextareaAutosize from 'react-textarea-autosize'
 
 const Wrapper = styled.div`

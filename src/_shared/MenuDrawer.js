@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Drawer } from '@material-ui/core'
-import { MenuButton } from 'shared/MenuButton'
+import { MenuButton } from '_shared/MenuButton'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
-import { colors } from 'shared/colors'
+import { colors } from '_shared/colors'
 
 const ListItemWrapper = styled.li`
   background-color: white;

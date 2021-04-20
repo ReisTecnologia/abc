@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { colors } from 'shared/colors'
+import { colors } from '_shared/colors'
 import { Icon } from '@iconify/react'
 import trashIcon from '@iconify-icons/ion/trash'
 

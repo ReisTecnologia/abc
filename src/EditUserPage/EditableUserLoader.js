@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client'
 import { USER_QUERY } from './USER_QUERY'
 import { EditableUser } from './EditableUser/EditableUser'
 import { useParams } from 'react-router-dom'
-import { Spinner } from 'shared/Spinner'
+import { Spinner } from '_shared/Spinner'
 
 export const EditableUserLoader = () => {
   let { user } = useParams()

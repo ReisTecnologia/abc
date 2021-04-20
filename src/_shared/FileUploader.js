@@ -1,7 +1,7 @@
 import React, { useRef, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { Spinner } from 'shared/Spinner'
+import { Spinner } from '_shared/Spinner'
 import { UploadButton } from '../EditLessonPage/EditableLesson/EditableElements/EditableElement/UploadButton'
 import { v4 as uuidv4 } from 'uuid'
 

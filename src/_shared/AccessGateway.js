@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
-import { CurrentUserContext } from 'shared/CurrentUserContextProvider'
+import { CurrentUserContext } from '_shared/CurrentUserContextProvider'
 import { Spinner } from './Spinner'
 
 export const AccessGateway = ({ children, role }) => {

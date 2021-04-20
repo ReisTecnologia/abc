@@ -1,9 +1,9 @@
 import React from 'react'
-import { Container } from 'shared/Container'
-import { Layout } from 'shared/Layout'
+import { Container } from '_shared/Container'
+import { Layout } from '_shared/Layout'
 import PropTypes from 'prop-types'
 import { Wrapper, InfoWrapper, Label, UserWrapper } from './UserPage.styles'
-import { Header } from 'shared/Header/Header'
+import { Header } from '_shared/Header/Header'
 
 const userInfoFields = (label, userInfo) => (
   <InfoWrapper>

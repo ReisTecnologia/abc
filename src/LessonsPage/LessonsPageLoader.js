@@ -1,7 +1,7 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
 import { LessonsPage } from './LessonsPage'
-import { Spinner } from 'shared/Spinner'
+import { Spinner } from '_shared/Spinner'
 import { LESSONS_QUERY } from './LESSONS_QUERY'
 
 export const LessonsPageLoader = () => {

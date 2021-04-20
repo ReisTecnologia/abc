@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import { FileUploader } from 'shared/FileUploader'
-import { colors } from 'shared/colors'
-import { Spinner } from 'shared/Spinner'
+import { FileUploader } from '_shared/FileUploader'
+import { colors } from '_shared/colors'
+import { Spinner } from '_shared/Spinner'
 import styled from 'styled-components'
 import { DeleteLessonImageButton } from './DeleteLessonImageButton'
-import { DragAndDrop } from 'shared/DragAndDrop'
+import { DragAndDrop } from '_shared/DragAndDrop'
 import PropTypes from 'prop-types'
-import { LessonItem } from 'shared/LessonItem'
-import { TextAndInput } from 'shared/TextAndInput'
+import { LessonItem } from '_shared/LessonItem'
+import { TextAndInput } from '_shared/TextAndInput'
 
 const Wrapper = styled.div`
   display: flex;

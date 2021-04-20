@@ -3,9 +3,9 @@ import { useQuery } from '@apollo/client'
 import { MENU_QUERY } from './MENU_QUERY'
 import { MenuPage } from './MenuPage'
 import { useParams } from 'react-router-dom'
-import { Spinner } from 'shared/Spinner'
-import { Layout } from 'shared/Layout'
-import { colors } from 'shared/colors'
+import { Spinner } from '_shared/Spinner'
+import { Layout } from '_shared/Layout'
+import { colors } from '_shared/colors'
 
 const DEFAULT_MENU_ID = 'main'
 

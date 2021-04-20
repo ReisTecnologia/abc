@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { SAVE_PASSWORD_MUTATION } from './SAVE_PASSWORD_MUTATION'
-import { Spinner } from 'shared/Spinner'
+import { Spinner } from '_shared/Spinner'
 import { useMutation } from '@apollo/client'
-import { Container } from 'shared/Container'
-import { Layout } from 'shared/Layout'
+import { Container } from '_shared/Container'
+import { Layout } from '_shared/Layout'
 import PropTypes from 'prop-types'
 import { ChangePasswordForm } from './ChangePasswordForm'
 import { ToastContainer, toast, Slide } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { HeaderWrapper } from 'shared/HeaderWrapper'
+import { HeaderWrapper } from '_shared/HeaderWrapper'
 
 const toastConfig = {
   position: 'top-center',
