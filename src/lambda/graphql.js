@@ -37,8 +37,10 @@ const resolvers = {
       return menus
     },
     user: async (parent, args) => {
-      const user = await db.getUser(args.login, args.id)
+      const user = await db.getUser(args.login, args.id, args.email)
       if (!user) throw new AuthenticationError('Invalid user')
+      if (user.expdate && user.expdate < Date.now() / 1000)
+        throw new Error('Link expired')
       return user
     },
     users: async () => {
@@ -218,13 +220,24 @@ const resolvers = {
       return { success, user, userLogin, userEmail }
     },
     editUserPassword: async (parent, args, context) => {
-      userCheck(context)
-      let success = await db
-        .editUserPassword(args.id, hashPassword(args.input.password))
-        .then(() => true)
-        .catch(() => false)
-      if (!success) throw Error('Erro ao salvar senha')
-      return { success }
+      if (args.hashUserId) {
+        let user = await db.getUser(null, args.hashUserId)
+        if (user) {
+          let success = await db
+            .editUserPassword(args.id, hashPassword(args.input.password))
+            .then(() => true)
+            .catch(() => false)
+          return { success }
+        }
+      } else {
+        userCheck(context)
+        let success = await db
+          .editUserPassword(args.id, hashPassword(args.input.password))
+          .then(() => true)
+          .catch(() => false)
+        if (!success) throw Error('Erro ao salvar senha')
+        return { success }
+      }
     },
     addUser: async (parent, args) => {
       let success = false
@@ -241,6 +254,74 @@ const resolvers = {
         .catch(() => false)
       const users = await db.getUsers()
       return { success, users }
+    },
+    addHashUser: async (parent, args) => {
+      let user
+      let success = false
+      let emailSent = false
+      if (args.input.login) user = await db.getUser(args.input.login)
+      if (args.input.email)
+        user = await db.getUser(null, null, args.input.email)
+      if (!user) throw new AuthenticationError('Invalid user or email')
+      const hashUserId = uuidv4()
+      success = await db
+        .addHashUser(hashUserId, user.id, user.email, user.login)
+        .then(() => true)
+        .catch(() => false)
+      const sendPassRecoveryEMail = async () => {
+        const ses = new AWS.SES({
+          accessKeyId: process.env.MY_AWS_SES_ACCESS_KEY_ID,
+          secretAccessKey: process.env.MY_AWS_SES_SECRET_ACCESS_KEY,
+          region: 'sa-east-1',
+        })
+        const sender = process.env.MY_AWS_EMAIL_SENDER
+        const recipient = user.email
+        const params = {
+          Source: sender,
+          Destination: {
+            ToAddresses: [recipient],
+          },
+          ReplyToAddresses: [recipient],
+          Message: {
+            Body: {
+              Html: {
+                Charset: 'UTF-8',
+                Data: `Olá ${user.name},
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                Recebemos uma solicitação para redefinir a sua senha. Para continuar clique no link abaixo:
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                Link: <a href=\"http://localhost:8888/recoverPassword/${hashUserId}\"> Clique aqui para redefinir sua senha </a>
+                <br/>
+                <br/> 
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <b>Se você não requisitou essa alteração, ignore esse email.</b>`,
+              },
+            },
+            Subject: {
+              Charset: 'UTF-8',
+              Data: 'Redefinição de senha',
+            },
+          },
+        }
+        if (success)
+          ses.sendEmail(params, function (err, data) {
+            if (err) console.log(err.message)
+            console.log('Email sent! Data: ', data)
+          })
+      }
+      await sendPassRecoveryEMail()
+        .then(() => (emailSent = true))
+        .catch(console.error)
+      return { success, emailSent }
     },
   },
   MenuElement: {

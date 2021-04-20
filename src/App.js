@@ -18,6 +18,7 @@ import { CurrentUserContextProvider } from 'shared/CurrentUserContextProvider'
 import { EditUserPage } from 'EditUserPage/EditUserPage'
 import { AccessGateway } from 'shared/AccessGateway'
 import { ViewLessonPage } from 'ViewLessonPage/ViewLessonPage'
+import { ViewRecoverPasswordPage } from 'RecoverPasswordPage/ViewRecoverPasswordPage'
 
 const cleanTypeName = new ApolloLink((operation, forward) => {
   if (operation.variables) {
@@ -116,6 +117,9 @@ const Wrapped = () => {
             <AccessGateway role="admin">
               <ViewUserPage />
             </AccessGateway>
+          </Route>
+          <Route path="/recoverPassword">
+            <ViewRecoverPasswordPage />
           </Route>
           <Route path="/">
             <ViewMenuLoader />

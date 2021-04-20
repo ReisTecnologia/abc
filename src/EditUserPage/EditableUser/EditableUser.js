@@ -35,7 +35,6 @@ export const EditableUser = ({ user }) => {
     email: user.email,
     previousEmail: user.email,
   })
-  console.log('userInfo', userInfo)
   const [userPassword, setUserPassword] = useState({ password: user.password })
   const [confirmPassword, setConfirmPassword] = useState(null)
   const afterComplete = () => {

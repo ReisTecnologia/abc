@@ -108,6 +108,12 @@ A table for users that should be named `users` having a primary key `id`.
 
 A table for menus that should be named `menus` having a primary key `id`.
 
+## AWS DynamoDB configurations
+
+This project uses expiring items in the `users` table for the forgot password functionality. To enable this its necessary to turn Time To Live on your `users` table.
+
+You can enable TTL by clicking on the table, opening the `Overview` tab and under `Table details` there will be a `TTL` attribute, choose `Manage TTL`. In the Manage TTL dialog box, choose Enable TTL and enter the TTL attribute name: `expdate`.
+
 ## Creating the first user
 
 Since to be able to run the mutations / access create user pages you need to already be authenticated it's needed to create the first user on the DynamoDB table `users`, following this format:
@@ -118,6 +124,7 @@ Since to be able to run the mutations / access create user pages you need to alr
   "login": "yourLogin",
   "name": "yourName",
   "password": "yourPassword",
+  "email": "yourEmail",
   "type": "admin"
 }
 ```
@@ -126,7 +133,7 @@ The user type needs to be "admin" in order to be able to access all pages and ru
 
 ## configure remote db and bucket environment variables on Netlify
 
-This project is setup using Netlify, meaning the enviroment variables used to grant the app access to the Dynamodb and S3 Bucket are configured on the Netlify. On the deploy settings you have to setup the appropriate value for your AWS Access Key ID and AWS Secret Key.
+This project is setup using Netlify, meaning the enviroment variables used to grant the app access to the Dynamodb and S3 Bucket are configured on the Netlify. On the deploy settings you have to setup the appropriate value for your AWS Access Key ID and AWS Secret Key. You can create multiple different users in the IAM console, as such creating multiple different sets of Access Keys and Secret Keys, but its important to remember to give each user the appropriate permissions.
 
 The variables are:
 
@@ -134,25 +141,25 @@ The variables are:
 MY_AWS_DB_ACCESS_KEY_ID
 ```
 
-with the value being your AWS Access Key ID for your Dynamodb.
+with the value being your AWS Access Key ID with permissions to access your Dynamodb. On IAM console: `AmazonDynamoDBFullAccess`.
 
 ```
  MY_AWS_DB_SECRET_ACCESS_KEY
 ```
 
-with the value being your AWS Secret Key for your Dynamodb.
+with the value being your AWS Secret Key with permissions to access your Dynamodb. On IAM console: `AmazonDynamoDBFullAccess`.
 
 ```
 MY_AWS_BUCKET_ACCESS_KEY_ID
 ```
 
-with the value being your AWS Access Key ID for your S3 Bucket.
+with the value being your AWS Access Key ID with permissions to access your S3 Bucket. On IAM console: `AmazonS3FullAccess`.
 
 ```
 MY_AWS_BUCKET_SECRET_ACCESS_KEY
 ```
 
-with the value being your AWS Secret Key for your S3 Bucket.
+with the value being your AWS Secret Key with permissions to access your S3 Bucket. On IAM console: `AmazonS3FullAccess`.
 
 ```
 MY_AWS_BUCKET_NAME
@@ -165,6 +172,24 @@ REACT_APP_MY_AWS_BUCKET_NAME
 ```
 
 with the value being your AWS S3 Bucket name.
+
+```
+MY_AWS_SES_ACCESS_KEY_ID
+```
+
+with the value being your AWS Access Key ID with permissions to access your SES. On IAM console: `AmazonSESFullAccess`.
+
+```
+MY_AWS_SES_SECRET_ACCESS_KEY
+```
+
+with the value being your AWS Secret Key with permissions to access your SES. On IAM console: `AmazonSESFullAccess`.
+
+```
+MY_AWS_EMAIL_SENDER
+```
+
+with the value being your AWS SES Email sender (for forgot my password).
 
 When running the local version of Dynamodb you can create a table with the table name: `lessons` and insert a mock lesson, by running the script `createTable.js` inside the folder `src/lambda/dbData/createTable.js` .
 
@@ -209,6 +234,17 @@ And for the Bucket CORS policy:
     }
 ]
 ```
+
+## AWS SES configurations
+
+This project uses Amazon SES to send emails when the client requests to redefine their password through the forgot my password functionality.
+
+In order for this to work its necessary to create a verified email. On the AWS website you can check under services, look for SES and click on Identity Management,
+choose an email you want to be the sender of the redefining password emails and verify it.
+
+Note: this verified email is going to be an environment variable in your Netlify under the tag `MY_AWS_EMAIL_SENDER`.
+
+When moving to production its necessary to move your SES account out of the Amazon Sandbox, a detailed explanation on how to achieve this can be found at the [Amazon Docs](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/request-production-access.html).
 
 ## Create-React-App-Lambda
 
