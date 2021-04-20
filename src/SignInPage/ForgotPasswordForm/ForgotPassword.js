@@ -42,8 +42,9 @@ export const ForgotPassword = () => {
         input: login ? { login: login } : { email: email },
       },
       notifyOnNetworkStatusChange: true,
-      onError: () => {
-        toast.error('Usuário ou email invalido!', {
+      onError: (err) => {
+        console.error(err)
+        toast.error('Usuário ou email inválido!', {
           position: 'top-center',
           hideProgressBar: true,
           transition: Slide,
