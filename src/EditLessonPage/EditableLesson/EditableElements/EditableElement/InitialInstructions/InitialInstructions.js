@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { TextAndInput } from 'shared/TextAndInput'
-import { DeleteConclusionAudioButton } from './DeleteInitialAudioButton'
+import { DeleteInitialAudioButton } from './DeleteInitialAudioButton'
 import { AudioButton } from 'shared/AudioButton'
 import { FileUploader } from 'shared/FileUploader'
 import {
@@ -98,7 +98,7 @@ export const InitialInstructions = ({
                 color={colors.dimmedPrimary}
               />
             </InitialAudioNameWrapper>
-            <DeleteConclusionAudioButton
+            <DeleteInitialAudioButton
               deleteAudio={buildDeleteAudio({ changeInitialAudio })}
             />
           </DragAndDrop>

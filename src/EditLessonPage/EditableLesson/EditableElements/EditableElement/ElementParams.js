@@ -8,6 +8,7 @@ import { Audios } from './Audios/Audios'
 import { Videos } from './Videos/Videos'
 import { Words } from './Words/Words'
 import { ConclusionAudio } from './ConclusionAudio/ConclusionAudio'
+import { InitialInstructions } from './InitialInstructions/InitialInstructions'
 
 const Wrapper = styled.div`
   color: #555;
@@ -74,6 +75,16 @@ export const ElementParams = ({
     [updateElementParams, elementParams]
   )
 
+  const changeInitialAudio = useCallback(
+    (newInitialAudio) => {
+      updateElementParams({
+        ...elementParams,
+        initialAudio: newInitialAudio,
+      })
+    },
+    [updateElementParams, elementParams]
+  )
+
   const changeVideos = useCallback(
     (newVideos) => {
       updateElementParams({
@@ -132,6 +143,8 @@ export const ElementParams = ({
     videos,
     text,
     conclusionAudio,
+    initialAudio,
+    // items,
   } = elementParams
 
   const letterTitle = () => {
@@ -148,6 +161,8 @@ export const ElementParams = ({
   const showWords = words !== null && words !== undefined
   const showConclusionAudio =
     conclusionAudio !== null && conclusionAudio !== undefined
+  const showInstructions = initialAudio !== null && initialAudio !== undefined
+  // const showItems = items !== null && items !== undefined
 
   const correctLettersString = correctLetters ? correctLetters.join() : null
 
@@ -174,6 +189,17 @@ export const ElementParams = ({
                 value={text}
                 onChange={changeText}
                 color={colors.dimmedPrimary}
+              />
+            </ElementWrapper>
+          )}
+
+          {showInstructions && (
+            <ElementWrapper>
+              <ElementTitleWrapper>Instruções:</ElementTitleWrapper>
+              <InitialInstructions
+                initialAudio={initialAudio}
+                changeInitialAudio={changeInitialAudio}
+                audioFilePrefix={`${lessonId}___`}
               />
             </ElementWrapper>
           )}
@@ -281,6 +307,10 @@ ElementParams.propTypes = {
       })
     ),
     conclusionAudio: PropTypes.shape({
+      url: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    }),
+    initialAudio: PropTypes.shape({
       url: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
     }),
