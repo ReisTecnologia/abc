@@ -2,11 +2,11 @@ import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import loadable from '@loadable/component'
 import { Items } from './Items'
-import { CenterWrapper } from './CenterWrapper'
-import { InnerWrapper } from './InnerWrapper'
 import { Card } from '../Card'
 import { useCompleteState } from '../useCompleteState'
 import { colors } from '../colors'
+import { PlayButtonWrapper } from './PlayButtonWrapper'
+import { CenterWrapper } from './CenterWrapper'
 
 const AudioButton = loadable(async () => {
   const { AudioButton } = await import('../AudioButton')
@@ -23,6 +23,7 @@ export const ItemsAndAudiosElement = ({
   conclusionAudio,
 }) => {
   const { complete, doComplete } = useCompleteState({ actual, onComplete })
+  const [actualItem, setActualItem] = useState(items[0])
   const [state, setState] = useState({
     instructionsCompleted: false,
     end: false,
@@ -36,6 +37,8 @@ export const ItemsAndAudiosElement = ({
     [setState]
   )
 
+  const exerciseCompleted = !instructionsCompleted || end
+
   const setListened = () => {
     const thisIsTheEnd = actualItemIndex === items.length - 1
     if (thisIsTheEnd) {
@@ -48,36 +51,36 @@ export const ItemsAndAudiosElement = ({
         ...state,
         actualItemIndex: actualItemIndex + 1,
       }))
+      setActualItem(items[actualItemIndex + 1])
     }
   }
-
   return (
     <Card first complete={complete}>
       <CenterWrapper>
-        <InnerWrapper>
+        <AudioButton
+          color={actual && !instructionsCompleted ? colors.actual : null}
+          onComplete={setInstructionsCompleted}
+          audioUrls={initialAudio && [initialAudio.url]}
+        />
+        <Items>{actualItem}</Items>
+        <PlayButtonWrapper>
           <AudioButton
-            color={actual && !instructionsCompleted ? colors.actual : null}
-            onComplete={setInstructionsCompleted}
-            audioUrls={initialAudio && initialAudio.url}
+            beforeTrailCount={actualItemIndex}
+            afterTrailCount={items.length - actualItemIndex - 1}
+            color={actual && !exerciseCompleted ? colors.actual : null}
+            disabled={end}
+            icon="Play"
+            audioUrls={audios.map(({ url }) => url)}
+            width={20}
+            onStepComplete={setListened}
           />
-        </InnerWrapper>
+        </PlayButtonWrapper>
+        <AudioButton
+          color={actual && end ? colors.actual : null}
+          onComplete={doComplete}
+          audioUrls={conclusionAudio && [conclusionAudio.url]}
+        />
       </CenterWrapper>
-      <Items>{items[actualItemIndex]}</Items>
-      <AudioButton
-        beforeTrailCount={actualItemIndex}
-        afterTrailCount={items.length - actualItemIndex - 1}
-        color={actual && instructionsCompleted ? colors.actual : null}
-        disabled={end}
-        icon="Play"
-        audioUrls={audios.map(({ url }) => url)}
-        width={20}
-        onComplete={setListened}
-      />
-      <AudioButton
-        color={actual && end ? colors.actual : null}
-        onComplete={doComplete}
-        audioUrls={conclusionAudio && conclusionAudio.url}
-      />
     </Card>
   )
 }

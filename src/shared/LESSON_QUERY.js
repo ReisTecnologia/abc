@@ -10,6 +10,7 @@ export const LESSON_QUERY = gql`
       elements {
         type
         letter
+        items
         correctLetters
         audioUrls
         audios {
@@ -33,6 +34,10 @@ export const LESSON_QUERY = gql`
           urlWord
         }
         conclusionAudio {
+          name
+          url
+        }
+        initialAudio {
           name
           url
         }

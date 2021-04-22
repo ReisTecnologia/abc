@@ -26,6 +26,11 @@ export default gql`
     url: String!
   }
 
+  type InitialAudio {
+    name: String
+    url: String
+  }
+
   type ConclusionAudio {
     name: String
     url: String
@@ -34,6 +39,7 @@ export default gql`
   type Element {
     type: String!
     letter: String
+    items: [String]
     correctLetters: [String]
     audioUrls: [String]
     audios: [Audio]
@@ -43,6 +49,7 @@ export default gql`
     text: String
     words: [Word]
     conclusionAudio: ConclusionAudio
+    initialAudio: InitialAudio
   }
 
   type Lesson {
