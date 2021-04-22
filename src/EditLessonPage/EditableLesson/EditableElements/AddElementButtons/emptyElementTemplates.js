@@ -29,4 +29,12 @@ export const emptyElementTemplates = {
     text: '',
     description: '',
   },
+  ItemsAndAudios: {
+    type: 'ItemsAndAudios',
+    audios: [],
+    initialAudio: {},
+    description: '',
+    conclusionAudio: {},
+    items: [],
+  },
 }

@@ -85,6 +85,9 @@ export const AddElementButtons = ({ addElement }) => {
         <Button onClick={() => addNewElement('ClickLetterInTheTextTask')}>
           Ache a letra no texto
         </Button>
+        <Button onClick={() => addNewElement('ItemsAndAudios')}>
+          Qual é o som
+        </Button>
         <XButton onClick={hideButtons} color={colors.grayText} />
       </Wrapper>
     </>
