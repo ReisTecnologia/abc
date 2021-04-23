@@ -8,26 +8,7 @@ import { DragAndDrop } from 'shared/DragAndDrop'
 import { colors } from 'shared/colors'
 import { FileDownloader } from '../../FileDownloader'
 import { LessonItem } from 'shared/LessonItem'
-import styled from 'styled-components'
-
-const Wrapper = styled.div`
-  width: 100%;
-  padding-left: 8px;
-`
-
-const ItemWrapper = styled.div`
-  min-height: 4rem;
-  display: flex;
-  align-self: center;
-  padding-left: 24px;
-`
-
-const NameWrapper = styled.div`
-  display: flex;
-  align-self: center;
-  width: 100%;
-  padding-left: 8px;
-`
+import { Wrapper, ItemWrapper, NameWrapper } from './Item.styles'
 
 export const Item = ({
   imageFilePrefix,
@@ -37,8 +18,15 @@ export const Item = ({
   changeItem,
 }) => {
   const [loading, setLoading] = useState(false)
+  const [showImage, setShowImage] = useState(true)
   const IsImage =
     item.endsWith('.png') || item.endsWith('.svg') || item.endsWith('.jpg')
+
+  const displayImage = IsImage && showImage
+
+  const toggleImage = () => {
+    setShowImage(!showImage)
+  }
 
   return (
     <ItemWrapper>
@@ -54,12 +42,25 @@ export const Item = ({
               imageFilePrefix={imageFilePrefix}
               updateItem={updateItem}
             />
-            <FileDownloader color={colors.grayText} filename={item} />
             {IsImage && (
-              <Wrapper>
-                <LessonItem image={item} color={colors.grayText} />
-              </Wrapper>
+              <FileDownloader color={colors.grayText} filename={item} />
             )}
+            {displayImage ? (
+              <Wrapper>
+                <LessonItem
+                  image={item}
+                  color={colors.grayText}
+                  onClick={toggleImage}
+                />
+              </Wrapper>
+            ) : IsImage && !showImage ? (
+              <NameWrapper>
+                <TextAndInput
+                  onChange={changeItem}
+                  color={colors.dimmedPrimary}
+                />
+              </NameWrapper>
+            ) : null}
             {!IsImage && (
               <NameWrapper>
                 <TextAndInput
