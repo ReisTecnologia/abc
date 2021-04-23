@@ -162,6 +162,11 @@ export default gql`
     url: String
   }
 
+  input InitialAudioInput {
+    name: String
+    url: String
+  }
+
   input ElementLessonInput {
     type: String
     letter: String
@@ -169,10 +174,12 @@ export default gql`
     audioUrls: [String]
     audios: [AudioInput]
     urlVideo: [String]
+    items: [String]
     videos: [VideoInput]
     description: String
     text: String
     words: [WordLessonInput]
+    initialAudio: InitialAudioInput
     conclusionAudio: ConclusionAudioInput
   }
 

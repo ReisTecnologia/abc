@@ -19,6 +19,17 @@ const mappers = {
     const { type, audios, description, correctLetters, text } = el
     return { type, audios, description, correctLetters, text }
   },
+  ItemsAndAudios: (el) => {
+    const {
+      type,
+      audios,
+      description,
+      initialAudio,
+      conclusionAudio,
+      items,
+    } = el
+    return { type, audios, description, initialAudio, conclusionAudio, items }
+  },
 }
 
 export const mapLesson = (lesson) => {

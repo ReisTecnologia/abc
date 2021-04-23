@@ -9,6 +9,7 @@ import { Videos } from './Videos/Videos'
 import { Words } from './Words/Words'
 import { ConclusionAudio } from './ConclusionAudio/ConclusionAudio'
 import { InitialInstructions } from './InitialInstructions/InitialInstructions'
+import { Items } from './Items/Items'
 
 const Wrapper = styled.div`
   color: #555;
@@ -85,6 +86,16 @@ export const ElementParams = ({
     [updateElementParams, elementParams]
   )
 
+  const changeItems = useCallback(
+    (newItems) => {
+      updateElementParams({
+        ...elementParams,
+        items: newItems,
+      })
+    },
+    [updateElementParams, elementParams]
+  )
+
   const changeVideos = useCallback(
     (newVideos) => {
       updateElementParams({
@@ -144,7 +155,7 @@ export const ElementParams = ({
     text,
     conclusionAudio,
     initialAudio,
-    // items,
+    items,
   } = elementParams
 
   const letterTitle = () => {
@@ -162,7 +173,7 @@ export const ElementParams = ({
   const showConclusionAudio =
     conclusionAudio !== null && conclusionAudio !== undefined
   const showInstructions = initialAudio !== null && initialAudio !== undefined
-  // const showItems = items !== null && items !== undefined
+  const showItems = items !== null && items !== undefined
 
   const correctLettersString = correctLetters ? correctLetters.join() : null
 
@@ -200,6 +211,17 @@ export const ElementParams = ({
                 initialAudio={initialAudio}
                 changeInitialAudio={changeInitialAudio}
                 audioFilePrefix={`${lessonId}___`}
+              />
+            </ElementWrapper>
+          )}
+
+          {showItems && (
+            <ElementWrapper>
+              <ElementTitleWrapper>Items:</ElementTitleWrapper>
+              <Items
+                items={items}
+                changeItems={changeItems}
+                imageFilePrefix={`${lessonId}___`}
               />
             </ElementWrapper>
           )}
@@ -281,6 +303,7 @@ ElementParams.propTypes = {
     type: PropTypes.string,
     letter: PropTypes.string,
     correctLetters: PropTypes.arrayOf(PropTypes.string),
+    items: PropTypes.arrayOf(PropTypes.string),
     audios: PropTypes.arrayOf(
       PropTypes.shape({
         url: PropTypes.string.isRequired,
