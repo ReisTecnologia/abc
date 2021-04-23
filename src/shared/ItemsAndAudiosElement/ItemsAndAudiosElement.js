@@ -79,11 +79,13 @@ export const ItemsAndAudiosElement = ({
             onStepComplete={setListened}
           />
         </PlayButtonWrapper>
-        <AudioButton
-          color={actual && end ? colors.actual : null}
-          onComplete={doComplete}
-          audioUrls={conclusionAudio && [conclusionAudio.url]}
-        />
+        {conclusionAudio.url && (
+          <AudioButton
+            color={actual && end ? colors.actual : null}
+            onComplete={doComplete}
+            audioUrls={[conclusionAudio.url]}
+          />
+        )}
       </CenterWrapper>
     </Card>
   )
