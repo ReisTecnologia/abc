@@ -179,6 +179,8 @@ const addUser = (id, name, login, password, type, email) => {
           TableName: USER_TABLE_NAME,
           ConditionExpression: 'attribute_not_exists(id)',
         },
+      },
+      {
         Put: {
           Item: {
             id: `email#${email}`,
