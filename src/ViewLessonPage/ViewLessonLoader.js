@@ -1,5 +1,5 @@
 import React from 'react'
-import { useQuery, useLazyQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import { useParams } from 'react-router-dom'
 import { Spinner } from 'shared/Spinner'
 import { LESSON_QUERY } from 'shared/LESSON_QUERY'
@@ -9,22 +9,19 @@ import PropTypes from 'prop-types'
 
 export const ViewLessonLoader = ({ menuId }) => {
   let { lessonId } = useParams()
+  const skipMenuQuery = !menuId ? true : false
   const { data, loading, error } = useQuery(LESSON_QUERY, {
     variables: { id: lessonId },
     fetchPolicy: 'cache-and-network',
   })
-  const [
-    loadMenuQuery,
-    { data: menuData, loading: menuLoading, called },
-  ] = useLazyQuery(MENU_QUERY, {
+  const { data: menuData, loading: menuLoading } = useQuery(MENU_QUERY, {
     variables: { id: menuId },
+    skip: skipMenuQuery,
   })
 
   if (error) {
     console.error(error)
   }
-
-  if (menuId && !called) loadMenuQuery()
 
   const lessonBackgroundImg =
     menuId && menuData ? menuData.menu.backgroundImage : null
