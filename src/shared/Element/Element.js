@@ -5,6 +5,7 @@ import { ClickLetterInTheTextTaskElement } from '../ClickLetterInTheTextTaskElem
 import { LetterAndAudioElement } from '../LetterAndAudioElement'
 import { VideoElement } from '../VideoElement'
 import { CheckFirstLetter } from '../CheckFirstLetter'
+import { ItemsAndAudiosElement } from 'shared/ItemsAndAudiosElement/ItemsAndAudiosElement'
 import PropTypes from 'prop-types'
 import { addBucketPrefixesToElementParams } from './addBucketPrefixesToElementParams'
 
@@ -22,6 +23,8 @@ export const Element = ({ elementParams, actual, onComplete }) => {
     words,
     text,
     conclusionAudio,
+    items,
+    initialAudio,
   } = elementParamsWithBucketUrls
 
   switch (type) {
@@ -70,6 +73,17 @@ export const Element = ({ elementParams, actual, onComplete }) => {
           audios={audios}
           correctLetters={correctLetters}
           text={text}
+        />
+      )
+    case 'ItemsAndAudios':
+      return (
+        <ItemsAndAudiosElement
+          onComplete={onComplete}
+          actual={actual}
+          audios={audios}
+          items={items}
+          initialAudio={initialAudio}
+          conclusionAudio={conclusionAudio}
         />
       )
     default:
