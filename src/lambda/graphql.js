@@ -268,6 +268,7 @@ const resolvers = {
         .addHashUser(hashUserId, user.id, user.email, user.login)
         .then(() => true)
         .catch(() => false)
+      if (!success) throw Error('Error on creating hash user')
       const sendPassRecoveryEMail = async () => {
         const ses = new AWS.SES({
           accessKeyId: process.env.MY_AWS_SES_ACCESS_KEY_ID,
@@ -312,15 +313,12 @@ const resolvers = {
             },
           },
         }
-        if (success)
-          ses.sendEmail(params, function (err, data) {
-            if (err) console.log(err.message)
-            console.log('Email sent! Data: ', data)
-          })
+        return ses.sendEmail(params).promise()
       }
-      await sendPassRecoveryEMail()
-        .then(() => (emailSent = true))
-        .catch(console.error)
+      emailSent = await sendPassRecoveryEMail()
+        .then(() => true)
+        .catch(() => false)
+      if (!emailSent) throw Error('Error at email send')
       return { success, emailSent }
     },
   },
