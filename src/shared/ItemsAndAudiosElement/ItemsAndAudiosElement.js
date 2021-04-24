@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import loadable from '@loadable/component'
 import { Items } from './Items'
@@ -54,6 +54,10 @@ export const ItemsAndAudiosElement = ({
       setActualItem(items[actualItemIndex + 1])
     }
   }
+  useEffect(() => {
+    setActualItem(items[actualItemIndex])
+  }, [items, actualItemIndex])
+
   return (
     <Card first complete={complete}>
       <CenterWrapper>
@@ -75,11 +79,13 @@ export const ItemsAndAudiosElement = ({
             onStepComplete={setListened}
           />
         </PlayButtonWrapper>
-        <AudioButton
-          color={actual && end ? colors.actual : null}
-          onComplete={doComplete}
-          audioUrls={conclusionAudio && [conclusionAudio.url]}
-        />
+        {conclusionAudio.url && (
+          <AudioButton
+            color={actual && end ? colors.actual : null}
+            onComplete={doComplete}
+            audioUrls={[conclusionAudio.url]}
+          />
+        )}
       </CenterWrapper>
     </Card>
   )

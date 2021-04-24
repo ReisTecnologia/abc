@@ -29,12 +29,6 @@ export const FileDownloader = ({ color, filename }) => {
           method: 'GET',
         })
       })
-      // fetch(downloadURL, {
-      //   method: 'GET',
-      //   headers: {
-      //     'Content-Type': 'audio/x-m4a',
-      //   },
-      // })
       .then(async (response) => ({
         blob: await response.blob(),
       }))

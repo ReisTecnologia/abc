@@ -17,10 +17,11 @@ const Img = styled.img`
 `
 
 export const Items = ({ children }) => {
-  const IsImage =
-    children.endsWith('.png') ||
-    children.endsWith('.svg') ||
-    children.endsWith('.jpg')
+  const IsImage = children
+    ? children.endsWith('.png') ||
+      children.endsWith('.svg') ||
+      children.endsWith('.jpg')
+    : null
   const textRef = useRef()
   const [width, setWidth] = useState(null)
   useEffect(() => {

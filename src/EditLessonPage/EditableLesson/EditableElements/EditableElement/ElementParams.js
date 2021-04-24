@@ -8,6 +8,8 @@ import { Audios } from './Audios/Audios'
 import { Videos } from './Videos/Videos'
 import { Words } from './Words/Words'
 import { ConclusionAudio } from './ConclusionAudio/ConclusionAudio'
+import { InitialInstructions } from './InitialInstructions/InitialInstructions'
+import { Items } from './Items/Items'
 
 const Wrapper = styled.div`
   color: #555;
@@ -74,6 +76,26 @@ export const ElementParams = ({
     [updateElementParams, elementParams]
   )
 
+  const changeInitialAudio = useCallback(
+    (newInitialAudio) => {
+      updateElementParams({
+        ...elementParams,
+        initialAudio: newInitialAudio,
+      })
+    },
+    [updateElementParams, elementParams]
+  )
+
+  const changeItems = useCallback(
+    (newItems) => {
+      updateElementParams({
+        ...elementParams,
+        items: newItems,
+      })
+    },
+    [updateElementParams, elementParams]
+  )
+
   const changeVideos = useCallback(
     (newVideos) => {
       updateElementParams({
@@ -132,6 +154,8 @@ export const ElementParams = ({
     videos,
     text,
     conclusionAudio,
+    initialAudio,
+    items,
   } = elementParams
 
   const letterTitle = () => {
@@ -139,15 +163,9 @@ export const ElementParams = ({
       return 'Palavras iniciando em:'
     else if (type === 'LetterAndAudio') return 'Letra:'
   }
-  const showCorrectLetters =
-    correctLetters !== null && correctLetters !== undefined
-  const showLetter = letter !== null && letter !== undefined
-  const showText = text !== null && text !== undefined
-  const showAudios = audios !== null && audios !== undefined
-  const showVideos = videos !== null && videos !== undefined
-  const showWords = words !== null && words !== undefined
-  const showConclusionAudio =
-    conclusionAudio !== null && conclusionAudio !== undefined
+  const showComponent = (component) => {
+    return component !== null && component !== undefined
+  }
 
   const correctLettersString = correctLetters ? correctLetters.join() : null
 
@@ -167,7 +185,7 @@ export const ElementParams = ({
           />
           <br />
 
-          {showText && (
+          {showComponent(text) && (
             <ElementWrapper>
               <ElementTitleWrapper>Texto:</ElementTitleWrapper>
               <TextAndInput
@@ -178,7 +196,29 @@ export const ElementParams = ({
             </ElementWrapper>
           )}
 
-          {showLetter && (
+          {showComponent(initialAudio) && (
+            <ElementWrapper>
+              <ElementTitleWrapper>Instruções:</ElementTitleWrapper>
+              <InitialInstructions
+                initialAudio={initialAudio}
+                changeInitialAudio={changeInitialAudio}
+                audioFilePrefix={`${lessonId}___`}
+              />
+            </ElementWrapper>
+          )}
+
+          {showComponent(items) && (
+            <ElementWrapper>
+              <ElementTitleWrapper>Itens:</ElementTitleWrapper>
+              <Items
+                items={items}
+                changeItems={changeItems}
+                imageFilePrefix={`${lessonId}___`}
+              />
+            </ElementWrapper>
+          )}
+
+          {showComponent(letter) && (
             <ElementWrapper>
               <ElementTitleWrapper>{letterTitle()}</ElementTitleWrapper>
               <TextAndInput
@@ -189,7 +229,7 @@ export const ElementParams = ({
             </ElementWrapper>
           )}
 
-          {showCorrectLetters && (
+          {showComponent(correctLetters) && (
             <ElementWrapper>
               <ElementTitleWrapper>Letras corretas:</ElementTitleWrapper>
               <TextAndInput
@@ -199,7 +239,7 @@ export const ElementParams = ({
               />
             </ElementWrapper>
           )}
-          {showAudios && (
+          {showComponent(audios) && (
             <ElementWrapper>
               <ElementTitleWrapper>Áudios:</ElementTitleWrapper>
               <Audios
@@ -210,7 +250,7 @@ export const ElementParams = ({
               <br />
             </ElementWrapper>
           )}
-          {showVideos && (
+          {showComponent(videos) && (
             <ElementWrapper>
               <ElementTitleWrapper>Vídeos:</ElementTitleWrapper>
               <Videos
@@ -221,7 +261,7 @@ export const ElementParams = ({
               <br />
             </ElementWrapper>
           )}
-          {showWords && (
+          {showComponent(words) && (
             <ElementWrapper>
               <ElementTitleWrapper>Palavras:</ElementTitleWrapper>
               <Words
@@ -232,7 +272,7 @@ export const ElementParams = ({
               <br />
             </ElementWrapper>
           )}
-          {showConclusionAudio && (
+          {showComponent(conclusionAudio) && (
             <ElementWrapper>
               <ElementTitleWrapper>Áudio de conclusão:</ElementTitleWrapper>
               <ConclusionAudio
@@ -255,6 +295,7 @@ ElementParams.propTypes = {
     type: PropTypes.string,
     letter: PropTypes.string,
     correctLetters: PropTypes.arrayOf(PropTypes.string),
+    items: PropTypes.arrayOf(PropTypes.string),
     audios: PropTypes.arrayOf(
       PropTypes.shape({
         url: PropTypes.string.isRequired,
@@ -281,6 +322,10 @@ ElementParams.propTypes = {
       })
     ),
     conclusionAudio: PropTypes.shape({
+      url: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    }),
+    initialAudio: PropTypes.shape({
       url: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
     }),
