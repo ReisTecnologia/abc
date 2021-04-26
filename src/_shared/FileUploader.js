@@ -58,6 +58,7 @@ export const FileUploader = ({
   updateWrongAnswerAudio,
   updateAudio,
   updateItem,
+  updateItemUrl,
   videoFilePrefix,
   imageFilePrefix,
   setImageUrl,
@@ -112,7 +113,8 @@ export const FileUploader = ({
           })
         else if (setImageUrl) setImageUrl(filename)
         else if (setMenuImage) setMenuImage(filename)
-        else if (updateItem) updateItem(filename)
+        else if (updateItem) updateItem({ item: filename })
+        else if (updateItemUrl) updateItem({ url: filename })
       }
       reader.addEventListener(
         'loadend',
@@ -139,6 +141,7 @@ export const FileUploader = ({
       setLoading,
       setImageUrl,
       setMenuImage,
+      updateItemUrl,
     ]
   )
   return (
@@ -181,4 +184,5 @@ FileUploader.propTypes = {
   updateVideo: PropTypes.func,
   imageFilePrefix: PropTypes.string,
   setImageUrl: PropTypes.func,
+  updateItemUrl: PropTypes.func,
 }

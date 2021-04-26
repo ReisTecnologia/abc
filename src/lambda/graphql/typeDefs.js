@@ -36,10 +36,15 @@ export default gql`
     url: String
   }
 
+  type Item {
+    item: String
+    url: String
+  }
+
   type Element {
     type: String!
     letter: String
-    items: [String]
+    items: [Item]
     correctLetters: [String]
     audioUrls: [String]
     audios: [Audio]
@@ -167,6 +172,11 @@ export default gql`
     url: String
   }
 
+  input ItemInput {
+    item: String
+    url: String
+  }
+
   input ElementLessonInput {
     type: String
     letter: String
@@ -174,7 +184,7 @@ export default gql`
     audioUrls: [String]
     audios: [AudioInput]
     urlVideo: [String]
-    items: [String]
+    items: [ItemInput]
     videos: [VideoInput]
     description: String
     text: String
