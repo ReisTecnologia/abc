@@ -1,6 +1,6 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
-import { Spinner } from 'shared/Spinner'
+import { Spinner } from '_shared/Spinner'
 import { USER_QUERY } from './USER_QUERY'
 import { RecoverPasswordPage } from './RecoverPasswordPage'
 import { ExpiredLinkPage } from './ExpiredLinkPage'

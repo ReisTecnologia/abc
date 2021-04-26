@@ -1,10 +1,10 @@
 import React from 'react'
 import { AddMenuButton } from './AddMenuButton/AddMenuButton'
 import { ListItem } from './ListItem/ListItem'
-import { Layout } from 'shared/Layout'
-import { Header } from 'shared/Header/Header'
-import { Container } from 'shared/Container'
-import { sortByName } from 'shared/sortByName'
+import { Layout } from '_shared/Layout'
+import { Header } from '_shared/Header/Header'
+import { Container } from '_shared/Container'
+import { sortByName } from '_shared/sortByName'
 import PropTypes from 'prop-types'
 
 export const MenusPage = ({ menus, refetch }) => {

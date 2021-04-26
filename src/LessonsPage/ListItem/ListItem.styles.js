@@ -1,4 +1,4 @@
-import { colors } from 'shared/colors'
+import { colors } from '_shared/colors'
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`

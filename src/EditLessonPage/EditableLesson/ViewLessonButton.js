@@ -1,5 +1,5 @@
 import React from 'react'
-import { ViewButton } from 'shared/ViewButton'
+import { ViewButton } from '_shared/ViewButton'
 import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'

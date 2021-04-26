@@ -5,7 +5,7 @@ import { ClickLetterInTheTextTaskElement } from '../ClickLetterInTheTextTaskElem
 import { LetterAndAudioElement } from '../LetterAndAudioElement'
 import { VideoElement } from '../VideoElement'
 import { CheckFirstLetter } from '../CheckFirstLetter'
-import { ItemsAndAudiosElement } from 'shared/ItemsAndAudiosElement/ItemsAndAudiosElement'
+import { ItemsAndAudiosElement } from '_shared/ItemsAndAudiosElement/ItemsAndAudiosElement'
 import PropTypes from 'prop-types'
 import { addBucketPrefixesToElementParams } from './addBucketPrefixesToElementParams'
 

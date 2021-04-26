@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Spinner } from 'shared/Spinner'
+import { Spinner } from '_shared/Spinner'
 import { AudioWrapper } from './AudioWrapper'
 import { AudioNameWrapper } from './AudioNameWrapper'
 import {
@@ -10,11 +10,11 @@ import {
 import { AudioFieldsWrapper } from './AudioFieldsWrapper'
 import { NameAndUrlWrapper } from './NameAndUrlWrapper'
 import { DeleteAudioButton } from './DeleteAudioButton'
-import { TextAndInput } from 'shared/TextAndInput'
-import { AudioButton } from 'shared/AudioButton'
-import { FileUploader } from 'shared/FileUploader'
-import { DragAndDrop } from 'shared/DragAndDrop'
-import { colors } from 'shared/colors'
+import { TextAndInput } from '_shared/TextAndInput'
+import { AudioButton } from '_shared/AudioButton'
+import { FileUploader } from '_shared/FileUploader'
+import { DragAndDrop } from '_shared/DragAndDrop'
+import { colors } from '_shared/colors'
 import { FileDownloader } from '../../FileDownloader'
 
 export const Audio = ({

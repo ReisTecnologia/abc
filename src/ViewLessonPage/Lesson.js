@@ -1,13 +1,13 @@
 import React from 'react'
-import { Layout } from 'shared/Layout'
-import { Container } from 'shared/Container'
-import { Header } from 'shared/Header/Header'
+import { Layout } from '_shared/Layout'
+import { Container } from '_shared/Container'
+import { Header } from '_shared/Header/Header'
 import { ViewableElements } from './ViewableElements/ViewableElements'
 import { LessonItem } from './LessonItem'
 import { Link, useHistory } from 'react-router-dom'
 import { EditLessonButton } from './EditLessonButton'
 import PropTypes from 'prop-types'
-import { colors } from 'shared/colors'
+import { colors } from '_shared/colors'
 
 export const Lesson = ({ menuId, lesson, backgroundImage }) => {
   let history = useHistory()

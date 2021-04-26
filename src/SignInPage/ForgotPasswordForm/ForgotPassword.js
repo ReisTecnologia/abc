@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import React, { useEffect, useState } from 'react'
-import { Spinner } from 'shared/Spinner'
+import { Spinner } from '_shared/Spinner'
 import { ToastContainer, toast, Slide } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useMutation } from '@apollo/client'

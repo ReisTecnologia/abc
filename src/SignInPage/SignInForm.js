@@ -2,13 +2,13 @@ import styled from 'styled-components'
 import React, { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import { SIGNIN_MUTATION } from './SIGNIN_MUTATION'
-import { saveTokens } from 'shared/AuthTokens/saveTokens'
+import { saveTokens } from '_shared/AuthTokens/saveTokens'
 import { useHistory } from 'react-router-dom'
-import { Spinner } from 'shared/Spinner'
+import { Spinner } from '_shared/Spinner'
 import { ToastContainer, toast, Slide } from 'react-toastify'
 import PropTypes from 'prop-types'
 import 'react-toastify/dist/ReactToastify.css'
-import { colors } from 'shared/colors'
+import { colors } from '_shared/colors'
 
 const Form = styled.form`
   display: flex;

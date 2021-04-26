@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { TextAndInput } from 'shared/TextAndInput'
+import { TextAndInput } from '_shared/TextAndInput'
 import { DeleteInitialAudioButton } from './DeleteInitialAudioButton'
-import { AudioButton } from 'shared/AudioButton'
-import { FileUploader } from 'shared/FileUploader'
+import { AudioButton } from '_shared/AudioButton'
+import { FileUploader } from '_shared/FileUploader'
 import {
   InitialAudioButtonsWrapper,
   InitialAudioNameWrapper,
@@ -13,9 +13,9 @@ import {
   AudioButtonWrapper,
   AudioButtonMobileWrapper,
 } from '../AudioButtonWrappers'
-import { colors } from 'shared/colors'
-import { DragAndDrop } from 'shared/DragAndDrop'
-import { Spinner } from 'shared/Spinner'
+import { colors } from '_shared/colors'
+import { DragAndDrop } from '_shared/DragAndDrop'
+import { Spinner } from '_shared/Spinner'
 import { FileDownloader } from '../FileDownloader'
 
 const buildUpdateAudio = ({ initialAudio, changeInitialAudio }) => (

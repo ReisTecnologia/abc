@@ -2,9 +2,9 @@ import React from 'react'
 import { useMutation } from '@apollo/client'
 import PropTypes from 'prop-types'
 import { ADD_MENU_MUTATION } from './ADD_MENU_MUTATION'
-import { Spinner } from 'shared/Spinner'
+import { Spinner } from '_shared/Spinner'
 import styled from 'styled-components'
-import { colors } from 'shared/colors'
+import { colors } from '_shared/colors'
 
 const Button = styled.div`
   background-color: ${colors.primary};

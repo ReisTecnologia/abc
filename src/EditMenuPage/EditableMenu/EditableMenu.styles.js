@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colors } from 'shared/colors'
+import { colors } from '_shared/colors'
 
 export const InicialWrapper = styled.div`
   display: inline-flex;

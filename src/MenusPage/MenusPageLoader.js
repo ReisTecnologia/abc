@@ -1,7 +1,7 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
 import { MenusPage } from './MenusPage'
-import { Spinner } from 'shared/Spinner'
+import { Spinner } from '_shared/Spinner'
 import { MENUS_QUERY } from './MENUS_QUERY'
 
 export const MenusPageLoader = () => {

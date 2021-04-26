@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { gql, useMutation } from '@apollo/client'
-import { Spinner } from 'shared/Spinner'
+import { Spinner } from '_shared/Spinner'
 import { Button } from './Button'
 
 const CLEANUP_LESSON_FILES_MUTATION = gql`

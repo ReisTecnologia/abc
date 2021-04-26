@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { gql, useMutation } from '@apollo/client'
-import { Spinner } from 'shared/Spinner'
+import { Spinner } from '_shared/Spinner'
 import styled from 'styled-components'
-import { colors } from 'shared/colors'
+import { colors } from '_shared/colors'
 
 const Button = styled.div`
   border: solid 1px ${colors.white};

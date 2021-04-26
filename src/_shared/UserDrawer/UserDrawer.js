@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Drawer } from '@material-ui/core'
 import styled from 'styled-components'
-import { colors } from 'shared/colors'
+import { colors } from '_shared/colors'
 import PropTypes from 'prop-types'
-import { LogoutButton } from 'shared/LogoutButton'
+import { LogoutButton } from '_shared/LogoutButton'
 import { UserButton } from './UserButton'
 
 const ListItemWrapper = styled.li`

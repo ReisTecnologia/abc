@@ -4,7 +4,7 @@ import { MENU_QUERY } from './MENU_QUERY'
 import { LESSONS_QUERY } from './LESSONS_QUERY'
 import { EditableMenu } from './EditableMenu/EditableMenu'
 import { useParams } from 'react-router-dom'
-import { Spinner } from 'shared/Spinner'
+import { Spinner } from '_shared/Spinner'
 
 export const EditableMenuLoader = () => {
   let { menu } = useParams()

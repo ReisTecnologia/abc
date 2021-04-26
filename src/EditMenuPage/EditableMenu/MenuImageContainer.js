@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { colors } from 'shared/colors'
+import { colors } from '_shared/colors'
 
 const ImageWrapper = styled.div`
   background-color: ${colors.primary};

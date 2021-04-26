@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
-import { HeaderWrapper } from 'shared/HeaderWrapper'
-import { MenuDrawer } from 'shared/MenuDrawer'
-import { UserDrawer } from 'shared/UserDrawer/UserDrawer'
-import { CurrentUserContext } from 'shared/CurrentUserContextProvider'
-import { Spinner } from 'shared/Spinner'
+import { HeaderWrapper } from '_shared/HeaderWrapper'
+import { MenuDrawer } from '_shared/MenuDrawer'
+import { UserDrawer } from '_shared/UserDrawer/UserDrawer'
+import { CurrentUserContext } from '_shared/CurrentUserContextProvider'
+import { Spinner } from '_shared/Spinner'
 import { UserButtonWrapper, PageActions, Title } from './Header.styles.js'
 
 export const Header = ({

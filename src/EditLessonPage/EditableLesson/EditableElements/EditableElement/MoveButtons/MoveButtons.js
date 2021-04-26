@@ -4,7 +4,7 @@ import { UpDownWrapper } from './UpDownWrapper'
 import { Icon } from '@iconify/react'
 import triangleDown from '@iconify-icons/akar-icons/triangle-down'
 import triangleUp from '@iconify-icons/akar-icons/triangle-up'
-import { colors } from 'shared/colors'
+import { colors } from '_shared/colors'
 import styled from 'styled-components'
 
 const IIconUp = styled(Icon)`

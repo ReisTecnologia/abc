@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { AddButton } from '../AddButton.js'
-import { colors } from 'shared/colors'
+import { colors } from '_shared/colors'
 
 const ItemButtonWrapper = styled.div`
   display: flex;

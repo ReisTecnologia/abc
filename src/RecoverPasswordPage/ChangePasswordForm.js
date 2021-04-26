@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { toast, Slide } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { colors } from 'shared/colors'
+import { colors } from '_shared/colors'
 import styled from 'styled-components'
 
 const Form = styled.form`

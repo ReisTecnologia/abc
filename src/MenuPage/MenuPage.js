@@ -1,18 +1,18 @@
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
-import { LessonItem } from 'shared/LessonItem'
-import { Layout } from 'shared/Layout'
+import { LessonItem } from '_shared/LessonItem'
+import { Layout } from '_shared/Layout'
 import {
   Wrapper,
   IconWrapper,
   IconAndNameWrapper,
   LessonNameWrapper,
 } from './MenuPage.styles'
-import { colors } from 'shared/colors'
+import { colors } from '_shared/colors'
 import { Link } from 'react-router-dom'
-import { Container } from 'shared/Container'
-import { CurrentUserContext } from 'shared/CurrentUserContextProvider'
-import { Header } from 'shared/Header/Header'
+import { Container } from '_shared/Container'
+import { CurrentUserContext } from '_shared/CurrentUserContextProvider'
+import { Header } from '_shared/Header/Header'
 import { SignInOrOutButton } from './SignInOrOutButton'
 
 export const MenuPage = ({ menu }) => {

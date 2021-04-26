@@ -8,7 +8,7 @@ import {
   LessonButtons,
   LessonElements,
 } from './ListItem.styles'
-import { LessonItem } from 'shared/LessonItem'
+import { LessonItem } from '_shared/LessonItem'
 
 const navigateToViewLesson = (history, lessonId) => (e) => {
   e.stopPropagation()

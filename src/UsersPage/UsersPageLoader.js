@@ -1,7 +1,7 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
 import { UsersPage } from './UsersPage'
-import { Spinner } from 'shared/Spinner'
+import { Spinner } from '_shared/Spinner'
 import { USERS_QUERY } from './USERS_QUERY'
 
 export const UsersPageLoader = () => {

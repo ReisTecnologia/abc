@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from './Button'
-import { Spinner } from 'shared/Spinner'
+import { Spinner } from '_shared/Spinner'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 

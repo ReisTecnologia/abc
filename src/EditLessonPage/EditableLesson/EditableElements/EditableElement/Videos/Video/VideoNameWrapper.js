@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colors } from 'shared/colors'
+import { colors } from '_shared/colors'
 
 export const VideoNameWrapper = styled.div`
   color: ${colors.primary};

@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { LogoutButton } from 'shared/LogoutButton'
+import { LogoutButton } from '_shared/LogoutButton'
 import styled from 'styled-components'
-import { colors } from 'shared/colors'
+import { colors } from '_shared/colors'
 import { useHistory } from 'react-router-dom'
 
 const SignInOrOutButtonWrapper = styled.div`

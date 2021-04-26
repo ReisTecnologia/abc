@@ -1,6 +1,6 @@
 import React from 'react'
-import { HeaderWrapper } from 'shared/HeaderWrapper'
-import { Layout } from 'shared/Layout'
+import { HeaderWrapper } from '_shared/HeaderWrapper'
+import { Layout } from '_shared/Layout'
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
