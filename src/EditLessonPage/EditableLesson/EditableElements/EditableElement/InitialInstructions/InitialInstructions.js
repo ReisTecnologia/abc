@@ -41,6 +41,8 @@ export const InitialInstructions = ({
   changeInitialAudio,
   audioFilePrefix,
 }) => {
+  const checkUrl = initialAudio.url && initialAudio.url !== ''
+
   const buildDeleteAudio = ({ changeInitialAudio }) => () => {
     const newInitialAudio = {}
     changeInitialAudio(newInitialAudio)
@@ -84,10 +86,12 @@ export const InitialInstructions = ({
               loading={loading}
               setLoading={setLoading}
             />
-            <FileDownloader
-              color={colors.grayText}
-              filename={initialAudio.url}
-            />
+            {checkUrl && (
+              <FileDownloader
+                color={colors.grayText}
+                filename={initialAudio.url}
+              />
+            )}
             <InitialAudioNameWrapper>
               <TextAndInput
                 value={initialAudio.name}

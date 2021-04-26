@@ -97,7 +97,9 @@ export const Word = ({
                 loading={wordLoading}
                 setLoading={setWordLoading}
               />
-              <FileDownloader color={colors.grayText} filename={urlWord} />
+              {urlWord !== '' && (
+                <FileDownloader color={colors.grayText} filename={urlWord} />
+              )}
               <TextInput
                 value={word}
                 onChange={changeName}
@@ -134,10 +136,12 @@ export const Word = ({
                 loading={rightAnswerLoading}
                 setLoading={setRightAnswerLoading}
               />
-              <FileDownloader
-                color={colors.grayText}
-                filename={urlRightAnswerExplanation}
-              />
+              {urlRightAnswerExplanation !== '' && (
+                <FileDownloader
+                  color={colors.grayText}
+                  filename={urlRightAnswerExplanation}
+                />
+              )}
               <WordAnswerInfoWrapper>
                 Acertou?
                 <TextInput
@@ -166,10 +170,12 @@ export const Word = ({
                 loading={wrongAnswerLoading}
                 setLoading={setWrongAnswerLoading}
               />
-              <FileDownloader
-                color={colors.grayText}
-                filename={urlWrongAnswerExplanation}
-              />
+              {urlWrongAnswerExplanation !== '' && (
+                <FileDownloader
+                  color={colors.grayText}
+                  filename={urlWrongAnswerExplanation}
+                />
+              )}
               <WordAnswerInfoWrapper>
                 Errou?
                 <TextInput
