@@ -1,26 +1,16 @@
-import React, { useState, useCallback } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { useOnClickOutside } from '_shared/useOnClickOutside'
 import { DeleteWordButton } from './DeleteWordButton'
-import { TextInput } from './TextInput'
-import { WordFieldsWrapper } from './WordFieldsWrapper'
-import { WordWrapper } from './WordWrapper'
-import { Spinner } from '_shared/Spinner'
-import { StartsWithTheLetterInputField } from './StartsWithTheLetterInputField'
-import { AnswerButtonsWrapper } from './AnswerButtonsWrapper'
-import { WordAndAnswerWrapper } from './WordAndAnswerWrapper'
-import { WordAnswerInfoWrapper } from './WordAnswerInfoWrapper'
-import { WordWrongAnswerWrapper } from './WordWrongAnswerWrapper'
-import { WordRightAnswerWrapper } from './WordRightAnswerWrapper'
+import { WordFieldsWrapper, WordWrapper } from './Word.styles'
+import { WordAndAnswerRow } from './WordAndAnswerRow'
+import { RightAnswerRow } from './RightAnswerRow'
+import { WrongAnswerRow } from './WrongAnswerRow'
 import {
   AudioButtonWrapper,
   AudioButtonMobileWrapper,
 } from '../../AudioButtonWrappers'
-import { FileUploader } from '_shared/FileUploader'
 import { AudioButton } from '_shared/AudioButton'
-import { DragAndDrop } from '_shared/DragAndDrop'
 import { colors } from '_shared/colors'
-import { FileDownloader } from '../../FileDownloader'
 
 export const Word = ({
   audioFilePrefix,
@@ -37,20 +27,6 @@ export const Word = ({
   changeRightAnswerExplanation,
   changeWrongAnswerExplanation,
 }) => {
-  const [showRadioButtons, setShowRadioButtons] = useState(false)
-  const [wordLoading, setWordLoading] = useState(false)
-  const [rightAnswerLoading, setRightAnswerLoading] = useState(false)
-  const [wrongAnswerLoading, setWrongAnswerLoading] = useState(false)
-
-  const showButtons = () => setShowRadioButtons(true)
-  const hideButtons = () => setShowRadioButtons(false)
-
-  const toggleButtons = () => (showRadioButtons ? hideButtons() : showButtons())
-
-  const hideOnClickOutside = useCallback(() => {
-    setShowRadioButtons(false)
-  }, [setShowRadioButtons])
-
   const AudioButtonField = (url) => (
     <>
       <AudioButtonWrapper>
@@ -74,114 +50,34 @@ export const Word = ({
     </>
   )
 
-  const ref = useOnClickOutside(hideOnClickOutside)
-
-  const resposta = startsWithTheLetter ? 'Certo' : 'Errado'
-
   return (
     <WordWrapper>
       <WordFieldsWrapper>
-        <WordAndAnswerWrapper ref={ref}>
-          {wordLoading ? (
-            <Spinner />
-          ) : (
-            <DragAndDrop
-              audioFilePrefix={audioFilePrefix}
-              updateWordAudio={updateAudio}
-            >
-              {AudioButtonField(urlWord)}
-              <FileUploader
-                color={colors.grayText}
-                audioFilePrefix={audioFilePrefix}
-                updateWordAudio={updateAudio}
-                loading={wordLoading}
-                setLoading={setWordLoading}
-              />
-              <FileDownloader color={colors.grayText} filename={urlWord} />
-              <TextInput
-                value={word}
-                onChange={changeName}
-                color={colors.dimmedPrimary}
-                width={'20%'}
-              />
-              <AnswerButtonsWrapper onClick={toggleButtons}>
-                {showRadioButtons ? (
-                  <StartsWithTheLetterInputField
-                    word={word}
-                    updateAudio={updateAudio}
-                    startsWithTheLetter={startsWithTheLetter}
-                  />
-                ) : (
-                  resposta
-                )}
-              </AnswerButtonsWrapper>
-            </DragAndDrop>
-          )}
-        </WordAndAnswerWrapper>
-        <WordRightAnswerWrapper>
-          {rightAnswerLoading ? (
-            <Spinner />
-          ) : (
-            <DragAndDrop
-              audioFilePrefix={audioFilePrefix}
-              updateRightAnswerAudio={updateAudio}
-            >
-              {AudioButtonField(urlRightAnswerExplanation)}
-              <FileUploader
-                color={colors.grayText}
-                audioFilePrefix={audioFilePrefix}
-                updateRightAnswerAudio={updateAudio}
-                loading={rightAnswerLoading}
-                setLoading={setRightAnswerLoading}
-              />
-              <FileDownloader
-                color={colors.grayText}
-                filename={urlRightAnswerExplanation}
-              />
-              <WordAnswerInfoWrapper>
-                Acertou?
-                <TextInput
-                  value={rightAnswerExplanation}
-                  onChange={changeRightAnswerExplanation}
-                  color={colors.grayText}
-                  width={'100%'}
-                />
-              </WordAnswerInfoWrapper>
-            </DragAndDrop>
-          )}
-        </WordRightAnswerWrapper>
-        <WordWrongAnswerWrapper>
-          {wrongAnswerLoading ? (
-            <Spinner />
-          ) : (
-            <DragAndDrop
-              audioFilePrefix={audioFilePrefix}
-              updateWrongAnswerAudio={updateAudio}
-            >
-              {AudioButtonField(urlWrongAnswerExplanation)}
-              <FileUploader
-                color={colors.grayText}
-                audioFilePrefix={audioFilePrefix}
-                updateWrongAnswerAudio={updateAudio}
-                loading={wrongAnswerLoading}
-                setLoading={setWrongAnswerLoading}
-              />
-              <FileDownloader
-                color={colors.grayText}
-                filename={urlWrongAnswerExplanation}
-              />
-              <WordAnswerInfoWrapper>
-                Errou?
-                <TextInput
-                  value={wrongAnswerExplanation}
-                  onChange={changeWrongAnswerExplanation}
-                  color={colors.grayText}
-                  width={'100%'}
-                />
-              </WordAnswerInfoWrapper>
-            </DragAndDrop>
-          )}
-        </WordWrongAnswerWrapper>
+        <WordAndAnswerRow
+          audioFilePrefix={audioFilePrefix}
+          updateAudio={updateAudio}
+          urlWord={urlWord}
+          changeName={changeName}
+          word={word}
+          startsWithTheLetter={startsWithTheLetter}
+          audioButtonField={AudioButtonField}
+        />
+        <RightAnswerRow
+          audioFilePrefix={audioFilePrefix}
+          updateAudio={updateAudio}
+          audioButtonField={AudioButtonField}
+          urlRightAnswerExplanation={urlRightAnswerExplanation}
+          rightAnswerExplanation={rightAnswerExplanation}
+          changeRightAnswerExplanation={changeRightAnswerExplanation}
+        />
+        <WrongAnswerRow
+          audioFilePrefix={audioFilePrefix}
+          updateAudio={updateAudio}
+          urlWrongAnswerExplanation={urlWrongAnswerExplanation}
+          audioButtonField={AudioButtonField}
+          wrongAnswerExplanation={wrongAnswerExplanation}
+          changeWrongAnswerExplanation={changeWrongAnswerExplanation}
+        />
       </WordFieldsWrapper>
       <DeleteWordButton deleteWord={deleteWord} />
     </WordWrapper>
