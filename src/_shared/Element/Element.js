@@ -80,7 +80,6 @@ export const Element = ({ elementParams, actual, onComplete }) => {
         <ItemsAndAudiosElement
           onComplete={onComplete}
           actual={actual}
-          audios={audios}
           items={items}
           initialAudio={initialAudio}
           conclusionAudio={conclusionAudio}

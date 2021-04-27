@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { TextAndInput } from '_shared/TextAndInput'
 import { DeleteConclusionAudioButton } from './DeleteConclusionAudioButton'
@@ -8,6 +8,7 @@ import { ConclusionAudioNameWrapper } from './ConclusionAudioNameWrapper'
 import { ConclusionAudioWrapper } from './ConclusionAudioWrapper'
 import { OptionalTextWrapper } from './OptionalTextWrapper'
 import { ConclusionAudioButtonsWrapper } from './ConclusionAudioButtonsWrapper'
+import { AddConclusionAudioButton } from './AddConclusionAudioButton'
 import {
   AudioButtonWrapper,
   AudioButtonMobileWrapper,
@@ -42,12 +43,20 @@ export const ConclusionAudio = ({
   changeConclusionAudio,
   audioFilePrefix,
 }) => {
+  const [showConclusionAudio, setShowConclusionAudio] = useState(false)
   const buildDeleteAudio = ({ changeConclusionAudio }) => () => {
     const newConclusionAudio = {}
     changeConclusionAudio(newConclusionAudio)
   }
   const [loading, setLoading] = useState(false)
 
+  useEffect(() => {
+    if (!conclusionAudio.name && !conclusionAudio.url)
+      setShowConclusionAudio(false)
+    else setShowConclusionAudio(true)
+  }, [conclusionAudio, setShowConclusionAudio])
+
+  const addConclusionAudio = () => setShowConclusionAudio(true)
   const AudioButtonBuilder = (size) => (
     <AudioButton
       audioUrls={[
@@ -63,7 +72,7 @@ export const ConclusionAudio = ({
       <OptionalTextWrapper>(Opcional)</OptionalTextWrapper>
       {loading ? (
         <Spinner />
-      ) : (
+      ) : showConclusionAudio ? (
         <ConclusionAudioButtonsWrapper>
           <DragAndDrop
             audioFilePrefix={audioFilePrefix}
@@ -105,6 +114,8 @@ export const ConclusionAudio = ({
             />
           </DragAndDrop>
         </ConclusionAudioButtonsWrapper>
+      ) : (
+        <AddConclusionAudioButton onClick={addConclusionAudio} />
       )}
     </ConclusionAudioWrapper>
   )

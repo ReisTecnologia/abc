@@ -31,7 +31,6 @@ export const emptyElementTemplates = {
   },
   ItemsAndAudios: {
     type: 'ItemsAndAudios',
-    audios: [],
     initialAudio: {},
     description: '',
     conclusionAudio: {},
