@@ -198,7 +198,7 @@ export const ElementParams = ({
 
           {showComponent(initialAudio) && (
             <ElementWrapper>
-              <ElementTitleWrapper>Instruções:</ElementTitleWrapper>
+              <ElementTitleWrapper>Áudio de antes:</ElementTitleWrapper>
               <InitialInstructions
                 initialAudio={initialAudio}
                 changeInitialAudio={changeInitialAudio}
@@ -274,7 +274,7 @@ export const ElementParams = ({
           )}
           {showComponent(conclusionAudio) && (
             <ElementWrapper>
-              <ElementTitleWrapper>Áudio de conclusão:</ElementTitleWrapper>
+              <ElementTitleWrapper>Áudio de depois:</ElementTitleWrapper>
               <ConclusionAudio
                 audioFilePrefix={`${lessonId}___`}
                 conclusionAudio={conclusionAudio}
@@ -295,7 +295,7 @@ ElementParams.propTypes = {
     type: PropTypes.string,
     letter: PropTypes.string,
     correctLetters: PropTypes.arrayOf(PropTypes.string),
-    items: PropTypes.arrayOf(PropTypes.string),
+    items: PropTypes.arrayOf(PropTypes.object),
     audios: PropTypes.arrayOf(
       PropTypes.shape({
         url: PropTypes.string.isRequired,

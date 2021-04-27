@@ -20,15 +20,8 @@ const mappers = {
     return { type, audios, description, correctLetters, text }
   },
   ItemsAndAudios: (el) => {
-    const {
-      type,
-      audios,
-      description,
-      initialAudio,
-      conclusionAudio,
-      items,
-    } = el
-    return { type, audios, description, initialAudio, conclusionAudio, items }
+    const { type, description, initialAudio, conclusionAudio, items } = el
+    return { type, description, initialAudio, conclusionAudio, items }
   },
 }
 

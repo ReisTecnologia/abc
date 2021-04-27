@@ -1,15 +1,16 @@
 import styled from 'styled-components'
+import { colors } from '_shared/colors'
 
-export const Wrapper = styled.div`
+export const LessonItemWrapper = styled.div`
   width: 100%;
   padding-left: 8px;
 `
 
-export const ItemWrapper = styled.div`
+export const Wrapper = styled.div`
   min-height: 4rem;
   display: flex;
   align-self: center;
-  padding-left: 24px;
+  border-bottom: solid 1px ${colors.light};
 `
 
 export const NameWrapper = styled.div`
@@ -17,4 +18,20 @@ export const NameWrapper = styled.div`
   align-self: center;
   width: 100%;
   padding-left: 8px;
+`
+
+export const AudioButtonsWrapper = styled.div`
+  padding-top: 10px;
+  display: flex;
+`
+export const ItemWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`
+export const InnerItemWrapper = styled.div`
+  display: flex;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 100%;
 `

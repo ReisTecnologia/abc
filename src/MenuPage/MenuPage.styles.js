@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { colors } from '_shared/colors'
 
 export const Wrapper = styled.div`
   display: grid;
@@ -21,7 +20,6 @@ export const IconAndNameWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   padding-bottom: 1rem;
-  background-color: ${colors.primary};
   justify-content: center;
 `
 export const LessonNameWrapper = styled.div`

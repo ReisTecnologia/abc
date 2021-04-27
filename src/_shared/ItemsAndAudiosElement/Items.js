@@ -17,11 +17,12 @@ const Img = styled.img`
 `
 
 export const Items = ({ children }) => {
-  const IsImage = children
-    ? children.endsWith('.png') ||
-      children.endsWith('.svg') ||
-      children.endsWith('.jpg')
-    : null
+  const IsImage =
+    children && children.item
+      ? children.item.endsWith('.png') ||
+        children.item.endsWith('.svg') ||
+        children.item.endsWith('.jpg')
+      : null
   const textRef = useRef()
   const [width, setWidth] = useState(null)
   useEffect(() => {
@@ -42,13 +43,13 @@ export const Items = ({ children }) => {
             y="140"
             fontSize={150}
           >
-            {children}
+            {children && children.item}
           </text>
         </svg>
       )}
       {IsImage && (
         <Img
-          src={`https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${children}`}
+          src={`https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${children.item}`}
         />
       )}
     </Wrapper>
@@ -56,5 +57,5 @@ export const Items = ({ children }) => {
 }
 
 Items.propTypes = {
-  children: PropTypes.string,
+  children: PropTypes.object,
 }

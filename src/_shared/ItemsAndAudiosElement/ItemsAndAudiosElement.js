@@ -16,7 +16,6 @@ const AudioButton = loadable(async () => {
 
 export const ItemsAndAudiosElement = ({
   items,
-  audios,
   actual,
   onComplete,
   initialAudio,
@@ -61,11 +60,13 @@ export const ItemsAndAudiosElement = ({
   return (
     <Card first complete={complete}>
       <CenterWrapper>
-        <AudioButton
-          color={actual && !instructionsCompleted ? colors.actual : null}
-          onComplete={setInstructionsCompleted}
-          audioUrls={initialAudio && [initialAudio.url]}
-        />
+        {initialAudio.url && (
+          <AudioButton
+            color={actual && !instructionsCompleted ? colors.actual : null}
+            onComplete={setInstructionsCompleted}
+            audioUrls={initialAudio && [initialAudio.url]}
+          />
+        )}
         <Items>{actualItem}</Items>
         <PlayButtonWrapper>
           <AudioButton
@@ -74,7 +75,7 @@ export const ItemsAndAudiosElement = ({
             color={actual && !exerciseCompleted ? colors.actual : null}
             disabled={end}
             icon="Play"
-            audioUrls={audios.map(({ url }) => url)}
+            audioUrls={items.map(({ url }) => url)}
             width={20}
             onStepComplete={setListened}
           />
@@ -92,7 +93,7 @@ export const ItemsAndAudiosElement = ({
 }
 
 ItemsAndAudiosElement.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.string),
+  items: PropTypes.arrayOf(PropTypes.object),
   audios: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,

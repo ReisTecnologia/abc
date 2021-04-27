@@ -5,7 +5,10 @@ import { AddItemButton } from './AddItemButton'
 
 const buildUpdateItem = ({ items, itemIndex, changeItems }) => (payload) => {
   const newItems = [...items]
-  newItems[itemIndex] = payload
+  newItems[itemIndex] = {
+    ...items[itemIndex],
+    ...payload,
+  }
   changeItems(newItems)
 }
 
@@ -17,18 +20,21 @@ const buildDeleteItem = ({ items, itemIndex, changeItems }) => () => {
 
 const buildChangeItem = ({ items, itemIndex, changeItems }) => (item) => {
   const newItems = [...items]
-  newItems[itemIndex] = item
+  newItems[itemIndex] = {
+    ...newItems[itemIndex],
+    item,
+  }
 
   changeItems(newItems)
 }
 
 export const Items = ({ items, changeItems, imageFilePrefix }) => {
-  const addItem = () => changeItems([...items, ''])
+  const addItem = () => changeItems([...items, { item: '', url: '' }])
 
   return (
     <>
       {items &&
-        items.map((item, itemIndex) => (
+        items.map(({ item, url }, itemIndex) => (
           <Item
             imageFilePrefix={imageFilePrefix}
             index={itemIndex}
@@ -44,6 +50,7 @@ export const Items = ({ items, changeItems, imageFilePrefix }) => {
             })}
             changeItem={buildChangeItem({ items, itemIndex, changeItems })}
             item={item}
+            url={url}
             key={itemIndex}
           />
         ))}
@@ -54,6 +61,6 @@ export const Items = ({ items, changeItems, imageFilePrefix }) => {
 
 Items.propTypes = {
   imageFilePrefix: PropTypes.string,
-  items: PropTypes.arrayOf(PropTypes.string),
+  items: PropTypes.arrayOf(PropTypes.object),
   changeItems: PropTypes.func,
 }

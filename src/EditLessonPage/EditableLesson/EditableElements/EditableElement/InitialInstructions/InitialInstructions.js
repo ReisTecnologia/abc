@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { TextAndInput } from '_shared/TextAndInput'
 import { DeleteInitialAudioButton } from './DeleteInitialAudioButton'
@@ -9,6 +9,7 @@ import {
   InitialAudioNameWrapper,
   InitialAudioWrapper,
 } from './InitialInstructions.styles'
+import { AddInitialAudioButton } from './AddInitialAudioButton'
 import {
   AudioButtonWrapper,
   AudioButtonMobileWrapper,
@@ -42,6 +43,14 @@ export const InitialInstructions = ({
   audioFilePrefix,
 }) => {
   const checkUrl = initialAudio.url && initialAudio.url !== ''
+  const [showInitialAudio, setShowInitialAudio] = useState(false)
+
+  useEffect(() => {
+    if (!initialAudio.name && !initialAudio.url) setShowInitialAudio(false)
+    else setShowInitialAudio(true)
+  }, [initialAudio, setShowInitialAudio])
+
+  const addInitialnAudio = () => setShowInitialAudio(true)
 
   const buildDeleteAudio = ({ changeInitialAudio }) => () => {
     const newInitialAudio = {}
@@ -63,7 +72,7 @@ export const InitialInstructions = ({
     <InitialAudioWrapper>
       {loading ? (
         <Spinner />
-      ) : (
+      ) : showInitialAudio ? (
         <InitialAudioButtonsWrapper>
           <DragAndDrop
             audioFilePrefix={audioFilePrefix}
@@ -107,6 +116,8 @@ export const InitialInstructions = ({
             />
           </DragAndDrop>
         </InitialAudioButtonsWrapper>
+      ) : (
+        <AddInitialAudioButton onClick={addInitialnAudio} />
       )}
     </InitialAudioWrapper>
   )

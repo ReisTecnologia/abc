@@ -10,16 +10,24 @@ const addBucketPrefixToWords = (words) =>
     urlWrongAnswerExplanation: addBucketPrefix(word.urlWrongAnswerExplanation),
   }))
 
+const addBucketPrefixToItems = (items) =>
+  items.map((item) => ({
+    ...item,
+    url: addBucketPrefix(item.url),
+  }))
+
 export const addBucketPrefixesToElementParams = (elementParams) => {
   const {
     audioUrls,
     urlVideo,
     words,
+    items,
     conclusionAudio,
     initialAudio,
   } = elementParams
   const fullUrlWords = words && addBucketPrefixToWords(words)
   const fullAudioUrls = audioUrls && audioUrls.map(addBucketPrefix)
+  const fullUrlItems = items && addBucketPrefixToItems(items)
   const fullUrlVideo = urlVideo && urlVideo.map(addBucketPrefix)
   const fullUrlConclusionAudio =
     conclusionAudio && addBucketPrefix(conclusionAudio.url)
@@ -46,5 +54,6 @@ export const addBucketPrefixesToElementParams = (elementParams) => {
     words: fullUrlWords,
     conclusionAudio: newConclusionAudio,
     initialAudio: newInitialAudio,
+    items: fullUrlItems,
   }
 }
