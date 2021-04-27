@@ -85,6 +85,7 @@ export default gql`
     type: String
     email: String
     expdate: Int
+    paidMenus: [Menu]
   }
 
   type AddLessonResponse {
@@ -193,12 +194,17 @@ export default gql`
     conclusionAudio: ConclusionAudioInput
   }
 
+  input PaidMenusInput {
+    id: ID!
+  }
+
   input AddUserInput {
     name: String
     login: String
     password: String
     type: String
     email: String
+    paidMenus: [PaidMenusInput]
   }
   input AddHashUserInput {
     login: String
@@ -235,6 +241,7 @@ export default gql`
     previousLogin: String
     email: String
     previousEmail: String
+    paidMenus: [PaidMenusInput]
   }
 
   type Query {
