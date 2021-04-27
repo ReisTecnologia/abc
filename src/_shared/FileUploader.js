@@ -114,7 +114,7 @@ export const FileUploader = ({
         else if (setImageUrl) setImageUrl(filename)
         else if (setMenuImage) setMenuImage(filename)
         else if (updateItem) updateItem({ item: filename })
-        else if (updateItemUrl) updateItem({ url: filename })
+        else if (updateItemUrl) updateItemUrl({ url: filename })
       }
       reader.addEventListener(
         'loadend',
