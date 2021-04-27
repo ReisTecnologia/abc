@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { AnswerChoiceWrapper } from './AnswerChoiceWrapper'
+import { AnswerChoiceWrapper } from './Word.styles'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
