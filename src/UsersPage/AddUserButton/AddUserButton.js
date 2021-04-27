@@ -27,7 +27,6 @@ export const AddUserButton = ({ afterAdd }) => {
         login: 'usuario',
         password: '123',
         email: 'exemplo@email.com',
-        paidMenus: [],
       },
     },
   })

@@ -153,7 +153,7 @@ const addMenu = (id) => {
 
   return docClient.put(params).promise()
 }
-const addUser = (id, name, login, password, type, email, paidMenus) => {
+const addUser = (id, name, login, password, type, email) => {
   const docClient = new AWS.DynamoDB.DocumentClient()
   const params = {
     TransactItems: [
@@ -166,7 +166,6 @@ const addUser = (id, name, login, password, type, email, paidMenus) => {
             password: password,
             type: type,
             email: email,
-            paidMenus: paidMenus,
           },
           TableName: USER_TABLE_NAME,
           ConditionExpression: 'attribute_not_exists(id)',
