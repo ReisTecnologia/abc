@@ -94,6 +94,7 @@ export const CheckFirstLetter = ({
           loop={true}
           color={actual && !instructionsCompleted ? colors.actual : null}
           onComplete={setInstructionsCompleted}
+          showDots={true}
         />
         {state.showYesIcon && <Icon shape="ThumbsUp" />}
         {state.showNoIcon && <Icon shape="ThumbsDown" />}
@@ -115,6 +116,7 @@ export const CheckFirstLetter = ({
             audioUrls={[urlWord]}
             width={20}
             onComplete={setListened}
+            showDots={true}
           />
         )}
         <SimpleAudio

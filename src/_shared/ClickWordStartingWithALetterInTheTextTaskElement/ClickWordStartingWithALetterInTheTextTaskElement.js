@@ -44,6 +44,7 @@ export const ClickWordStartingWithALetterInTheTextTaskElement = ({
             color={!audioIsListened && actual ? colors.actual : colors.ready}
             onComplete={setListened}
             audioUrls={audios.map(({ url }) => url)}
+            showDots={true}
           />
         </ItemWrapper>
         <ItemWrapper>
