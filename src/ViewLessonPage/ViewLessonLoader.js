@@ -21,11 +21,19 @@ export const ViewLessonLoader = ({ menuId }) => {
     variables: { id: menuId },
     skip: skipMenuQuery,
   })
+
+  const filteredMenu = menuData
+    ? menuData.menu.elements.filter((element) => element.lessonId === lessonId)
+    : null
+
+  const lessonIsFree = filteredMenu ? filteredMenu[0].freeLesson : null
+
   const menuIsPurchased =
     user && user.signedInUser.paidMenus.map((menu) => menu.id).includes(menuId)
+
   const userIsAdmin = user && user.signedInUser.type === 'admin'
 
-  const showLesson = userIsAdmin || menuIsPurchased
+  const showLesson = userIsAdmin || menuIsPurchased || lessonIsFree
 
   const lessonIsLoaded = data && data.lesson
 

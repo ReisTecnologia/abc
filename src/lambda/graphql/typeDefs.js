@@ -66,6 +66,7 @@ export default gql`
   }
 
   type MenuElement {
+    freeLesson: Boolean!
     lessonId: String!
     lesson: Lesson!
   }
@@ -212,6 +213,7 @@ export default gql`
   }
 
   input ElementMenuInput {
+    freeLesson: Boolean
     initials: String
     lessonId: String
     image: String
