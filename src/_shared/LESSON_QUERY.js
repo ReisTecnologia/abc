@@ -13,6 +13,7 @@ export const LESSON_QUERY = gql`
         items {
           item
           url
+          correctAnswer
         }
         correctLetters
         audioUrls

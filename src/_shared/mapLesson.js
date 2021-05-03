@@ -23,6 +23,24 @@ const mappers = {
     const { type, description, initialAudio, conclusionAudio, items } = el
     return { type, description, initialAudio, conclusionAudio, items }
   },
+  ItemsAndWords: (el) => {
+    const {
+      type,
+      description,
+      initialAudio,
+      conclusionAudio,
+      item,
+      correctLetters,
+    } = el
+    return {
+      type,
+      description,
+      initialAudio,
+      conclusionAudio,
+      item,
+      correctLetters,
+    }
+  },
 }
 
 export const mapLesson = (lesson) => {

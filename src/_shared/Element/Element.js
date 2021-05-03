@@ -1,13 +1,14 @@
 import React from 'react'
-import { AudioElement } from '../AudioElement'
-import { ClickWordStartingWithALetterInTheTextTaskElement } from '../ClickWordStartingWithALetterInTheTextTaskElement'
-import { ClickLetterInTheTextTaskElement } from '../ClickLetterInTheTextTaskElement'
-import { LetterAndAudioElement } from '../LetterAndAudioElement'
-import { VideoElement } from '../VideoElement'
-import { CheckFirstLetter } from '../CheckFirstLetter'
+import { AudioElement } from '_shared/AudioElement'
+import { ClickWordStartingWithALetterInTheTextTaskElement } from '_shared/ClickWordStartingWithALetterInTheTextTaskElement'
+import { ClickLetterInTheTextTaskElement } from '_shared/ClickLetterInTheTextTaskElement'
+import { LetterAndAudioElement } from '_shared/LetterAndAudioElement'
+import { VideoElement } from '_shared/VideoElement'
+import { CheckFirstLetter } from '_shared/CheckFirstLetter'
 import { ItemsAndAudiosElement } from '_shared/ItemsAndAudiosElement/ItemsAndAudiosElement'
 import PropTypes from 'prop-types'
 import { addBucketPrefixesToElementParams } from './addBucketPrefixesToElementParams'
+import { ItemsAndWordsElement } from '_shared/ItemsAndWordsElement/ItemsAndWordsElement'
 
 export const Element = ({ elementParams, actual, onComplete }) => {
   const elementParamsWithBucketUrls = addBucketPrefixesToElementParams(
@@ -81,6 +82,17 @@ export const Element = ({ elementParams, actual, onComplete }) => {
           onComplete={onComplete}
           actual={actual}
           items={items}
+          initialAudio={initialAudio}
+          conclusionAudio={conclusionAudio}
+        />
+      )
+    case 'ItemsAndWords':
+      return (
+        <ItemsAndWordsElement
+          onComplete={onComplete}
+          actual={actual}
+          items={items}
+          correctLetters={correctLetters}
           initialAudio={initialAudio}
           conclusionAudio={conclusionAudio}
         />

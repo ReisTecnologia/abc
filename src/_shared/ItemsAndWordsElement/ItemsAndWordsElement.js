@@ -5,7 +5,6 @@ import { Items } from './Items'
 import { Card } from '../Card'
 import { useCompleteState } from '../useCompleteState'
 import { colors } from '../colors'
-import { PlayButtonWrapper } from './PlayButtonWrapper'
 import { CenterWrapper } from './CenterWrapper'
 
 const AudioButton = loadable(async () => {
@@ -14,13 +13,14 @@ const AudioButton = loadable(async () => {
   return LoadableAudioButton
 })
 
-export const ItemsAndAudiosElement = ({
+export const ItemsAndWordsElement = ({
   items,
   actual,
   onComplete,
   initialAudio,
   conclusionAudio,
 }) => {
+  console.log('items', items)
   const { complete, doComplete } = useCompleteState({ actual, onComplete })
   const [actualItem, setActualItem] = useState(items[0])
   const [state, setState] = useState({
@@ -36,9 +36,7 @@ export const ItemsAndAudiosElement = ({
     [setState]
   )
 
-  const exerciseCompleted = !instructionsCompleted || end
-
-  const setListened = () => {
+  const setAlreadyAnswered = () => {
     const thisIsTheEnd = actualItemIndex === items.length - 1
     if (thisIsTheEnd) {
       setState({
@@ -67,19 +65,11 @@ export const ItemsAndAudiosElement = ({
             audioUrls={initialAudio && [initialAudio.url]}
           />
         )}
-        <Items>{actualItem}</Items>
-        <PlayButtonWrapper>
-          <AudioButton
-            beforeTrailCount={actualItemIndex}
-            afterTrailCount={items.length - actualItemIndex - 1}
-            color={actual && !exerciseCompleted ? colors.actual : null}
-            disabled={end}
-            icon="Play"
-            audioUrls={items.map(({ url }) => url)}
-            width={20}
-            onStepComplete={setListened}
-          />
-        </PlayButtonWrapper>
+        <Items
+          items={items}
+          actualItem={actualItem}
+          onStepComplete={setAlreadyAnswered}
+        />
         {conclusionAudio.url && (
           <AudioButton
             color={actual && end ? colors.actual : null}
@@ -92,8 +82,14 @@ export const ItemsAndAudiosElement = ({
   )
 }
 
-ItemsAndAudiosElement.propTypes = {
+ItemsAndWordsElement.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object),
+  audios: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      url: PropTypes.string,
+    })
+  ),
   conclusionAudio: PropTypes.shape({
     name: PropTypes.string,
     url: PropTypes.string,
