@@ -1,51 +1,49 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Word } from './Word/Word'
 import { ItemImage } from './ItemImage'
+import { ItemOptions } from './ItemOptions'
 import PropTypes from 'prop-types'
 
-export const Items = ({
-  // items,
-  actualItem,
-  // , setActualItem, onStepComplete
-}) => {
-  console.log('actualItem', actualItem)
-  const [answer, setAnswer] = useState(null)
+export const Items = ({ actualItem, onStepComplete }) => {
+  const [answer, setAnswer] = useState([])
   const [missingLetters, setMissingLetters] = useState(actualItem.correctAnswer)
-  const isFirstRun = useRef(true)
-  //   const internalOnComplete = useCallback(() => {
-  //     if (actualItemIndex === items.length - 1) {
-  //       onStepComplete && onStepComplete(actualItem)
-  //       setActualItem(items[0])
-  //     } else {
-  //       setActualItem((actualItem) => actualItem + 1)
-  //       onStepComplete && onStepComplete(actualItem)
-  //     }
-  //   }, [actualItem, setActualItem, onStepComplete, items])
 
-  const answerIsCorrect = actualItem.correctAnswer.includes(answer)
-  const array = ['e', 'a', 'f', 'g']
+  const answerIsCorrect =
+    answer.every((item) => actualItem.correctAnswer.includes(item)) &&
+    answer.length > 0
+
+  const answerIsComplete = missingLetters.length === 0
+
+  const addNewAnswer = (newAnswer) => {
+    if (actualItem.correctAnswer.includes(newAnswer)) {
+      const completeAnswer = [...answer, newAnswer]
+      return () => setAnswer(completeAnswer)
+    }
+  }
 
   useEffect(() => {
-    if (isFirstRun.current)
-      if (answerIsCorrect) {
-        console.log('correct')
-        setMissingLetters(
-          actualItem.correctAnswer.filter((letter) => letter !== answer)
-        )
-        console.log('missingLetters', missingLetters)
-        isFirstRun.current = false
-      }
-    if (!answerIsCorrect) console.log('wrong')
+    if (answerIsCorrect && !answerIsComplete) {
+      setMissingLetters(
+        actualItem.correctAnswer.filter((letter) => !answer.includes(letter))
+      )
+    }
+    if (answerIsCorrect && answerIsComplete) {
+      setTimeout(() => {
+        setAnswer([])
+        onStepComplete()
+      }, 3000)
+    }
   }, [
-    answer,
-    answerIsCorrect,
     actualItem.correctAnswer,
-    missingLetters,
-    isFirstRun,
+    answer,
+    answerIsComplete,
+    answerIsCorrect,
+    onStepComplete,
   ])
 
-  const clearStatus = missingLetters.length < 1
-
+  useEffect(() => {
+    setMissingLetters(actualItem.correctAnswer)
+  }, [actualItem.correctAnswer, onStepComplete])
   return (
     <>
       <div>
@@ -54,13 +52,9 @@ export const Items = ({
           word={actualItem.item}
           missingLetters={missingLetters}
           correctLetters={actualItem.correctAnswer}
-          clearStatus={clearStatus}
+          clearStatus={answerIsComplete}
         />
-        {array.map((letter, index) => (
-          <button key={index} onClick={() => setAnswer(array[index])}>
-            {letter}
-          </button>
-        ))}
+        <ItemOptions options={actualItem.options} addNewAnswer={addNewAnswer} />
       </div>
     </>
   )

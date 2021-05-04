@@ -40,6 +40,7 @@ export default gql`
     item: String
     url: String
     correctAnswer: [String]
+    options: [String]
   }
 
   type Element {
@@ -177,6 +178,7 @@ export default gql`
     item: String
     url: String
     correctAnswer: [String]
+    options: [String]
   }
 
   input ElementLessonInput {

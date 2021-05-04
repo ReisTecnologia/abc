@@ -10,7 +10,6 @@ import PropTypes from 'prop-types'
 import { colors } from '_shared/colors'
 
 export const Lesson = ({ menuId, lesson, backgroundImage }) => {
-  console.log('lesson', lesson)
   let history = useHistory()
   const navigateToEditLesson = () => {
     history.push(`/editLesson/${lesson.id}`)

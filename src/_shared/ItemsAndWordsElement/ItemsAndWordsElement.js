@@ -20,7 +20,6 @@ export const ItemsAndWordsElement = ({
   initialAudio,
   conclusionAudio,
 }) => {
-  console.log('items', items)
   const { complete, doComplete } = useCompleteState({ actual, onComplete })
   const [actualItem, setActualItem] = useState(items[0])
   const [state, setState] = useState({
