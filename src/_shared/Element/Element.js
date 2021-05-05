@@ -8,7 +8,7 @@ import { CheckFirstLetter } from '_shared/CheckFirstLetter'
 import { ItemsAndAudiosElement } from '_shared/ItemsAndAudiosElement/ItemsAndAudiosElement'
 import PropTypes from 'prop-types'
 import { addBucketPrefixesToElementParams } from './addBucketPrefixesToElementParams'
-import { ItemsAndWordsElement } from '_shared/ItemsAndWordsElement/ItemsAndWordsElement'
+import { ImagesAndWordsElement } from '_shared/ImagesAndWordsElement/ImagesAndWordsElement'
 
 export const Element = ({ elementParams, actual, onComplete }) => {
   const elementParamsWithBucketUrls = addBucketPrefixesToElementParams(
@@ -26,6 +26,7 @@ export const Element = ({ elementParams, actual, onComplete }) => {
     conclusionAudio,
     items,
     initialAudio,
+    exercises,
   } = elementParamsWithBucketUrls
 
   switch (type) {
@@ -86,13 +87,12 @@ export const Element = ({ elementParams, actual, onComplete }) => {
           conclusionAudio={conclusionAudio}
         />
       )
-    case 'ItemsAndWords':
+    case 'ImagesAndWords':
       return (
-        <ItemsAndWordsElement
+        <ImagesAndWordsElement
           onComplete={onComplete}
           actual={actual}
-          items={items}
-          correctLetters={correctLetters}
+          exercises={exercises}
           initialAudio={initialAudio}
           conclusionAudio={conclusionAudio}
         />

@@ -24,7 +24,7 @@ const Button = styled.div`
   }
 `
 
-export const ItemButton = ({ letter, addNewAnswer, correctLetters }) => {
+export const ExerciseButton = ({ letter, addNewAnswer, correctLetters }) => {
   const [answerStatus, setAnswerStatus] = useState(null)
 
   const onAnswer = () => {
@@ -46,7 +46,7 @@ export const ItemButton = ({ letter, addNewAnswer, correctLetters }) => {
   )
 }
 
-ItemButton.propTypes = {
+ExerciseButton.propTypes = {
   letter: PropTypes.string,
   addNewAnswer: PropTypes.func,
   correctLetters: PropTypes.array,

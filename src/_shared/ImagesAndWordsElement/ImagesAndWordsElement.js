@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import loadable from '@loadable/component'
-import { Items } from './Items'
+import { Exercises } from './Exercises'
 import { Card } from '_shared/Card'
 import { useCompleteState } from '_shared/useCompleteState'
 import { colors } from '_shared/colors'
@@ -13,22 +13,22 @@ const AudioButton = loadable(async () => {
   return LoadableAudioButton
 })
 
-export const ItemsAndWordsElement = ({
-  items,
+export const ImagesAndWordsElement = ({
+  exercises,
   actual,
   onComplete,
   initialAudio,
   conclusionAudio,
 }) => {
   const { complete, doComplete } = useCompleteState({ actual, onComplete })
-  const [actualItem, setActualItem] = useState(items[0])
+  const [actualExercise, setActualExercise] = useState(exercises[0])
   const [state, setState] = useState({
     instructionsCompleted: false,
     end: false,
-    actualItemIndex: 0,
+    actualExerciseIndex: 0,
   })
 
-  const { actualItemIndex, instructionsCompleted, end } = state
+  const { actualExerciseIndex, instructionsCompleted, end } = state
 
   const setInstructionsCompleted = useCallback(
     () => setState((s) => ({ ...s, instructionsCompleted: true })),
@@ -36,26 +36,26 @@ export const ItemsAndWordsElement = ({
   )
 
   const setAlreadyAnswered = () => {
-    const thisIsTheEnd = actualItemIndex === items.length - 1
+    const thisIsTheEnd = actualExerciseIndex === exercises.length - 1
     if (thisIsTheEnd) {
       setState({
         ...state,
         end: true,
       })
     } else {
-      setState(({ actualItemIndex }) => ({
+      setState(({ actualExerciseIndex }) => ({
         ...state,
-        actualItemIndex: actualItemIndex + 1,
+        actualExerciseIndex: actualExerciseIndex + 1,
       }))
-      setActualItem(items[actualItemIndex + 1])
+      setActualExercise(exercises[actualExerciseIndex + 1])
     }
   }
   useEffect(() => {
-    setActualItem(items[actualItemIndex])
-  }, [items, actualItemIndex])
+    setActualExercise(exercises[actualExerciseIndex])
+  }, [exercises, actualExerciseIndex])
 
   const showInitialAudio = initialAudio.url && !instructionsCompleted
-  const showItems = !end && instructionsCompleted
+  const showExercises = !end && instructionsCompleted
   const showConclusionAudio = conclusionAudio.url && end
 
   return (
@@ -68,10 +68,10 @@ export const ItemsAndWordsElement = ({
             audioUrls={initialAudio && [initialAudio.url]}
           />
         )}
-        {showItems && (
-          <Items
-            items={items}
-            actualItem={actualItem}
+        {showExercises && (
+          <Exercises
+            exercises={exercises}
+            actualExercise={actualExercise}
             onStepComplete={setAlreadyAnswered}
           />
         )}
@@ -87,8 +87,8 @@ export const ItemsAndWordsElement = ({
   )
 }
 
-ItemsAndWordsElement.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.object),
+ImagesAndWordsElement.propTypes = {
+  exercises: PropTypes.arrayOf(PropTypes.object),
   audios: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,

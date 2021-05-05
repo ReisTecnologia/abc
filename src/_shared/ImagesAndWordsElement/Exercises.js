@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Word } from './Word/Word'
-import { ItemImage } from './ItemImage'
-import { ItemButton } from './ItemButton'
+import { ExerciseImage } from './ExerciseImage'
+import { ExerciseButton } from './ExerciseButton'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
@@ -16,19 +16,21 @@ const Wrapper = styled.div`
   margin-top: 20px;
 `
 
-export const Items = ({ actualItem, onStepComplete }) => {
-  const [word, setWord] = useState(actualItem.item)
+export const Exercises = ({ actualExercise, onStepComplete }) => {
+  const [word, setWord] = useState(actualExercise.word)
   const [answer, setAnswer] = useState([])
-  const [missingLetters, setMissingLetters] = useState(actualItem.correctAnswer)
+  const [missingLetters, setMissingLetters] = useState(
+    actualExercise.correctAnswer
+  )
 
   const answerIsCorrect =
-    answer.every((item) => actualItem.correctAnswer.includes(item)) &&
+    answer.every((letter) => actualExercise.correctAnswer.includes(letter)) &&
     answer.length > 0
 
   const answerIsComplete = missingLetters.length === 0
 
   const addNewAnswer = (newAnswer) => {
-    if (actualItem.correctAnswer.includes(newAnswer)) {
+    if (actualExercise.correctAnswer.includes(newAnswer)) {
       const completeAnswer = [...answer, newAnswer]
       setAnswer(completeAnswer)
     }
@@ -37,7 +39,9 @@ export const Items = ({ actualItem, onStepComplete }) => {
   useEffect(() => {
     if (answerIsCorrect && !answerIsComplete) {
       setMissingLetters(
-        actualItem.correctAnswer.filter((letter) => !answer.includes(letter))
+        actualExercise.correctAnswer.filter(
+          (letter) => !answer.includes(letter)
+        )
       )
     }
     if (answerIsCorrect && answerIsComplete) {
@@ -48,7 +52,7 @@ export const Items = ({ actualItem, onStepComplete }) => {
       }, 3000)
     }
   }, [
-    actualItem.correctAnswer,
+    actualExercise.correctAnswer,
     answer,
     answerIsComplete,
     answerIsCorrect,
@@ -56,24 +60,24 @@ export const Items = ({ actualItem, onStepComplete }) => {
   ])
 
   useEffect(() => {
-    setMissingLetters(actualItem.correctAnswer)
-    setWord(actualItem.item)
-  }, [actualItem.correctAnswer, actualItem.item, onStepComplete])
+    setMissingLetters(actualExercise.correctAnswer)
+    setWord(actualExercise.word)
+  }, [actualExercise.correctAnswer, actualExercise.word, onStepComplete])
   return (
     <Wrapper>
-      <ItemImage image={actualItem.url} />
+      <ExerciseImage image={actualExercise.imageUrl} />
       <Word
         word={word}
         missingLetters={missingLetters}
         clearStatus={answerIsComplete}
       />
       <ButtonsWrapper>
-        {actualItem.options.map((letter, index) => (
-          <ItemButton
+        {actualExercise.options.map((letter, index) => (
+          <ExerciseButton
             key={index}
             letter={letter}
             addNewAnswer={addNewAnswer}
-            correctLetters={actualItem.correctAnswer}
+            correctLetters={actualExercise.correctAnswer}
           />
         ))}
       </ButtonsWrapper>
@@ -81,9 +85,7 @@ export const Items = ({ actualItem, onStepComplete }) => {
   )
 }
 
-Items.propTypes = {
-  items: PropTypes.array,
-  actualItem: PropTypes.object,
-  setActualItem: PropTypes.func,
+Exercises.propTypes = {
+  actualExercise: PropTypes.object,
   onStepComplete: PropTypes.func,
 }

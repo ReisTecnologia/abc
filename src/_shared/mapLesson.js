@@ -23,14 +23,14 @@ const mappers = {
     const { type, description, initialAudio, conclusionAudio, items } = el
     return { type, description, initialAudio, conclusionAudio, items }
   },
-  ItemsAndWords: (el) => {
-    const { type, description, initialAudio, conclusionAudio, items } = el
+  ImagesAndWords: (el) => {
+    const { type, description, initialAudio, conclusionAudio, exercises } = el
     return {
       type,
       description,
       initialAudio,
       conclusionAudio,
-      items,
+      exercises,
     }
   },
 }

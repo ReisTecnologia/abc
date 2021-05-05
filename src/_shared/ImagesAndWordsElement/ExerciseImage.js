@@ -16,7 +16,7 @@ const Img = styled.img`
   margin: 0;
 `
 
-export const ItemImage = ({ image }) => {
+export const ExerciseImage = ({ image }) => {
   return (
     <Wrapper>
       <Img src={image} />
@@ -24,6 +24,6 @@ export const ItemImage = ({ image }) => {
   )
 }
 
-ItemImage.propTypes = {
+ExerciseImage.propTypes = {
   image: PropTypes.string,
 }
