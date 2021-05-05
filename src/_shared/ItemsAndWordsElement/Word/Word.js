@@ -7,16 +7,8 @@ import { colors } from '_shared/colors'
 const replaceMissingLetter = (letter, missingLetters) =>
   missingLetters.includes(letter) ? '_' : letter
 
-export const Word = ({
-  word,
-  missingLetters = [],
-  correctLetters = [],
-  clearStatus,
-  color,
-}) => {
+export const Word = ({ word, missingLetters, clearStatus }) => {
   const letterArray = word.split('')
-  console.log('missingLetters', missingLetters)
-  console.log('correctLetters', correctLetters)
   return (
     <Wrapper>
       {letterArray.map((letter, letterIndex) => {
@@ -25,7 +17,7 @@ export const Word = ({
           <Letter
             key={letterIndex}
             letter={filteredLetters}
-            color={clearStatus ? colors.textClear : color}
+            color={clearStatus ? colors.textClear : null}
           />
         )
       })}
@@ -34,9 +26,7 @@ export const Word = ({
 }
 
 Word.propTypes = {
-  color: PropTypes.string,
   word: PropTypes.string.isRequired,
   missingLetters: PropTypes.arrayOf(PropTypes.string).isRequired,
-  correctLetters: PropTypes.arrayOf(PropTypes.string).isRequired,
   clearStatus: PropTypes.bool,
 }

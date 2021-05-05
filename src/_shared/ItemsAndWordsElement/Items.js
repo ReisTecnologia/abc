@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import { Word } from './Word/Word'
 import { ItemImage } from './ItemImage'
-import { ItemOptions } from './ItemOptions'
+import { ItemButton } from './ItemButton'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
+
+const ButtonsWrapper = styled.div`
+  justify-content: center;
+  align-items: center;
+  font-family: Karla;
+  display: flex;
+  margin-bottom: 20px;
+`
+const Wrapper = styled.div`
+  margin-top: 20px;
+`
 
 export const Items = ({ actualItem, onStepComplete }) => {
+  const [word, setWord] = useState(actualItem.item)
   const [answer, setAnswer] = useState([])
   const [missingLetters, setMissingLetters] = useState(actualItem.correctAnswer)
 
@@ -17,7 +30,7 @@ export const Items = ({ actualItem, onStepComplete }) => {
   const addNewAnswer = (newAnswer) => {
     if (actualItem.correctAnswer.includes(newAnswer)) {
       const completeAnswer = [...answer, newAnswer]
-      return () => setAnswer(completeAnswer)
+      setAnswer(completeAnswer)
     }
   }
 
@@ -31,6 +44,7 @@ export const Items = ({ actualItem, onStepComplete }) => {
       setTimeout(() => {
         setAnswer([])
         onStepComplete()
+        setWord(null)
       }, 3000)
     }
   }, [
@@ -43,20 +57,27 @@ export const Items = ({ actualItem, onStepComplete }) => {
 
   useEffect(() => {
     setMissingLetters(actualItem.correctAnswer)
-  }, [actualItem.correctAnswer, onStepComplete])
+    setWord(actualItem.item)
+  }, [actualItem.correctAnswer, actualItem.item, onStepComplete])
   return (
-    <>
-      <div>
-        <ItemImage image={actualItem.url} />
-        <Word
-          word={actualItem.item}
-          missingLetters={missingLetters}
-          correctLetters={actualItem.correctAnswer}
-          clearStatus={answerIsComplete}
-        />
-        <ItemOptions options={actualItem.options} addNewAnswer={addNewAnswer} />
-      </div>
-    </>
+    <Wrapper>
+      <ItemImage image={actualItem.url} />
+      <Word
+        word={word}
+        missingLetters={missingLetters}
+        clearStatus={answerIsComplete}
+      />
+      <ButtonsWrapper>
+        {actualItem.options.map((letter, index) => (
+          <ItemButton
+            key={index}
+            letter={letter}
+            addNewAnswer={addNewAnswer}
+            correctLetters={actualItem.correctAnswer}
+          />
+        ))}
+      </ButtonsWrapper>
+    </Wrapper>
   )
 }
 

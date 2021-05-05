@@ -2,13 +2,13 @@ import React, { useState, useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import loadable from '@loadable/component'
 import { Items } from './Items'
-import { Card } from '../Card'
-import { useCompleteState } from '../useCompleteState'
-import { colors } from '../colors'
+import { Card } from '_shared/Card'
+import { useCompleteState } from '_shared/useCompleteState'
+import { colors } from '_shared/colors'
 import { CenterWrapper } from './CenterWrapper'
 
 const AudioButton = loadable(async () => {
-  const { AudioButton } = await import('../AudioButton')
+  const { AudioButton } = await import('_shared/AudioButton')
   const LoadableAudioButton = (props) => <AudioButton {...props} />
   return LoadableAudioButton
 })
@@ -54,22 +54,28 @@ export const ItemsAndWordsElement = ({
     setActualItem(items[actualItemIndex])
   }, [items, actualItemIndex])
 
+  const showInitialAudio = initialAudio.url && !instructionsCompleted
+  const showItems = !end && instructionsCompleted
+  const showConclusionAudio = conclusionAudio.url && end
+
   return (
     <Card first complete={complete}>
       <CenterWrapper>
-        {initialAudio.url && (
+        {showInitialAudio && (
           <AudioButton
             color={actual && !instructionsCompleted ? colors.actual : null}
             onComplete={setInstructionsCompleted}
             audioUrls={initialAudio && [initialAudio.url]}
           />
         )}
-        <Items
-          items={items}
-          actualItem={actualItem}
-          onStepComplete={setAlreadyAnswered}
-        />
-        {conclusionAudio.url && (
+        {showItems && (
+          <Items
+            items={items}
+            actualItem={actualItem}
+            onStepComplete={setAlreadyAnswered}
+          />
+        )}
+        {showConclusionAudio && (
           <AudioButton
             color={actual && end ? colors.actual : null}
             onComplete={doComplete}
