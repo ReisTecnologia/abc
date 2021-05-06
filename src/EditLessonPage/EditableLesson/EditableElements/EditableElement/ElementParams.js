@@ -10,6 +10,7 @@ import { Words } from './Words/Words'
 import { ConclusionAudio } from './ConclusionAudio/ConclusionAudio'
 import { InitialInstructions } from './InitialInstructions/InitialInstructions'
 import { Items } from './Items/Items'
+import { Exercises } from './Exercises/Exercises'
 
 const Wrapper = styled.div`
   color: #555;
@@ -96,6 +97,13 @@ export const ElementParams = ({
     [updateElementParams, elementParams]
   )
 
+  const changeExercises = useCallback(
+    (newExercises) => {
+      updateElementParams({ ...elementParams, exercises: newExercises })
+    },
+    [updateElementParams, elementParams]
+  )
+
   const changeVideos = useCallback(
     (newVideos) => {
       updateElementParams({
@@ -156,6 +164,7 @@ export const ElementParams = ({
     conclusionAudio,
     initialAudio,
     items,
+    exercises,
   } = elementParams
 
   const letterTitle = () => {
@@ -203,6 +212,16 @@ export const ElementParams = ({
                 initialAudio={initialAudio}
                 changeInitialAudio={changeInitialAudio}
                 audioFilePrefix={`${lessonId}___`}
+              />
+            </ElementWrapper>
+          )}
+          {showComponent(exercises) && (
+            <ElementWrapper>
+              <ElementTitleWrapper>Exercício:</ElementTitleWrapper>
+              <Exercises
+                exercises={exercises}
+                imageFilePrefix={`${lessonId}`}
+                changeExercises={changeExercises}
               />
             </ElementWrapper>
           )}
@@ -319,6 +338,14 @@ ElementParams.propTypes = {
         urlWrongAnswerExplanation: PropTypes.string,
         wrongAnswerExplanation: PropTypes.string,
         word: PropTypes.string,
+      })
+    ),
+    exercises: PropTypes.arrayOf(
+      PropTypes.shape({
+        word: PropTypes.string,
+        options: PropTypes.arrayOf(PropTypes.string),
+        correctAnswer: PropTypes.arrayOf(PropTypes.string),
+        imageUrl: PropTypes.string,
       })
     ),
     conclusionAudio: PropTypes.shape({

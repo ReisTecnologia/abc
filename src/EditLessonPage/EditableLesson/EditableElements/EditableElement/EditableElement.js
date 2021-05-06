@@ -22,6 +22,7 @@ const typesAndNames = {
   CheckFirstLetter: 'Escute a primeira letra',
   ClickLetterInTheTextTask: 'Ache a letra no texto',
   ItemsAndAudios: 'Qual é o som',
+  ImagesAndWords: 'Qual é a palavra',
 }
 
 export const EditableElement = ({

@@ -7,12 +7,14 @@ import trashIcon from '@iconify-icons/ion/trash'
 
 const Wrapper = styled.div`
   text-align: right;
+  margin-right: -3px;
   @media (max-width: 376px) {
     display: none;
   }
 `
 const MobileWrapper = styled.div`
   text-align: right;
+  margin-right: -3px;
   @media (min-width: 376px) {
     display: none;
   }

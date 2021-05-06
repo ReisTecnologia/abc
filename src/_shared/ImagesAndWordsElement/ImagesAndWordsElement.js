@@ -55,7 +55,8 @@ export const ImagesAndWordsElement = ({
   }, [exercises, actualExerciseIndex])
 
   const showInitialAudio = initialAudio.url && !instructionsCompleted
-  const showExercises = !end && instructionsCompleted
+  const initialAudioComplete = !initialAudio.url || instructionsCompleted
+  const showExercises = !end && initialAudioComplete
   const showConclusionAudio = conclusionAudio.url && end
 
   return (
