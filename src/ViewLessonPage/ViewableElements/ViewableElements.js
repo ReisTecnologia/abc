@@ -18,6 +18,7 @@ export const ViewableElements = ({ elements }) => {
       <ElementWrapper>
         <Element
           actual={actualElement === index}
+          index={index}
           onComplete={onComplete}
           editable={false}
           elementParams={elementParams}

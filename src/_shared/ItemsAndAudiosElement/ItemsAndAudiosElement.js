@@ -20,6 +20,8 @@ export const ItemsAndAudiosElement = ({
   onComplete,
   initialAudio,
   conclusionAudio,
+  setActualElement,
+  index,
 }) => {
   const { complete, doComplete } = useCompleteState({ actual, onComplete })
   const [actualItem, setActualItem] = useState(items[0])
@@ -34,6 +36,24 @@ export const ItemsAndAudiosElement = ({
   const setInstructionsCompleted = useCallback(
     () => setState((s) => ({ ...s, instructionsCompleted: true })),
     [setState]
+  )
+  const restartInstructions = useCallback(
+    () =>
+      setState(() => ({
+        end: false,
+        instructionsCompleted: false,
+        actualItemIndex: 0,
+      })),
+    [setState]
+  )
+  const skipToTheEnd = useCallback(
+    () =>
+      setState({
+        ...state,
+        instructionsCompleted: true,
+        end: true,
+      }),
+    [state]
   )
 
   const exerciseCompleted = !instructionsCompleted || end
@@ -63,8 +83,11 @@ export const ItemsAndAudiosElement = ({
         {initialAudio.url && (
           <AudioButton
             color={actual && !instructionsCompleted ? colors.actual : null}
+            onStepStart={restartInstructions}
             onComplete={setInstructionsCompleted}
             audioUrls={initialAudio && [initialAudio.url]}
+            setActualElement={setActualElement}
+            index={index}
           />
         )}
         <Items>{actualItem}</Items>
@@ -77,15 +100,21 @@ export const ItemsAndAudiosElement = ({
             icon="Play"
             audioUrls={items.map(({ url }) => url)}
             width={20}
+            onStepStart={setInstructionsCompleted}
             onStepComplete={setListened}
             showDots={true}
+            setActualElement={setActualElement}
+            index={index}
           />
         </PlayButtonWrapper>
         {conclusionAudio.url && (
           <AudioButton
             color={actual && end ? colors.actual : null}
+            onStepStart={skipToTheEnd}
             onComplete={doComplete}
             audioUrls={[conclusionAudio.url]}
+            setActualElement={setActualElement}
+            index={index}
           />
         )}
       </CenterWrapper>
@@ -105,4 +134,6 @@ ItemsAndAudiosElement.propTypes = {
   }),
   actual: PropTypes.bool,
   onComplete: PropTypes.func,
+  setActualElement: PropTypes.func,
+  index: PropTypes.number,
 }

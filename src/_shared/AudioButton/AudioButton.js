@@ -17,6 +17,9 @@ export const AudioButton = ({
   onStepComplete,
   onStepStart,
   disabled,
+  setActualElement,
+  actual,
+  index,
   color,
   playingColor,
   showDots,
@@ -54,7 +57,7 @@ export const AudioButton = ({
       setActualItem((actualItem) => actualItem + 1)
       onStepComplete && onStepComplete(actualItem)
     }
-  }, [onComplete, actualItem, setActualItem, onStepComplete, audioUrls.length])
+  }, [actualItem, audioUrls.length, onStepComplete, onComplete])
 
   const { play, playing } = useMedia({
     media: audioElement.current,
@@ -65,10 +68,21 @@ export const AudioButton = ({
     if (!disabled) {
       if (actualItem === 0) onStart && onStart()
       play()
+      if (!actual && setActualElement) setActualElement(index)
       onStepStart && onStepStart(actualItem)
       onClick && onClick()
     }
-  }, [disabled, play, onClick, actualItem, onStepStart, onStart])
+  }, [
+    disabled,
+    actualItem,
+    onStart,
+    play,
+    actual,
+    setActualElement,
+    index,
+    onStepStart,
+    onClick,
+  ])
 
   if (!playingColor) playingColor = color
   const showColor = errorCode ? colors.wrong : playing ? playingColor : color
@@ -110,4 +124,7 @@ AudioButton.propTypes = {
   beforeTrailCount: PropTypes.number,
   afterTrailCount: PropTypes.number,
   showDots: PropTypes.bool,
+  setActualElement: PropTypes.func,
+  index: PropTypes.number,
+  actual: PropTypes.bool,
 }

@@ -20,6 +20,8 @@ export const ClickLetterInTheTextTaskElement = ({
   correctLetters,
   actual,
   onComplete,
+  setActualElement,
+  index,
 }) => {
   const { complete, doComplete } = useCompleteState({ actual, onComplete })
   const [audioIsListened, setAudioIsListened] = useState(false)
@@ -36,11 +38,13 @@ export const ClickLetterInTheTextTaskElement = ({
             onComplete={setListened}
             audioUrls={audios.map(({ url }) => url)}
             showDots={true}
+            setActualElement={setActualElement}
+            index={index}
           />
         </ItemWrapper>
         <ItemWrapper>
           <TextLetter
-            color={audioIsListened && actual ? colors.actual : colors.ready}
+            color={audioIsListened && actual ? colors.black : colors.ready}
             text={text}
             onComplete={doComplete}
             correctLetters={correctLetters}
@@ -62,4 +66,6 @@ ClickLetterInTheTextTaskElement.propTypes = {
   correctLetters: PropTypes.arrayOf(PropTypes.string),
   actual: PropTypes.bool,
   onComplete: PropTypes.func,
+  setActualElement: PropTypes.func,
+  index: PropTypes.number,
 }
