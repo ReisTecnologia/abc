@@ -36,6 +36,14 @@ export const ImagesAndWordsElement = ({
     () => setState((s) => ({ ...s, instructionsCompleted: true })),
     [setState]
   )
+  const resetElement = () => {
+    setState({
+      instructionsCompleted: false,
+      end: false,
+      actualExerciseIndex: 0,
+    })
+    doComplete()
+  }
 
   const thisIsTheEnd = actualExerciseIndex === exercises.length - 1
   const setAlreadyAnswered = () => {
@@ -44,7 +52,7 @@ export const ImagesAndWordsElement = ({
         ...state,
         end: true,
       })
-      if (!conclusionAudio.url) doComplete()
+      if (!conclusionAudio.url) resetElement()
     } else {
       setState(({ actualExerciseIndex }) => ({
         ...state,
@@ -90,7 +98,7 @@ export const ImagesAndWordsElement = ({
         {showConclusionAudio && (
           <AudioButton
             color={actual && end ? colors.actual : null}
-            onComplete={doComplete}
+            onComplete={resetElement}
             audioUrls={[conclusionAudio.url]}
           />
         )}
