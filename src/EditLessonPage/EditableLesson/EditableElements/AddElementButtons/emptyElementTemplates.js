@@ -20,7 +20,7 @@ export const emptyElementTemplates = {
     audios: [],
     description: '',
     words: [],
-    conclusionAudio: { name: '', url: '' },
+    conclusionAudio: {},
   },
   ClickLetterInTheTextTask: {
     type: 'ClickLetterInTheTextTask',
@@ -35,5 +35,12 @@ export const emptyElementTemplates = {
     description: '',
     conclusionAudio: {},
     items: [],
+  },
+  ImagesAndWords: {
+    type: 'ImagesAndWords',
+    initialAudio: {},
+    description: '',
+    conclusionAudio: {},
+    exercises: [{ word: '', imageUrl: '', options: [], correctAnswer: [] }],
   },
 }

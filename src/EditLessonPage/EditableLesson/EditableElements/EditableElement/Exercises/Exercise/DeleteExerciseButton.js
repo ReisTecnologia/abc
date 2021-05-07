@@ -6,39 +6,44 @@ import { Icon } from '@iconify/react'
 import trashIcon from '@iconify-icons/ion/trash'
 
 const Wrapper = styled.div`
+  display: inline;
+  float: right;
   text-align: right;
-  margin-right: -5px;
-  @media (max-width: 376px) {
+  align-self: center;
+  margin-top: -50px;
+  @media (max-width: 375px) {
     display: none;
   }
 `
-
 const MobileWrapper = styled.div`
+  display: inline;
+  float: right;
   text-align: right;
-  margin-right: -5px;
+  align-self: center;
+  margin-top: -50px;
   @media (min-width: 376px) {
     display: none;
   }
 `
-const DeleteInitialAudioButtonBuilder = (size, deleteAudio) => (
+const DeleteExerciseButtonBuilder = (size, deleteExercise) => (
   <Icon
     icon={trashIcon}
-    onClick={deleteAudio}
+    onClick={deleteExercise}
     color={colors.grayText}
     height={size}
     cursor="pointer"
   />
 )
 
-export const DeleteInitialAudioButton = ({ deleteAudio }) => (
+export const DeleteExerciseButton = ({ deleteExercise }) => (
   <>
-    <Wrapper>{DeleteInitialAudioButtonBuilder('25', deleteAudio)}</Wrapper>
+    <Wrapper>{DeleteExerciseButtonBuilder('25', deleteExercise)}</Wrapper>
     <MobileWrapper>
-      {DeleteInitialAudioButtonBuilder('22', deleteAudio)}
+      {DeleteExerciseButtonBuilder('22', deleteExercise)}
     </MobileWrapper>
   </>
 )
 
-DeleteInitialAudioButton.propTypes = {
-  deleteAudio: PropTypes.func,
+DeleteExerciseButton.propTypes = {
+  deleteExercise: PropTypes.func,
 }

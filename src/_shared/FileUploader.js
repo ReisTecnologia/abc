@@ -64,6 +64,7 @@ export const FileUploader = ({
   setImageUrl,
   setMenuImage,
   updateVideo,
+  updateExerciseImageUrl,
   color,
   loading,
   setLoading,
@@ -115,6 +116,8 @@ export const FileUploader = ({
         else if (setMenuImage) setMenuImage(filename)
         else if (updateItem) updateItem({ item: filename })
         else if (updateItemUrl) updateItem({ url: filename })
+        else if (updateExerciseImageUrl)
+          updateExerciseImageUrl({ imageUrl: filename })
       }
       reader.addEventListener(
         'loadend',
@@ -129,19 +132,20 @@ export const FileUploader = ({
       reader.readAsArrayBuffer(file)
     },
     [
+      setLoading,
+      audioFilePrefix,
+      videoFilePrefix,
+      imageFilePrefix,
+      updateAudio,
+      updateVideo,
       updateWordAudio,
       updateRightAnswerAudio,
       updateWrongAnswerAudio,
-      updateItem,
-      videoFilePrefix,
-      updateVideo,
-      audioFilePrefix,
-      imageFilePrefix,
-      updateAudio,
-      setLoading,
       setImageUrl,
       setMenuImage,
+      updateItem,
       updateItemUrl,
+      updateExerciseImageUrl,
     ]
   )
   return (
@@ -185,4 +189,5 @@ FileUploader.propTypes = {
   imageFilePrefix: PropTypes.string,
   setImageUrl: PropTypes.func,
   updateItemUrl: PropTypes.func,
+  updateExerciseImageUrl: PropTypes.func,
 }
