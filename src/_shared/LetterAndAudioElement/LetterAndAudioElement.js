@@ -18,6 +18,8 @@ export const LetterAndAudioElement = ({
   letter,
   audios,
   actual,
+  setActualElement,
+  index,
   onComplete,
 }) => {
   const { complete, doComplete } = useCompleteState({ actual, onComplete })
@@ -28,6 +30,8 @@ export const LetterAndAudioElement = ({
         <InnerWrapper>
           <AudioButton
             color={actual ? colors.actual : null}
+            setActualElement={setActualElement}
+            index={index}
             onComplete={doComplete}
             audioUrls={audios.map(({ url }) => url)}
             showDots={true}
@@ -49,4 +53,6 @@ LetterAndAudioElement.propTypes = {
   ),
   actual: PropTypes.bool,
   onComplete: PropTypes.func,
+  setActualElement: PropTypes.func,
+  index: PropTypes.number,
 }

@@ -20,6 +20,8 @@ export const ClickWordStartingWithALetterInTheTextTaskElement = ({
   letter,
   actual,
   onComplete,
+  setActualElement,
+  index,
 }) => {
   const { complete, doComplete } = useCompleteState({ actual, onComplete })
   const [audioIsListened, setAudioIsListened] = useState(false)
@@ -45,6 +47,8 @@ export const ClickWordStartingWithALetterInTheTextTaskElement = ({
             onComplete={setListened}
             audioUrls={audios.map(({ url }) => url)}
             showDots={true}
+            setActualElement={setActualElement}
+            index={index}
           />
         </ItemWrapper>
         <ItemWrapper>
@@ -72,4 +76,6 @@ ClickWordStartingWithALetterInTheTextTaskElement.propTypes = {
   letter: PropTypes.string,
   actual: PropTypes.bool,
   onComplete: PropTypes.func,
+  setActualElement: PropTypes.func,
+  index: PropTypes.number,
 }

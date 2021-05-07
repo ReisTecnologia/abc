@@ -20,6 +20,8 @@ export const ItemsAndAudiosElement = ({
   onComplete,
   initialAudio,
   conclusionAudio,
+  setActualElement,
+  index,
 }) => {
   const { complete, doComplete } = useCompleteState({ actual, onComplete })
   const [actualItem, setActualItem] = useState(items[0])
@@ -65,6 +67,8 @@ export const ItemsAndAudiosElement = ({
             color={actual && !instructionsCompleted ? colors.actual : null}
             onComplete={setInstructionsCompleted}
             audioUrls={initialAudio && [initialAudio.url]}
+            setActualElement={setActualElement}
+            index={index}
           />
         )}
         <Items>{actualItem}</Items>
@@ -77,8 +81,11 @@ export const ItemsAndAudiosElement = ({
             icon="Play"
             audioUrls={items.map(({ url }) => url)}
             width={20}
+            onStepStart={setInstructionsCompleted}
             onStepComplete={setListened}
             showDots={true}
+            setActualElement={setActualElement}
+            index={index}
           />
         </PlayButtonWrapper>
         {conclusionAudio.url && (
@@ -86,6 +93,8 @@ export const ItemsAndAudiosElement = ({
             color={actual && end ? colors.actual : null}
             onComplete={doComplete}
             audioUrls={[conclusionAudio.url]}
+            setActualElement={setActualElement}
+            index={index}
           />
         )}
       </CenterWrapper>
@@ -105,4 +114,6 @@ ItemsAndAudiosElement.propTypes = {
   }),
   actual: PropTypes.bool,
   onComplete: PropTypes.func,
+  setActualElement: PropTypes.func,
+  index: PropTypes.number,
 }
