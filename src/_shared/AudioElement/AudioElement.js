@@ -24,6 +24,7 @@ export const AudioElement = ({ audios, actual, onComplete }) => {
             color={actual ? colors.actual : null}
             onComplete={doComplete}
             audioUrls={audios.map(({ url }) => url)}
+            showDots={true}
           />
         </InnerWrapper>
       </Wrapper>

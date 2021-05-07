@@ -78,6 +78,7 @@ export const ItemsAndAudiosElement = ({
             audioUrls={items.map(({ url }) => url)}
             width={20}
             onStepComplete={setListened}
+            showDots={true}
           />
         </PlayButtonWrapper>
         {conclusionAudio.url && (

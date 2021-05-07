@@ -30,6 +30,7 @@ export const LetterAndAudioElement = ({
             color={actual ? colors.actual : null}
             onComplete={doComplete}
             audioUrls={audios.map(({ url }) => url)}
+            showDots={true}
           />
         </InnerWrapper>
       </CenterWrapper>
