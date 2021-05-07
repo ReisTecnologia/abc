@@ -7,6 +7,9 @@ export const SIGNED_USER_QUERY = gql`
       login
       id
       type
+      paidMenus {
+        id
+      }
     }
   }
 `

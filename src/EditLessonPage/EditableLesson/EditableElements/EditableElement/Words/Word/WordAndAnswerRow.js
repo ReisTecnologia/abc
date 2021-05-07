@@ -5,7 +5,7 @@ import { WordAndAnswerWrapper, AnswerButtonsWrapper } from './Word.styles'
 import { StartsWithTheLetterInputField } from './StartsWithTheLetterInputField'
 import { DragAndDrop } from '_shared/DragAndDrop'
 import { FileUploader } from '_shared/FileUploader'
-import { TextInput } from './TextInput'
+import { TextInput } from '../../TextInput'
 import { FileDownloader } from '../../FileDownloader'
 import { Spinner } from '_shared/Spinner'
 import { colors } from '_shared/colors'
@@ -50,7 +50,9 @@ export const WordAndAnswerRow = ({
             loading={wordLoading}
             setLoading={setWordLoading}
           />
-          <FileDownloader color={colors.grayText} filename={urlWord} />
+          {urlWord !== '' && (
+            <FileDownloader color={colors.grayText} filename={urlWord} />
+          )}
           <TextInput
             value={word}
             onChange={changeName}

@@ -41,10 +41,18 @@ export default gql`
     url: String
   }
 
+  type Exercise {
+    word: String
+    correctAnswer: [String]
+    options: [String]
+    imageUrl: String
+  }
+
   type Element {
     type: String!
     letter: String
     items: [Item]
+    exercises: [Exercise]
     correctLetters: [String]
     audioUrls: [String]
     audios: [Audio]
@@ -66,6 +74,7 @@ export default gql`
   }
 
   type MenuElement {
+    freeLesson: Boolean!
     lessonId: String!
     lesson: Lesson!
   }
@@ -85,6 +94,7 @@ export default gql`
     type: String
     email: String
     expdate: Int
+    paidMenus: [Menu]
   }
 
   type AddLessonResponse {
@@ -175,6 +185,15 @@ export default gql`
   input ItemInput {
     item: String
     url: String
+    correctAnswer: [String]
+    options: [String]
+  }
+
+  input ExercisesInput {
+    word: String
+    correctAnswer: [String]
+    options: [String]
+    imageUrl: String
   }
 
   input ElementLessonInput {
@@ -185,6 +204,7 @@ export default gql`
     audios: [AudioInput]
     urlVideo: [String]
     items: [ItemInput]
+    exercises: [ExercisesInput]
     videos: [VideoInput]
     description: String
     text: String
@@ -193,12 +213,17 @@ export default gql`
     conclusionAudio: ConclusionAudioInput
   }
 
+  input PaidMenusInput {
+    id: ID!
+  }
+
   input AddUserInput {
     name: String
     login: String
     password: String
     type: String
     email: String
+    paidMenus: [PaidMenusInput]
   }
   input AddHashUserInput {
     login: String
@@ -206,6 +231,7 @@ export default gql`
   }
 
   input ElementMenuInput {
+    freeLesson: Boolean
     initials: String
     lessonId: String
     image: String
@@ -235,6 +261,7 @@ export default gql`
     previousLogin: String
     email: String
     previousEmail: String
+    paidMenus: [PaidMenusInput]
   }
 
   type Query {

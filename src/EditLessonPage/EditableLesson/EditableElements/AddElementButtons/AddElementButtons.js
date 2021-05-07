@@ -88,6 +88,9 @@ export const AddElementButtons = ({ addElement }) => {
         <Button onClick={() => addNewElement('ItemsAndAudios')}>
           Qual é o som
         </Button>
+        <Button onClick={() => addNewElement('ImagesAndWords')}>
+          Qual é a palavra
+        </Button>
         <XButton onClick={hideButtons} color={colors.grayText} />
       </Wrapper>
     </>

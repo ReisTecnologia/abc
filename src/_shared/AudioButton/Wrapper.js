@@ -4,4 +4,5 @@ export const Wrapper = styled.div`
   cursor: ${({ disabled }) => (disabled ? null : 'pointer')};
   display: flex;
   align-items: center;
+  flex-direction: column;
 `

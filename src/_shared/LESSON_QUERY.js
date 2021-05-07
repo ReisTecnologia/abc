@@ -14,6 +14,12 @@ export const LESSON_QUERY = gql`
           item
           url
         }
+        exercises {
+          word
+          correctAnswer
+          options
+          imageUrl
+        }
         correctLetters
         audioUrls
         audios {

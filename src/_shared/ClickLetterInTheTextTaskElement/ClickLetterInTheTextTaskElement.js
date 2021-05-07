@@ -35,6 +35,7 @@ export const ClickLetterInTheTextTaskElement = ({
             color={!audioIsListened && actual ? colors.actual : null}
             onComplete={setListened}
             audioUrls={audios.map(({ url }) => url)}
+            showDots={true}
           />
         </ItemWrapper>
         <ItemWrapper>

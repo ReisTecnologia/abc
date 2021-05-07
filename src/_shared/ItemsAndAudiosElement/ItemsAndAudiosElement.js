@@ -78,6 +78,7 @@ export const ItemsAndAudiosElement = ({
             audioUrls={items.map(({ url }) => url)}
             width={20}
             onStepComplete={setListened}
+            showDots={true}
           />
         </PlayButtonWrapper>
         {conclusionAudio.url && (
@@ -94,12 +95,6 @@ export const ItemsAndAudiosElement = ({
 
 ItemsAndAudiosElement.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object),
-  audios: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      url: PropTypes.string,
-    })
-  ),
   conclusionAudio: PropTypes.shape({
     name: PropTypes.string,
     url: PropTypes.string,

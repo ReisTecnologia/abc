@@ -42,7 +42,7 @@ export const Audio = ({
         audioFilePrefix={audioFilePrefix}
         updateAudio={updateAudio}
       />
-      <FileDownloader color={colors.grayText} filename={url} />
+      {url !== '' && <FileDownloader color={colors.grayText} filename={url} />}
     </>
   )
   return (

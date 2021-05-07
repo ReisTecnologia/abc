@@ -248,7 +248,8 @@ const resolvers = {
           args.input.login,
           hashPassword(args.input.password),
           args.input.type,
-          args.input.email
+          args.input.email,
+          args.input.paidMenus
         )
         .then(() => true)
         .catch(() => false)

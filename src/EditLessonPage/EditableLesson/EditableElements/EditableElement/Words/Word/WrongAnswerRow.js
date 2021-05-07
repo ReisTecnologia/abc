@@ -3,7 +3,7 @@ import { DragAndDrop } from '_shared/DragAndDrop'
 import { FileUploader } from '_shared/FileUploader'
 import { Spinner } from '_shared/Spinner'
 import { FileDownloader } from '../../FileDownloader'
-import { TextInput } from './TextInput'
+import { TextInput } from '../../TextInput'
 import { WordWrongAnswerWrapper, WordAnswerInfoWrapper } from './Word.styles'
 import { colors } from '_shared/colors'
 import PropTypes from 'prop-types'
@@ -35,10 +35,12 @@ export const WrongAnswerRow = ({
             loading={wrongAnswerLoading}
             setLoading={setWrongAnswerLoading}
           />
-          <FileDownloader
-            color={colors.grayText}
-            filename={urlWrongAnswerExplanation}
-          />
+          {urlWrongAnswerExplanation !== '' && (
+            <FileDownloader
+              color={colors.grayText}
+              filename={urlWrongAnswerExplanation}
+            />
+          )}
           <WordAnswerInfoWrapper>
             Errou?
             <TextInput

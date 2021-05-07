@@ -5,11 +5,12 @@ import { useMedia } from '../useMedia'
 import { Wrapper } from './Wrapper'
 import { TrailDot } from './TrailDot'
 import { colors } from '../colors'
+import { DotWrapper } from './DotWrapper'
 
 export const AudioButton = ({
   audioUrls,
   size,
-  icon = 'Speaker',
+  icon,
   onClick,
   onStart,
   onComplete,
@@ -18,6 +19,7 @@ export const AudioButton = ({
   disabled,
   color,
   playingColor,
+  showDots,
 }) => {
   if (!color) color = colors.ready
   if (!playingColor) playingColor = colors.playing
@@ -73,18 +75,22 @@ export const AudioButton = ({
   const content = <Icon shape={icon} color={showColor} size={size} />
 
   const empty = audioUrls.length === 0
-  const numDotsBefore = empty ? 0 : actualItem
-  const numDotsAfter = empty ? 0 : audioUrls.length - actualItem - 1
+  // const numDotsBefore = empty ? 0 : actualItem
+  // const numDotsAfter = empty ? 0 : audioUrls.length - actualItem - 1
+  const numOfDots = empty ? 0 : audioUrls.length
+  const dotColor = (i) => (i === actualItem ? color : colors.ready)
+  const showDot = showDots && audioUrls[0]
 
   return (
     <Wrapper onClick={playIfEnabled} disabled={disabled}>
-      {[...Array(numDotsBefore)].map((n, i) => (
-        <TrailDot key={i} color={color} />
-      ))}
+      {showDot && (
+        <DotWrapper>
+          {[...Array(numOfDots)].map((n, i) => (
+            <TrailDot key={i} color={dotColor(i)} />
+          ))}
+        </DotWrapper>
+      )}
       {content}
-      {[...Array(numDotsAfter)].map((n, i) => (
-        <TrailDot key={i} color={color} />
-      ))}
     </Wrapper>
   )
 }
@@ -103,4 +109,5 @@ AudioButton.propTypes = {
   playingColor: PropTypes.string,
   beforeTrailCount: PropTypes.number,
   afterTrailCount: PropTypes.number,
+  showDots: PropTypes.bool,
 }

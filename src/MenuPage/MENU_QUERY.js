@@ -7,6 +7,7 @@ export const MENU_QUERY = gql`
       name
       backgroundImage
       elements {
+        freeLesson
         lessonId
         lesson {
           name
