@@ -7,6 +7,7 @@ import { Card } from '../Card'
 import { Icon } from '../Icon'
 import { colors } from '../colors'
 import { useCompleteState } from '../useCompleteState'
+import { InnerWrapper } from './InnerWrapper'
 
 const AudioButton = loadable(async () => {
   const { AudioButton } = await import('../AudioButton')
@@ -38,7 +39,6 @@ export const CheckFirstLetter = ({
 
   const { actualWordIndex, showYesOrNo, instructionsCompleted, end } = state
   const actualWord = words[actualWordIndex]
-  const urlWord = actualWord ? actualWord.urlWord : null
   const setListened = () => {
     setState((s) => ({ ...s, showYesOrNo: true }))
   }
@@ -66,16 +66,6 @@ export const CheckFirstLetter = ({
     }
   }
 
-  const onStepComplete = useCallback(
-    (step) =>
-      setState((state) => ({
-        ...state,
-        showYesIcon: step === 0,
-        showNoIcon: step === 1,
-      })),
-    [setState]
-  )
-
   const onStepStart = useCallback(() => {
     setState((state) => ({
       ...state,
@@ -84,42 +74,67 @@ export const CheckFirstLetter = ({
     }))
   }, [setState])
 
+  const onStepComplete = useCallback(
+    (step) => {
+      setState((state) => ({
+        ...state,
+        showYesIcon: step === 0,
+        showNoIcon: step === 1,
+      }))
+      setTimeout(() => {
+        onStepStart()
+      }, 3000)
+    },
+    [setState, onStepStart]
+  )
+
   return (
     <Card complete={complete}>
       <Wrapper>
-        <AudioButton
-          audioUrls={audios.map(({ url }) => url)}
-          onStepStart={onStepStart}
-          onStepComplete={onStepComplete}
-          width={20}
-          loop={true}
-          color={actual && !instructionsCompleted ? colors.actual : null}
-          onComplete={setInstructionsCompleted}
-          showDots={true}
-        />
-        {state.showYesIcon && <Icon shape="ThumbsUp" />}
-        {state.showNoIcon && <Icon shape="ThumbsDown" />}
-        {showYesOrNo ? (
-          <YesOrNo
-            color={actual && instructionsCompleted ? colors.actual : null}
-            correctAnswer={actualWord.startsWithTheLetter ? 'yes' : 'no'}
-            urlRightAnswerExplanation={actualWord.urlRightAnswerExplanation}
-            urlWrongAnswerExplanation={actualWord.urlWrongAnswerExplanation}
-            onComplete={setAnswered}
+        <InnerWrapper hide={state.showYesIcon || state.showNoIcon}>
+          <AudioButton
+            audioUrls={audios.map(({ url }) => url)}
+            onStepStart={onStepStart}
+            onStepComplete={onStepComplete}
+            width={20}
+            loop={true}
+            color={actual && !instructionsCompleted ? colors.actual : null}
+            onComplete={setInstructionsCompleted}
+            showDots={true}
           />
-        ) : (
+        </InnerWrapper>
+        {state.showYesIcon && (
+          <InnerWrapper>
+            <Icon fadeOut={true} color={colors.actual} shape="ThumbsUp" />
+          </InnerWrapper>
+        )}
+        {state.showNoIcon && (
+          <InnerWrapper>
+            <Icon fadeOut={true} color={colors.actual} shape="ThumbsDown" />
+          </InnerWrapper>
+        )}
+        <YesOrNo
+          showYesOrNo={showYesOrNo}
+          color={actual && instructionsCompleted ? colors.actual : null}
+          correctAnswer={actualWord.startsWithTheLetter ? 'yes' : 'no'}
+          urlRightAnswerExplanation={actualWord.urlRightAnswerExplanation}
+          urlWrongAnswerExplanation={actualWord.urlWrongAnswerExplanation}
+          onComplete={setAnswered}
+        />
+        <InnerWrapper hide={showYesOrNo}>
           <AudioButton
             beforeTrailCount={actualWordIndex}
             afterTrailCount={words.length - actualWordIndex - 1}
             color={actual && instructionsCompleted ? colors.actual : null}
             disabled={end}
             icon="Play"
-            audioUrls={[urlWord]}
+            audioUrls={words.map(({ urlWord }) => urlWord)}
             width={20}
-            onComplete={setListened}
+            onStepComplete={setListened}
             showDots={true}
           />
-        )}
+        </InnerWrapper>
+
         <SimpleAudio
           urlAudio={conclusionAudio && conclusionAudio.url}
           startPlaying={end}
