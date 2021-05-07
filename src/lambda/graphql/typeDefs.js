@@ -41,10 +41,18 @@ export default gql`
     url: String
   }
 
+  type Exercise {
+    word: String
+    correctAnswer: [String]
+    options: [String]
+    imageUrl: String
+  }
+
   type Element {
     type: String!
     letter: String
     items: [Item]
+    exercises: [Exercise]
     correctLetters: [String]
     audioUrls: [String]
     audios: [Audio]
@@ -175,6 +183,15 @@ export default gql`
   input ItemInput {
     item: String
     url: String
+    correctAnswer: [String]
+    options: [String]
+  }
+
+  input ExercisesInput {
+    word: String
+    correctAnswer: [String]
+    options: [String]
+    imageUrl: String
   }
 
   input ElementLessonInput {
@@ -185,6 +202,7 @@ export default gql`
     audios: [AudioInput]
     urlVideo: [String]
     items: [ItemInput]
+    exercises: [ExercisesInput]
     videos: [VideoInput]
     description: String
     text: String

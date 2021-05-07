@@ -1,86 +1,81 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import loadable from '@loadable/component'
-import { Items } from './Items'
-import { Card } from '../Card'
-import { useCompleteState } from '../useCompleteState'
-import { colors } from '../colors'
-import { PlayButtonWrapper } from './PlayButtonWrapper'
+import { Exercises } from './Exercises'
+import { Card } from '_shared/Card'
+import { useCompleteState } from '_shared/useCompleteState'
+import { colors } from '_shared/colors'
 import { CenterWrapper } from './CenterWrapper'
 
 const AudioButton = loadable(async () => {
-  const { AudioButton } = await import('../AudioButton')
+  const { AudioButton } = await import('_shared/AudioButton')
   const LoadableAudioButton = (props) => <AudioButton {...props} />
   return LoadableAudioButton
 })
 
-export const ItemsAndAudiosElement = ({
-  items,
+export const ImagesAndWordsElement = ({
+  exercises,
   actual,
   onComplete,
   initialAudio,
   conclusionAudio,
 }) => {
   const { complete, doComplete } = useCompleteState({ actual, onComplete })
-  const [actualItem, setActualItem] = useState(items[0])
+  const [actualExercise, setActualExercise] = useState(exercises[0])
   const [state, setState] = useState({
     instructionsCompleted: false,
     end: false,
-    actualItemIndex: 0,
+    actualExerciseIndex: 0,
   })
 
-  const { actualItemIndex, instructionsCompleted, end } = state
+  const { actualExerciseIndex, instructionsCompleted, end } = state
 
   const setInstructionsCompleted = useCallback(
     () => setState((s) => ({ ...s, instructionsCompleted: true })),
     [setState]
   )
 
-  const exerciseCompleted = !instructionsCompleted || end
-
-  const setListened = () => {
-    const thisIsTheEnd = actualItemIndex === items.length - 1
+  const setAlreadyAnswered = () => {
+    const thisIsTheEnd = actualExerciseIndex === exercises.length - 1
     if (thisIsTheEnd) {
       setState({
         ...state,
         end: true,
       })
     } else {
-      setState(({ actualItemIndex }) => ({
+      setState(({ actualExerciseIndex }) => ({
         ...state,
-        actualItemIndex: actualItemIndex + 1,
+        actualExerciseIndex: actualExerciseIndex + 1,
       }))
-      setActualItem(items[actualItemIndex + 1])
+      setActualExercise(exercises[actualExerciseIndex + 1])
     }
   }
   useEffect(() => {
-    setActualItem(items[actualItemIndex])
-  }, [items, actualItemIndex])
+    setActualExercise(exercises[actualExerciseIndex])
+  }, [exercises, actualExerciseIndex])
+
+  const showInitialAudio = initialAudio.url && !instructionsCompleted
+  const showExercises = !end && instructionsCompleted
+  const showConclusionAudio = conclusionAudio.url && end
 
   return (
     <Card first complete={complete}>
       <CenterWrapper>
-        {initialAudio.url && (
+        {showInitialAudio && (
           <AudioButton
             color={actual && !instructionsCompleted ? colors.actual : null}
             onComplete={setInstructionsCompleted}
             audioUrls={initialAudio && [initialAudio.url]}
           />
         )}
-        <Items>{actualItem}</Items>
-        <PlayButtonWrapper>
-          <AudioButton
-            beforeTrailCount={actualItemIndex}
-            afterTrailCount={items.length - actualItemIndex - 1}
-            color={actual && !exerciseCompleted ? colors.actual : null}
-            disabled={end}
-            icon="Play"
-            audioUrls={items.map(({ url }) => url)}
-            width={20}
-            onStepComplete={setListened}
+        {showExercises && (
+          <Exercises
+            exercises={exercises}
+            actualExercise={actualExercise}
+            onStepComplete={setAlreadyAnswered}
           />
-        </PlayButtonWrapper>
-        {conclusionAudio.url && (
+        )}
+        {showConclusionAudio && (
           <AudioButton
             color={actual && end ? colors.actual : null}
             onComplete={doComplete}
@@ -92,8 +87,14 @@ export const ItemsAndAudiosElement = ({
   )
 }
 
-ItemsAndAudiosElement.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.object),
+ImagesAndWordsElement.propTypes = {
+  exercises: PropTypes.arrayOf(PropTypes.object),
+  audios: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      url: PropTypes.string,
+    })
+  ),
   conclusionAudio: PropTypes.shape({
     name: PropTypes.string,
     url: PropTypes.string,

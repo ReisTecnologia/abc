@@ -1,13 +1,14 @@
 import React from 'react'
-import { AudioElement } from '../AudioElement'
-import { ClickWordStartingWithALetterInTheTextTaskElement } from '../ClickWordStartingWithALetterInTheTextTaskElement'
-import { ClickLetterInTheTextTaskElement } from '../ClickLetterInTheTextTaskElement'
-import { LetterAndAudioElement } from '../LetterAndAudioElement'
-import { VideoElement } from '../VideoElement'
-import { CheckFirstLetter } from '../CheckFirstLetter'
+import { AudioElement } from '_shared/AudioElement'
+import { ClickWordStartingWithALetterInTheTextTaskElement } from '_shared/ClickWordStartingWithALetterInTheTextTaskElement'
+import { ClickLetterInTheTextTaskElement } from '_shared/ClickLetterInTheTextTaskElement'
+import { LetterAndAudioElement } from '_shared/LetterAndAudioElement'
+import { VideoElement } from '_shared/VideoElement'
+import { CheckFirstLetter } from '_shared/CheckFirstLetter'
 import { ItemsAndAudiosElement } from '_shared/ItemsAndAudiosElement/ItemsAndAudiosElement'
 import PropTypes from 'prop-types'
 import { addBucketPrefixesToElementParams } from './addBucketPrefixesToElementParams'
+import { ImagesAndWordsElement } from '_shared/ImagesAndWordsElement/ImagesAndWordsElement'
 
 export const Element = ({ elementParams, actual, onComplete }) => {
   const elementParamsWithBucketUrls = addBucketPrefixesToElementParams(
@@ -25,6 +26,7 @@ export const Element = ({ elementParams, actual, onComplete }) => {
     conclusionAudio,
     items,
     initialAudio,
+    exercises,
   } = elementParamsWithBucketUrls
 
   switch (type) {
@@ -81,6 +83,16 @@ export const Element = ({ elementParams, actual, onComplete }) => {
           onComplete={onComplete}
           actual={actual}
           items={items}
+          initialAudio={initialAudio}
+          conclusionAudio={conclusionAudio}
+        />
+      )
+    case 'ImagesAndWords':
+      return (
+        <ImagesAndWordsElement
+          onComplete={onComplete}
+          actual={actual}
+          exercises={exercises}
           initialAudio={initialAudio}
           conclusionAudio={conclusionAudio}
         />

@@ -2,7 +2,7 @@ import React from 'react'
 import { Wrapper } from './Wrapper'
 import PropTypes from 'prop-types'
 import { Letter } from './Letter/Letter'
-import { colors } from '../../../colors'
+import { colors } from '_shared/colors'
 
 const answerColors = {
   wrong: colors.textWrong,
