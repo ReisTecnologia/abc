@@ -35,10 +35,12 @@ export const WrongAnswerRow = ({
             loading={wrongAnswerLoading}
             setLoading={setWrongAnswerLoading}
           />
-          <FileDownloader
-            color={colors.grayText}
-            filename={urlWrongAnswerExplanation}
-          />
+          {urlWrongAnswerExplanation !== '' && (
+            <FileDownloader
+              color={colors.grayText}
+              filename={urlWrongAnswerExplanation}
+            />
+          )}
           <WordAnswerInfoWrapper>
             Errou?
             <TextInput

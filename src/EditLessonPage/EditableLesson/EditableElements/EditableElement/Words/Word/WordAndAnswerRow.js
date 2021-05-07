@@ -50,7 +50,9 @@ export const WordAndAnswerRow = ({
             loading={wordLoading}
             setLoading={setWordLoading}
           />
-          <FileDownloader color={colors.grayText} filename={urlWord} />
+          {urlWord !== '' && (
+            <FileDownloader color={colors.grayText} filename={urlWord} />
+          )}
           <TextInput
             value={word}
             onChange={changeName}

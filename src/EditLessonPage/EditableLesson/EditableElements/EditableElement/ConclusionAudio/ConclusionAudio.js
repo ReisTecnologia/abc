@@ -43,6 +43,7 @@ export const ConclusionAudio = ({
   changeConclusionAudio,
   audioFilePrefix,
 }) => {
+  const checkUrl = conclusionAudio.url && conclusionAudio.url !== ''
   const [showConclusionAudio, setShowConclusionAudio] = useState(false)
   const buildDeleteAudio = ({ changeConclusionAudio }) => () => {
     const newConclusionAudio = {}
@@ -95,10 +96,12 @@ export const ConclusionAudio = ({
               loading={loading}
               setLoading={setLoading}
             />
-            <FileDownloader
-              color={colors.grayText}
-              filename={conclusionAudio.url}
-            />
+            {checkUrl && (
+              <FileDownloader
+                color={colors.grayText}
+                filename={conclusionAudio.url}
+              />
+            )}
             <ConclusionAudioNameWrapper>
               <TextAndInput
                 value={conclusionAudio.name}

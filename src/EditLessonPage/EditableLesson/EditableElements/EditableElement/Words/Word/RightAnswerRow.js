@@ -35,10 +35,12 @@ export const RightAnswerRow = ({
             loading={rightAnswerLoading}
             setLoading={setRightAnswerLoading}
           />
-          <FileDownloader
-            color={colors.grayText}
-            filename={urlRightAnswerExplanation}
-          />
+          {urlRightAnswerExplanation !== '' && (
+            <FileDownloader
+              color={colors.grayText}
+              filename={urlRightAnswerExplanation}
+            />
+          )}
           <WordAnswerInfoWrapper>
             Acertou?
             <TextInput
