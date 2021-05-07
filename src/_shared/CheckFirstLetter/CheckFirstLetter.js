@@ -56,6 +56,7 @@ export const CheckFirstLetter = ({
         showYesOrNo: false,
         end: true,
       })
+      if (conclusionAudio.url === '' || !conclusionAudio.url) doComplete()
     } else {
       setState(({ actualWordIndex }) => ({
         ...state,
