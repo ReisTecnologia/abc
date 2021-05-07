@@ -76,7 +76,7 @@ export const ForgotPassword = () => {
         <Spinner />
       ) : !data ? (
         <Form>
-          <Label>Ensira seu usuário ou email:</Label>
+          <Label>Insira seu usuário ou email:</Label>
           <input
             type="text"
             id="login"

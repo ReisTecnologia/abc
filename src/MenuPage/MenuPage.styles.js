@@ -12,6 +12,13 @@ export const Wrapper = styled.div`
     margin-left: 0;
   }
 `
+export const PaidLessonsOverlay = styled.div`
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  pointer-events: none;
+`
 export const IconWrapper = styled.div`
   margin-left: 0.5rem;
 `
@@ -26,4 +33,8 @@ export const LessonNameWrapper = styled.div`
   color: white;
   text-align: center;
   font-size: 13px;
+`
+export const FreeMenuWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `

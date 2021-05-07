@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useQuery } from '@apollo/client'
 import { useParams } from 'react-router-dom'
 import { Spinner } from '_shared/Spinner'
@@ -6,8 +6,11 @@ import { LESSON_QUERY } from '_shared/LESSON_QUERY'
 import { MENU_QUERY } from './MENU_QUERY'
 import { Lesson } from './Lesson'
 import PropTypes from 'prop-types'
+import { CurrentUserContext } from '_shared/CurrentUserContextProvider'
 
 export const ViewLessonLoader = ({ menuId }) => {
+  const { user } = useContext(CurrentUserContext)
+
   let { lessonId } = useParams()
   const skipMenuQuery = !menuId ? true : false
   const { data, loading, error } = useQuery(LESSON_QUERY, {
@@ -19,6 +22,23 @@ export const ViewLessonLoader = ({ menuId }) => {
     skip: skipMenuQuery,
   })
 
+  const filteredMenu = menuData
+    ? menuData.menu.elements.filter((element) => element.lessonId === lessonId)
+    : null
+
+  const lessonIsFree = filteredMenu ? filteredMenu[0].freeLesson : null
+
+  const menuIsPurchased =
+    user && user.signedInUser.paidMenus.map((menu) => menu.id).includes(menuId)
+
+  const userIsAdmin = user && user.signedInUser.type === 'admin'
+
+  const showLesson = userIsAdmin || menuIsPurchased || lessonIsFree
+
+  const lessonIsLoaded = data && data.lesson
+
+  const lessonAvailable = showLesson && lessonIsLoaded
+
   if (error) {
     console.error(error)
   }
@@ -28,7 +48,7 @@ export const ViewLessonLoader = ({ menuId }) => {
 
   return loading || menuLoading ? (
     <Spinner />
-  ) : data && data.lesson ? (
+  ) : lessonAvailable ? (
     <Lesson
       lesson={data.lesson}
       menuId={menuId}

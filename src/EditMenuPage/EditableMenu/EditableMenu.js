@@ -78,7 +78,10 @@ export const EditableMenu = ({
   }
 
   const addLesson = (lessonId) =>
-    setInnerElements([...innerElements, { lessonId: lessonId }])
+    setInnerElements([
+      ...innerElements,
+      { lessonId: lessonId, freeLesson: false },
+    ])
 
   useEffect(() => {
     if (!isFirstRun.current) {
