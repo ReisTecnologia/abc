@@ -41,6 +41,13 @@ export const emptyElementTemplates = {
     initialAudio: {},
     description: '',
     conclusionAudio: {},
-    exercises: [{ word: '', imageUrl: '', options: [], correctAnswer: [] }],
+    exercises: [
+      {
+        word: 'exemplo',
+        imageUrl: '',
+        options: ['a', 'b', 'c', 'd', 'p'],
+        correctAnswer: ['p'],
+      },
+    ],
   },
 }
