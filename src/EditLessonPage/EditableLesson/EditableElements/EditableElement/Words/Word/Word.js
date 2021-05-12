@@ -11,7 +11,11 @@ import {
 } from '../../AudioButtonWrappers'
 import { AudioButton } from '_shared/AudioButton'
 import { colors } from '_shared/colors'
+import styled from 'styled-components'
 
+const Wrap = styled.div`
+  align-items: flex-start;
+`
 export const Word = ({
   audioFilePrefix,
   word,
@@ -28,7 +32,7 @@ export const Word = ({
   changeWrongAnswerExplanation,
 }) => {
   const AudioButtonField = (url) => (
-    <>
+    <Wrap>
       <AudioButtonWrapper>
         <AudioButton
           audioUrls={[
@@ -47,7 +51,7 @@ export const Word = ({
           color={colors.grayText}
         />
       </AudioButtonMobileWrapper>
-    </>
+    </Wrap>
   )
 
   return (

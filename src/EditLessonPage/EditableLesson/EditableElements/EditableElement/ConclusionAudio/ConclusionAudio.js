@@ -59,13 +59,31 @@ export const ConclusionAudio = ({
 
   const addConclusionAudio = () => setShowConclusionAudio(true)
   const AudioButtonBuilder = (size) => (
-    <AudioButton
-      audioUrls={[
-        `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${conclusionAudio.url}`,
-      ]}
-      size={size}
-      color={colors.grayText}
-    />
+    <>
+      <AudioButton
+        audioUrls={[
+          `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${conclusionAudio.url}`,
+        ]}
+        size={size}
+        color={colors.grayText}
+      />
+      <FileUploader
+        color={colors.grayText}
+        audioFilePrefix={audioFilePrefix}
+        updateAudio={buildUpdateAudio({
+          conclusionAudio,
+          changeConclusionAudio,
+        })}
+        loading={loading}
+        setLoading={setLoading}
+      />
+      {checkUrl && (
+        <FileDownloader
+          color={colors.grayText}
+          filename={conclusionAudio.url}
+        />
+      )}
+    </>
   )
 
   return (
@@ -86,22 +104,7 @@ export const ConclusionAudio = ({
             <AudioButtonMobileWrapper>
               {AudioButtonBuilder(17)}
             </AudioButtonMobileWrapper>
-            <FileUploader
-              color={colors.grayText}
-              audioFilePrefix={audioFilePrefix}
-              updateAudio={buildUpdateAudio({
-                conclusionAudio,
-                changeConclusionAudio,
-              })}
-              loading={loading}
-              setLoading={setLoading}
-            />
-            {checkUrl && (
-              <FileDownloader
-                color={colors.grayText}
-                filename={conclusionAudio.url}
-              />
-            )}
+
             <ConclusionAudioNameWrapper>
               <TextAndInput
                 value={conclusionAudio.name}

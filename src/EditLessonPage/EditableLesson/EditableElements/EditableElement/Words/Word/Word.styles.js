@@ -8,6 +8,11 @@ export const AnswerButtonsWrapper = styled.div`
   cursor: pointer;
 `
 
+export const ButtonsWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+`
+
 export const AnswerChoiceWrapper = styled.div`
   color: ${colors.primary};
   cursor: pointer;
@@ -18,7 +23,7 @@ export const AnswerChoiceWrapper = styled.div`
 export const WordAndAnswerWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
-  padding-top: 3px;
+  padding: 3px 0 10px 0;
   width: 100%;
 `
 
@@ -38,6 +43,7 @@ export const WordFieldsWrapper = styled.div`
 
 export const WordRightAnswerWrapper = styled.div`
   display: flex;
+  padding: 3px 0 10px 0;
 `
 
 export const WordWrapper = styled.div`

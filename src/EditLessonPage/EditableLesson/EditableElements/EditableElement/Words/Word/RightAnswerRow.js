@@ -4,7 +4,11 @@ import { FileUploader } from '_shared/FileUploader'
 import { Spinner } from '_shared/Spinner'
 import { FileDownloader } from '../../FileDownloader'
 import { TextInput } from '../../TextInput'
-import { WordRightAnswerWrapper, WordAnswerInfoWrapper } from './Word.styles'
+import {
+  WordRightAnswerWrapper,
+  WordAnswerInfoWrapper,
+  ButtonsWrapper,
+} from './Word.styles'
 import { colors } from '_shared/colors'
 import PropTypes from 'prop-types'
 
@@ -27,20 +31,22 @@ export const RightAnswerRow = ({
           audioFilePrefix={audioFilePrefix}
           updateRightAnswerAudio={updateAudio}
         >
-          {audioButtonField(urlRightAnswerExplanation)}
-          <FileUploader
-            color={colors.grayText}
-            audioFilePrefix={audioFilePrefix}
-            updateRightAnswerAudio={updateAudio}
-            loading={rightAnswerLoading}
-            setLoading={setRightAnswerLoading}
-          />
-          {urlRightAnswerExplanation !== '' && (
-            <FileDownloader
+          <ButtonsWrapper>
+            {audioButtonField(urlRightAnswerExplanation)}
+            <FileUploader
               color={colors.grayText}
-              filename={urlRightAnswerExplanation}
+              audioFilePrefix={audioFilePrefix}
+              updateRightAnswerAudio={updateAudio}
+              loading={rightAnswerLoading}
+              setLoading={setRightAnswerLoading}
             />
-          )}
+            {urlRightAnswerExplanation !== '' && (
+              <FileDownloader
+                color={colors.grayText}
+                filename={urlRightAnswerExplanation}
+              />
+            )}
+          </ButtonsWrapper>
           <WordAnswerInfoWrapper>
             Acertou?
             <TextInput

@@ -59,13 +59,28 @@ export const InitialInstructions = ({
   const [loading, setLoading] = useState(false)
 
   const AudioButtonBuilder = (size) => (
-    <AudioButton
-      audioUrls={[
-        `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${initialAudio.url}`,
-      ]}
-      size={size}
-      color={colors.grayText}
-    />
+    <>
+      <AudioButton
+        audioUrls={[
+          `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${initialAudio.url}`,
+        ]}
+        size={size}
+        color={colors.grayText}
+      />
+      <FileUploader
+        color={colors.grayText}
+        audioFilePrefix={audioFilePrefix}
+        updateAudio={buildUpdateAudio({
+          initialAudio,
+          changeInitialAudio,
+        })}
+        loading={loading}
+        setLoading={setLoading}
+      />
+      {checkUrl && (
+        <FileDownloader color={colors.grayText} filename={initialAudio.url} />
+      )}
+    </>
   )
 
   return (
@@ -85,22 +100,7 @@ export const InitialInstructions = ({
             <AudioButtonMobileWrapper>
               {AudioButtonBuilder(17)}
             </AudioButtonMobileWrapper>
-            <FileUploader
-              color={colors.grayText}
-              audioFilePrefix={audioFilePrefix}
-              updateAudio={buildUpdateAudio({
-                initialAudio,
-                changeInitialAudio,
-              })}
-              loading={loading}
-              setLoading={setLoading}
-            />
-            {checkUrl && (
-              <FileDownloader
-                color={colors.grayText}
-                filename={initialAudio.url}
-              />
-            )}
+
             <InitialAudioNameWrapper>
               <TextAndInput
                 value={initialAudio.name}

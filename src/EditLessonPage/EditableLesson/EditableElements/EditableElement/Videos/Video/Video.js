@@ -9,6 +9,7 @@ import { DeleteVideoButton } from './DeleteVideoButton'
 import { TextAndInput } from '_shared/TextAndInput'
 import { FileUploader } from '_shared/FileUploader'
 import { DragAndDrop } from '_shared/DragAndDrop'
+import { FileDownloader } from '../../FileDownloader'
 import { colors } from '_shared/colors'
 import { Spinner } from '_shared/Spinner'
 
@@ -18,6 +19,7 @@ export const Video = ({
   updateVideo,
   deleteVideo,
   changeName,
+  url,
 }) => {
   const [loading, setLoading] = useState(false)
   return (
@@ -38,6 +40,7 @@ export const Video = ({
                 loading={loading}
                 setLoading={setLoading}
               />
+              <FileDownloader color={colors.grayText} filename={url} />
             </UploadButtonWrapper>
             <VideoFieldsWrapper>
               <VideoNameAndUrlWrapper>
@@ -65,4 +68,5 @@ Video.propTypes = {
   deleteVideo: PropTypes.func,
   index: PropTypes.number,
   changeName: PropTypes.func,
+  url: PropTypes.string,
 }
