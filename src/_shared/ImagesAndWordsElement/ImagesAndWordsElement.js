@@ -19,6 +19,8 @@ export const ImagesAndWordsElement = ({
   onComplete,
   initialAudio,
   conclusionAudio,
+  setActualElement,
+  index,
 }) => {
   const { complete, doComplete } = useCompleteState({ actual, onComplete })
   const [actualExercise, setActualExercise] = useState(exercises[0])
@@ -34,14 +36,23 @@ export const ImagesAndWordsElement = ({
     () => setState((s) => ({ ...s, instructionsCompleted: true })),
     [setState]
   )
+  const resetElement = () => {
+    setState({
+      instructionsCompleted: false,
+      end: false,
+      actualExerciseIndex: 0,
+    })
+    doComplete()
+  }
 
+  const thisIsTheEnd = actualExerciseIndex === exercises.length - 1
   const setAlreadyAnswered = () => {
-    const thisIsTheEnd = actualExerciseIndex === exercises.length - 1
     if (thisIsTheEnd) {
       setState({
         ...state,
         end: true,
       })
+      if (!conclusionAudio.url) resetElement()
     } else {
       setState(({ actualExerciseIndex }) => ({
         ...state,
@@ -51,13 +62,18 @@ export const ImagesAndWordsElement = ({
     }
   }
   useEffect(() => {
-    setActualExercise(exercises[actualExerciseIndex])
-  }, [exercises, actualExerciseIndex])
+    if (!thisIsTheEnd) setActualExercise(exercises[actualExerciseIndex])
+  }, [exercises, actualExerciseIndex, thisIsTheEnd])
 
   const showInitialAudio = initialAudio.url && !instructionsCompleted
   const initialAudioComplete = !initialAudio.url || instructionsCompleted
-  const showExercises = !end && initialAudioComplete
+  const checkIfEndAndInitialAudio = !end && initialAudioComplete
   const showConclusionAudio = conclusionAudio.url && end
+  const showExercises = checkIfEndAndInitialAudio
+    ? true
+    : !conclusionAudio.url && end
+    ? true
+    : false
 
   return (
     <Card first complete={complete}>
@@ -67,6 +83,8 @@ export const ImagesAndWordsElement = ({
             color={actual && !instructionsCompleted ? colors.actual : null}
             onComplete={setInstructionsCompleted}
             audioUrls={initialAudio && [initialAudio.url]}
+            setActualElement={setActualElement}
+            index={index}
           />
         )}
         {showExercises && (
@@ -74,12 +92,13 @@ export const ImagesAndWordsElement = ({
             exercises={exercises}
             actualExercise={actualExercise}
             onStepComplete={setAlreadyAnswered}
+            thisIsTheEnd={end}
           />
         )}
         {showConclusionAudio && (
           <AudioButton
             color={actual && end ? colors.actual : null}
-            onComplete={doComplete}
+            onComplete={resetElement}
             audioUrls={[conclusionAudio.url]}
           />
         )}
@@ -106,4 +125,6 @@ ImagesAndWordsElement.propTypes = {
   }),
   actual: PropTypes.bool,
   onComplete: PropTypes.func,
+  setActualElement: PropTypes.func,
+  index: PropTypes.number,
 }
