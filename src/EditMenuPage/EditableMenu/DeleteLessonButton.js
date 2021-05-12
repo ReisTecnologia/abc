@@ -9,15 +9,15 @@ const Wrapper = styled.div`
   text-align: right;
   margin-top: 8px;
   margin-right: 8px;
-  @media (max-width: 375px) {
+  @media (max-width: 500px) {
     display: none;
   }
 `
 const MobileWrapper = styled.div`
   text-align: right;
-  margin-top: 8px;
-  margin-right: 8px;
-  @media (min-width: 376px) {
+  margin-top: 7px;
+  margin-right: 5px;
+  @media (min-width: 501px) {
     display: none;
   }
 `

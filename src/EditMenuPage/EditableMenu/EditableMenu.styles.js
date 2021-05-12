@@ -22,8 +22,11 @@ export const ElementsInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 100%;
+  width: 90%;
   font-size: 20px;
+  @media (max-width: 500px) {
+    font-size: 16px;
+  }
 `
 export const AddSelectWrapper = styled.div`
   display: flex;
@@ -37,6 +40,9 @@ export const LabelWrapper = styled.label`
 export const ElementsWrapper = styled.div`
   border-top: 1px solid grey;
   display: flex;
+  @media (max-width: 400px) {
+    margin: 0 0 0 -8px;
+  }
 `
 export const InitialWrapper = styled.div`
   display: inline-flex;

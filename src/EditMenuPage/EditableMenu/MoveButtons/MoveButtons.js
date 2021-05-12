@@ -31,7 +31,7 @@ export const MoveButtons = ({ canMoveDown, canMoveUp, onUp, onDown }) => {
         color={canMoveDown ? colors.grayText : colors.light}
         height={size}
         cursor={cursorDisplayDownArrow}
-        style={{ marginLeft: 20, marginRight: 10 }}
+        style={{ marginLeft: 20, marginRight: 8 }}
       />
     </>
   )
