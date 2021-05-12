@@ -70,10 +70,7 @@ export const EditableMenu = ({
   lessons,
 }) => {
   const isFirstRun = useRef(true)
-  const mapElements = (elements) =>
-    elements.map(({ lessonId, freeLesson }) => ({ lessonId, freeLesson }))
-  const mappedElements = mapElements(elements)
-  const [innerElements, setInnerElements] = useState(mappedElements)
+  const [innerElements, setInnerElements] = useState(elements)
   const [menuName, setMenuName] = useState(name)
   const [menuImage, setMenuImage] = useState(backgroundImage)
   const [mutate, { loading: isSaving }] = useMutation(SAVE_MENU_MUTATION)

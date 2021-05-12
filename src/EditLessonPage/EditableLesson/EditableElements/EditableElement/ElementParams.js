@@ -349,12 +349,12 @@ ElementParams.propTypes = {
       })
     ),
     conclusionAudio: PropTypes.shape({
-      url: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
+      url: PropTypes.string,
+      name: PropTypes.string,
     }),
     initialAudio: PropTypes.shape({
-      url: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
+      url: PropTypes.string,
+      name: PropTypes.string,
     }),
   }),
   updateElementParams: PropTypes.func,
