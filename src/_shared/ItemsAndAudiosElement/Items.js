@@ -17,12 +17,7 @@ const Img = styled.img`
 `
 
 export const Items = ({ children }) => {
-  const IsImage =
-    children && children.item
-      ? children.item.endsWith('.png') ||
-        children.item.endsWith('.svg') ||
-        children.item.endsWith('.jpg')
-      : null
+  const IsImage = children && children.imageUrl
   const textRef = useRef()
   const [width, setWidth] = useState(null)
   useEffect(() => {
@@ -47,11 +42,7 @@ export const Items = ({ children }) => {
           </text>
         </svg>
       )}
-      {IsImage && (
-        <Img
-          src={`https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${children.item}`}
-        />
-      )}
+      {IsImage && <Img src={children.imageUrl} />}
     </Wrapper>
   )
 }

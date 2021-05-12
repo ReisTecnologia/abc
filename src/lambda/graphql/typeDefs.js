@@ -38,7 +38,8 @@ export default gql`
 
   type Item {
     item: String
-    url: String
+    imageUrl: String
+    audioUrl: String
   }
 
   type Exercise {
@@ -184,9 +185,8 @@ export default gql`
 
   input ItemInput {
     item: String
-    url: String
-    correctAnswer: [String]
-    options: [String]
+    imageUrl: String
+    audioUrl: String
   }
 
   input ExercisesInput {

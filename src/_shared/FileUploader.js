@@ -57,8 +57,8 @@ export const FileUploader = ({
   updateRightAnswerAudio,
   updateWrongAnswerAudio,
   updateAudio,
-  updateItem,
-  updateItemUrl,
+  updateItemImageUrl,
+  updateItemAudioUrl,
   videoFilePrefix,
   imageFilePrefix,
   setImageUrl,
@@ -114,8 +114,8 @@ export const FileUploader = ({
           })
         else if (setImageUrl) setImageUrl(filename)
         else if (setMenuImage) setMenuImage(filename)
-        else if (updateItem) updateItem({ item: filename })
-        else if (updateItemUrl) updateItemUrl({ url: filename })
+        else if (updateItemImageUrl) updateItemImageUrl({ imageUrl: filename })
+        else if (updateItemAudioUrl) updateItemAudioUrl({ audioUrl: filename })
         else if (updateExerciseImageUrl)
           updateExerciseImageUrl({ imageUrl: filename })
       }
@@ -143,8 +143,8 @@ export const FileUploader = ({
       updateWrongAnswerAudio,
       setImageUrl,
       setMenuImage,
-      updateItem,
-      updateItemUrl,
+      updateItemImageUrl,
+      updateItemAudioUrl,
       updateExerciseImageUrl,
     ]
   )
@@ -177,7 +177,7 @@ FileUploader.propTypes = {
   inputBoxMessage: PropTypes.string,
   updateAudio: PropTypes.func,
   updateWordAudio: PropTypes.func,
-  updateItem: PropTypes.func,
+  updateItemImageUrl: PropTypes.func,
   updateRightAnswerAudio: PropTypes.func,
   updateWrongAnswerAudio: PropTypes.func,
   setMenuImage: PropTypes.func,
@@ -188,6 +188,6 @@ FileUploader.propTypes = {
   updateVideo: PropTypes.func,
   imageFilePrefix: PropTypes.string,
   setImageUrl: PropTypes.func,
-  updateItemUrl: PropTypes.func,
+  updateItemAudioUrl: PropTypes.func,
   updateExerciseImageUrl: PropTypes.func,
 }

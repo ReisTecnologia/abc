@@ -13,7 +13,8 @@ const addBucketPrefixToWords = (words) =>
 const addBucketPrefixToItems = (items) =>
   items.map((item) => ({
     ...item,
-    url: addBucketPrefix(item.url),
+    imageUrl: addBucketPrefix(item.imageUrl),
+    audioUrl: addBucketPrefix(item.audioUrl),
   }))
 
 const addBucketPrefixToExercises = (exercises) =>
