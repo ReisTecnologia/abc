@@ -23,6 +23,7 @@ export const AudioButton = ({
   color,
   playingColor,
   showDots,
+  hideButton,
 }) => {
   if (!color) color = colors.ready
   if (!playingColor) playingColor = colors.playing
@@ -96,7 +97,11 @@ export const AudioButton = ({
   const showDot = showDots && audioUrls[0]
 
   return (
-    <Wrapper onClick={playIfEnabled} disabled={disabled}>
+    <Wrapper
+      onClick={playIfEnabled}
+      disabled={disabled}
+      hideButton={hideButton}
+    >
       {showDot && (
         <DotWrapper>
           {[...Array(numOfDots)].map((n, i) => (
@@ -124,6 +129,7 @@ AudioButton.propTypes = {
   beforeTrailCount: PropTypes.number,
   afterTrailCount: PropTypes.number,
   showDots: PropTypes.bool,
+  hideButton: PropTypes.bool,
   setActualElement: PropTypes.func,
   index: PropTypes.number,
   actual: PropTypes.bool,
