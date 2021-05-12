@@ -26,6 +26,8 @@ export const CheckFirstLetter = ({
   words,
   actual,
   onComplete,
+  setActualElement,
+  index,
 }) => {
   const { complete, doComplete } = useCompleteState({ actual, onComplete })
   const [state, setState] = useState({
@@ -67,12 +69,20 @@ export const CheckFirstLetter = ({
   }
 
   const onStepStart = useCallback(() => {
-    setState((state) => ({
-      ...state,
-      showYesIcon: false,
-      showNoIcon: false,
-    }))
-  }, [setState])
+    if (instructionsCompleted) {
+      setState((state) => ({
+        ...state,
+        instructionsCompleted: false,
+        actualWordIndex: 0,
+        showYesOrNo: false,
+      }))
+    } else
+      setState((state) => ({
+        ...state,
+        showYesIcon: false,
+        showNoIcon: false,
+      }))
+  }, [instructionsCompleted, setState])
 
   const onStepComplete = useCallback(
     (step) => {
@@ -101,6 +111,8 @@ export const CheckFirstLetter = ({
             color={actual && !instructionsCompleted ? colors.actual : null}
             onComplete={setInstructionsCompleted}
             showDots={true}
+            setActualElement={setActualElement}
+            index={index}
           />
         </InnerWrapper>
         {state.showYesIcon && (
@@ -125,6 +137,7 @@ export const CheckFirstLetter = ({
           <AudioButton
             beforeTrailCount={actualWordIndex}
             afterTrailCount={words.length - actualWordIndex - 1}
+            onStepStart={setInstructionsCompleted}
             color={actual && instructionsCompleted ? colors.actual : null}
             disabled={end}
             icon="Play"
@@ -132,6 +145,8 @@ export const CheckFirstLetter = ({
             width={20}
             onStepComplete={setListened}
             showDots={true}
+            setActualElement={setActualElement}
+            index={index}
           />
         </InnerWrapper>
 
@@ -169,4 +184,6 @@ CheckFirstLetter.propTypes = {
     })
   ),
   onComplete: PropTypes.func,
+  setActualElement: PropTypes.func,
+  index: PropTypes.number,
 }
