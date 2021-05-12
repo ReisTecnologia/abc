@@ -8,6 +8,7 @@ export const MENU_QUERY = gql`
       backgroundImage
       elements {
         lessonId
+        freeLesson
       }
     }
   }

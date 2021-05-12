@@ -10,7 +10,13 @@ import PropTypes from 'prop-types'
 import { addBucketPrefixesToElementParams } from './addBucketPrefixesToElementParams'
 import { ImagesAndWordsElement } from '_shared/ImagesAndWordsElement/ImagesAndWordsElement'
 
-export const Element = ({ elementParams, actual, onComplete }) => {
+export const Element = ({
+  elementParams,
+  actual,
+  setActualElement,
+  onComplete,
+  index,
+}) => {
   const elementParamsWithBucketUrls = addBucketPrefixesToElementParams(
     elementParams
   )
@@ -35,17 +41,31 @@ export const Element = ({ elementParams, actual, onComplete }) => {
         <LetterAndAudioElement
           onComplete={onComplete}
           actual={actual}
+          setActualElement={setActualElement}
           letter={letter}
           audios={audios}
+          index={index}
         />
       )
     case 'Audio':
       return (
-        <AudioElement onComplete={onComplete} actual={actual} audios={audios} />
+        <AudioElement
+          onComplete={onComplete}
+          actual={actual}
+          audios={audios}
+          setActualElement={setActualElement}
+          index={index}
+        />
       )
     case 'Video':
       return (
-        <VideoElement onComplete={onComplete} actual={actual} videos={videos} />
+        <VideoElement
+          onComplete={onComplete}
+          actual={actual}
+          videos={videos}
+          setActualElement={setActualElement}
+          index={index}
+        />
       )
     case 'CheckFirstLetter':
       return (
@@ -55,6 +75,8 @@ export const Element = ({ elementParams, actual, onComplete }) => {
           audios={audios}
           conclusionAudio={conclusionAudio}
           words={words}
+          setActualElement={setActualElement}
+          index={index}
         />
       )
     case 'ClickWordStartingWithALetterInTheTextTask':
@@ -65,6 +87,8 @@ export const Element = ({ elementParams, actual, onComplete }) => {
           audios={audios}
           letter={letter}
           text={text}
+          setActualElement={setActualElement}
+          index={index}
         />
       )
     case 'ClickLetterInTheTextTask':
@@ -75,6 +99,8 @@ export const Element = ({ elementParams, actual, onComplete }) => {
           audios={audios}
           correctLetters={correctLetters}
           text={text}
+          setActualElement={setActualElement}
+          index={index}
         />
       )
     case 'ItemsAndAudios':
@@ -85,6 +111,8 @@ export const Element = ({ elementParams, actual, onComplete }) => {
           items={items}
           initialAudio={initialAudio}
           conclusionAudio={conclusionAudio}
+          setActualElement={setActualElement}
+          index={index}
         />
       )
     case 'ImagesAndWords':
@@ -95,6 +123,8 @@ export const Element = ({ elementParams, actual, onComplete }) => {
           exercises={exercises}
           initialAudio={initialAudio}
           conclusionAudio={conclusionAudio}
+          setActualElement={setActualElement}
+          index={index}
         />
       )
     default:

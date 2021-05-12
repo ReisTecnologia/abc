@@ -21,7 +21,18 @@ const buildDeleteExercise = ({
 }) => () => {
   const newExercises = [...exercises]
   newExercises.splice(exerciseIndex, 1)
-  changeExercises(newExercises)
+  if (newExercises[0]) {
+    changeExercises(newExercises)
+  } else {
+    changeExercises([
+      {
+        word: 'exemplo',
+        imageUrl: '',
+        options: ['a', 'b', 'c', 'd', 'p'],
+        correctAnswer: ['p'],
+      },
+    ])
+  }
 }
 
 const buildChangeWord = ({ exercises, exerciseIndex, changeExercises }) => (
@@ -70,8 +81,14 @@ export const Exercises = ({ exercises, changeExercises, imageFilePrefix }) => {
   const addExercise = () =>
     changeExercises([
       ...exercises,
-      { word: '', imageUrl: '', options: [], correctAnswer: [] },
+      {
+        word: 'exemplo',
+        imageUrl: '',
+        options: ['a', 'b', 'c', 'd', 'p'],
+        correctAnswer: ['p'],
+      },
     ])
+  console.log('exercises', exercises)
 
   return (
     <>

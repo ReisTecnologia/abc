@@ -26,6 +26,7 @@ import { Header } from '_shared/Header/Header'
 import { MoveButtons } from './MoveButtons/MoveButtons'
 import { ViewMenuButton } from './ViewMenuButton'
 import { MenuBackground } from './MenuBackground'
+import { FreeLessonButton } from './FreeLessonButton'
 
 const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
@@ -36,6 +37,20 @@ const changeLesson = ({ innerElements, elementIndex, setInnerElements }) => (
   const newInnerElements = [...innerElements]
   newInnerElements[elementIndex] = {
     lessonId: lessonId,
+    freeLesson: false,
+  }
+  setInnerElements(newInnerElements)
+}
+
+const changeLessonChargeStatus = ({
+  innerElements,
+  elementIndex,
+  setInnerElements,
+}) => (freeLesson) => {
+  const newInnerElements = [...innerElements]
+  newInnerElements[elementIndex] = {
+    ...innerElements[elementIndex],
+    freeLesson: freeLesson,
   }
   setInnerElements(newInnerElements)
 }
@@ -56,8 +71,7 @@ export const EditableMenu = ({
 }) => {
   const isFirstRun = useRef(true)
   const mapElements = (elements) =>
-    elements.map(({ lessonId }) => ({ lessonId }))
-
+    elements.map(({ lessonId, freeLesson }) => ({ lessonId, freeLesson }))
   const mappedElements = mapElements(elements)
   const [innerElements, setInnerElements] = useState(mappedElements)
   const [menuName, setMenuName] = useState(name)
@@ -129,7 +143,7 @@ export const EditableMenu = ({
           menuImage={menuImage}
           setMenuImage={setMenuImage}
         />
-        {innerElements.map(({ lessonId }, elementIndex) => (
+        {innerElements.map(({ lessonId, freeLesson }, elementIndex) => (
           <ElementsWrapper key={elementIndex}>
             <IconWrapper>
               <LessonItem
@@ -155,6 +169,14 @@ export const EditableMenu = ({
                 {filterLessonsById(lessonId, lessons)[0].initials}
               </InitialWrapper>
             </ElementsInfoWrapper>
+            <FreeLessonButton
+              freeLesson={freeLesson}
+              onClick={changeLessonChargeStatus({
+                innerElements,
+                elementIndex,
+                setInnerElements,
+              })}
+            />
             <MoveButtons
               onUp={moveUp({ elementIndex })}
               onDown={moveDown({ elementIndex })}

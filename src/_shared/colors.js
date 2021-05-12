@@ -6,7 +6,7 @@ export const colors = {
   dimmedPrimary: '#71A9A3',
   grayText: '#999',
   actual: '#090',
-  // actual: '#000',
+  black: '#000',
   highlight: '#1DA7FD',
   right: '#090',
   wrong: '#600',

@@ -13,6 +13,12 @@ const ImageWrapper = styled.div`
   min-height: 202px;
   width: 202px;
   height: 202px;
+  @media (max-width: 500px) {
+    min-width: 152px;
+    min-height: 152px;
+    width: 152px;
+    height: 152px;
+  }
 `
 const Img = styled.img`
   border-radius: 5px;
@@ -20,6 +26,10 @@ const Img = styled.img`
   height: 200px;
   object-fit: cover;
   margin: 0;
+  @media (max-width: 500px) {
+    width: 150px;
+    height: 150px;
+  }
 `
 
 export const MenuImageContainer = ({ image }) => {

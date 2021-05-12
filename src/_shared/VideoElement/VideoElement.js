@@ -10,7 +10,13 @@ import { useCompleteState } from '_shared/useCompleteState'
 import { Icon } from '_shared/Icon'
 import { colors } from '_shared/colors'
 
-export const VideoElement = ({ videos, actual, onComplete }) => {
+export const VideoElement = ({
+  videos,
+  actual,
+  setActualElement,
+  index,
+  onComplete,
+}) => {
   const [video, setVideo] = useState(null)
   const videoElement = useCallback((node) => {
     if (node) setVideo(node)
@@ -18,9 +24,15 @@ export const VideoElement = ({ videos, actual, onComplete }) => {
 
   const [hasError, setHasError] = useState(false)
   const { complete, doComplete } = useCompleteState({ actual, onComplete })
+  const onVideoComplete = () => {
+    if (!actual && setActualElement) {
+      setActualElement(index)
+    }
+    doComplete()
+  }
   const { play, playing } = useMedia({
     media: video,
-    onComplete: doComplete,
+    onComplete: onVideoComplete,
   })
   useEffect(() => {
     if (video) {
@@ -32,8 +44,6 @@ export const VideoElement = ({ videos, actual, onComplete }) => {
         true
       )
     }
-
-    // setErrorCode(videoElement.current.error.code)
   }, [hasError, video])
 
   useEffect(() => {
@@ -73,4 +83,6 @@ VideoElement.propTypes = {
   ),
   actual: PropTypes.bool,
   onComplete: PropTypes.func,
+  setActualElement: PropTypes.func,
+  index: PropTypes.number,
 }
