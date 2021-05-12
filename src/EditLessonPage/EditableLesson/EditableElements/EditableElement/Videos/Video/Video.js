@@ -22,6 +22,8 @@ export const Video = ({
   url,
 }) => {
   const [loading, setLoading] = useState(false)
+  const checkUrl = url && url !== ''
+
   return (
     <VideoWrapper>
       {loading ? (
@@ -40,7 +42,9 @@ export const Video = ({
                 loading={loading}
                 setLoading={setLoading}
               />
-              <FileDownloader color={colors.grayText} filename={url} />
+              {checkUrl && (
+                <FileDownloader color={colors.grayText} filename={url} />
+              )}
             </UploadButtonWrapper>
             <VideoFieldsWrapper>
               <VideoNameAndUrlWrapper>
