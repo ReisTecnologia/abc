@@ -5,7 +5,6 @@ import styled from 'styled-components'
 import { colors } from '_shared/colors'
 import { DeleteButton } from './DeleteButton'
 import { CleanupFilesButton } from './CleanupFilesButton'
-import { ReloadButton } from './ReloadButton'
 import { ViewLessonButton } from './ViewLessonButton'
 import PropTypes from 'prop-types'
 
@@ -28,12 +27,7 @@ const ListWrapper = styled.ul`
   max-width: 300px;
 `
 
-export const CollapsedButtonsDrawer = ({
-  id,
-  afterDelete,
-  reload,
-  loading,
-}) => {
+export const CollapsedButtonsDrawer = ({ id, afterDelete }) => {
   const [drawer, setDrawer] = useState(false)
 
   const toggleDrawer = () => {
@@ -53,9 +47,6 @@ export const CollapsedButtonsDrawer = ({
           <ListItemWrapper>
             <DeleteButton id={id} afterDelete={afterDelete} />
           </ListItemWrapper>
-          <ListItemWrapper>
-            <ReloadButton reload={reload} loading={loading} />
-          </ListItemWrapper>
         </ListWrapper>
       </Drawer>
       <CollapsedButtons onClick={toggleDrawer} />
@@ -66,6 +57,4 @@ export const CollapsedButtonsDrawer = ({
 CollapsedButtonsDrawer.propTypes = {
   id: PropTypes.string,
   afterDelete: PropTypes.func,
-  reload: PropTypes.func,
-  loading: PropTypes.bool,
 }
