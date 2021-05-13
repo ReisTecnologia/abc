@@ -68,12 +68,6 @@ and see it on `http://localhost:8001/`
 NODE_ENV=development npm run start:lambda
 ```
 
-create lessons table and fixtures
-
-```
-node src/lambda/dbData/createTable.js
-```
-
 see the graphql backend server on `http://localhost:9000/graphql`
 and query it with a simple query:
 
@@ -98,6 +92,26 @@ and see it on
 http://localhost:3000/
 ```
 
+## Amazon Account
+
+This project uses multiple different Amazon services, for example `DynamoDB`. So this section is going to go in detail as to which services are used and how to properly configure them in order to run the app.
+
+## Creating Identity and Access Management Users
+
+For this project its necessary to create at least 1 (one) user in the Identity and Access Management (IAM). You need to create users in order to asign them permissions, so later on when you configure your netlify environment variables with their respective `Access Key ID` and `Secret Access Key` you'll already have the appropriate permissions setup.
+
+You can choose to have one user that has all the permissions necessary or you can split the permissions across different users.
+
+When creating the user make sure to make the type of access programatic, which is going to be necessary in order to generate pair of keys for said user.
+
+This project uses `DynamoDB`, `S3Bucket` and `SES` services.
+
+For the `DynamoDB` user, the permission to asign is `AmazonDynamoDBFullAccess` and `AWSLambdaInvocation-DynamoDB`.
+
+For the `S3Bucket` user, the permission to asign is `AmazonS3FullAccess`.
+
+For the `SES` user, the permission to asign is `AmazonSESFullAccess`.
+
 ## AWS DynamoDB tables
 
 This project makes use of 3 (three) different tables on DynamoDB:
@@ -114,22 +128,78 @@ This project uses expiring items in the `users` table for the forgot password fu
 
 You can enable TTL by clicking on the table, opening the `Overview` tab and under `Table details` there will be a `TTL` attribute, choose `Manage TTL`. In the Manage TTL dialog box, choose Enable TTL and enter the TTL attribute name: `expdate`.
 
-## Creating the first user
+## AWS s3 Bucket configurations
 
-Since to be able to run the mutations / access create user pages you need to already be authenticated it's needed to create the first user on the DynamoDB table `users`, following this format:
+Create a bucket with the name of your choosing and then in the `Permissions` follow the instructions bellow.
+
+In regards to Bucket permissions configs, its necessary to set your s3 Bucket policy and CORS policy to allow the application to interact with your Bucket using HTTP request methods. The configuration we recommend is the following:
+
+For the Bucket policy its necessary to alter the public access configuration in order to implement new bucket policies, after deactivating in order to implement the policy the configuration is as follows:
 
 ```
 {
-  "id": "yourID",
-  "login": "yourLogin",
-  "name": "yourName",
-  "password": "yourPassword",
-  "email": "yourEmail",
-  "type": "admin"
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::YourBucketName/*"
+        }
+    ]
 }
 ```
 
-The user type needs to be "admin" in order to be able to access all pages and run all mutations.
+And for the Bucket CORS policy:
+
+```
+[
+    {
+        "AllowedHeaders": [
+            "*"
+        ],
+        "AllowedMethods": [
+            "GET",
+            "PUT",
+            "POST",
+            "DELETE"
+        ],
+        "AllowedOrigins": [
+            "*"
+        ],
+        "ExposeHeaders": []
+    }
+]
+```
+
+Its also necessary to give listing privileges for the objects in your bucket to the public on your Bucket's Access Control List (ACL).
+
+## AWS SES configurations
+
+This project uses Amazon SES to send emails when the client requests to redefine their password through the forgot my password functionality.
+
+In order for this to work its necessary to create a verified email. On the AWS website you can check under services, look for SES and click on Identity Management,
+choose an email you want to be the sender of the redefining password emails and verify it. It is important to note that as long as your account remains in the Amazon Sandbox its only possible to send emails to other verified emails. So both the receiver email and your chosen automatic email sender must be verified.
+
+Note: this verified email is going to be an environment variable in your Netlify under the tag `MY_AWS_EMAIL_SENDER`.
+
+When moving to production its necessary to move your SES account out of the Amazon Sandbox, a detailed explanation on how to achieve this can be found at the [Amazon Docs](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/request-production-access.html).
+
+## Creating the first user
+
+Since to be able to run the mutations / access create user pages you need to already be authenticated it's necessary to create the first user. You need to run the script for creating the first user:
+
+```
+npm run create-user
+```
+
+But you need to insert your `MY_AWS_DB_ACCESS_KEY_ID`, `MY_AWS_DB_SECRET_ACCESS_KEY` and your `PASSWORD_SALT` before the command, for example:
+
+```
+MY_AWS_DB_ACCESS_KEY_ID=your db access key MY_AWS_DB_SECRET_ACCESS_KEY=your db secret access key PASSWORD_SALT=your password salt npm run create-user
+```
+
+The user login is going to be `admin` and the password `123`. You can then sign in on the `/signin` page and then create or edit users inside the application on the users section.
 
 ## configure remote db and bucket environment variables on Netlify
 
@@ -191,60 +261,11 @@ MY_AWS_EMAIL_SENDER
 
 with the value being your AWS SES Email sender (for forgot my password).
 
-When running the local version of Dynamodb you can create a table with the table name: `lessons` and insert a mock lesson, by running the script `createTable.js` inside the folder `src/lambda/dbData/createTable.js` .
-
-## AWS s3 Bucket configurations
-
-In regards to Bucket permissions configs, its necessary to set your s3 Bucket policy and CORS policy to allow the application to interact with your Bucket using HTTP request methods. The configuration we recommend is the following:
-
-For the Bucket policy:
-
 ```
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": "*",
-            "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::YourBucketName/*"
-        }
-    ]
-}
+PASSWORD_SALT
 ```
 
-And for the Bucket CORS policy:
-
-```
-[
-    {
-        "AllowedHeaders": [
-            "*"
-        ],
-        "AllowedMethods": [
-            "GET",
-            "PUT",
-            "POST",
-            "DELETE"
-        ],
-        "AllowedOrigins": [
-            "*"
-        ],
-        "ExposeHeaders": []
-    }
-]
-```
-
-## AWS SES configurations
-
-This project uses Amazon SES to send emails when the client requests to redefine their password through the forgot my password functionality.
-
-In order for this to work its necessary to create a verified email. On the AWS website you can check under services, look for SES and click on Identity Management,
-choose an email you want to be the sender of the redefining password emails and verify it.
-
-Note: this verified email is going to be an environment variable in your Netlify under the tag `MY_AWS_EMAIL_SENDER`.
-
-When moving to production its necessary to move your SES account out of the Amazon Sandbox, a detailed explanation on how to achieve this can be found at the [Amazon Docs](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/request-production-access.html).
+with the value being the salt you want to use to hash the users password.
 
 ## Create-React-App-Lambda
 
