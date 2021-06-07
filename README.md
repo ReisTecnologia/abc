@@ -197,7 +197,7 @@ When running the local version of Dynamodb you can create a table with the table
 
 In regards to Bucket permissions configs, its necessary to set your s3 Bucket policy and CORS policy to allow the application to interact with your Bucket using HTTP request methods. The configuration we recommend is the following:
 
-For the Bucket policy:
+For the S3 Bucket policy:
 
 ```
 {
@@ -213,7 +213,7 @@ For the Bucket policy:
 }
 ```
 
-And for the Bucket CORS policy:
+And for the S3 Bucket CORS policy:
 
 ```
 [
