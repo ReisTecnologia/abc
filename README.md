@@ -191,7 +191,7 @@ MY_AWS_EMAIL_SENDER
 
 with the value being your AWS SES Email sender (for forgot my password).
 
-When running the local version of Dynamodb you can create a table with the table name: `lessons` and insert a mock lesson, by running the script `createTable.js` inside the folder `src/lambda/dbData/createTable.js` .
+When running the local version of Dynamodb you can create a table with the table name: `lessons` and insert a mock lesson, by running the script `createTable.js` inside the folder `src/lambda/dbData/createTable.js`.
 
 ## AWS s3 Bucket configurations
 
