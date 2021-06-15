@@ -5,7 +5,7 @@ const config = {
   iterations: 1000,
   digest: 'sha512',
 }
-const salt = Buffer.alloc(8, 'sKlrIv6=o02GQ7', 'base64')
+const salt = Buffer.alloc(8, process.env.PASSWORD_SALT, 'base64')
 
 export const hashPassword = (password) => {
   if (password) {
