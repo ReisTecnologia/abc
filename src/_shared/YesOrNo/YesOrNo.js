@@ -72,6 +72,6 @@ YesOrNo.propTypes = {
   urlRightAnswerExplanation: PropTypes.string,
   urlWrongAnswerExplanation: PropTypes.string,
   color: PropTypes.string,
-  onComplete: PropTypes.string,
+  onComplete: PropTypes.func,
   showYesOrNo: PropTypes.bool,
 }

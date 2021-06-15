@@ -13,6 +13,7 @@ export const EditableMenuLoader = () => {
     {
       variables: { id: menu },
       notifyOnNetworkStatusChange: true,
+      fetchPolicy: 'cache-and-network',
     }
   )
   const {

@@ -130,8 +130,8 @@ export const ConclusionAudio = ({
 ConclusionAudio.propTypes = {
   audioFilePrefix: PropTypes.string,
   conclusionAudio: PropTypes.shape({
-    url: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
+    url: PropTypes.string,
+    name: PropTypes.string,
   }),
 
   changeConclusionAudio: PropTypes.func,
