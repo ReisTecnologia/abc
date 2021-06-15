@@ -9,12 +9,7 @@ import { AccessGateway } from '_shared/AccessGateway'
 
 export const EditableLessonLoader = () => {
   let { lesson } = useParams()
-  const {
-    data,
-    refetch: reloadLesson,
-    loading: loadingLesson,
-    error,
-  } = useQuery(LESSON_QUERY, {
+  const { data, loading: loadingLesson, error } = useQuery(LESSON_QUERY, {
     variables: { id: lesson },
     notifyOnNetworkStatusChange: true,
     fetchPolicy: 'cache-and-network',
@@ -28,10 +23,7 @@ export const EditableLessonLoader = () => {
     <Spinner />
   ) : data && data.lesson ? (
     <AccessGateway role="admin">
-      <EditableLesson
-        reloadLesson={reloadLesson}
-        lesson={mapLesson(data.lesson)}
-      />
+      <EditableLesson lesson={mapLesson(data.lesson)} />
     </AccessGateway>
   ) : null
 }

@@ -7,7 +7,6 @@ import { EditableElements } from './EditableElements/EditableElements'
 import { DeleteButton } from './DeleteButton'
 import { CleanupFilesButton } from './CleanupFilesButton'
 import { InputField } from '_shared/InputField'
-import { ReloadButton } from './ReloadButton'
 import { SAVE_LESSON_MUTATION } from './SAVE_LESSON_MUTATION'
 import { ViewLessonButton } from './ViewLessonButton'
 import { CollapsedButtonsDrawer } from './CollapsedButtonsDrawer'
@@ -38,8 +37,6 @@ const AUTO_SAVE_DEBOUNCE_MILISECONDS = 500
 let timeoutId = null
 
 export const EditableLesson = ({
-  reloadLesson,
-  loadingLesson,
   lesson: { id, name, elements, image, initials },
 }) => {
   const isFirstRun = useRef(true)
@@ -92,15 +89,9 @@ export const EditableLesson = ({
               <ViewLessonButton lessonId={id} />
               <CleanupFilesButton id={id} />
               <DeleteButton id={id} afterDelete={navigateToLessons} />
-              <ReloadButton reload={reloadLesson} loading={loadingLesson} />
             </ButtonsWrapper>
             <CollapsedButtonsWrapper>
-              <CollapsedButtonsDrawer
-                id={id}
-                afterDelete={navigateToLessons}
-                reload={reloadLesson}
-                loading={loadingLesson}
-              />
+              <CollapsedButtonsDrawer id={id} afterDelete={navigateToLessons} />
             </CollapsedButtonsWrapper>
           </>
         }
@@ -114,7 +105,6 @@ export const EditableLesson = ({
           setInitials={setLessonInitial}
         />
         <EditableElements
-          reloadLesson={reloadLesson}
           innerElements={innerElements}
           lessonId={id}
           setInnerElements={setInnerElements}
@@ -132,7 +122,5 @@ EditableLesson.propTypes = {
     image: PropTypes.string,
     initials: PropTypes.string,
   }),
-  loadingLesson: PropTypes.bool,
-  reloadLesson: PropTypes.func,
   userInitial: PropTypes.string,
 }
