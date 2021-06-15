@@ -128,9 +128,15 @@ export const CheckFirstLetter = ({
         <YesOrNo
           showYesOrNo={showYesOrNo}
           color={actual && instructionsCompleted ? colors.actual : null}
-          correctAnswer={actualWord.startsWithTheLetter ? 'yes' : 'no'}
-          urlRightAnswerExplanation={actualWord.urlRightAnswerExplanation}
-          urlWrongAnswerExplanation={actualWord.urlWrongAnswerExplanation}
+          correctAnswer={
+            actualWord && actualWord.startsWithTheLetter ? 'yes' : 'no'
+          }
+          urlRightAnswerExplanation={
+            actualWord && actualWord.urlRightAnswerExplanation
+          }
+          urlWrongAnswerExplanation={
+            actualWord && actualWord.urlWrongAnswerExplanation
+          }
           onComplete={setAnswered}
         />
         <InnerWrapper hide={showYesOrNo}>

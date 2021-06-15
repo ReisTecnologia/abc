@@ -6,6 +6,7 @@ import { DownloadButton } from './DownloadButton'
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
+  margin-top: -2px;
 `
 
 export const FileDownloader = ({ color, filename }) => {
