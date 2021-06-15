@@ -12,7 +12,8 @@ export const LESSON_QUERY = gql`
         letter
         items {
           item
-          url
+          imageUrl
+          audioUrl
         }
         exercises {
           word

@@ -3,11 +3,13 @@ import PropTypes from 'prop-types'
 import { Wrapper, ItemWrapper } from './Item.styles'
 import { ItemAudio } from './ItemAudio'
 import { InnerItem } from './InnerItem'
+import { ItemImage } from './ItemImage'
 
 export const Item = ({
   imageFilePrefix,
   item,
-  url,
+  imageUrl,
+  audioUrl,
   updateItem,
   deleteItem,
   changeItem,
@@ -15,17 +17,20 @@ export const Item = ({
   return (
     <Wrapper>
       <ItemWrapper>
-        <ItemAudio
-          updateItem={updateItem}
-          url={url}
-          audioFilePrefix={imageFilePrefix}
-        />
         <InnerItem
-          imageFilePrefix={imageFilePrefix}
-          updateItem={updateItem}
           changeItem={changeItem}
           deleteItem={deleteItem}
           item={item}
+        />
+        <ItemImage
+          imageFilePrefix={imageFilePrefix}
+          updateItem={updateItem}
+          imageUrl={imageUrl}
+        />
+        <ItemAudio
+          updateItem={updateItem}
+          audioUrl={audioUrl}
+          audioFilePrefix={imageFilePrefix}
         />
       </ItemWrapper>
     </Wrapper>
@@ -34,8 +39,9 @@ export const Item = ({
 
 Item.propTypes = {
   imageFilePrefix: PropTypes.string,
-  url: PropTypes.string,
   item: PropTypes.string,
+  imageUrl: PropTypes.string,
+  audioUrl: PropTypes.string,
   updateItem: PropTypes.func,
   deleteItem: PropTypes.func,
   changeItem: PropTypes.func,

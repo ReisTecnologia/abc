@@ -88,7 +88,6 @@ export const Exercises = ({ exercises, changeExercises, imageFilePrefix }) => {
         correctAnswer: ['p'],
       },
     ])
-  console.log('exercises', exercises)
 
   return (
     <>

@@ -98,7 +98,7 @@ export const ItemsAndAudiosElement = ({
             color={actual && !exerciseCompleted ? colors.actual : null}
             disabled={end}
             icon="Play"
-            audioUrls={items.map(({ url }) => url)}
+            audioUrls={items.map(({ audioUrl }) => audioUrl)}
             width={20}
             onStepStart={setInstructionsCompleted}
             onStepComplete={setListened}

@@ -29,12 +29,13 @@ const buildChangeItem = ({ items, itemIndex, changeItems }) => (item) => {
 }
 
 export const Items = ({ items, changeItems, imageFilePrefix }) => {
-  const addItem = () => changeItems([...items, { item: '', url: '' }])
+  const addItem = () =>
+    changeItems([...items, { item: '', imageUrl: '', audioUrl: '' }])
 
   return (
     <>
       {items &&
-        items.map(({ item, url }, itemIndex) => (
+        items.map(({ item, imageUrl, audioUrl }, itemIndex) => (
           <Item
             imageFilePrefix={imageFilePrefix}
             index={itemIndex}
@@ -50,7 +51,8 @@ export const Items = ({ items, changeItems, imageFilePrefix }) => {
             })}
             changeItem={buildChangeItem({ items, itemIndex, changeItems })}
             item={item}
-            url={url}
+            imageUrl={imageUrl}
+            audioUrl={audioUrl}
             key={itemIndex}
           />
         ))}

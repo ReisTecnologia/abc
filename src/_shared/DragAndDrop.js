@@ -72,8 +72,8 @@ export const DragAndDrop = ({
   updateWordAudio,
   updateRightAnswerAudio,
   updateWrongAnswerAudio,
-  updateItem,
-  updateItemUrl,
+  updateItemImageUrl,
+  updateItemAudioUrl,
   updateExerciseImageUrl,
   videoFilePrefix,
   imageFilePrefix,
@@ -126,8 +126,8 @@ export const DragAndDrop = ({
           })
         else if (setImageUrl) setImageUrl(filename)
         else if (setMenuImage) setMenuImage(filename)
-        else if (updateItem) updateItem({ item: filename })
-        else if (updateItemUrl) updateItemUrl({ url: filename })
+        else if (updateItemImageUrl) updateItemImageUrl({ imageUrl: filename })
+        else if (updateItemAudioUrl) updateItemAudioUrl({ audioUrl: filename })
         else if (updateExerciseImageUrl)
           updateExerciseImageUrl({ imageUrl: filename })
       }
@@ -152,11 +152,11 @@ export const DragAndDrop = ({
       updateWordAudio,
       updateRightAnswerAudio,
       updateWrongAnswerAudio,
-      updateItem,
+      updateItemImageUrl,
       imageFilePrefix,
       setImageUrl,
       setMenuImage,
-      updateItemUrl,
+      updateItemAudioUrl,
       updateExerciseImageUrl,
     ]
   )
@@ -237,7 +237,7 @@ DragAndDrop.propTypes = {
   audioFilePrefix: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   updateAudio: PropTypes.func,
-  updateItem: PropTypes.func,
+  updateItemImageUrl: PropTypes.func,
   setMenuImage: PropTypes.func,
   updateWordAudio: PropTypes.func,
   updateRightAnswerAudio: PropTypes.func,
@@ -246,6 +246,6 @@ DragAndDrop.propTypes = {
   updateVideo: PropTypes.func,
   imageFilePrefix: PropTypes.string,
   setImageUrl: PropTypes.func,
-  updateItemUrl: PropTypes.func,
+  updateItemAudioUrl: PropTypes.func,
   updateExerciseImageUrl: PropTypes.func,
 }

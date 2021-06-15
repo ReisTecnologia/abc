@@ -18,7 +18,7 @@ export const getAllFilesFromLesson = (lesson) => {
 
   const items = lesson.elements
     .map(({ items }) =>
-      items ? items.map(({ url, item }) => [url, item]) : null
+      items ? items.map(({ audioUrl, imageUrl }) => [audioUrl, imageUrl]) : null
     )
     .flat(2)
 

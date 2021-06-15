@@ -7,14 +7,14 @@ import PropTypes from 'prop-types'
 import { FileDownloader } from '../../FileDownloader'
 import { colors } from '_shared/colors'
 
-export const ItemAudio = ({ audioFilePrefix, updateItem, url }) => {
+export const ItemAudio = ({ audioFilePrefix, updateItem, audioUrl }) => {
   const [loading, setLoading] = useState(false)
   return (
     <DragAndDrop audioFilePrefix={audioFilePrefix} updateItemUrl={updateItem}>
       <AudioButtonsWrapper>
         <AudioButton
           audioUrls={[
-            `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${url}`,
+            `https://${process.env.REACT_APP_MY_AWS_BUCKET_NAME}.s3-sa-east-1.amazonaws.com/${audioUrl}`,
           ]}
           color={colors.grayText}
           size={20}
@@ -24,9 +24,9 @@ export const ItemAudio = ({ audioFilePrefix, updateItem, url }) => {
           loading={loading}
           setLoading={setLoading}
           audioFilePrefix={audioFilePrefix}
-          updateItemUrl={updateItem}
+          updateItemAudioUrl={updateItem}
         />
-        <FileDownloader color={colors.grayText} filename={url} />
+        <FileDownloader color={colors.grayText} filename={audioUrl} />
       </AudioButtonsWrapper>
     </DragAndDrop>
   )
@@ -34,6 +34,6 @@ export const ItemAudio = ({ audioFilePrefix, updateItem, url }) => {
 
 ItemAudio.propTypes = {
   audioFilePrefix: PropTypes.string,
-  url: PropTypes.string,
+  audioUrl: PropTypes.string,
   updateItem: PropTypes.func,
 }
